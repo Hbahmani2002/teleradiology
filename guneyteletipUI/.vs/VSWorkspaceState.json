@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\Features",
+    "\\src\\app\\Shared",
+    "\\src\\app\\Shared\\Layouts",
+    "\\src\\app\\Shared\\Layouts\\sidelayout",
+    "\\src\\app\\Shared\\Layouts\\sidelayout\\footer",
+    "\\src\\app\\Shared\\Layouts\\sidelayout\\header",
+    "\\src\\app\\Shared\\Layouts\\sidelayout\\sidemenu"
+  ],
+  "SelectedNode": "\\src\\app\\Shared\\Layouts\\sidelayout\\sidelayout.component.html",
+  "PreviewInSolutionExplorer": false
+}

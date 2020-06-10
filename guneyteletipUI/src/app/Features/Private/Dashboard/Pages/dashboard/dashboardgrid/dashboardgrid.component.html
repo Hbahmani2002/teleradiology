@@ -1,0 +1,127 @@
+<button class="btn btn-info btn-sm  mr-1" tooltip="Ekle"><fa name="plus-circle"></fa></button>
+<button class="btn btn-primary btn-sm  mr-1" tooltip="Güncelle"><fa name="pencil"></fa></button>
+<button class="btn btn-danger btn-sm  mr-1" tooltip="Sil"><fa name="trash"></fa></button>
+<div class="card mt-2">
+  <div class="card-header">
+    <fa name="list"></fa>
+    Kayıt Listesi
+    <div class="pull-right">
+      <select>
+        <option value="undefined">10</option>
+        <option value="undefined">25</option>
+        <option value="undefined">50</option>
+      </select>
+    </div>
+  </div>
+  <div class="card-body p-0 table-responsive">
+    <table #filterSection class="table table-bordered m-0 medlifeGrid">
+      <thead>
+        <tr>
+          <th scope="col" class="p-0"><input type="checkbox"></th>
+          <th scope="col" class="p-0">Hasta No</th>
+          <th scope="col" class="p-0">Hasta İsmi</th>
+          <th scope="col" class="p-0">Accession No</th>
+          <th scope="col" class="p-0">İşlem Bilgisi</th>
+          <th scope="col" class="p-0">İşlem Zamanı</th>
+          <th scope="col" class="p-0">Modelite</th>
+          <th scope="col" class="p-0">Kos Durumu</th>
+        </tr>
+        <tr>
+          <th class="p-0"><a>X</a></th>
+          <th class="p-0">
+            <input class="filterInput" type="text" placeholder="">
+          </th>
+          <th class="p-0">
+            <input class="filterInput" type="text" placeholder="">
+          </th>
+          <th class="p-0">
+            <input class="filterInput" type="text" placeholder="">
+          </th>
+          <th class="p-0">
+            <input class="filterInput" type="text" placeholder="">
+          </th>
+          <th class="p-0">
+            <input class="filterInput" type="text" placeholder="">
+          </th>
+          <th class="p-0">
+            <input class="filterInput" type="text" placeholder="">
+          </th>
+          <th class="p-0">
+            <input class="filterInput" type="text" placeholder="">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="p-0">
+            <input type="checkbox" class="">
+          </td>
+          <td class="p-0">123123</td>
+          <td class="p-0">Ali Ak</td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+        </tr>
+        <tr>
+          <td class="p-0">
+            <input type="checkbox" class="">
+          </td>
+          <td class="p-0">321654</td>
+          <td class="p-0">Murat Baş</td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+        </tr>
+        <tr>
+          <td class="p-0">
+            <input type="checkbox" class="">
+          </td>
+          <td class="p-0">789987</td>
+          <td class="p-0">Serhat Sağlam</td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+        </tr>
+        <tr>
+          <td class="p-0">
+            <input type="checkbox" class="">
+          </td>
+          <td class="p-0">456654</td>
+          <td class="p-0">Fırat Gül</td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+        </tr>
+        <tr>
+          <td class="p-0">
+            <input type="checkbox" class="">
+          </td>
+          <td class="p-0">654456</td>
+          <td class="p-0">Furkan Uılmaz</td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+          <td class="p-0"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row justify-content-center   mt-3">
+    <div class="col-sm-7 pagination-sm  justify-content-center pageNumber">
+      <pagination class="justify-content-center" [boundaryLinks]="true" [totalItems]="10" [maxSize]="4" [itemsPerPage]="4" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      </pagination>
+    </div>
+  </div>
+</div>
+
+
+

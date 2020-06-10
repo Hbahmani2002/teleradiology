@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  public collapse: boolean = true;
+
   constructor() { }
 
   ngOnInit() {
+
   }
 
+  toggle() {
+    if (this.collapse == true) {
+      this.collapse = false;
+    }
+    else {
+      this.collapse = true;
+    }
+  }
 }

@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css";
+
+body {
+  height: 100vh;
+  font-size: 12px !important;
+}
+
+.filterInput {
+  border: 2px solid #62C8C3;
+  width: 90%;
+}
+
+.page-item.active .page-link {
+  background-color: #62C8C3;
+  border-color: #62C8C3;
+}
+
+.page-link {
+  color: #62C8C3;
+}
+
+.pageNumber {
+  position: absolute;
+  top: 100%;
+}
+
+table.medlifeGrid {
+  white-space: nowrap;
+}
+
+table td {
+  padding: 0px !important;
+}
+.pull-right {
+  float: right !important;
+}
+
+
