@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Conditions\" />
+    <Folder Include="Implementation\CompositeView\" />
+    <Folder Include="Models\Filter\" />
+    <Folder Include="Models\View\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Persistance\Core.Persistance.csproj" />
+  </ItemGroup>
+
+</Project>
