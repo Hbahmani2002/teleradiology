@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Core.Persistance\Core.Persistance.csproj" />
     <ProjectReference Include="..\Util.Expression\Util.Expression.csproj" />
+    <ProjectReference Include="..\Util.Extensions\Util.Extensions.csproj" />
     <ProjectReference Include="..\Util.Grid\Util.Grid.csproj" />
   </ItemGroup>
 
