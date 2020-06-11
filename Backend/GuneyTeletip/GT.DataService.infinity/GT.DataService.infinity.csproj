@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Persistance\Core.Persistance.csproj" />
+    <ProjectReference Include="..\GT.Data.Controller\GT.Data.Controller.csproj" />
+    <ProjectReference Include="..\GT.Persistance.infinity\GT.Persistance.infinity.csproj" />
+    <ProjectReference Include="..\GT.Repository.infinity\GT.Repository.infinity.csproj" />
+    <ProjectReference Include="..\Util.Grid\Util.Grid.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\Study\" />
+  </ItemGroup>
+
+</Project>

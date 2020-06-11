@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Persistance\Core.Persistance.csproj" />
+    <ProjectReference Include="..\GT.Data.Controller\GT.Data.Controller.csproj" />
+    <ProjectReference Include="..\GT.Persistance\GT.Persistance.csproj" />
+    <ProjectReference Include="..\GT.Repository\GT.Repository.csproj" />
+    <ProjectReference Include="..\Util.Expression\Util.Expression.csproj" />
+    <ProjectReference Include="..\Util.Extensions\Util.Extensions.csproj" />
+    <ProjectReference Include="..\Util.Grid\Util.Grid.csproj" />
+    <ProjectReference Include="..\Util.Reflection\Util.Reflection.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
+
+</Project>
