@@ -270,7 +270,7 @@ namespace GT.Persistance.Domain.Models
                     .HasColumnName("kurum_setting_id")
                     .HasMaxLength(128);
 
-                entity.Property(e => e.KurumSkrsAdı)
+                entity.Property(e => e.KurumSkrsAdi)
                     .HasColumnName("kurum_skrs_adı")
                     .HasMaxLength(64);
 

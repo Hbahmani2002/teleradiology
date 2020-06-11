@@ -13,7 +13,7 @@ namespace GT.Persistance.Domain.Models
         public long Pk { get; set; }
         public string KurumAd { get; set; }
         public string KurumSkrsKodu { get; set; }
-        public string KurumSkrsAdı { get; set; }
+        public string KurumSkrsAdi { get; set; }
         public string KurumMedulaTesisKodu { get; set; }
         public string KurumSettingId { get; set; }
         public DateTime? TimeCreated { get; set; }

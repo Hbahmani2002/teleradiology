@@ -1,4 +1,4 @@
-namespace MEDLIFE.PERSISTANCE.DOMAIN.Models
+ï»¿namespace MEDLIFE.PERSISTANCE.DOMAIN.Models
 {
     using GT.Persistance.Domain.infinity.Models;
     using GT.Persistance.Domain.Models;
@@ -283,8 +283,8 @@ namespace MEDLIFE.PERSISTANCE.DOMAIN.Models
                     .HasColumnName("kurum_setting_id")
                     .HasMaxLength(128);
 
-                entity.Property(e => e.KurumSkrsAdý)
-                    .HasColumnName("kurum_skrs_adý")
+                entity.Property(e => e.KurumSkrsAdi)
+                    .HasColumnName("kurum_skrs_adi")
                     .HasMaxLength(64);
 
                 entity.Property(e => e.KurumSkrsKodu)
