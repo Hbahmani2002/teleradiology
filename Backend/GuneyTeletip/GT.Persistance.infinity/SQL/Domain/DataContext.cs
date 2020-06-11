@@ -1,6 +1,7 @@
 namespace MEDLIFE.PERSISTANCE.DOMAIN.Models
 {
     using GT.Persistance.Domain.infinity.Models;
+    using GT.Persistance.infinity.Util;
     using MEDLIFE.PERSISTANCE.Data.SQL;
     using Microsoft.EntityFrameworkCore;
     using System;
@@ -35,9 +36,9 @@ namespace MEDLIFE.PERSISTANCE.DOMAIN.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //Configuration.GetConnectionString("Oracle_Db");
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseOracle("User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.241.63:54320/xe;");
             }
         }

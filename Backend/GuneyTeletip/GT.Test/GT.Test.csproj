@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GT.Data.Service\GT.Data.Service.csproj" />
+    <ProjectReference Include="..\GT.DataService.infinity\GT.DataService.infinity.csproj" />
   </ItemGroup>
 
 </Project>

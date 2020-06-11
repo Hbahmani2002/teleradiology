@@ -1,5 +1,7 @@
 using GT.Data.Service.Implementation;
+using GT.Repository.infinity.Model.Filter;
 using MEDLIFE.SERVICE;
+using MEDLIFE.UTILS.GRID;
 using NUnit.Framework;
 
 namespace GT.Test
@@ -15,7 +17,11 @@ namespace GT.Test
         [Test]
         public void Test1()
         {
-            var list = service.GetStudyList();
+            Gridable<StudyViewFilter> gri = new Gridable<StudyViewFilter>();
+            StudyViewFilter filter = new StudyViewFilter();
+            filter.AccessNo = "100";
+            gri.Filter = filter;
+            var list = service.GetStudyList(gri);
         }
     }
 }
