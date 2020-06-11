@@ -1,23 +1,100 @@
-<div class="container-fuild" style="overflow-x: hidden;height: 100%;">
-  <div class="row m-0 p-0" style="height: 100%;">
-    <div class="col-md-2 m-0 p-0">
-      <app-sidemenu></app-sidemenu>
+
+<div id="wrapper" [ngClass]="{'d-flex' : true , 'toggled' : collapse}" >
+ 
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">
+      Protek
+      <!--<img src="./././assets/img/logo.png" />-->
     </div>
-    <div class="col-md-10 m-0 p-0">
-      <div class="col-md-12 m-0 p-0">
-        <app-header></app-header>
-      </div>
-      <div class="col-md-12 m-0 p-0">
+    <div class="list-group list-group-flush">
+      <ul class="p-0 " style="list-style: none;">
+        <li>
+          <a class="list-group-item list-group-item-action" (click)="isfirstCollapsed1 = !isfirstCollapsed1"
+             [attr.aria-expanded]="!isfirstCollapsed1" aria-controls="collapseBasic1">
+            <div class="d-flex justify-content-between mb-2" style="color: inherit !important">
+              <p class="mb-1"><fa name="search"></fa> KOS TAKİP</p>
+              <small class="pull-right"><fa name="chevron-down" *ngIf="isfirstCollapsed1"></fa> <fa name="chevron-up" *ngIf="!isfirstCollapsed1"></fa></small>
 
-        <router-outlet></router-outlet>
+            </div>
+            <div id="collapseBasic1" [collapse]="isfirstCollapsed1" [isAnimated]="true" class="list-group list-group-flush ">
+              <a routerLink="" class="list-group-item list-group-item-action bg-light " style="display: inline !important"><fa name="angle-right"></fa> KOS Gönderim Kayıtları</a>
+            </div>
+          </a>
 
-      </div>
+        </li>
+        <li>
+          <a class="list-group-item list-group-item-action" (click)="isfirstCollapsed3 = !isfirstCollapsed3"
+             [attr.aria-expanded]="!isfirstCollapsed3" aria-controls="collapseBasic3">
+            <div class="d-flex justify-content-between mb-2">
+              <p class="mb-1"><fa name="user"></fa> KULLANICI YÖNETİMİ</p>
+              <small class="pull-right" ><fa name="chevron-down" *ngIf="isfirstCollapsed3"></fa> <fa name="chevron-up" *ngIf="!isfirstCollapsed3"></fa></small>
+
+            </div>
+            <div id="collapseBasic3" [collapse]="isfirstCollapsed3" [isAnimated]="true" class="list-group list-group-flush ">
+              <a routerLink="#" class="list-group-item list-group-item-action bg-light " style="display: inline !important"><fa name="angle-right"></fa> Sistem Ayarları</a>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="list-group-item list-group-item-action"  (click)="isfirstCollapsed2 = !isfirstCollapsed2"
+             [attr.aria-expanded]="!isfirstCollapsed2" aria-controls="collapseBasic2">
+            <div class="d-flex justify-content-between mb-2">
+              <p class="mb-1"><fa name="cogs"></fa> AYARLAR</p>
+              <small class="pull-right"><fa name="chevron-down" *ngIf="isfirstCollapsed2"></fa> <fa name="chevron-up" *ngIf="!isfirstCollapsed2"></fa></small>
+
+            </div>
+            <div id="collapseBasic2" [collapse]="isfirstCollapsed2" [isAnimated]="true" class="list-group list-group-flush ">
+              <a routerLink="#" class="list-group-item list-group-item-action bg-light " style="display: inline !important"><fa name="angle-right"></fa> Kullanıcı Kayıt</a>
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="#" class="list-group-item list-group-item-action bg-light"></a>
+        </li>
+      </ul>
+      
+      
+
+    </div>
+  </div>
+  <div id="page-content-wrapper">
+    <div class="header">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom sticky-top" (scroll)="onWindowScroll($event);">
+        <button class="btn btn-light" id="menu-toggle" (click)="toggle()"><span class="navbar-toggler-icon"></span></button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                 aria-haspopup="true" aria-expanded="false">
+                Muhammed Mert AĞAOĞLU
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Ayarlar</a>
+                <a class="dropdown-item" href="#">Seçenekler</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item bg-danger" href="#">Çıkış</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </div>
 
-
-    <div class="col-md-12 blog-footer mt-1 ">
-      <app-footer>
-      </app-footer>
+    <div class="container-fluid mt-2">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="container-fluid pb-3 mb-3 footerClass">
+      <app-footer></app-footer>
     </div>
   </div>
 </div>
+
+
+
