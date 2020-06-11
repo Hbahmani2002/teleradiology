@@ -1,38 +1,25 @@
-namespace MEDLIFE.PERSISTANCE.DOMAIN.Models
-{
-    using GT.Persistance.Domain.infinity.Models;
-    using GT.Persistance.Domain.Models;
-    using GT.Persistance.infinity.Util;
-    using MEDLIFE.PERSISTANCE.Data.SQL;
-    using Microsoft.EntityFrameworkCore;
-    using System;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
+ï»¿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-    public partial class DataContext : CommonDbContext
+namespace GT.Persistance.Domain.Models
+{
+    public partial class guney_teletip_dbContext : DbContext
     {
-        public DataContext()
-            : base("name=DataContext")
+        public guney_teletip_dbContext()
         {
         }
-        public DataContext(bool autoDetectChangesEnabled, bool proxyCreationEnabled = true, bool lazyLoadingEnabled = true, bool validateOnSaveEnabled = true, Action<string> logAction = null)
-           : base($"name={LocalSettings.AppName}")
+
+        public guney_teletip_dbContext(DbContextOptions<guney_teletip_dbContext> options)
+            : base(options)
         {
-            //Database.SetInitializer<DataContext>(null);
-            //Configuration.ProxyCreationEnabled = proxyCreationEnabled;
-            //Configuration.AutoDetectChangesEnabled = autoDetectChangesEnabled;
-            //Configuration.LazyLoadingEnabled = lazyLoadingEnabled;
-            //Configuration.ValidateOnSaveEnabled = validateOnSaveEnabled;
-            //if (logAction != null)
-            //{
-            //    Database.Log = logAction;
-            //}
         }
+
         public virtual DbSet<AppPermatt> AppPermatt { get; set; }
         public virtual DbSet<InfBatch> InfBatch { get; set; }
         public virtual DbSet<InfStudy> InfStudy { get; set; }
         public virtual DbSet<Kosresultenmtype> Kosresultenmtype { get; set; }
-        public virtual DbSet<GT.Persistance.Domain.Models.Modality> Modality { get; set; }
+        public virtual DbSet<Modality> Modality { get; set; }
         public virtual DbSet<Skrs> Skrs { get; set; }
         public virtual DbSet<Tenat> Tenat { get; set; }
         public virtual DbSet<TenatSkrs> TenatSkrs { get; set; }
@@ -240,7 +227,7 @@ namespace MEDLIFE.PERSISTANCE.DOMAIN.Models
                 entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
             });
 
-            modelBuilder.Entity<GT.Persistance.Domain.Models.Modality>(entity =>
+            modelBuilder.Entity<Modality>(entity =>
             {
                 entity.HasKey(e => e.Pk)
                     .HasName("modality_pkey");
@@ -283,8 +270,8 @@ namespace MEDLIFE.PERSISTANCE.DOMAIN.Models
                     .HasColumnName("kurum_setting_id")
                     .HasMaxLength(128);
 
-                entity.Property(e => e.KurumSkrsAdý)
-                    .HasColumnName("kurum_skrs_adý")
+                entity.Property(e => e.KurumSkrsAdÄ±)
+                    .HasColumnName("kurum_skrs_adÄ±")
                     .HasMaxLength(64);
 
                 entity.Property(e => e.KurumSkrsKodu)
@@ -524,7 +511,9 @@ namespace MEDLIFE.PERSISTANCE.DOMAIN.Models
                 entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
             });
 
-           // OnModelCreatingPartial(modelBuilder);
+            OnModelCreatingPartial(modelBuilder);
         }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

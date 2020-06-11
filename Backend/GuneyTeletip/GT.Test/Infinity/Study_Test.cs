@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace GT.Test
 {
-    public class Tests
+    public class InfStudy_Test
     {
         [SetUp]
         public void Setup()
