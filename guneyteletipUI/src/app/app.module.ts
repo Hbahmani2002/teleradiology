@@ -12,16 +12,28 @@ import { DashboardComponent } from './Features/Private/Dashboard/Pages/dashboard
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { DashboardfilterComponent } from './Features/Private/Dashboard/Pages/dashboard/dashboardfilter/dashboardfilter.component';
-import { DashboardgridComponent } from './Features/Private/Dashboard/Pages/dashboard/dashboardgrid/dashboardgrid.component';
-import { DashboardtabsComponent } from './Features/Private/Dashboard/Pages/dashboard/dashboardtabs/dashboardtabs.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { DashboardStatisticComponent } from './Features/Private/Dashboard/Pages/dashboard/dashboard-statistic/dashboard-statistic.component';
+import { KosoperationsComponent } from './Features/Private/Operations/Pages/kosoperations/kosoperations.component';
+import { KosfilterComponent } from './Features/Private/Operations/Pages/kosoperations/kosfilter/kosfilter.component';
+import { KosgridComponent } from './Features/Private/Operations/Pages/kosoperations/kosgrid/kosgrid.component';
+import { KostabsComponent } from './Features/Private/Operations/Pages/kosoperations/kostabs/kostabs.component';
+import { KosstatisticComponent } from './Features/Private/Operations/Pages/kosoperations/kosstatistic/kosstatistic.component';
+import { UserComponent } from './Features/Private/Definitions/Pages/user/user.component';
+import { RoleComponent } from './Features/Private/Definitions/Pages/role/role.component';
+import { KosdetailgridComponent } from './Features/Private/Operations/Pages/kosoperations/kostabs/kosdetailgrid/kosdetailgrid.component';
+import { UserfilterComponent } from './Features/Private/Definitions/Pages/user/userfilter/userfilter.component';
+import { UsergridComponent } from './Features/Private/Definitions/Pages/user/usergrid/usergrid.component';
+import { UsertabsComponent } from './Features/Private/Definitions/Pages/user/usertabs/usertabs.component';
+import { FilterComponent } from './Shared/Components/filter/filter.component';
+import { GridtoolsComponent } from './Shared/Components/gridtools/gridtools.component';
+import { RolegridComponent } from './Features/Private/Definitions/Pages/role/rolegrid/rolegrid.component';
+import { RoletabsComponent } from './Features/Private/Definitions/Pages/role/roletabs/roletabs.component';
+import { PageheaderComponent } from './Shared/Components/pageheader/pageheader.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,10 +43,23 @@ import { DashboardStatisticComponent } from './Features/Private/Dashboard/Pages/
     FooterComponent,
     LoginComponent,
     DashboardComponent,
-    DashboardfilterComponent,
-    DashboardgridComponent,
-    DashboardtabsComponent,
-    DashboardStatisticComponent,
+    KosoperationsComponent,
+    KosfilterComponent,
+    KosgridComponent,
+    KostabsComponent,
+    KosstatisticComponent,
+    UserComponent,
+    RoleComponent,
+    KosdetailgridComponent,
+    UserfilterComponent,
+    UsergridComponent,
+    UsertabsComponent,
+    FilterComponent,
+    GridtoolsComponent,
+    RolegridComponent,
+    RoletabsComponent,
+    PageheaderComponent,
+    
   ],
   imports: [
     BrowserModule,

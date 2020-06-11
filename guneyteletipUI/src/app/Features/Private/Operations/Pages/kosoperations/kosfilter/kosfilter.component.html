@@ -1,0 +1,45 @@
+<!--filter is a component, created by Protek Developer Team. You can see the attribute of filter in Shared/Components/filter-->
+<filter header="Filtreleme">
+  <form>
+    <div class="form-row p-0 ">
+      <div class="form-group col-md-3 mb-1 mt-0">
+        <label class="font-weight-bold">Hastane Seçimi</label>
+        <select class="form-control" name="ddlHospital">
+          <option value="undefined">Beyaz Hastanesi</option>
+          <option value="undefined">Siyah Hastanesi</option>
+          <option value="undefined">Kırmızı Hastanesi</option>
+          <option value="undefined">Yeşil Hastanesi</option>
+          <!--<option *ngFor="let item of getTetkikGrupList" [value]="item">{{item}}</option>-->
+        </select>
+      </div>
+
+      <div class="form-group col-md-3 mb-1 mt-0">
+        <label class="font-weight-bold">Başlangıç Tarihi</label>
+        <input autocomplete="off" type="text" placeholder="Başlangıç Tarihi" class="form-control" name="startDate" bsDatepicker
+               #dp1="bsDatepicker" [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY'}" (focus)="dp1.toggle()">
+      </div>
+      <div class="form-group col-md-3 mb-1 mt-0">
+        <label class="font-weight-bold">Bitiş Tarihi</label>
+        <input autocomplete="off" type="text" placeholder="Bitiş Tarihi" class="form-control" name="endDate" bsDatepicker
+               #dp2="bsDatepicker" [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY'}" (focus)="dp2.toggle()">
+      </div>
+      <div class="form-group col-md-3 mb-1 mt-0">
+        <label class="font-weight-bold">Eşleşme Durumu</label>
+        <select class="form-control" name="ddlState">
+          <option value="undefined">Durum 1</option>
+          <option value="undefined">Durum 2</option>
+          <option value="undefined">Durum 3</option>
+          <option value="undefined">Durum 4</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6 mb-1 mt-0">
+        <label class="font-weight-bold">TC Kimlik No & Accession No</label>
+        <input type="text" class="form-control" name="tcAccess">
+      </div>
+    </div>
+  </form>
+  <button class="btn btn-success btn-sm mr-2" tooltip="Filtrele"><fa name="search"></fa></button>
+  <button class="btn btn-danger  btn-sm" tooltip="Filtreleri Temizle"><fa name="close"></fa></button>
+</filter>

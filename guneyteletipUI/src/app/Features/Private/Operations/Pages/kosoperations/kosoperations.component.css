@@ -1,0 +1,8 @@
+.divscroll {
+  overflow: auto;
+  scrollbar-3dlight-color: aqua;
+}
+
+.marginClass {
+  margin-top: 30px;
+}
