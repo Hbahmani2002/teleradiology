@@ -15,8 +15,4 @@
     <ProjectReference Include="..\Util.Reflection\Util.Reflection.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
-
 </Project>
