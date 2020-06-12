@@ -34,6 +34,10 @@ import { GridtoolsComponent } from './Shared/Components/gridtools/gridtools.comp
 import { RolegridComponent } from './Features/Private/Definitions/Pages/role/rolegrid/rolegrid.component';
 import { RoletabsComponent } from './Features/Private/Definitions/Pages/role/roletabs/roletabs.component';
 import { PageheaderComponent } from './Shared/Components/pageheader/pageheader.component';
+import { EdituserComponent } from './Features/Private/Definitions/Modals/edituser/edituser.component';
+import { ConfirmationdialogComponent } from './Shared/Modals/confirmationdialog/confirmationdialog.component';
+import { RolefilterComponent } from './Features/Private/Definitions/Pages/role/rolefilter/rolefilter.component';
+import { EditroleComponent } from './Features/Private/Definitions/Modals/editrole/editrole.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +63,10 @@ import { PageheaderComponent } from './Shared/Components/pageheader/pageheader.c
     RolegridComponent,
     RoletabsComponent,
     PageheaderComponent,
+    EdituserComponent,
+    ConfirmationdialogComponent,
+    RolefilterComponent,
+    EditroleComponent,
     
   ],
   imports: [
@@ -77,6 +85,7 @@ import { PageheaderComponent } from './Shared/Components/pageheader/pageheader.c
   ],
   exports: [BsDropdownModule, TooltipModule, ModalModule],
   providers: [],
+  entryComponents: [EditroleComponent,EdituserComponent, ConfirmationdialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

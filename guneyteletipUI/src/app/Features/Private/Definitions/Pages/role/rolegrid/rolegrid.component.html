@@ -1,6 +1,6 @@
-<button class="btn btn-info btn-sm  mr-1" tooltip="Ekle"><fa name="plus-circle"></fa></button>
-<button class="btn btn-primary btn-sm  mr-1" tooltip="Güncelle"><fa name="pencil"></fa></button>
-<button class="btn btn-danger btn-sm  mr-1" tooltip="Sil"><fa name="trash"></fa></button>
+<button (click)="openEditRoleModal('ekle')" class="btn btn-info smalbutton" tooltip="Ekle"><fa name="plus-circle"></fa></button>
+<button (click)="openEditRoleModal('düzenle')" class="btn btn-primary smalbutton" tooltip="Güncelle"><fa name="pencil"></fa></button>
+<button (click)="openConfirmationDialog()" class="btn btn-danger smalbutton" tooltip="Sil"><fa name="trash"></fa></button>
 <div class="card mt-2">
   <div class="card-header">
     <fa name="list"></fa>
