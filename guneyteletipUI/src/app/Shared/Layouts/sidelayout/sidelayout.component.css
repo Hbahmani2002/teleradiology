@@ -1,23 +1,9 @@
-/*!
- * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/template-overviews/simple-sidebar)
- * Copyright 2013-2019 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/LICENSE)
- */
-.sticky {
-  background: #fff;
-  box-shadow: 0 3px 12px 0 rgba(0,0,0,.08);
-  position: fixed;
-  top: 0;
-  height: 120px;
-  width: 100%;
-}
 #wrapper {
   overflow-x: auto;
 }
 .footerClass {
   clear: both;
   position: relative;
-  height: 200px;
   margin-top:50px;
 }
 #sidebar-wrapper {
@@ -27,6 +13,7 @@
   -moz-transition: margin .25s ease-out;
   -o-transition: margin .25s ease-out;
   transition: margin .25s ease-out;
+  flex-shrink: 0;
 }
 
   #sidebar-wrapper .sidebar-heading {
@@ -59,4 +46,38 @@
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
+}
+html {
+  height: 100%;
+}
+
+.body {
+  height: 100%;
+  overflow: hidden; /*makes the body non-scrollable (we will add scrolling to the sidebar and main content containers)*/
+  margin: 0px; /*removes default style*/
+  display: flex; /*enables flex content for its children*/
+  box-sizing: border-box;
+}
+
+.column {
+  height: 100%; /*allows both columns to span the full height of the browser window*/
+  display: flex;
+  flex-direction: column; /*places the left and right headers above the bottom content*/
+}
+.top-left {
+  flex-shrink: 0;
+}
+
+.top-right {
+  flex-shrink: 0;
+  display: block;
+}
+
+.bottom {
+  flex-grow: 1; /*ensures that the container will take up the full height of the parent container*/
+  overflow-x: auto; /*adds scroll to this container*/
+}
+img{
+  width:140px;
+  height:41px
 }

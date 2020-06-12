@@ -11,19 +11,12 @@ export class SidelayoutComponent implements OnInit {
   public isfirstCollapsed1: boolean = true;
   public isfirstCollapsed2: boolean = true;
   public isfirstCollapsed3: boolean = true;
-  /*@ViewChild(HeaderComponent, { static: false })
-  public headerComponent: HeaderComponent;
- // public collapse: boolean = this.headerComponent.collapse != null ? this.headerComponent.collapse : true ;*/
+
   constructor() { }
 
   ngOnInit() {
     
   } 
-  /*ngAfterViewInit() {
-    console.log('Values on ngAfterViewInit():');
-    console.log("collapsed:", this.headerComponent.collapse);
-  }*/
-
   toggle() {
     if (this.collapse == true) {
       this.collapse = false;

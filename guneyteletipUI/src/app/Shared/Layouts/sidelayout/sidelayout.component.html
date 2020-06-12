@@ -1,10 +1,9 @@
 
-<div id="wrapper" [ngClass]="{'d-flex' : true , 'toggled' : collapse}" >
+<div id="wrapper" class="body" [ngClass]="{'d-flex' : true , 'toggled' : collapse}" >
  
-  <div class="bg-light border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading">
-      Protek
-      <!--<img src="./././assets/img/logo.png" />-->
+  <div class="bg-light border-right column" id="sidebar-wrapper">
+    <div  class="sidebar-heading top-left p-2 pl-3">
+      <a routerLink=""><img src="./././assets/img/logo.png" /></a>
     </div>
     <div class="list-group list-group-flush">
       <ul class="p-0 " style="list-style: none;">
@@ -12,12 +11,15 @@
           <a class="list-group-item list-group-item-action" (click)="isfirstCollapsed1 = !isfirstCollapsed1"
              [attr.aria-expanded]="!isfirstCollapsed1" aria-controls="collapseBasic1">
             <div class="d-flex justify-content-between mb-2" style="color: inherit !important">
-              <p class="mb-1"><fa name="search"></fa> KOS TAKİP</p>
+              <p class="mb-1"><fa name="exchange"></fa>  İŞLEMLER</p>
               <small class="pull-right"><fa name="chevron-down" *ngIf="isfirstCollapsed1"></fa> <fa name="chevron-up" *ngIf="!isfirstCollapsed1"></fa></small>
 
             </div>
             <div id="collapseBasic1" [collapse]="isfirstCollapsed1" [isAnimated]="true" class="list-group list-group-flush ">
-              <a routerLink="" class="list-group-item list-group-item-action bg-light " style="display: inline !important"><fa name="angle-right"></fa> KOS Gönderim Kayıtları</a>
+              <ul class="p-0 " style="list-style: none;">
+                <li><a routerLink="/operations/kos" class="list-group-item list-group-item-action bg-light " style="display: block !important; width: 200px"><fa name="angle-right"></fa> KOS İşlemleri</a></li>
+              </ul>
+              
             </div>
           </a>
 
@@ -26,12 +28,16 @@
           <a class="list-group-item list-group-item-action" (click)="isfirstCollapsed3 = !isfirstCollapsed3"
              [attr.aria-expanded]="!isfirstCollapsed3" aria-controls="collapseBasic3">
             <div class="d-flex justify-content-between mb-2">
-              <p class="mb-1"><fa name="user"></fa> KULLANICI YÖNETİMİ</p>
+              <p class="mb-1"><fa name="user"></fa>  TANIMLAMALAR</p>
               <small class="pull-right" ><fa name="chevron-down" *ngIf="isfirstCollapsed3"></fa> <fa name="chevron-up" *ngIf="!isfirstCollapsed3"></fa></small>
 
             </div>
             <div id="collapseBasic3" [collapse]="isfirstCollapsed3" [isAnimated]="true" class="list-group list-group-flush ">
-              <a routerLink="#" class="list-group-item list-group-item-action bg-light " style="display: inline !important"><fa name="angle-right"></fa> Sistem Ayarları</a>
+              <ul  class="p-0 " style="list-style: none;">
+                <li><a routerLink="/definitions/user" class="list-group-item list-group-item-action bg-light " style="display: block !important; width: 200px"><fa name="angle-right"></fa> Kullanıcı Tanımlama</a></li>
+                <li><a routerLink="/definitions/role" class="list-group-item list-group-item-action bg-light " style="display: block !important; width: 200px"><fa name="angle-right"></fa> Rol Tanımlama</a></li>
+              </ul>
+              
             </div>
           </a>
         </li>
@@ -39,12 +45,16 @@
           <a class="list-group-item list-group-item-action"  (click)="isfirstCollapsed2 = !isfirstCollapsed2"
              [attr.aria-expanded]="!isfirstCollapsed2" aria-controls="collapseBasic2">
             <div class="d-flex justify-content-between mb-2">
-              <p class="mb-1"><fa name="cogs"></fa> AYARLAR</p>
+              <p class="mb-1"><fa name="cogs"></fa>  AYARLAR</p>
               <small class="pull-right"><fa name="chevron-down" *ngIf="isfirstCollapsed2"></fa> <fa name="chevron-up" *ngIf="!isfirstCollapsed2"></fa></small>
 
             </div>
             <div id="collapseBasic2" [collapse]="isfirstCollapsed2" [isAnimated]="true" class="list-group list-group-flush ">
-              <a routerLink="#" class="list-group-item list-group-item-action bg-light " style="display: inline !important"><fa name="angle-right"></fa> Kullanıcı Kayıt</a>
+              <ul  class="p-0 " style="list-style: none;">
+                <li><a routerLink="#" class="list-group-item list-group-item-action bg-light " style="display: block !important; width: 200px"><fa name="angle-right"></fa> Kullanıcı Ayarları</a></li>
+                <li><a routerLink="#" class="list-group-item list-group-item-action bg-light " style="display: block !important; width: 200px"><fa name="angle-right"></fa> Kos Ayarları</a></li>
+                <li><a routerLink="#" class="list-group-item list-group-item-action bg-light " style="display: block !important; width: 200px"><fa name="angle-right"></fa> Sistem Ayarları</a></li>
+              </ul>
             </div>
           </a>
         </li>
@@ -58,8 +68,8 @@
 
     </div>
   </div>
-  <div id="page-content-wrapper">
-    <div class="header">
+  <div id="page-content-wrapper" class="column ">
+    <div class="header  top-right">
       <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom sticky-top" (scroll)="onWindowScroll($event);">
         <button class="btn btn-light" id="menu-toggle" (click)="toggle()"><span class="navbar-toggler-icon"></span></button>
 
@@ -79,7 +89,7 @@
                 <a class="dropdown-item" href="#">Ayarlar</a>
                 <a class="dropdown-item" href="#">Seçenekler</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item bg-danger" href="#">Çıkış</a>
+                <a class="dropdown-item bg-danger" routerLink="/login">Çıkış</a>
               </div>
             </li>
           </ul>
@@ -87,12 +97,15 @@
       </nav>
     </div>
 
-    <div class="container-fluid mt-2">
-      <router-outlet></router-outlet>
+    <div class="bottom">
+      <div class="container-fluid mt-2 p-0 ">
+        <router-outlet></router-outlet>
+      </div>
+      <div class="container-fluid m-0 p-0 footerClass">
+        <app-footer></app-footer>
+      </div>
     </div>
-    <div class="container-fluid pb-3 mb-3 footerClass">
-      <app-footer></app-footer>
-    </div>
+    
   </div>
 </div>
 
