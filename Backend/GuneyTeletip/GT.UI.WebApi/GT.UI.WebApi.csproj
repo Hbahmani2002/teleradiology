@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Owin" Version="5.2.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GT.Data.Controller\GT.Data.Controller.csproj" />
+    <ProjectReference Include="..\GT.DataService.infinity\GT.DataService.infinity.csproj" />
+    <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
+    <ProjectReference Include="..\GT.Repository\GT.Repository.csproj" />
+  </ItemGroup>
+
+
+</Project>

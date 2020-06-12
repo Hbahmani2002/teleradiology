@@ -13,7 +13,7 @@ namespace GT.Test
         {
         }
 
-        StudyDataService service = new StudyDataService(new BussinessContext(new UserContextModel(1, null)));
+        StudyDataService service = new StudyDataService(new BussinessContext(new UserContextModel(1)));
         [Test]
         public void Test1()
         {

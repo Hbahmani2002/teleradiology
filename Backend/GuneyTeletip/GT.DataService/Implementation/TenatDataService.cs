@@ -38,9 +38,5 @@ namespace GT.DataService.Implementation
             return tenatRepository.Query(t).GetGridQuery(parms);
         }
 
-        public int Save()
-        {
-
-        }
     }
 }

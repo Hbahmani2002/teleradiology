@@ -16,7 +16,7 @@ namespace GT.Test.GT
         {
         }
 
-        TenatDataService service = new TenatDataService(new BussinessContext(new UserContextModel(1, null)));
+        TenatDataService service = new TenatDataService(new BussinessContext(new UserContextModel(1)));
         [Test]
         public void Test1()
         {
