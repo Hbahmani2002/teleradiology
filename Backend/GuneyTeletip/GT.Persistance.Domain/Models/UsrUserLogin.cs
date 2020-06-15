@@ -10,10 +10,10 @@ namespace GT.Persistance.Domain.Models
             UsrUserRole = new HashSet<UsrUserRole>();
         }
 
+        public long Pk { get; set; }
         public string EmailAdress { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
-        public long Pk { get; set; }
         public string Surname { get; set; }
         public DateTime? TimeCreated { get; set; }
         public DateTime? TimeDelete { get; set; }
