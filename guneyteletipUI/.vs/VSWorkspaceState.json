@@ -5,12 +5,9 @@
     "\\src\\app",
     "\\src\\app\\Features",
     "\\src\\app\\Shared",
-    "\\src\\app\\Shared\\Layouts",
-    "\\src\\app\\Shared\\Layouts\\sidelayout",
-    "\\src\\app\\Shared\\Layouts\\sidelayout\\footer",
-    "\\src\\app\\Shared\\Layouts\\sidelayout\\header",
-    "\\src\\app\\Shared\\Layouts\\sidelayout\\sidemenu"
+    "\\src\\app\\Shared\\Services",
+    "\\src\\app\\Shared\\Services\\Api"
   ],
-  "SelectedNode": "\\src\\app\\Shared\\Layouts\\sidelayout\\sidelayout.component.html",
+  "SelectedNode": "\\src\\app\\Shared\\Services\\Api\\apiService.ts",
   "PreviewInSolutionExplorer": false
 }

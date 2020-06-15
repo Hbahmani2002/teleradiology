@@ -11,18 +11,18 @@
             <form class="form-signin">
               <div class="form-group">
                 <label class="labelText">Kullanıcı Adı</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="userName" [(ngModel)] ="userName">
               </div>
               <div class="form-group">
                 <label class="labelText">Şifre</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="password" [(ngModel)]="password">
               </div>
 
               <div class="custom-control custom-checkbox mb-3">
                 <input type="checkbox" class="custom-control-input" id="customCheck1">
                 <label class="custom-control-label labelText" for="customCheck1">Beni Hatırla</label>
               </div>
-              <button class="btn btn-lg btn-primary btn-block">
+              <button class="btn btn-lg btn-primary btn-block" (click)="login()">
                 <span class="labelText"  style="font-size:13px;"> GİRİŞ </span>
               </button>
               <hr class="my-4">

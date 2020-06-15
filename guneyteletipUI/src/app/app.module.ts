@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { LoadingInterceptor } from './shared/interceptors/loading/loading-interceptor';
 import { AppComponent } from './app.component';
 import { SidelayoutComponent } from './Shared/Layouts/sidelayout/sidelayout.component';
 import { HeaderComponent } from './Shared/Layouts/sidelayout/header/header.component';
@@ -38,6 +41,11 @@ import { EdituserComponent } from './Features/Private/Definitions/Modals/edituse
 import { ConfirmationdialogComponent } from './Shared/Modals/confirmationdialog/confirmationdialog.component';
 import { RolefilterComponent } from './Features/Private/Definitions/Pages/role/rolefilter/rolefilter.component';
 import { EditroleComponent } from './Features/Private/Definitions/Modals/editrole/editrole.component';
+import { cookieService } from './Shared/Services/Util/cookieService';
+import { httpService } from './Shared/Services/Util/httpService';
+import { tokenService } from './Shared/Services/Util/tokenService';
+import { ApiDataService } from './Shared/Services/Api/apiDataService';
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,8 +78,10 @@ import { EditroleComponent } from './Features/Private/Definitions/Modals/editrol
     
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
@@ -82,9 +92,11 @@ import { EditroleComponent } from './Features/Private/Definitions/Modals/editrol
     PaginationModule.forRoot(),
     TabsModule.forRoot(),
     AngularFontAwesomeModule,
+    NgxSpinnerModule,
   ],
+ 
   exports: [BsDropdownModule, TooltipModule, ModalModule],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }, CookieService,cookieService, httpService, tokenService, ApiDataService],
   entryComponents: [EditroleComponent,EdituserComponent, ConfirmationdialogComponent],
   bootstrap: [AppComponent]
 })

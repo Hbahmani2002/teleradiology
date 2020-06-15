@@ -8,6 +8,7 @@ import { of, Observable } from 'rxjs';
 //import { environment } from './../shared/consts/environment';
 //import { NotificationToastService } from '../Shared/services/notification-toast.service';
 import { Router } from '@angular/router';
+import { parameters } from '../../Consts/parameters';
 //import { cookieService } from '../shared/services/cookieService';
 //import { authenticationService } from '../shared/services/authenticationService';
 
@@ -15,8 +16,7 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
-
+export class httpService {
 
   constructor(
     private http: HttpClient
@@ -31,7 +31,7 @@ export class ApiService {
   }
 
 
-  private callPostService_Low(url: string, params: any, httpOptions: any = undefined): Observable<any> {
+  public callPostService_Low(url: string, params: any, httpOptions: any = undefined): Observable<any> {
     /*
      ##validation
     headeroptions
@@ -39,9 +39,9 @@ export class ApiService {
     return this.http.post(url, params, httpOptions);
 
   }
-  public callPostService_Middle(serviceName: string, params: any, token: any): Observable<any> {
-    var serverAddress = "https://xyz.com.tr";
-    var url = serverAddress + serviceName;
+  public callPostService_Middle(url: string, params: any, token: any): Observable<any> {
+   
+   // var url = this.serverAddress + serviceName;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -49,6 +49,7 @@ export class ApiService {
         "Authorization": 'Bearer ' + token
       })
     };
+    debugger;
     return this.callPostService_Low(url, params, httpOptions);
   }
 

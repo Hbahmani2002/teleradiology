@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
-import { ApiService } from './apiService';
+import { Token } from '@angular/compiler/src/ml_parser/lexer';
+import { tokenService } from '../Util/tokenService';
+import { httpService } from '../Util/httpService';
 @Injectable({
   providedIn: 'root'
 })
 export class ApiDataService {
-  constructor(private apiService: ApiService) {
+  public token: string;
+  constructor(private httpService: httpService, private tokenService : tokenService) {
 
   }
 
   private callDataService(serviceName: string, params: any): Observable<any> {
-    let token = "";
-    return this.apiService.callPostService_Middle(serviceName, params, token).pipe(
+    let token = this.tokenService.getToken();
+    return this.httpService.callPostService_Middle(serviceName, params, token).pipe(
       switchMap(res => {
         return this.onSuccessData(res);
       }),
