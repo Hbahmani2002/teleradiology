@@ -18,5 +18,13 @@ namespace GT.Repository.Implementation
         {
             throw new NotImplementedException();
         }
+        public UsrUserRole GetByID(long id)
+        {
+            return Single(o => o.Pk == id);
+        }
+        public UsrUserRole GetByUserID(long id)
+        {
+            return Single(o => o.UserFk == id);
+        }
     }
 }

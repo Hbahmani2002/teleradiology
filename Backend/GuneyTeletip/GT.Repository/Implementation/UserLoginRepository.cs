@@ -43,13 +43,13 @@ namespace GT.Repository.Implementation
                            Name=u.Name,
                            Password=u.Password,
                            Pk=u.Pk,
-                           RecordType=u.RecordType,
+                           RecordType=u.RecordState,
                            Surname=u.Surname,
                            TimeCreated=u.TimeCreated,
-                           TimeDelete=u.TimeDelete,
-                           UserFk=u.UserFk,
+                           TimeDelete=u.TimeModified,
+                           UserFk=u.FkUserCreated,
                            UserName=u.UserName,
-                           UserFkLastModfiead=u.UserFkLastModfiead
+                           UserFkLastModfiead=u.FkUserModified
                        };
             return list;
         }

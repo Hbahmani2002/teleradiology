@@ -1,4 +1,5 @@
 ﻿using GT.DataService.Implementation;
+using GT.DataService.Model;
 using GT.Repository.Models.Filter;
 using MEDLIFE.SERVICE;
 using MEDLIFE.UTILS.GRID;
@@ -19,10 +20,37 @@ namespace GT.Test.GT
         [Test]
         public void GetUserList()
         {
-            Gridable<UserViewFilter> gri = new Gridable<UserViewFilter>();
-            UserViewFilter filter = new UserViewFilter();
+            var gri = new Gridable<UserViewFilter>();
+            var filter = new UserViewFilter();
             gri.Filter = filter;
             var list = service.GetUserList(gri);
+        }
+
+        [Test]
+        public void GetUserListAndRole()
+        {
+            var gri = new Gridable<UserViewFilter>();
+            var filter = new UserViewFilter();
+            gri.Filter = filter;
+            var list = service.GetUserListAndRole(gri);
+        }
+
+        [Test]
+        public void Save()
+        {
+            UserView model = new UserView();
+            model.UserName = "testUserName";
+            model.Pk = 1;
+            model.Name = "testName";
+            model.Surname = "testSurname";
+            model.EmailAdress = "test@test.com";
+            var list = service.Save(model);
+        }
+
+        [Test]
+        public void Delete()
+        {
+            var list = service.Delete(1);
         }
     }
 }
