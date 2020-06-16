@@ -1,4 +1,5 @@
 ﻿//using IdentityModel.Client;
+using IdentityModel.Client;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -27,8 +28,8 @@ namespace Teletip.SorgulamaServis
         //public STMServiceParamter ServiceName_ReProcessStudy = new STMServiceParamter("ReProcessStudy");
 
         private string BaseAddress { get; set; }
-        private ISTMToken Token { get; set; }
-        public STMService(ISTMToken tokenProvider, string baseAddress)
+        private TokenResponse Token { get; set; }
+        public STMService(TokenResponse tokenProvider, string baseAddress)
         {
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -39,7 +40,7 @@ namespace Teletip.SorgulamaServis
         private string CallApi(STMServiceParameter serviceName, string paramObjJson)
         {
             var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token.TokenValue);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token.AccessToken);
             HttpResponseMessage httpRes = null;
             if (serviceName.HttpMethod == "GET")
             {
@@ -67,10 +68,18 @@ namespace Teletip.SorgulamaServis
                 var obj = JsonConvert.DeserializeObject<T>(jsonResult);
                 return obj;
             }
+
+
+      
+
             catch (Exception ex)
             {
                 throw new Exception($"Servis Sonucu Hatalı ServiceName:{serviceName},Parameter:{paramObjJson},Return:{jsonResult}", ex);
             }
+
+   
+
+
         }
 
 
