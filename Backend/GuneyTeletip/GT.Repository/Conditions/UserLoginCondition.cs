@@ -56,19 +56,19 @@ namespace GT.Repository.Conditions
             }
             if (filter.TimeDelete.HasValue)
             {
-                exp = exp.And(o => o.TimeDelete == filter.TimeDelete.Value);
+                exp = exp.And(o => o.TimeModified == filter.TimeDelete.Value);
             }
             if (filter.UserFk.HasValue)
             {
-                exp = exp.And(o => o.UserFk == filter.UserFk.Value);
+                exp = exp.And(o => o.FkUserCreated == filter.UserFk.Value);
             }
             if (filter.UserFkLastModfiead.HasValue)
             {
-                exp = exp.And(o => o.UserFkLastModfiead == filter.UserFkLastModfiead.Value);
+                exp = exp.And(o => o.FkUserModified == filter.UserFkLastModfiead.Value);
             }
             if (filter.RecordType.HasValue)
             {
-                exp = exp.And(o => o.RecordType == filter.RecordType.Value);
+                exp = exp.And(o => o.RecordState == filter.RecordType.Value);
             }
             return exp;
         }

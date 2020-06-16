@@ -4,12 +4,22 @@
     using GT.Persistance.infinity.Util;
     using MEDLIFE.PERSISTANCE.Data.SQL;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Logging.Console;
+    using Microsoft.Extensions.Logging.Debug;
     using System;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
     public partial class DataContext : CommonDbContext
     {
+        //https://docs.microsoft.com/en-us/ef/core/miscellaneous/logging?tabs=v3
+        public static readonly ILoggerFactory consoleLoggerFactory
+            = LoggerFactory.Create(builder =>
+            {
+                builder.AddDebug();
+            });
+
         public DataContext()
             : base("name=DataContext")
         {
@@ -56,10 +66,12 @@
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseLoggerFactory(consoleLoggerFactory);
+
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Host=85.95.238.211;Database=guney_teletip_db;Username=test_user;Password=test123;Port=9002");
+                optionsBuilder.UseNpgsql("Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002");
             }
         }
 
@@ -596,6 +608,10 @@
                     .HasColumnName("email_adress")
                     .HasMaxLength(64);
 
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
                     .HasMaxLength(64);
@@ -604,7 +620,7 @@
                     .HasColumnName("password")
                     .HasMaxLength(128);
 
-                entity.Property(e => e.RecordType).HasColumnName("record_type");
+                entity.Property(e => e.RecordState).HasColumnName("record_state");
 
                 entity.Property(e => e.Surname)
                     .HasColumnName("surname")
@@ -612,13 +628,10 @@
 
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeDelete).HasColumnName("time_delete");
-
-                entity.Property(e => e.UserFk).HasColumnName("user_fk");
-
-                entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
 
                 entity.Property(e => e.UserName)
+                    .IsRequired()
                     .HasColumnName("user_name")
                     .HasMaxLength(256);
             });
@@ -1304,7 +1317,7 @@
                 entity.Property(e => e.TenantId).HasColumnName("Tenant_Id");
             });
 
-            //OnModelCreatingPartial(modelBuilder);
+            // OnModelCreatingPartial(modelBuilder);
         }
     }
 }

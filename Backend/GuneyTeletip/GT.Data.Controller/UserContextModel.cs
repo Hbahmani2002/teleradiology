@@ -2,11 +2,11 @@
 {
     public class UserContextModel
     {
-        public UserContextModel(int? userIDCurrent)
+        public UserContextModel(int userIDCurrent)
         {
             UserIDCurrent = userIDCurrent;
         }
 
-        public int? UserIDCurrent { get; set; }
+        public int UserIDCurrent { get; set; }
     }
 }

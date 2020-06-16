@@ -47,7 +47,7 @@ namespace GT.Persistance.Domain.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Host=85.95.238.211;Database=guney_teletip_db;Username=test_user;Password=test123;Port=9002");
+                optionsBuilder.UseNpgsql("Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002");
             }
         }
 
@@ -584,6 +584,10 @@ namespace GT.Persistance.Domain.Models
                     .HasColumnName("email_adress")
                     .HasMaxLength(64);
 
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
                     .HasMaxLength(64);
@@ -592,7 +596,7 @@ namespace GT.Persistance.Domain.Models
                     .HasColumnName("password")
                     .HasMaxLength(128);
 
-                entity.Property(e => e.RecordType).HasColumnName("record_type");
+                entity.Property(e => e.RecordState).HasColumnName("record_state");
 
                 entity.Property(e => e.Surname)
                     .HasColumnName("surname")
@@ -600,13 +604,10 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeDelete).HasColumnName("time_delete");
-
-                entity.Property(e => e.UserFk).HasColumnName("user_fk");
-
-                entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
 
                 entity.Property(e => e.UserName)
+                    .IsRequired()
                     .HasColumnName("user_name")
                     .HasMaxLength(256);
             });

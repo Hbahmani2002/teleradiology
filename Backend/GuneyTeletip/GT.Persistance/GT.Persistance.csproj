@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Core.Persistance\Core.Persistance.csproj" />
     <ProjectReference Include="..\GT.Persistance.Domain\GT.Persistance.Domain.csproj" />
   </ItemGroup>
