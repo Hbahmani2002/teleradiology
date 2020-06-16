@@ -6,3 +6,6 @@
 .marginClass {
   margin-top: 30px;
 }
+.selected{
+  color:blue;
+}

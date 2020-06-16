@@ -7,10 +7,12 @@ import { UserComponent } from './Features/Private/Definitions/Pages/user/user.co
 import { RoleComponent } from './Features/Private/Definitions/Pages/role/role.component';
 import { LoginComponent } from './Features/Public/Login/Pages/login/login.component';
 
+import { LoginCheckActivate } from './Shared/Services/Guards/authorizationGuard';
 const routes: Routes = [
   {
     path: '',
     component: SidelayoutComponent,
+    canActivate: [LoginCheckActivate],
     children: [
       { path: '', component: DashboardComponent, pathMatch: 'full' },
       { path: 'operations/kos', component: KosoperationsComponent, pathMatch: 'full' },
@@ -21,6 +23,7 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+
   }
 ];
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginServices } from '../../Services/LoginService';
+import { LoginServices, LoginEnumResult } from '../../Services/LoginService';
 import { Router } from '@angular/router';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +17,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
   login() {
-    debugger;
+ 
     this.loginService.login(this.userName, this.password).subscribe(o => {
-      if (o != 1) {
+      if (o != LoginEnumResult.ok) {
         //
         return;
       }
