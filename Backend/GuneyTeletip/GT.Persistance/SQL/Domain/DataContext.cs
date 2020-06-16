@@ -1,7 +1,6 @@
 ﻿namespace MEDLIFE.PERSISTANCE.DOMAIN.Models
 {
     using GT.Persistance.Domain.Models;
-    using GT.Persistance.infinity.Util;
     using MEDLIFE.PERSISTANCE.Data.SQL;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;

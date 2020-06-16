@@ -4,8 +4,8 @@ using System.Text;
 
 namespace GT.Repository.Models.Filter
 {
-    public class TenatViewFilter
+    public class TenantViewFilter
     {
-        public string TenatAd { get; set; }
+        public string TenantAd { get; set; }
     }
 }

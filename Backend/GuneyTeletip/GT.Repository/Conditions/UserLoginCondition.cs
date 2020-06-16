@@ -15,11 +15,11 @@ namespace GT.Repository.Conditions
         public string Password { get; set; }
         public string Surname { get; set; }
         public DateTime? TimeCreated { get; set; }
-        public DateTime? TimeDelete { get; set; }
-        public long? UserFk { get; set; }
+        public DateTime? TimeModified { get; set; }
+        public long? FkUserCreated { get; set; }
         public string UserName { get; set; }
-        public long? UserFkLastModfiead { get; set; }
-        public short? RecordType { get; set; }
+        public long? FkUserModified { get; set; }
+        public short? RecordState { get; set; }
     }
     public class UserLoginCondition
     {
@@ -54,21 +54,21 @@ namespace GT.Repository.Conditions
             {
                 exp = exp.And(o => o.TimeCreated == filter.TimeCreated.Value);
             }
-            if (filter.TimeDelete.HasValue)
+            if (filter.TimeModified.HasValue)
             {
-                exp = exp.And(o => o.TimeModified == filter.TimeDelete.Value);
+                exp = exp.And(o => o.TimeModified == filter.TimeModified.Value);
             }
-            if (filter.UserFk.HasValue)
+            if (filter.FkUserCreated.HasValue)
             {
-                exp = exp.And(o => o.FkUserCreated == filter.UserFk.Value);
+                exp = exp.And(o => o.FkUserCreated == filter.FkUserCreated.Value);
             }
-            if (filter.UserFkLastModfiead.HasValue)
+            if (filter.FkUserModified.HasValue)
             {
-                exp = exp.And(o => o.FkUserModified == filter.UserFkLastModfiead.Value);
+                exp = exp.And(o => o.FkUserModified == filter.FkUserModified.Value);
             }
-            if (filter.RecordType.HasValue)
+            if (filter.RecordState.HasValue)
             {
-                exp = exp.And(o => o.RecordState == filter.RecordType.Value);
+                exp = exp.And(o => o.RecordState == filter.RecordState.Value);
             }
             return exp;
         }

@@ -5,9 +5,9 @@ using System.Text;
 
 namespace GT.Repository.Models.View
 {
-    public class TenatViewModel
+    public class TenantViewModel
     {
         [DataEntityID]
-        public string TenatAd { get; set; }
+        public string TenantAd { get; set; }
     }
 }

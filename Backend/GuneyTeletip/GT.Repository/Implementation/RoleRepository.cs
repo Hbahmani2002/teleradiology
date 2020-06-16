@@ -7,9 +7,9 @@ using System.Text;
 
 namespace GT.Repository.Implementation
 {
-    public class Role : AbstractTableRepository<UsrRole>
+    public class RoleRepository : AbstractTableRepository<UsrRole>
     {
-        public Role(IAbstractWorkspace workspace) : base(workspace)
+        public RoleRepository(IAbstractWorkspace workspace) : base(workspace)
         {
 
         }

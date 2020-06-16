@@ -7,18 +7,18 @@ using System.Text;
 
 namespace GT.Repository.Conditions
 {
-    public class TenatConditionFilter
+    public class TenantConditionFilter
     {
-        public string TenatAd { get; set; }
+        public string TenantAd { get; set; }
     }
     public class TenatCondition
     {
-        public static Expression<Func<Tenat, bool>> Get(TenatConditionFilter filter)
+        public static Expression<Func<Tenat, bool>> Get(TenantConditionFilter filter)
         {
             var exp = PredicateBuilder.True<Tenat>();
-            if (!string.IsNullOrEmpty(filter.TenatAd))
+            if (!string.IsNullOrEmpty(filter.TenantAd))
             {
-                exp = exp.And(o => o.TenatAd.Contains(filter.TenatAd));
+                exp = exp.And(o => o.TenatAd.Contains(filter.TenantAd));
             }
             return exp;
         }
