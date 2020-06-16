@@ -13,7 +13,6 @@ export class userDataServices {
     return this.apiDataService.callDataService('Service/Name', undefined);
   }
   public getUserList(model: Grid.GridInputModel<UserViewFilter>): Observable<Grid.GridOutputModel<UserViewModel>> {
-    debugger;
     return this.apiDataService.callDataService('User/GetUserList', model);
   }
   public save(model: UserView): Observable<number> {

@@ -17,20 +17,10 @@ export class TestpageComponent implements OnInit {
   ngOnInit() {
   }
   getUserList() {
-
     var input = new UserViewFilter();
     var model = new Grid.GridInputModel(input);
-    this.userService.getUserList(model).pipe(
-      switchMap((o) => {
-        debugger;
-        console.log(o.list);
-
-        return of(undefined)
-      }),
-      catchError(err => {
-        debugger;
-        return of(err);
-      })
-    );
+    this.userService.getUserList(model).subscribe(o => {
+      console.log(o);
+    });
   }
 }
