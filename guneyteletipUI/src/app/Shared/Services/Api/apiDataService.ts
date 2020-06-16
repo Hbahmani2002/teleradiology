@@ -4,29 +4,33 @@ import { map, catchError, switchMap } from 'rxjs/operators';
 import { Token } from '@angular/compiler/src/ml_parser/lexer';
 import { tokenService } from '../Util/tokenService';
 import { httpService } from '../Util/httpService';
+import { parameters } from '../../Consts/parameters';
+import { apiResponseModel } from './Models/apiResponseModel';
 @Injectable({
   providedIn: 'root'
 })
 export class ApiDataService {
-  public token: string;
+
   constructor(private httpService: httpService, private tokenService : tokenService) {
 
   }
 
-  private callDataService(serviceName: string, params: any): Observable<any> {
+  public callDataService(serviceName: string, params: any): Observable<any> {    
     let token = this.tokenService.getToken();
-    return this.httpService.callPostService_Middle(serviceName, params, token).pipe(
+    let serverAdress = parameters.serverAddress;
+    let serviceUrl = serverAdress + serviceName;
+    return this.httpService.callPostService_Middle(serviceUrl, params, token).pipe(
       switchMap(res => {
         return this.onSuccessData(res);
       }),
       catchError(err => {
-        return this.onFail(err);
+        throw "Hata var networke bak..";        
       })
     );
     ;
   }
 
-  onFail(err: any): any {
+ private onFail(err: any): any {
     var erData = err.error
     if (erData) {
       console.log(erData);
@@ -44,12 +48,14 @@ export class ApiDataService {
       console.log(err);
     }
   }
-  onSuccessData(res: any): any {
+  private onSuccessData(res: any): any {    
+    let model = apiResponseModel.parse(res);
+    console.log("TODO success control");
     //if (!this.authentication.isAuthenticated(res))
     //  this.authentication.redirectToLogin()
     //let data: any = res;
     //return of(data.Data);
-    return of(res);
+    return of(model.data);
   }
 }
 

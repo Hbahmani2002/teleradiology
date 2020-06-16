@@ -29,8 +29,13 @@ export class httpService {
   ) {
 
   }
-
-
+  public callGetService_Low(url: string, ): Observable<any> {
+    /*
+     ##validation
+    headeroptions
+    */
+    return this.http.get(url);
+  }
   public callPostService_Low(url: string, params: any, httpOptions: any = undefined): Observable<any> {
     /*
      ##validation
@@ -41,7 +46,6 @@ export class httpService {
   }
   public callPostService_Middle(url: string, params: any, token: any): Observable<any> {
    
-   // var url = this.serverAddress + serviceName;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -49,11 +53,6 @@ export class httpService {
         "Authorization": 'Bearer ' + token
       })
     };
-    debugger;
     return this.callPostService_Low(url, params, httpOptions);
   }
-
-
-
-  
 }

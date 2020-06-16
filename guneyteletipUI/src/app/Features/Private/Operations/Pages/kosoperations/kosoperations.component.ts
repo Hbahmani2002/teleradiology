@@ -11,4 +11,7 @@ export class KosoperationsComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
+
 }

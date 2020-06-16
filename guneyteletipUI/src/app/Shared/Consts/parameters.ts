@@ -5,5 +5,6 @@ export const parameters = {
   homePageAdress: '',
   loginPageAdress: '',
   serverAddress: "https://api_gt_test.proteksaglik.com/",
-  loginServiceName: 'Authentication/Token'
+  loginServiceName: 'Authentication/GetPermission',
+  loginStatusServiceName: 'Authentication/Token'
 };

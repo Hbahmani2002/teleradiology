@@ -46,6 +46,10 @@ import { httpService } from './Shared/Services/Util/httpService';
 import { tokenService } from './Shared/Services/Util/tokenService';
 import { ApiDataService } from './Shared/Services/Api/apiDataService';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { SelectDropDownModule } from 'ngx-select-dropdown'
+import { LoginCheckActivate } from './Shared/Services/Guards/authorizationGuard';
+import { authenticationDataService } from './Shared/Services/Data/authenticationDataService';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,9 +79,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ConfirmationdialogComponent,
     RolefilterComponent,
     EditroleComponent,
+
     
   ],
   imports: [
+
     FormsModule,
     BrowserModule,
     AppRoutingModule,
@@ -93,10 +99,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     TabsModule.forRoot(),
     AngularFontAwesomeModule,
     NgxSpinnerModule,
+    SelectDropDownModule,
   ],
  
   exports: [BsDropdownModule, TooltipModule, ModalModule],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }, CookieService,cookieService, httpService, tokenService, ApiDataService],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }, CookieService, cookieService, httpService, tokenService, ApiDataService, LoginCheckActivate,authenticationDataService],
   entryComponents: [EditroleComponent,EdituserComponent, ConfirmationdialogComponent],
   bootstrap: [AppComponent]
 })
