@@ -33,13 +33,14 @@ namespace MEDLIFE.PERSISTANCE.DOMAIN.Models
         public virtual DbSet<Modality> Modality { get; set; }
         public virtual DbSet<Series> Series { get; set; }
         public virtual DbSet<Study> Study { get; set; }
+        public virtual DbSet<Volume> Volume { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //Configuration.GetConnectionString("Oracle_Db");
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseOracle("User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.241.63:54320/xe;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseOracle("User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;");
             }
         }
 
@@ -1016,7 +1017,113 @@ namespace MEDLIFE.PERSISTANCE.DOMAIN.Models
                     .HasColumnType("CHAR(1)");
             });
 
-          //  OnModelCreatingPartial(modelBuilder);
+            modelBuilder.Entity<Volume>(entity =>
+            {
+                entity.HasKey(e => e.VolumeCode)
+                    .HasName("SYS_C007301");
+
+                entity.ToTable("VOLUME");
+
+                entity.HasIndex(e => e.InstitutionCode)
+                    .HasName("IDX_VOLUME_INSTCODE");
+
+                entity.HasIndex(e => e.VolumeCode)
+                    .HasName("SYS_C007301")
+                    .IsUnique();
+
+                entity.Property(e => e.VolumeCode)
+                    .HasColumnName("VOLUME_CODE")
+                    .HasColumnType("VARCHAR2(2)");
+
+                entity.Property(e => e.Aetitle)
+                    .HasColumnName("AETITLE")
+                    .HasColumnType("VARCHAR2(16)");
+
+                entity.Property(e => e.Capacity)
+                    .HasColumnName("CAPACITY")
+                    .HasColumnType("NUMBER");
+
+                entity.Property(e => e.Hostname)
+                    .IsRequired()
+                    .HasColumnName("HOSTNAME")
+                    .HasColumnType("VARCHAR2(64)");
+
+                entity.Property(e => e.Iishost)
+                    .HasColumnName("IISHOST")
+                    .HasColumnType("VARCHAR2(64)");
+
+                entity.Property(e => e.InstitutionCode)
+                    .HasColumnName("INSTITUTION_CODE")
+                    .HasColumnType("VARCHAR2(32)");
+
+                entity.Property(e => e.Modality)
+                    .HasColumnName("MODALITY")
+                    .HasColumnType("VARCHAR2(8)");
+
+                entity.Property(e => e.Ordinal)
+                    .HasColumnName("ORDINAL")
+                    .HasColumnType("NUMBER");
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasColumnName("PASSWORD")
+                    .HasColumnType("VARCHAR2(16)");
+
+                entity.Property(e => e.Pathname)
+                    .IsRequired()
+                    .HasColumnName("PATHNAME")
+                    .HasColumnType("VARCHAR2(64)");
+
+                entity.Property(e => e.Protocol)
+                    .HasColumnName("PROTOCOL")
+                    .HasColumnType("CHAR(1)");
+
+                entity.Property(e => e.Rhostname)
+                    .HasColumnName("RHOSTNAME")
+                    .HasColumnType("VARCHAR2(64)");
+
+                entity.Property(e => e.Rpassword)
+                    .HasColumnName("RPASSWORD")
+                    .HasColumnType("VARCHAR2(16)");
+
+                entity.Property(e => e.Rusername)
+                    .HasColumnName("RUSERNAME")
+                    .HasColumnType("VARCHAR2(64)");
+
+                entity.Property(e => e.Sharename)
+                    .IsRequired()
+                    .HasColumnName("SHARENAME")
+                    .HasColumnType("VARCHAR2(64)");
+
+                entity.Property(e => e.Threshold)
+                    .HasColumnName("THRESHOLD")
+                    .HasColumnType("NUMBER");
+
+                entity.Property(e => e.UsedSpace)
+                    .HasColumnName("USED_SPACE")
+                    .HasColumnType("NUMBER");
+
+                entity.Property(e => e.UsedSpaceUpdateDttm)
+                    .HasColumnName("USED_SPACE_UPDATE_DTTM")
+                    .HasColumnType("DATE");
+
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasColumnName("USERNAME")
+                    .HasColumnType("VARCHAR2(64)");
+
+                entity.Property(e => e.VolumeStat)
+                    .IsRequired()
+                    .HasColumnName("VOLUME_STAT")
+                    .HasColumnType("CHAR(1)");
+
+                entity.Property(e => e.VolumeType)
+                    .IsRequired()
+                    .HasColumnName("VOLUME_TYPE")
+                    .HasColumnType("CHAR(1)");
+            });
+
+           // OnModelCreatingPartial(modelBuilder);
         }
     }
 }

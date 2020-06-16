@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GT.DataService.Model
+﻿namespace GT.UI.WebApi.Controllers
 {
     public class LoginUIModel
     {

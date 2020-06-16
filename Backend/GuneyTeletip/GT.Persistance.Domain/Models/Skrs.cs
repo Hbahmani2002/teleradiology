@@ -15,7 +15,8 @@ namespace GT.Persistance.Domain.Models
         public string KurumSkrsKodu { get; set; }
         public string KurumSkrsAdi { get; set; }
         public string KurumMedulaTesisKodu { get; set; }
-        public string KurumSettingId { get; set; }
+        public string InstitutionName { get; set; }
+        public int QrSettingId { get; set; }
         public DateTime? TimeCreated { get; set; }
         public DateTime? TimeDelete { get; set; }
         public long UserFk { get; set; }

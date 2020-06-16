@@ -4,36 +4,75 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace Teletip.SorgulamaServis
 {
-    public class STMServices : ISTMServices
+    public class STMService : ISTMService
     {
-        private  STMServiceParameter ServiceName_GetPatientOrderList = new STMServiceParameter("GetPatientOrderList");
-        private  STMServiceParameter ServiceName_GetNonMatchingOrderList = new STMServiceParameter("GetNonMatchingOrderList", "nonMatchingParameter");
-        private  STMServiceParameter ServiceName_GetNonMatchingStudyList = new STMServiceParameter("GetNonMatchingStudyList", "nonMatchingParameter");
-        private  STMServiceParameter ServiceName_GetMedulaRegistrationFailedOrderList = new STMServiceParameter("GetMedulaRegistrationFailedOrderList", "nonMatchingParameter");
-        private  STMServiceParameter ServiceName_GetDailyOrderList = new STMServiceParameter("GetDailyOrderList");
-        private  STMServiceParameter ServiceName_GetDailyStudyList = new STMServiceParameter("GetDailyStudyList?parameter");
-        private  STMServiceParameter ServiceName_GetOrderStatusForAccessionNumberList = new STMServiceParameter("GetOrderStatusForAccessionNumberList");
-        private  STMServiceParameter ServiceName_GetDailyCreatedOrderList = new STMServiceParameter("GetDailyCreatedOrderList");
-        private  STMServiceParameter ServiceName_RemoveKos = new STMServiceParameter("RemoveKos", httpMethod: "POST");
-        private  STMServiceParameter ServiceName_GetPreviousStudies = new STMServiceParameter("GetPreviousStudies");
+        public const string BASEADDRESS = "https://api.teletip.saglik.gov.tr/Common.WebApi/api/Integration/";
+
+        private STMServiceParameter ServiceName_GetPatientOrderList = new STMServiceParameter("GetPatientOrderList");
+        private STMServiceParameter ServiceName_GetNonMatchingOrderList = new STMServiceParameter("GetNonMatchingOrderList", "nonMatchingParameter");
+        private STMServiceParameter ServiceName_GetNonMatchingStudyList = new STMServiceParameter("GetNonMatchingStudyList", "nonMatchingParameter");
+        private STMServiceParameter ServiceName_GetMedulaRegistrationFailedOrderList = new STMServiceParameter("GetMedulaRegistrationFailedOrderList", "nonMatchingParameter");
+        private STMServiceParameter ServiceName_GetDailyOrderList = new STMServiceParameter("GetDailyOrderList");
+        private STMServiceParameter ServiceName_GetDailyStudyList = new STMServiceParameter("GetDailyStudyList?parameter");
+        private STMServiceParameter ServiceName_GetOrderStatusForAccessionNumberList = new STMServiceParameter("GetOrderStatusForAccessionNumberList");
+        private STMServiceParameter ServiceName_GetDailyCreatedOrderList = new STMServiceParameter("GetDailyCreatedOrderList");
+        private STMServiceParameter ServiceName_RemoveKos = new STMServiceParameter("RemoveKos", httpMethod: "POST");
+        private STMServiceParameter ServiceName_GetPreviousStudies = new STMServiceParameter("GetPreviousStudies");
 
         //public STMServiceParamter ServiceName_ReProcessStudy = new STMServiceParamter("ReProcessStudy");
 
-        public string BaseAddress => "https://api.teletip.saglik.gov.tr/Common.WebApi/api/Integration/";
-
-
-
-        public TokenProvider TokenProvider { get; set; }
-        public STMServices(TokenProvider tokenProvider)
+        private string BaseAddress { get; set; }
+        private ISTMToken Token { get; set; }
+        public STMService(ISTMToken tokenProvider, string baseAddress)
         {
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            TokenProvider = tokenProvider;
+            Token = tokenProvider;
+            this.BaseAddress = baseAddress;
         }
+
+        private string CallApi(STMServiceParameter serviceName, string paramObjJson)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token.TokenValue);
+            HttpResponseMessage httpRes = null;
+            if (serviceName.HttpMethod == "GET")
+            {
+                var inputParameter = $"{paramObjJson}";
+                var address = $"{BaseAddress}{serviceName.ServiceName}?{serviceName.ParameterName}";
+                var fullAddress = address + "=" + inputParameter;
+                httpRes = client.GetAsync(fullAddress).Result;
+            }
+            else if (serviceName.HttpMethod == "POST")
+            {
+                var inputParameter = $"{serviceName.ServiceName}";
+                httpRes = client.PostAsync(BaseAddress + inputParameter, new StringContent(paramObjJson, Encoding.UTF8, "application/json")).Result;
+            }
+
+            var resultJson = httpRes.Content.ReadAsStringAsync().Result;
+            return resultJson;
+        }
+        private T CallApi<T>(STMServiceParameter serviceName, object paramObj)
+        {
+            var paramObjJson = JsonConvert.SerializeObject(paramObj);
+
+            var jsonResult = CallApi(serviceName, paramObjJson);
+            try
+            {
+                var obj = JsonConvert.DeserializeObject<T>(jsonResult);
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Servis Sonucu Hatalı ServiceName:{serviceName},Parameter:{paramObjJson},Return:{jsonResult}", ex);
+            }
+        }
+
 
         public List<PatientResult> GetPatientOrderList(int _medulaInstitutionId, string _citizenId)
         {
@@ -165,7 +204,6 @@ namespace Teletip.SorgulamaServis
 
         }
 
-
         public List<RemoveKosResult> GetRemoveKos(int medulaInstitutionId, string accessionNumber, string studyInstanceUID)
         {
 
@@ -206,57 +244,7 @@ namespace Teletip.SorgulamaServis
 
 
 
-        private string CallApi(STMServiceParameter serviceName, string paramObjJson)
-        {
-            
 
-            //var tokenResponse = GetToken();
-
-            var client = new HttpClient();
-            //client.SetBearerToken(tokenResponse.AccessToken);
-            HttpResponseMessage httpRes = null;
-            if (serviceName.HttpMethod == "GET")
-            {
-                var inputParameter = $"{paramObjJson}";
-                var address = $"{BaseAddress}{serviceName.ServiceName}?{serviceName.ParameterName}";
-                var fullAddress = address + "=" + inputParameter;
-                httpRes = client.GetAsync(fullAddress).Result;
-            }
-            else if (serviceName.HttpMethod == "POST")
-            {
-                var inputParameter = $"{serviceName.ServiceName}";
-                httpRes = client.PostAsync(BaseAddress + inputParameter, new StringContent(paramObjJson, Encoding.UTF8, "application/json")).Result;
-            }
-
-            var resultJson = httpRes.Content.ReadAsStringAsync().Result;
-            // var result = Task.FromResult(client.GetAsync(BaseAddress+
-            //inputParameter).Result).Result.Content;
-            //var resultJson = result.ReadAsStringAsync().Result;
-            return resultJson;
-
-        }
-
-        //private TokenResponse GetToken()
-        //{
-        //    var tokenResponse = TokenProvider.GetToken();
-        //    return tokenResponse;
-        //}
-
-        private T CallApi<T>(STMServiceParameter serviceName, object paramObj)
-        {
-            var paramObjJson = JsonConvert.SerializeObject(paramObj);
-
-            var jsonResult = CallApi(serviceName, paramObjJson);
-            try
-            {
-                var obj = JsonConvert.DeserializeObject<T>(jsonResult);
-                return obj;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Servis Sonucu Hatalı ServiceName:{serviceName},Parameter:{paramObjJson},Return:{jsonResult}", ex);
-            }
-        }
 
         public string GetImageLink(string CitizenId, string AccessionNo, string RequestingCitizenId)
         {

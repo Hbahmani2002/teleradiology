@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Teletip.SorgulamaServis
 {
-    public interface ISTMServices
+    public interface ISTMService
     {
         List<DailyCreatedResult> GetDailyCreatedOrderList(int medulaInstitutionId, string modality, DateTime queryDate);
         List<DailyOrderResult> GetDailyOrderList(int _medulaInstitutionId, string _modality, DateTime _queryDate);

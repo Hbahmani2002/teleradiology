@@ -7,14 +7,14 @@ using System.Text;
 
 namespace GT.Repository.Implementation
 {
-    public class UsrUserLoginRepository : AbstractTableRepository<UsrUserLogin>
+    public class UserRoleRepository : AbstractTableRepository<UsrUserRole>
     {
-        public UsrUserLoginRepository(IAbstractWorkspace workspace) : base(workspace)
+        public UserRoleRepository(IAbstractWorkspace workspace) : base(workspace)
         {
 
         }
 
-        public override UsrUserLogin GetByID(int id)
+        public override UsrUserRole GetByID(int id)
         {
             throw new NotImplementedException();
         }
