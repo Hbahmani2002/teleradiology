@@ -14,13 +14,19 @@
           </div>
         </div>
         <div class="col-md-4">
-          <label class="font-weight-bold">Hastane Seçimi</label>
-          <ngx-select-dropdown [multiple]="true" [options]="options" [config]="config"></ngx-select-dropdown>
-        </div>
+         
       </div>
+        </div>
     </tab>
     <tab heading="Tab 2">
-     
+      <!--<ng-multiselect-dropdown [placeholder]="'custom placeholder'"
+                           [data]="dropdownList"
+                           [(ngModel)]="selectedItems"
+
+                           singleSelection ="true"
+                           (onSelect)="onItemSelect($event)"
+                           (onSelectAll)="onSelectAll($event)">
+  </ng-multiselect-dropdown>-->
     </tab>
   </tabset>
 </div>
