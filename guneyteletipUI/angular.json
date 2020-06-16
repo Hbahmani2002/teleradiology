@@ -30,10 +30,16 @@
               {
                 "input": "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
               },
+      
+              {
+                "input": "node_modules/ngx-toastr/toastr.css"
+              },
 
-            
+
               "src/styles.css",
-              "./node_modules/font-awesome/css/font-awesome.css"
+              "./node_modules/font-awesome/css/font-awesome.css" 
+              
+              
             ],
             "scripts": []
           },

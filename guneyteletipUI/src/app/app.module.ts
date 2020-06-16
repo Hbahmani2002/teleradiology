@@ -49,6 +49,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { SelectDropDownModule } from 'ngx-select-dropdown'
 import { LoginCheckActivate } from './Shared/Services/Guards/authorizationGuard';
 import { authenticationDataService } from './Shared/Services/Data/authenticationDataService';
+import { ToastrModule } from 'ngx-toastr';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { TestpageComponent } from './Features/Public/testpage/testpage.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +82,7 @@ import { authenticationDataService } from './Shared/Services/Data/authentication
     ConfirmationdialogComponent,
     RolefilterComponent,
     EditroleComponent,
+    TestpageComponent,
 
     
   ],
@@ -97,14 +101,36 @@ import { authenticationDataService } from './Shared/Services/Data/authentication
     CollapseModule.forRoot(),
     PaginationModule.forRoot(),
     TabsModule.forRoot(),
+    ToastrModule.forRoot(),
+    NgMultiSelectDropDownModule.forRoot(),
     AngularFontAwesomeModule,
     NgxSpinnerModule,
     SelectDropDownModule,
   ],
  
-  exports: [BsDropdownModule, TooltipModule, ModalModule],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }, CookieService, cookieService, httpService, tokenService, ApiDataService, LoginCheckActivate,authenticationDataService],
-  entryComponents: [EditroleComponent,EdituserComponent, ConfirmationdialogComponent],
+  exports:
+    [
+      BsDropdownModule,
+      TooltipModule,
+      ModalModule
+    ],
+  providers:
+    [
+      { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+      CookieService,
+      cookieService,
+      httpService,
+      tokenService,
+      ApiDataService,
+      LoginCheckActivate,
+      authenticationDataService,
+    ],
+  entryComponents:
+    [
+      EditroleComponent,
+      EdituserComponent,
+      ConfirmationdialogComponent,
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

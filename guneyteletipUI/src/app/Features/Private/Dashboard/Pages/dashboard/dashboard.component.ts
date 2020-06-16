@@ -7,21 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  isCollapsed = false;
-  public collapseButtonText: string = 'Filtrelemeyi Kapat';
-
   constructor() { }
 
   ngOnInit() {
   }
-  collapseEvent() {
-    this.isCollapsed = !this.isCollapsed;
-    if (this.isCollapsed == true) {
-      this.collapseButtonText = 'Filtrelemeyi Aç';
-    }
-    else {
-      this.collapseButtonText = 'Filtrelemeyi Kapat';
-    }
-  }
+ 
 
 }

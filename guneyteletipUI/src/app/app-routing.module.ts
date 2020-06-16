@@ -8,6 +8,7 @@ import { RoleComponent } from './Features/Private/Definitions/Pages/role/role.co
 import { LoginComponent } from './Features/Public/Login/Pages/login/login.component';
 
 import { LoginCheckActivate } from './Shared/Services/Guards/authorizationGuard';
+import { TestpageComponent } from './Features/Public/testpage/testpage.component';
 const routes: Routes = [
   {
     path: '',
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'operations/kos', component: KosoperationsComponent, pathMatch: 'full' },
       { path: 'definitions/user', component: UserComponent, pathMatch: 'full' },
       { path: 'definitions/role', component: RoleComponent, pathMatch: 'full' },
+      { path: 'gt_test', component: TestpageComponent, pathMatch: 'full' },
     ]
   },
   {
