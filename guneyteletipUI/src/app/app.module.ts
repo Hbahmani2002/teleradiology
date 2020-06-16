@@ -52,6 +52,7 @@ import { authenticationDataService } from './Shared/Services/Data/authentication
 import { ToastrModule } from 'ngx-toastr';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { TestpageComponent } from './Features/Public/testpage/testpage.component';
+import { userDataServices } from './Features/Private/Definitions/Services/userDataServices';
 
 @NgModule({
   declarations: [
@@ -124,6 +125,7 @@ import { TestpageComponent } from './Features/Public/testpage/testpage.component
       ApiDataService,
       LoginCheckActivate,
       authenticationDataService,
+      userDataServices,
     ],
   entryComponents:
     [

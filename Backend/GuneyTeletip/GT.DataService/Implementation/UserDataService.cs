@@ -127,5 +127,10 @@ namespace GT.DataService.Implementation
             _Workspace.CommitChanges();
             return 0;
         }
+
+        public PagingResult<UserViewModel> GetRolList()
+        {
+            return null;
+        }
     }
 }
