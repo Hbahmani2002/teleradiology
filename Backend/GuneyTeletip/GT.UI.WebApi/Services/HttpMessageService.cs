@@ -14,9 +14,33 @@ namespace GT.UI.WebApi.Implementation
 {
     public class HttpMessageService
     {
-        public static ServiceResult<T> ServiceResult<T>(T data)
+        
+        public static ServiceResult<T> Ok<T>(T data)
         {
             var sc = new ServiceResult<T>();
+            sc.TypeVal = ServiceResultType.SUCCESS;
+            sc.Data = data;
+            return sc;
+        }
+        public static ServiceResult<Exception> Exception(Exception data)
+        {
+            var sc = new ServiceResult<Exception>();
+            sc.TypeVal = ServiceResultType.FAIL;
+            sc.Exception = data;
+            sc.Message = data.Message;
+            return sc;
+        }
+        public static ServiceResult<T> OkData<T>(T data)
+        {
+            var sc = new ServiceResult<T>();
+            sc.TypeVal = ServiceResultType.SUCCESS_WITH_DATA;
+            sc.Data = data;
+            return sc;
+        }
+        public static ServiceResult<T> Fail<T>(T data)
+        {
+            var sc = new ServiceResult<T>();
+            sc.TypeVal = ServiceResultType.FAIL;
             sc.Data = data;
             return sc;
         }

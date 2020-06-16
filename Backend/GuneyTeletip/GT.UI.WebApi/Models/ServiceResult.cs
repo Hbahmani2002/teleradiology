@@ -18,7 +18,7 @@ namespace GT.UI.WebApi.Models
             Message = message;
             Data = data;
         }
-        public string Type => TypeVal.ToString();
+        public string Type => TypeVal.ToString();   
         public ServiceResultType TypeVal { get; set; }
 
         public string Message { get; set; }

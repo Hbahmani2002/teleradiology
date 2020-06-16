@@ -36,10 +36,10 @@ namespace GT.UI.WebApi
 
             TOkenAuthenticaation(services);
 
-            
+
         }
 
-       
+
 
         private void TOkenAuthenticaation(IServiceCollection services)
         {
@@ -69,31 +69,63 @@ namespace GT.UI.WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //app.UseExceptionHandler(a => a.Run(async context =>
-            //{
-            //    var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
-            //    var exception = exceptionHandlerPathFeature.Error;
-
-            //    var result = JsonConvert.SerializeObject(new { error = exception.Message });
-            //    context.Response.ContentType = "application/json";
-            //    await context.Response.WriteAsync(result);
-            //}));
+            Exception(app);
             if (env.IsDevelopment())
             {
                 //app.UseDeveloperExceptionPage();
             }
-            app.UseCorsMiddleware();
+            else
+            {
+                //app.UseHsts();
+            }
+            //app.UseHttpsRedirection();
+
+            Cors(app);
+
             app.UseRouting();
 
-            app.UseAuthorization();
+            Token(app);
+
+
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
 
-            //app.UseAuthorization();
-            
+        }
+
+        private void Exception(IApplicationBuilder app)
+        {
+            app.UseExceptionHandler(a => a.Run(async context =>
+            {
+                var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+                var exception = exceptionHandlerPathFeature.Error;
+
+                var result = JsonConvert.SerializeObject(HttpMessageService.Exception(exception));
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(result);
+            }));
+        }
+
+        private void Token(IApplicationBuilder app)
+        {
+            //https://stackoverflow.com/questions/56185834/asp-net-core-api-always-returns-401-unauthorized-whenever-i-send-a-request-with
+            app.UseAuthentication(); // this one first
+            app.UseAuthorization();
+        }
+
+        private void Cors(IApplicationBuilder app)
+        {
+            app.UseCorsMiddleware();
+
+            //https://stackoverflow.com/questions/31942037/how-to-enable-cors-in-asp-net-core
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                 //.AllowCredentials()
+                 );
 
         }
     }

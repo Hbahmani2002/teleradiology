@@ -67,7 +67,7 @@ namespace GT.DataService.Implementation
             userLogin.Password = model.Password;
             userLogin.Surname = model.Surname;
             userLogin.UserName = model.UserName;
-          //  userLogin.
+           // userLogin.
             return 0;
         }
     }

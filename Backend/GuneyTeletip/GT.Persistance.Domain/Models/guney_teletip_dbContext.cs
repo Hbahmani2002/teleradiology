@@ -47,7 +47,7 @@ namespace GT.Persistance.Domain.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Host=85.95.241.63;Database=guney_teletip_db;Username=test_user;Password=test123;Port=54321");
+                optionsBuilder.UseNpgsql("Host=85.95.238.211;Database=guney_teletip_db;Username=test_user;Password=test123;Port=9002");
             }
         }
 
