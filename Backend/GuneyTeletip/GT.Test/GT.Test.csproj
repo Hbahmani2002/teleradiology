@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\GT.DataService.infinity\GT.DataService.infinity.csproj" />
     <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
+    <ProjectReference Include="..\Util.Job\Util.Job.csproj" />
   </ItemGroup>
 
   <ItemGroup>
