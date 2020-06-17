@@ -1,15 +1,7 @@
-﻿using GT.DataService.Implementation;
-using GT.Repository.Models.Filter;
-using MEDLIFE.SERVICE;
-using MEDLIFE.UTILS.GRID;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Util.Extensions;
-using GT.DataService.Model;
-
-using GT.Persistance.infinity.Util;
 using Util.Job.Interface;
 using System.Linq;
 using System.Threading;
