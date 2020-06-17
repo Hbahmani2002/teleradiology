@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Implementation\" />
-    <Folder Include="Model\" />
+    <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
+    <ProjectReference Include="..\GT.Repository\GT.Repository.csproj" />
+    <ProjectReference Include="..\Util.Job\Util.Job.csproj" />
   </ItemGroup>
 
 </Project>

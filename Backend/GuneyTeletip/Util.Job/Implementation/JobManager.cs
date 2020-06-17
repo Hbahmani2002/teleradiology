@@ -1,22 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading;
 
 namespace Util.Job.Interface
 {
-    public static class JobManager
+    public class JobManager
     {
-        public static Dictionary<string, JobItem> Jobs { get; set; }
-        static JobManager()
+        private Dictionary<string, JobItem> _Jobs;
+        public ReadOnlyDictionary<string, JobItem> JobItems { get; }
+        public JobManager()
         {
-            Jobs = new Dictionary<string, JobItem>();
+            _Jobs = new Dictionary<string, JobItem>();
+            JobItems = new ReadOnlyDictionary<string, JobItem>(_Jobs);
         }
-        public static void Register(string name, JobItem job)
+        public JobItem Register(string name, int intervalMinute, Action action)
         {
-            Jobs.Add(name, job);
+            var item = new JobItem(intervalMinute, action);
+            _Jobs.Add(name, item);
+            return item;
         }
 
-      
+
     }
 }

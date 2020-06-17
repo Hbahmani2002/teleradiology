@@ -7,41 +7,32 @@ namespace Util.Job.Interface
 {
     public class JobItem
     {
-        //Timer tm = null;
-        Timer tm = null;
-        //private System.Timers.Timer sTimer { get; set; }
-        public int xInterval { get; set; }
-        public Action Action { get; set; }
-        private int _counter = 0;
 
-        //public JobItem(int interval, string name, Action action)
+        Timer _timer;
+        private int Interval { get; set; }
+        private Action Action { get; set; }
+
         public JobItem(int interval, Action action)
         {
-            xInterval = interval;
+            Interval = interval;
             Action = action;
-
-
         }
-
-
-
         public void Start()
         {
-
-
-            tm = new Timer(o =>
+            if (_timer != null)
+            {
+                throw new Exception("Timer Zaten başlamış veya yok edilmemiş");
+            }
+            _timer = new Timer(o =>
             {
                 Action();
-            }, null, 1000, xInterval);
+            }, null, 1000, Interval);
 
         }
-
-        
-
         public void Stop()
         {
-            
-            tm.Dispose();
+            _timer.Dispose();
+            _timer = null;
         }
 
 
