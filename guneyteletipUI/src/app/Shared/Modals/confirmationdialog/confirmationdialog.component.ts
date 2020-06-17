@@ -20,12 +20,9 @@ export class ConfirmationdialogComponent implements OnInit {
   ngOnInit() {
   }
   onConfirm() {
-
-    this.output = "ok";
-    this.modal.onClose("ok");
+   this.modal.onClose("ok");
   }
   onCancel() {
-    this.output = "cancel";
     this.modal.onClose("cancel");
   }
 }

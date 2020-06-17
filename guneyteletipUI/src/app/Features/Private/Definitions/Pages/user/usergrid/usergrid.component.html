@@ -6,7 +6,7 @@
 <div class="card mt-2">
   <div class="card-header">
     <fa name="list"></fa>
-    Kullanıcı Listesi > [Toplam:{{gridTetkik.data.totalCount}}/Seçili:{{gridTetkik.selectedItems.length}}/Tıklanan:{{gridTetkik.clickedItem!=undefined?1:0}}]
+    Kullanıcı Listesi > [Toplam:{{gridUser.data.totalCount}}/Seçili:{{gridUser.selectedItems.length}}/Tıklanan:{{gridUser.clickedItem!=undefined?1:0}}]
     <div class="pull-right">
       <select [(ngModel)]="gridUser.model.paging.count" (change)="gridUser.onRefresh()">
         <option *ngFor="let c of gridUser.pager" [ngValue]="c">{{c}}</option>
@@ -17,39 +17,13 @@
     <table #filterSection class="table table-bordered m-0 medlifeGrid">
       <thead>
         <tr>
-          <th scope="col" class="p-0" ><input type="checkbox"></th>
-          <th scope="col" class="p-0" (click)="gridUser.onSorting('pk')">Id</th>
-          <th scope="col" class="p-0" (click)="gridUser.onSorting('Id')">Kullanıcı Adı</th>
-          <th scope="col" class="p-0" (click)="gridUser.onSorting('Id')">Tc Kimlik No</th>
-          <th scope="col" class="p-0" (click)="gridUser.onSorting('Id')">Adı</th>
-          <th scope="col" class="p-0" (click)="gridUser.onSorting('Id')">Soyadı</th>
-          <th scope="col" class="p-0" (click)="gridUser.onSorting('Id')">Doğum Tarihi</th>
-          <th scope="col" class="p-0" (click)="gridUser.onSorting('Id')">Rol</th>
-
-        </tr>
-        <tr>
-          <th class="p-0"><a>X</a></th>
-          <th class="p-0">
-            <input class="filterInput" type="text" placeholder="">
-          </th>
-          <th class="p-0">
-            <input class="filterInput" type="text" placeholder="">
-          </th>
-          <th class="p-0">
-            <input class="filterInput" type="text" placeholder="">
-          </th>
-          <th class="p-0">
-            <input class="filterInput" type="text" placeholder="">
-          </th>
-          <th class="p-0">
-            <input class="filterInput" type="text" placeholder="">
-          </th>
-          <th class="p-0">
-            <input class="filterInput" type="text" placeholder="">
-          </th>
-          <th class="p-0">
-            <input class="filterInput" type="text" placeholder="">
-          </th>
+          <th scope="col" class="p-0"><input type="checkbox"></th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('pk')">Id<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('userName')">Kullanıcı Adı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('name')">Adı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('surname')">Soyadı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('emailAdress')">E-mail<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('password')">Şifre<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
         </tr>
       </thead>
       <tbody>
@@ -59,19 +33,18 @@
                    (change)="gridUser.onSelectItem(item)">
           </td>
           <td class="p-0">{{item.pk}}</td>
-          <td class="p-0">{{item.Id}}</td>
-          <td class="p-0">{{item.Id}}</td>
-          <td class="p-0">{{item.Id}}</td>
-          <td class="p-0">{{item.Id}}</td>
-          <td class="p-0">{{item.Id}}</td>
-          <td class="p-0">{{item.Id}}</td>
+          <td class="p-0">{{item.userName}}</td>
+          <td class="p-0">{{item.name}}</td>
+          <td class="p-0">{{item.surname}}</td>
+          <td class="p-0">{{item.emailAdress}}</td>
+          <td class="p-0">{{item.password}}</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="row justify-content-center   mt-3">
+  <div class="row justify-content-center  mb-3">
     <div class="col-sm-7 pagination-sm  justify-content-center pageNumber">
-      <pagination class="justify-content-center" [boundaryLinks]="true" [totalItems]="10" [maxSize]="4" [itemsPerPage]="4" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      <pagination class="justify-content-center" [boundaryLinks]="true" [totalItems]="gridUser.data.totalCount" [maxSize]="4" [(ngModel)]="gridUser.model.paging.pageNumber" [itemsPerPage]="gridUser.model.paging.count" (pageChanged)="gridUser.onPageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
       </pagination>
     </div>
   </div>

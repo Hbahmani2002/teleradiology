@@ -8,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class UserfilterComponent implements OnInit {
 
   isCollapsed = false;
-
+  public userNameOutput;
+  public userName;
   constructor() { }
 
   ngOnInit() {
   }
-
+  onFilter() {
+    this.userNameOutput = this.userName;
+  }
 }

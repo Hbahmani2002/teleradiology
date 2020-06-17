@@ -4,12 +4,10 @@
 <div class="card mt-2">
   <div class="card-header">
     <fa name="list"></fa>
-    Rol Listesi
+    Rol Listesi > [Toplam:{{gridRole.data.totalCount}}/Seçili:{{gridRole.selectedItems.length}}/Tıklanan:{{gridRole.clickedItem!=undefined?1:0}}]
     <div class="pull-right">
-      <select>
-        <option value="undefined">10</option>
-        <option value="undefined">25</option>
-        <option value="undefined">50</option>
+      <select [(ngModel)]="gridRole.model.paging.count" (change)="gridRole.onRefresh()">
+        <option *ngFor="let c of gridRole.pager" [ngValue]="c">{{c}}</option>
       </select>
     </div>
   </div>
@@ -18,38 +16,13 @@
       <thead>
         <tr>
           <th scope="col" class="p-0"><input type="checkbox"></th>
-          <th scope="col" class="p-0">Id</th>
-          <th scope="col" class="p-0">Rol Adı</th>
-          <th scope="col" class="p-0">Kolon 2</th>
-          <th scope="col" class="p-0">Kolon 2</th>
-          <th scope="col" class="p-0">Kolon 2</th>
-          <th scope="col" class="p-0">Kolon 2</th>
-          <th scope="col" class="p-0">Kolon 2</th>
-
-        </tr>
-        <tr>
-          <th class="p-0"><a>X</a></th>
-          <th class="p-0">
-            <input class="filterInput" type="text" placeholder="">
-          </th>
-          <th class="p-0">
-            <input class="filterInput" type="text" placeholder="">
-          </th>
-          <th class="p-0">
-            <input class="filterInput" type="text" placeholder="">
-          </th>
-          <th class="p-0">
-            <input class="filterInput" type="text" placeholder="">
-          </th>
-          <th class="p-0">
-            <input class="filterInput" type="text" placeholder="">
-          </th>
-          <th class="p-0">
-            <input class="filterInput" type="text" placeholder="">
-          </th>
-          <th class="p-0">
-            <input class="filterInput" type="text" placeholder="">
-          </th>
+          <th scope="col" class="p-0" (click)="gridRole.onSorting('pk')">Id<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridRole.onSorting('pk')">Rol Adı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridRole.onSorting('pk')">Kolon 2<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridRole.onSorting('pk')">Kolon 2<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridRole.onSorting('pk')">Kolon 2<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridRole.onSorting('pk')">Kolon 2<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridRole.onSorting('pk')">Kolon 2<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
         </tr>
       </thead>
       <tbody>
@@ -59,42 +32,6 @@
           </td>
           <td class="p-0">123</td>
           <td class="p-0">Admin</td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-        </tr>
-        <tr>
-          <td class="p-0">
-            <input type="checkbox" class="">
-          </td>
-          <td class="p-0">234</td>
-          <td class="p-0">Writer</td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-        </tr>
-        <tr>
-          <td class="p-0">
-            <input type="checkbox" class="">
-          </td>
-          <td class="p-0">345</td>
-          <td class="p-0">Raporter</td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-        </tr>
-        <tr>
-          <td class="p-0">
-            <input type="checkbox" class="">
-          </td>
-          <td class="p-0">141</td>
-          <td class="p-0">Editor</td>
           <td class="p-0"></td>
           <td class="p-0"></td>
           <td class="p-0"></td>

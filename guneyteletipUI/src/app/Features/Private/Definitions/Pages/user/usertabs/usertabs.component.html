@@ -1,22 +1,47 @@
 <div>
   <tabset>
     <tab heading="Kos Detay" id="tab1">
-      <div class="row">
+      <div class="row mt-1">
         <div class="col-md-4">
-          <label class="font-weight-bold">Role Seçimi</label>
-          <div class="input-group input-group-sm">
-            <select class="form-control input-sm" name="ddlState">
-              <option value="undefined">Admin</option>
-              <option value="undefined">Yönetici</option>
-              <option value="undefined">Raportör</option>
-              <option value="undefined">Editör</option>
-            </select>
+          <div class="row">
+            <div class="col-md-10">
+              <label class="font-weight-bold">Rol Seçimi</label>
+              <ng-multiselect-dropdown [placeholder]="'Rol Seçimi'"
+                                       [data]="dropdownList"
+                                       [(ngModel)]="selectedItems"
+                                       [settings]="dropdownSettings2"
+                                       [disabled]="dropdownDisabled">
+              </ng-multiselect-dropdown>
+            </div>
+            <div class="col-md-2 mt-4">
+              <button class="btn btn-sm" [ngClass]="{'btn-success': !dropdownDisabled, 'btn-warning' : dropdownDisabled}" (click)="dropdownDisabled = !dropdownDisabled">
+                <fa name="pencil" *ngIf="dropdownDisabled"></fa>
+                <fa name="check" *ngIf="!dropdownDisabled"></fa>
+              </button>
+            </div>
           </div>
         </div>
         <div class="col-md-4">
-         
-      </div>
+          <div class="row">
+            <div class="col-md-10">
+              <label class="font-weight-bold">Hastane Seçimi</label>
+              <ng-multiselect-dropdown [placeholder]="'Hastane Seçimi'"
+                                       [data]="dropdownList"
+                                       [(ngModel)]="selectedItems"
+                                       [settings]="dropdownSettings"
+                                       [disabled]="dropdownDisabled1">
+              </ng-multiselect-dropdown>
+            </div>
+            <div class="col-md-2 mt-4 ">
+              <button class="btn btn-sm" [ngClass]="{'btn-success': !dropdownDisabled1, 'btn-warning' : dropdownDisabled1}" (click)="dropdownDisabled1 = !dropdownDisabled1">
+                <fa name="pencil" *ngIf="dropdownDisabled1"></fa>
+                <fa name="check" *ngIf="!dropdownDisabled1"></fa>
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
+      
     </tab>
     <tab heading="Tab 2">
      

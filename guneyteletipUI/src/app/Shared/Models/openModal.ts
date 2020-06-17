@@ -1,10 +1,9 @@
 import { ChangeDetectorRef, EventEmitter } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { combineLatest, Subscription, Observable } from 'rxjs';
-import { promise } from 'protractor';
+import { modalOutput } from './modalOutput';
 
 export class OpenModal {
-
 
   bsModalRef: BsModalRef;
   subscriptions: Subscription[] = [];
@@ -15,39 +14,30 @@ export class OpenModal {
 
   constructor(private modalService: BsModalService, private changeDetection: ChangeDetectorRef) {}
 
-  openModal(template, initialState)  { 
+  openModal(template, initialState): Observable<modalOutput>  { 
 
-   this.bsModalRef = this.modalService.show(template, { initialState });
+    this.bsModalRef = this.modalService.show(template, { initialState });
+    return new Observable<modalOutput>(this.getDataFromModal());
 
-    /*this.messages = [];
-    const _combine = combineLatest(
-      this.modalService.onShow,
-      this.modalService.onShown,
-      this.modalService.onHide,
-      this.modalService.onHidden
-    ).subscribe(() => this.changeDetection.markForCheck());
-    this.subscriptions.push(
-      this.modalService.onHidden.subscribe((reason: string) => {
-        const _reason = reason ? `, dismissed by ${reason}` : '';
-        this.messages.push(`onHide event has been fired${_reason}`);
-        console.log(initialState.modalTitle + `${_reason}`)
-        this.unsubscribe();
-      })
-    );
-    this.subscriptions.push(_combine);
-    this.modalRef = this.modalService.show(template, { initialState: initialState });
-    return this.subscriptions;*/
   }
-
-  /*unsubscribe() {
-    this.subscriptions.forEach((subscription: Subscription) => {
-      subscription.unsubscribe();
-    });
-    this.subscriptions = [];
-  }*/
-  onClose(reason: string,data:any) { // this.modalService.setDismissReason(reason);
-    console.log(reason);
-    console.log(data);
+  private getDataFromModal() {
+    return (observer) => {
+      const subscription = this.modalService.onHidden.subscribe((reason: string) => {
+        let modaloutput = new modalOutput();
+        modaloutput.outputData = this.bsModalRef.content.output
+        modaloutput.reason = reason;
+        observer.next(modaloutput);
+        observer.complete();
+      });
+      return {
+        unsubscribe() {
+          subscription.unsubscribe();
+        }
+      };
+    }
+  }
+  onClose(reason: string) {
+    this.modalService.setDismissReason(reason);
     this.modalService.hide(1);
   }
 }

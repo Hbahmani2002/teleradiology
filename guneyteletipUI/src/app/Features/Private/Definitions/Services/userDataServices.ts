@@ -10,6 +10,7 @@ import { saveRolUIModel } from '../Models/SaveRolUIModel';
 import { tenantViewFilter } from '../Models/TenantViewFilter';
 import { tenantViewModel } from '../Models/TenantViewModel';
 import { saveTenantUIModel } from '../Models/SaveTenantUIModel';
+
 export class userDataServices {
 
   constructor(private apiDataService: ApiDataService) { }
@@ -20,7 +21,7 @@ export class userDataServices {
   public save(model: userSaveModel): Observable<number> {
     return this.apiDataService.callDataService('Service/Save', model);
   }
-  public getByID(model: userUIModel): Observable<number> {
+  public getByID(model: userUIModel): Observable<userViewModel> {
     return this.apiDataService.callDataService('Service/GetByID', model);
   }
   public delete(model: userUIModel): Observable<number> {

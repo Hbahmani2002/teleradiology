@@ -1,13 +1,14 @@
-import { ChangeDetectorRef,Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef,Component, OnInit, Input } from '@angular/core';
 import { EdituserComponent } from '../../../Modals/edituser/edituser.component';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ConfirmationdialogComponent } from 'src/app/Shared/Modals/confirmationdialog/confirmationdialog.component';
 import { OpenModal } from 'src/app/Shared/Models/openModal';
-import { of } from 'rxjs';
-import { switchMap, catchError  } from 'rxjs/operators';
 import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 import { userDataServices } from '../../../Services/userDataServices';
-import { UserViewFilter } from '../../../Models/UserViewFilter';
+import { userViewFilter } from '../../../Models/UserViewFilter';
+import { userUIModel } from '../../../Models/userUIModel';
+import { userSaveModel } from '../../../Models/userSaveModel';
+
 @Component({
   selector: 'app-usergrid',
   templateUrl: './usergrid.component.html',
@@ -15,8 +16,15 @@ import { UserViewFilter } from '../../../Models/UserViewFilter';
 })
 export class UsergridComponent implements OnInit {
 
-  modal: OpenModal = new OpenModal(this.modalService, this.changeDetection);
+  @Input() set filterValue(value: any) {
+    if (value == undefined)
+      return;
+    this.userFilter.userName = value;
+    this.gridUser.onRefresh();
+  }
 
+  modal: OpenModal = new OpenModal(this.modalService, this.changeDetection);
+  userUIModel: userUIModel = new userUIModel();
   constructor(private modalService: BsModalService, private changeDetection: ChangeDetectorRef,private userService: userDataServices) { }
 
   ngOnInit() {
@@ -25,20 +33,28 @@ export class UsergridComponent implements OnInit {
 
   userFilter: userFilter = new userFilter();
   gridUser: UserListComponent_Models.GridUser = new UserListComponent_Models.GridUser(this.userService, this.userFilter);
+  selectedUserModel: userSaveModel = new userSaveModel();
 
   openEditUserModal(type: string) {
+
     if (type == 'ekle') {
       const initialState = {
-        modalTitle: "Kullanıcı Ekle"
+        modalTitle: "Kullanıcı Ekle",
+        userId: undefined
       };
-      this.modal.openModal(EdituserComponent, initialState);
-      
+      this.modal.openModal(EdituserComponent, initialState).subscribe((data) => {
+        console.log(data.outputData);
+        console.log(data.reason);
+      });
     }
     else if ('düzenle') {
       const initialState = {
-        modalTitle: "Kullanıcı Düzenle"
+        modalTitle: "Kullanıcı Düzenle",
+        userId: 2 //this.gridUser.clickedItem.pk
       };
-      this.modal.openModal(EdituserComponent, initialState);
+      this.modal.openModal(EdituserComponent, initialState).subscribe((data) => {
+        console.log(data.reason);
+      });
     }
   }
   openConfirmationDialog() {
@@ -46,15 +62,29 @@ export class UsergridComponent implements OnInit {
       modalTitle: "UYARI!",
       message: "Kullanıcıyı silmek istediğinize emin misiniz?"
     };
-    this.modal.openModal(ConfirmationdialogComponent, initialState);
+    this.modal.openModal(ConfirmationdialogComponent, initialState).subscribe((result) => {
+      console.log(result.reason);
+      debugger;
+      if (result.reason == 'ok') {
+        this.userUIModel.userID = this.gridUser.clickedItem.pk;
+        this.userService.delete(this.userUIModel).subscribe(o => {
+          console.log(o);
+        });
+      }
+    });
   }
 }
 export class userFilter {
   pk: any;
   emailAdress: any;
   name: any;
+  password: any;
   surname: any;
+  timeCreated: any;
+  timeDelete: any;
+  userFk: any;
   userName: any;
+  userFkLastModfiead: any;
   recordType: any;
 }
 namespace UserListComponent_Models {
@@ -67,7 +97,7 @@ namespace UserListComponent_Models {
       super();
     }
 
-    filter = new Grid.GridInputModel(new UserViewFilter());
+    filter = new Grid.GridInputModel(new userViewFilter());
     getFilter() {
 
       this.filter.paging.pageNumber = this.model.paging.pageNumber;
@@ -101,8 +131,8 @@ namespace UserListComponent_Models {
       var filter = item.filter;
 
       this.userService.getUserList(item).subscribe(o => {
-        debugger;
-        this.data = o;
+        this.data.list = o["list"];
+        this.data.totalCount = o["totalCount"];
       })
     }
   }

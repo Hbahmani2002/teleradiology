@@ -1,6 +1,5 @@
 
-export class userViewModel
-{
+export class userViewModel {
   pk: any;
   emailAdress: any;
   name: any;
