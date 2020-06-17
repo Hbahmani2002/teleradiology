@@ -45,7 +45,6 @@ export class httpService {
 
   }
   public callPostService_Middle(url: string, params: any, token: any): Observable<any> {
-    debugger;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

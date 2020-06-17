@@ -1,13 +1,25 @@
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { combineLatest, Subscription } from 'rxjs';
+import { combineLatest, Subscription, Observable } from 'rxjs';
+import { promise } from 'protractor';
+
 export class OpenModal {
-  modalRef: BsModalRef;
+
+
+  bsModalRef: BsModalRef;
   subscriptions: Subscription[] = [];
   messages: string[] = [];
+  data: any;
+
+  public event: EventEmitter<any> = new EventEmitter();
+
   constructor(private modalService: BsModalService, private changeDetection: ChangeDetectorRef) {}
-  openModal(template, initialState) {
-    this.messages = [];
+
+  openModal(template, initialState)  { 
+
+   this.bsModalRef = this.modalService.show(template, { initialState });
+
+    /*this.messages = [];
     const _combine = combineLatest(
       this.modalService.onShow,
       this.modalService.onShown,
@@ -24,16 +36,18 @@ export class OpenModal {
     );
     this.subscriptions.push(_combine);
     this.modalRef = this.modalService.show(template, { initialState: initialState });
-    return this.subscriptions[0];
+    return this.subscriptions;*/
   }
-  unsubscribe() {
+
+  /*unsubscribe() {
     this.subscriptions.forEach((subscription: Subscription) => {
       subscription.unsubscribe();
     });
     this.subscriptions = [];
-  }
-  onClose(reason: string,data:any) {
-    this.modalService.setDismissReason(reason);
+  }*/
+  onClose(reason: string,data:any) { // this.modalService.setDismissReason(reason);
+    console.log(reason);
+    console.log(data);
     this.modalService.hide(1);
   }
 }

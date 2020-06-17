@@ -18,7 +18,6 @@ export class LoginCheckActivate implements CanActivate {
 
     return this.authDataService.isLoggedIn().pipe(
       switchMap((res) => {
-        debugger;
         if (res != true) {
           let r = this.fail();
           return of(r)
