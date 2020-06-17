@@ -14,7 +14,7 @@ namespace GT.Repository.Conditions
         public string Accession_no { get; set; }
         public string Patinet_id { get; set; }
         public long? Pk { get; set; }
-
+        public long InfFkStudy { get; set; }
     }
     public class InfStudyCondition
     {

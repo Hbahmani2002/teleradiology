@@ -111,10 +111,11 @@ namespace GT.DataService.Implementation
         {
             var user = userLoginRepository.GetByID(userID);
             var userRol = userRoleRepository.GetByUserID(userID);
-            if (user == null && userRol==null)
-            {
-                throw new Exception("Kullanıcı veya kullanıcı Rolü bulunamadı");
-            }
+            //Kullanıcının rolü olmak zorunda mı??
+            //if (user == null && userRol==null)
+            //{
+            //    throw new Exception("Kullanıcı veya kullanıcı Rolü bulunamadı");
+            //}
             userLoginRepository.Delete(user);
             userRoleRepository.Delete(userRol);
             _Workspace.CommitChanges();

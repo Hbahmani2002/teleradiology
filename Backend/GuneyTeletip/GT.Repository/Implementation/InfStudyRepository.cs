@@ -44,7 +44,7 @@ namespace GT.Repository.Implementation
             var userLogin = _AbstractWorkspace.Query<UsrUserLogin>();
             var infStudiesLogin  = _AbstractWorkspace.Query<InfStudy>(exp);
             var list = from s in infStudiesLogin
-                       join u in userLogin on s.UserFk equals u.Pk
+                       join u in userLogin on s.InfFkStudy equals u.Pk
                        select new InfStudyViewModel
                        {
 
@@ -64,7 +64,7 @@ namespace GT.Repository.Implementation
             var userLogin = _AbstractWorkspace.Query<UsrUserLogin>();
             var infStudiesLogin = _AbstractWorkspace.Query<InfStudy>(exp);
             var list = from s in infStudiesLogin
-                       join u in userLogin on s.UserFk equals u.Pk
+                       join u in userLogin on s.StudyKey equals u.Pk
                        select new InfStudyViewModel
                        {
 

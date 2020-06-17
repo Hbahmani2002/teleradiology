@@ -3,20 +3,18 @@ using System.Collections.Generic;
 
 namespace GT.Persistance.Domain.Models
 {
-    public partial class Skrs
+    public partial class Tenant
     {
-        public Skrs()
+        public Tenant()
         {
             TenantSkrs = new HashSet<TenantSkrs>();
         }
 
         public long Pk { get; set; }
-        public string KurumAd { get; set; }
-        public string KurumSkrsKodu { get; set; }
-        public string KurumSkrsAdi { get; set; }
-        public string KurumMedulaTesisKodu { get; set; }
-        public string InstitutionName { get; set; }
-        public int QrSettingId { get; set; }
+        public string TenantAd { get; set; }
+        public string TenantKisaAd { get; set; }
+        public short? TenantRecordType { get; set; }
+        public int? DaySequence { get; set; }
         public DateTime? TimeCreated { get; set; }
         public DateTime? TimeModified { get; set; }
         public long FkUserCreated { get; set; }

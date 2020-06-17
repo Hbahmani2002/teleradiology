@@ -15,7 +15,8 @@ namespace GT.Persistance.Domain.Models
         {
         }
 
-        public virtual DbSet<AppPermatt> AppPermatt { get; set; }
+        public virtual DbSet<AppLog> AppLog { get; set; }
+        public virtual DbSet<AppParameter> AppParameter { get; set; }
         public virtual DbSet<InfBatch> InfBatch { get; set; }
         public virtual DbSet<InfPaht> InfPaht { get; set; }
         public virtual DbSet<InfStudy> InfStudy { get; set; }
@@ -25,8 +26,8 @@ namespace GT.Persistance.Domain.Models
         public virtual DbSet<KosStudyHistory> KosStudyHistory { get; set; }
         public virtual DbSet<Modality> Modality { get; set; }
         public virtual DbSet<Skrs> Skrs { get; set; }
-        public virtual DbSet<Tenat> Tenat { get; set; }
-        public virtual DbSet<TenatSkrs> TenatSkrs { get; set; }
+        public virtual DbSet<Tenant> Tenant { get; set; }
+        public virtual DbSet<TenantSkrs> TenantSkrs { get; set; }
         public virtual DbSet<UsrRole> UsrRole { get; set; }
         public virtual DbSet<UsrUserLogin> UsrUserLogin { get; set; }
         public virtual DbSet<UsrUserRole> UsrUserRole { get; set; }
@@ -53,30 +54,55 @@ namespace GT.Persistance.Domain.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AppPermatt>(entity =>
+            modelBuilder.Entity<AppLog>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("app_log_pkey");
+
+                entity.ToTable("app_log");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Desc1)
+                    .HasColumnName("desc1")
+                    .HasMaxLength(2048);
+
+                entity.Property(e => e.Desc2)
+                    .HasColumnName("desc2")
+                    .HasMaxLength(2048);
+
+                entity.Property(e => e.Desc3)
+                    .HasColumnName("desc3")
+                    .HasMaxLength(2048);
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.LogType).HasColumnName("log_type");
+
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
+
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
+            });
+
+            modelBuilder.Entity<AppParameter>(entity =>
             {
                 entity.HasKey(e => e.Pk)
                     .HasName("app_permatt_pkey");
 
-                entity.ToTable("app_permatt");
+                entity.ToTable("app_parameter");
 
-                entity.Property(e => e.Pk).HasColumnName("pk");
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .HasDefaultValueSql("nextval('app_permatt_pk_seq'::regclass)");
 
-                entity.Property(e => e.AppLog)
-                    .HasColumnName("app_log")
-                    .HasMaxLength(2000);
-
-                entity.Property(e => e.Desc1)
-                    .HasColumnName("desc1")
-                    .HasMaxLength(64);
-
-                entity.Property(e => e.Desc2)
-                    .HasColumnName("desc2")
-                    .HasMaxLength(64);
-
-                entity.Property(e => e.Desc3)
-                    .HasColumnName("desc3")
-                    .HasMaxLength(64);
+                entity.Property(e => e.Key)
+                    .IsRequired()
+                    .HasColumnName("key")
+                    .HasMaxLength(128);
 
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
@@ -86,7 +112,10 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
 
-                entity.Property(e => e.Valuse).HasColumnName("valuse");
+                entity.Property(e => e.Value)
+                    .IsRequired()
+                    .HasColumnName("value")
+                    .HasMaxLength(1024);
             });
 
             modelBuilder.Entity<InfBatch>(entity =>
@@ -98,15 +127,15 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.Pk).HasColumnName("pk");
 
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
                 entity.Property(e => e.Tarih).HasColumnName("tarih");
 
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeDelete).HasColumnName("time_delete");
-
-                entity.Property(e => e.UserFkCreated).HasColumnName("user_fk_created");
-
-                entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
             modelBuilder.Entity<InfPaht>(entity =>
@@ -119,6 +148,10 @@ namespace GT.Persistance.Domain.Models
                 entity.Property(e => e.Pk).HasColumnName("pk");
 
                 entity.Property(e => e.FilePath).HasColumnName("file_path");
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
 
                 entity.Property(e => e.Hostname)
                     .IsRequired()
@@ -152,11 +185,7 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeDelete).HasColumnName("time_delete");
-
-                entity.Property(e => e.UserFk).HasColumnName("user_fk");
-
-                entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
 
                 entity.Property(e => e.Username)
                     .IsRequired()
@@ -199,6 +228,10 @@ namespace GT.Persistance.Domain.Models
                 entity.Property(e => e.FileName)
                     .HasColumnName("file_name")
                     .HasMaxLength(256);
+
+                entity.Property(e => e.FkUserCreated)
+                    .HasColumnName("fk_user_created")
+                    .HasDefaultValueSql("nextval('inf_study_user_fk_seq'::regclass)");
 
                 entity.Property(e => e.Gender)
                     .HasColumnName("gender")
@@ -262,15 +295,11 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeDelete).HasColumnName("time_delete");
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
 
-                entity.Property(e => e.UserFk)
-                    .HasColumnName("user_fk")
-                    .ValueGeneratedOnAdd();
-
-                entity.Property(e => e.UserFkLastModfiead)
-                    .HasColumnName("user_fk_last_modfiead")
-                    .ValueGeneratedOnAdd();
+                entity.Property(e => e.UserFkModfiead)
+                    .HasColumnName("user_fk_modfiead")
+                    .HasDefaultValueSql("nextval('inf_study_user_fk_last_modfiead_seq'::regclass)");
 
                 entity.Property(e => e.ValumeCode)
                     .HasColumnName("valume_code")
@@ -306,6 +335,10 @@ namespace GT.Persistance.Domain.Models
                     .HasColumnName("pk")
                     .HasDefaultValueSql("nextval('inf_study_parameters_pk_seq'::regclass)");
 
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
                 entity.Property(e => e.InfCreationStartDate)
                     .HasColumnName("inf_creation_start_date")
                     .HasColumnType("date");
@@ -316,17 +349,19 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.InfStudyPkLast).HasColumnName("inf_study_pk_last");
 
+                entity.Property(e => e.IntervalMinut).HasColumnName("interval_minut");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasMaxLength(32);
+
                 entity.Property(e => e.RecordType).HasColumnName("record_type");
 
                 entity.Property(e => e.TenatFk).HasColumnName("tenat_fk");
 
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeDelete).HasColumnName("time_delete");
-
-                entity.Property(e => e.UserFk).HasColumnName("user_fk");
-
-                entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
             modelBuilder.Entity<KosResultEnmtype>(entity =>
@@ -346,13 +381,13 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.EnmId).HasColumnName("enm_id");
 
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeDelete).HasColumnName("time_delete");
-
-                entity.Property(e => e.UserFkCreated).HasColumnName("user_fk_created");
-
-                entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
             modelBuilder.Entity<KosStudy>(entity =>
@@ -366,15 +401,15 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.FkInfStudy).HasColumnName("fk_inf_study");
 
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
                 entity.Property(e => e.KosEnumType).HasColumnName("kos_enum_type");
 
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeDelete).HasColumnName("time_delete");
-
-                entity.Property(e => e.UserFkCreated).HasColumnName("user_fk_created");
-
-                entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
             modelBuilder.Entity<KosStudyHistory>(entity =>
@@ -390,17 +425,19 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.FkKosStudy).HasColumnName("fk_kos_study");
 
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified)
+                    .HasColumnName("fk_user_modified")
+                    .HasColumnType("oid");
+
                 entity.Property(e => e.Result)
                     .HasColumnName("result")
                     .HasMaxLength(2048);
 
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeDelete).HasColumnName("time_delete");
-
-                entity.Property(e => e.UserFkCreated).HasColumnName("user_fk_created");
-
-                entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
             modelBuilder.Entity<Modality>(entity =>
@@ -412,17 +449,17 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.Pk).HasColumnName("pk");
 
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
                 entity.Property(e => e.Modality1)
                     .HasColumnName("modality")
                     .HasMaxLength(8);
 
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeDelete).HasColumnName("time_delete");
-
-                entity.Property(e => e.UserFkCreated).HasColumnName("user_fk_created");
-
-                entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
             modelBuilder.Entity<Skrs>(entity =>
@@ -433,6 +470,10 @@ namespace GT.Persistance.Domain.Models
                 entity.ToTable("skrs");
 
                 entity.Property(e => e.Pk).HasColumnName("pk");
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
 
                 entity.Property(e => e.InstitutionName)
                     .HasColumnName("institution_name")
@@ -458,53 +499,53 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeDelete).HasColumnName("time_delete");
-
-                entity.Property(e => e.UserFk).HasColumnName("user_fk");
-
-                entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
-            modelBuilder.Entity<Tenat>(entity =>
+            modelBuilder.Entity<Tenant>(entity =>
             {
                 entity.HasKey(e => e.Pk)
                     .HasName("tenat_pkey");
 
-                entity.ToTable("tenat");
+                entity.ToTable("tenant");
 
-                entity.Property(e => e.Pk).HasColumnName("pk");
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .HasDefaultValueSql("nextval('tenat_pk_seq'::regclass)");
 
                 entity.Property(e => e.DaySequence)
                     .HasColumnName("day_sequence")
                     .HasDefaultValueSql("0");
 
-                entity.Property(e => e.TenatAd)
-                    .HasColumnName("tenat_ad")
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.TenantAd)
+                    .HasColumnName("tenant_ad")
                     .HasMaxLength(128);
 
-                entity.Property(e => e.TenatKisaAd)
-                    .HasColumnName("tenat_kisa_ad")
+                entity.Property(e => e.TenantKisaAd)
+                    .HasColumnName("tenant_kisa_ad")
                     .HasMaxLength(64);
 
-                entity.Property(e => e.TenatRecordType).HasColumnName("tenat_record_type");
+                entity.Property(e => e.TenantRecordType).HasColumnName("tenant_record_type");
 
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeDelete).HasColumnName("time_delete");
-
-                entity.Property(e => e.UserFk).HasColumnName("user_fk");
-
-                entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
-            modelBuilder.Entity<TenatSkrs>(entity =>
+            modelBuilder.Entity<TenantSkrs>(entity =>
             {
                 entity.HasKey(e => e.Pk)
                     .HasName("tenat_skrs_pkey");
 
-                entity.ToTable("tenat_skrs");
+                entity.ToTable("tenant_skrs");
 
-                entity.Property(e => e.Pk).HasColumnName("pk");
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .HasDefaultValueSql("nextval('tenat_skrs_pk_seq'::regclass)");
 
                 entity.Property(e => e.AccessionNoOnek)
                     .HasColumnName("accession_no_onek")
@@ -514,7 +555,15 @@ namespace GT.Persistance.Domain.Models
                     .HasColumnName("calling_ae")
                     .HasMaxLength(64);
 
-                entity.Property(e => e.RecordType).HasColumnName("record_type");
+                entity.Property(e => e.FkSkrs).HasColumnName("fk_skrs");
+
+                entity.Property(e => e.FkTenat).HasColumnName("fk_tenat");
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.RecordState).HasColumnName("record_state");
 
                 entity.Property(e => e.ServerAetitle)
                     .HasColumnName("server_aetitle")
@@ -532,27 +581,19 @@ namespace GT.Persistance.Domain.Models
                     .HasColumnName("server_port")
                     .HasDefaultValueSql("0");
 
-                entity.Property(e => e.SkrsFk).HasColumnName("skrs_fk");
-
-                entity.Property(e => e.TenatFk).HasColumnName("tenat_fk");
-
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeDelete).HasColumnName("time_delete");
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
 
-                entity.Property(e => e.UserFk).HasColumnName("user_fk");
-
-                entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
-
-                entity.HasOne(d => d.SkrsFkNavigation)
-                    .WithMany(p => p.TenatSkrs)
-                    .HasForeignKey(d => d.SkrsFk)
+                entity.HasOne(d => d.FkSkrsNavigation)
+                    .WithMany(p => p.TenantSkrs)
+                    .HasForeignKey(d => d.FkSkrs)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_skrs");
 
-                entity.HasOne(d => d.TenatFkNavigation)
-                    .WithMany(p => p.TenatSkrs)
-                    .HasForeignKey(d => d.TenatFk)
+                entity.HasOne(d => d.FkTenatNavigation)
+                    .WithMany(p => p.TenantSkrs)
+                    .HasForeignKey(d => d.FkTenat)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_tenat");
             });
@@ -621,19 +662,19 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.Pk).HasColumnName("pk");
 
-                entity.Property(e => e.RoleFk).HasColumnName("role_fk");
+                entity.Property(e => e.FkRole).HasColumnName("fk_role");
 
-                entity.Property(e => e.UserFk).HasColumnName("user_fk");
+                entity.Property(e => e.FkUser).HasColumnName("fk_user");
 
-                entity.HasOne(d => d.RoleFkNavigation)
+                entity.HasOne(d => d.FkRoleNavigation)
                     .WithMany(p => p.UsrUserRole)
-                    .HasForeignKey(d => d.RoleFk)
+                    .HasForeignKey(d => d.FkRole)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_usr_role");
 
-                entity.HasOne(d => d.UserFkNavigation)
+                entity.HasOne(d => d.FkUserNavigation)
                     .WithMany(p => p.UsrUserRole)
-                    .HasForeignKey(d => d.UserFk)
+                    .HasForeignKey(d => d.FkUser)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_usr_user_login");
             });
@@ -647,15 +688,15 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.Pk).HasColumnName("pk");
 
+                entity.Property(e => e.FkUser).HasColumnName("fk_user");
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeDelete).HasColumnName("time_delete");
-
-                entity.Property(e => e.UserFk).HasColumnName("user_fk");
-
-                entity.Property(e => e.UserFkCreated).HasColumnName("user_fk_created");
-
-                entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
+                entity.Property(e => e.TimeModifiel).HasColumnName("time_modifiel");
             });
 
             modelBuilder.Entity<XinfImage>(entity =>

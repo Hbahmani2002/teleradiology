@@ -13,9 +13,9 @@ namespace GT.Persistance.Domain.Models
         public long Pk { get; set; }
         public DateTime? Tarih { get; set; }
         public DateTime? TimeCreated { get; set; }
-        public DateTime? TimeDelete { get; set; }
-        public long UserFkCreated { get; set; }
-        public long UserFkLastModfiead { get; set; }
+        public long FkUserCreated { get; set; }
+        public long FkUserModified { get; set; }
+        public DateTime? TimeModified { get; set; }
 
         public virtual ICollection<InfStudy> InfStudy { get; set; }
     }

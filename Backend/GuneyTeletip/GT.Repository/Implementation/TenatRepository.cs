@@ -11,14 +11,14 @@ using System.Text;
 
 namespace GT.Repository.Implementation
 {
-    public class TenatRepository : AbstractTableRepository<Tenat>
+    public class TenatRepository : AbstractTableRepository<Tenant>
     {
         public TenatRepository(IAbstractWorkspace workspace) : base(workspace)
         {
 
         }
 
-        public override Tenat GetByID(int id)
+        public override Tenant GetByID(int id)
         {
             throw new NotImplementedException();
         }
@@ -29,13 +29,13 @@ namespace GT.Repository.Implementation
 
             return Query(res);
         }
-        private IQueryable<TenantViewModel> Query(Expression<Func<Tenat, bool>> exp)
+        private IQueryable<TenantViewModel> Query(Expression<Func<Tenant, bool>> exp)
         {
-            var tenant = _AbstractWorkspace.Query<Tenat>(exp);
+            var tenant = _AbstractWorkspace.Query<Tenant>(exp);
             var list = from t in tenant
                        select new TenantViewModel
                        {
-                           TenantAd=t.TenatAd
+                           TenantAd=t.TenantAd
                        };
             return list;
         }

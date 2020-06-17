@@ -6,10 +6,10 @@ namespace GT.Persistance.Domain.Models
     public partial class UsrUserTenat
     {
         public long Pk { get; set; }
-        public long UserFk { get; set; }
+        public long FkUser { get; set; }
         public DateTime? TimeCreated { get; set; }
-        public DateTime? TimeDelete { get; set; }
-        public long UserFkCreated { get; set; }
-        public long UserFkLastModfiead { get; set; }
+        public DateTime? TimeModifiel { get; set; }
+        public long FkUserCreated { get; set; }
+        public long FkUserModified { get; set; }
     }
 }

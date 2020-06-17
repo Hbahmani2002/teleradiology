@@ -32,8 +32,8 @@ namespace GT.Repository.Implementation.Composite
             var role = _AbstractWorkspace.Query<UsrRole>(exp2);
             var userRol = _AbstractWorkspace.Query<UsrUserRole>();
             var list = from u in user
-                       join ur in userRol on u.Pk equals ur.UserFk
-                       join r in role on ur.RoleFk equals r.Pk
+                       join ur in userRol on u.Pk equals ur.FkUser
+                       join r in role on ur.FkRole equals r.Pk
                        select new UserViewModel
                        {
                            EmailAdress = u.EmailAdress,
