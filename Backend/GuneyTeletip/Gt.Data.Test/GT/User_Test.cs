@@ -32,7 +32,7 @@ namespace GT.Test.GT
             var gri = new Gridable<UserViewFilter>();
             var filter = new UserViewFilter();
             gri.Filter = filter;
-            var list = service.GetUserListAndRole(gri);
+           // var list = service.GetUserListAndRole(gri);
         }
 
         [Test]

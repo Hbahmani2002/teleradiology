@@ -23,19 +23,19 @@ namespace GT.Repository.Implementation
             throw new NotImplementedException();
         }
 
-        public IQueryable<TenatViewModel> Query(TenatConditionFilter t)
+        public IQueryable<TenantViewModel> Query(TenantConditionFilter t)
         {
             var res = TenatCondition.Get(t);
 
             return Query(res);
         }
-        private IQueryable<TenatViewModel> Query(Expression<Func<Tenat, bool>> exp)
+        private IQueryable<TenantViewModel> Query(Expression<Func<Tenat, bool>> exp)
         {
-            var tenat = _AbstractWorkspace.Query<Tenat>(exp);
-            var list = from t in tenat
-                       select new TenatViewModel
+            var tenant = _AbstractWorkspace.Query<Tenat>(exp);
+            var list = from t in tenant
+                       select new TenantViewModel
                        {
-                           TenatAd=t.TenatAd
+                           TenantAd=t.TenatAd
                        };
             return list;
         }

@@ -13,12 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GT.DataService.infinity\GT.DataService.infinity.csproj" />
     <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Infinity\" />
   </ItemGroup>
 
 </Project>

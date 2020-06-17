@@ -1,5 +1,5 @@
 
-export class UserViewFilter {
+export class userViewFilter {
   pk: any;
   emailAdress: any;
   name: any;

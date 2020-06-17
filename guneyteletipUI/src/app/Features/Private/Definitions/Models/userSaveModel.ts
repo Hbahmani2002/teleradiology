@@ -1,5 +1,5 @@
 
-export class UserView {
+export class userSaveModel {
   pk: any;
   emailadress: any;
   name: any;
