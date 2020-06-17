@@ -11,13 +11,12 @@ namespace GT.BAL.Job.Interface
 
     public interface IJobParamterModel
     {
-        int Interval { get; set; }
+        long pk { get; set; }
+        int interval_minut { get; set; }
         string name { get; set; }
         long tenat_fk { get; set; }
-     
 
-
-
+        
 
     }
 }
