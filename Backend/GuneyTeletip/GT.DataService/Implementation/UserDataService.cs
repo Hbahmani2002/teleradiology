@@ -88,7 +88,7 @@ namespace GT.DataService.Implementation
             return 1;
         }
 
-        public UserViewModel GetByID(int userID)
+        public UserViewModel GetByID(long userID)
         {
             var user = userLoginRepository.GetByID(userID);
             var item = new UserViewModel
@@ -157,11 +157,10 @@ namespace GT.DataService.Implementation
             };
             return tenatRepository.Query(t).GetGridQuery(parms);
         }
-        public int SaveTenant(long userID, long tenantID)
+        public int SaveTenant(long userID, long[] tenantIDList)
         {
             return 1;
         }
-
         public int GetTenantByID(long userID)
         {
             return 1;
