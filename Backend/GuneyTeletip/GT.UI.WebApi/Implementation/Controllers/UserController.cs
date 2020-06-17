@@ -21,7 +21,7 @@ namespace GT.UI.WebApi.Controllers
     [ApiController]
 
     [Route("[controller]")]
-    public class UserController : AuthenticatedBaseController
+    public class UserController : AuthenticatedBaseController, IUserController
     {
 
         [HttpPost]
@@ -84,7 +84,7 @@ namespace GT.UI.WebApi.Controllers
         {
             var cx = GetBussinesContext();
             var service = new UserDataService(cx);
-            return HttpMessageService.Ok(service.SaveRol(model.UserID,model.RolID));
+            return HttpMessageService.Ok(service.SaveRol(model.UserID, model.RolID));
         }
 
         [HttpPost]
@@ -102,7 +102,7 @@ namespace GT.UI.WebApi.Controllers
         {
             var cx = GetBussinesContext();
             var service = new UserDataService(cx);
-            return HttpMessageService.Ok(service.SaveTenant(model.UserID,model.TenantIDList));
+            return HttpMessageService.Ok(service.SaveTenant(model.UserID, model.TenantIDList));
         }
 
         [HttpPost]
