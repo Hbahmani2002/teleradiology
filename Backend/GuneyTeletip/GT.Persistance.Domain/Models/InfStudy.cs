@@ -9,8 +9,8 @@ namespace GT.Persistance.Domain.Models
         public long InfFkStudy { get; set; }
         public long TenantFk { get; set; }
         public long InfFkBatch { get; set; }
-        public long UserFk { get; set; }
-        public long UserFkLastModfiead { get; set; }
+        public long FkUserCreated { get; set; }
+        public long UserFkModfiead { get; set; }
         public string PatientId { get; set; }
         public string Gender { get; set; }
         public string StudyDescription { get; set; }
@@ -28,7 +28,7 @@ namespace GT.Persistance.Domain.Models
         public string Desc2 { get; set; }
         public string Desc3 { get; set; }
         public DateTime? TimeCreated { get; set; }
-        public DateTime? TimeDelete { get; set; }
+        public DateTime? TimeModified { get; set; }
         public string Institution { get; set; }
         public int? SeriesCount { get; set; }
         public long? SeriesKey { get; set; }

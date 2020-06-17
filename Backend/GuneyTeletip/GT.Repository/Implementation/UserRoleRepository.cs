@@ -24,7 +24,7 @@ namespace GT.Repository.Implementation
         }
         public UsrUserRole GetByUserID(long id)
         {
-            return Single(o => o.UserFk == id);
+            return Single(o => o.FkUser == id);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using Util.Job.Interface;
 using System.Linq;
 using System.Threading;
+using System.Diagnostics;
 
 namespace GT.Test.GT
 {
@@ -15,26 +16,24 @@ namespace GT.Test.GT
         {
         }
 
-    
-   
+
+
 
         [Test]
         public void Test1()
         {
 
-            JobItem jop = new JobItem(1000, ActionTest);
-            //jop.Start();
 
-         
+            var JobManager = new JobManager();
 
-                JobManager.Register("job1", jop);
-                JobManager.Register("job2", jop);
-                JobManager.Register("job3", jop);
-                JobManager.Register("job4", jop);
-                jop.Start();
 
+
+            JobManager.Register("job1", 1000, ActionTest);
+            JobManager.Register("job2", 1000, ActionTest);
+            JobManager.Register("job3", 1000, ActionTest);
+            JobManager.JobItems.ToList().ForEach(o => o.Value.Start());
             Thread.Sleep(5000);
-            jop.Stop();
+            JobManager.JobItems.ToList().ForEach(o => o.Value.Stop());
             //var job = JobManager.Jobs()
 
         }
@@ -42,16 +41,11 @@ namespace GT.Test.GT
 
         private void ActionTest()
         {
-         
-            int x = JobManager.Jobs.Count();
-           
-            for (int i = 1; i <= JobManager.Jobs.Count(); i++)
-            {
-                
-            }
+
+            Debug.WriteLine("in....");
 
 
         }
-        
+
     }
 }

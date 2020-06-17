@@ -11,9 +11,11 @@ namespace GT.Persistance.Domain.Models
         public long InfStudyPkLast { get; set; }
         public short RecordType { get; set; }
         public DateTime? TimeCreated { get; set; }
-        public DateTime? TimeDelete { get; set; }
-        public long UserFk { get; set; }
-        public long UserFkLastModfiead { get; set; }
+        public DateTime? TimeModified { get; set; }
+        public long FkUserCreated { get; set; }
+        public long FkUserModified { get; set; }
         public long TenatFk { get; set; }
+        public string Name { get; set; }
+        public int? IntervalMinut { get; set; }
     }
 }
