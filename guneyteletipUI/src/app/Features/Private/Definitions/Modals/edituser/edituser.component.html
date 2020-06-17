@@ -10,46 +10,46 @@
         <div class="form-group row m-1" *ngIf="false">
           <label class="col-sm-4 col-form-label">ID : </label>
           <div class="col-sm-8">
-            <input type="number" class="form-control" name="id" disabled>
+            <input type="number" class="form-control" name="id" [(ngModel)]="userViewModel.pk" disabled>
           </div>
         </div>
         <div class="form-group row m-1">
-          <label class="col-sm-4 col-form-label">İsim : </label>
+          <label class="col-sm-4 col-form-label">Ad : </label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" name="AdSoyad">
+            <input type="text" class="form-control" name="ad" [(ngModel)]="userViewModel.name">
           </div>
         </div>
         <div class="form-group row m-1">
-          <label class="col-sm-4 col-form-label">Soyisim : </label>
+          <label class="col-sm-4 col-form-label">Soyad : </label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" name="AdSoyad">
+            <input type="text" class="form-control" name="soyad" [(ngModel)]="userViewModel.surname">
           </div>
         </div>
         <div class="form-group row m-1">
           <label class="col-sm-4 col-form-label">Kullanıcı Adı : </label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" name="KullaniciAdi">
+            <input type="text" class="form-control" name="kullaniciAdi" [(ngModel)]="userViewModel.username">
           </div>
         </div>
 
         <div class="form-group row m-1">
           <label class="col-sm-4 col-form-label">E-Posta : </label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" name="Email">
+            <input type="text" class="form-control" name="email" [(ngModel)]="userViewModel.emailadress">
           </div>
         </div>
         <div class="form-group row m-1">
           <label class="col-sm-4 col-form-label">Şifre : </label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" name="Sifre">
+            <input type="text" class="form-control" name="sifre" [(ngModel)]="userViewModel.password">
           </div>
         </div>
-        <div class="form-group row m-1">
-          <label class="col-sm-4 col-form-label">Şifre Onay : </label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" name="Sifre">
-          </div>
-        </div>
+        <!--<div class="form-group row m-1">
+    <label class="col-sm-4 col-form-label">Şifre Onay : </label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" name="Sifre">
+    </div>
+  </div>-->
         <div class="form-group row m-1">
           <div style="margin-top:1rem">
             <span style="color:Red;"> * </span> işaretli alanlar zorunludur.
@@ -61,5 +61,5 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-danger" (click)="modal.onClose('close')">İptal</button>
-      <button type="button" class="btn btn-success" (click)="modal.onClose('save')">Kaydet</button>
+      <button type="button" class="btn btn-success" (click)="onSave()">Kaydet</button>
     </div>

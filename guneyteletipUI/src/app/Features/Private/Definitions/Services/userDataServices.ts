@@ -3,8 +3,7 @@ import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 import { UserViewFilter } from '../Models/UserViewFilter';
 import { UserViewModel } from '../Models/UserViewModel';
 import { UserView } from '../Models/UserView';
-import { of, Observable } from 'rxjs';
-import { map, catchError, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 export class userDataServices {
 
   constructor(private apiDataService: ApiDataService) { }
@@ -16,6 +15,6 @@ export class userDataServices {
     return this.apiDataService.callDataService('User/GetUserList', model);
   }
   public save(model: UserView): Observable<number> {
-    return this.apiDataService.callDataService('Service/Save', undefined);
+    return this.apiDataService.callDataService('Service/Save', model);
   }
 }

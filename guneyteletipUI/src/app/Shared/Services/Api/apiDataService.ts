@@ -19,7 +19,7 @@ export class ApiDataService {
     let token = this.tokenService.getToken();
     let serverAdress = parameters.serverAddress;
     let serviceUrl = serverAdress + serviceName;
-    debugger;
+   
     return this.httpService.callPostService_Middle(serviceUrl, params, token).pipe(
       switchMap(res => {
         return this.onSuccessData(res);

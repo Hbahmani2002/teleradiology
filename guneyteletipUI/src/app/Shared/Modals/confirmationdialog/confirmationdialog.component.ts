@@ -11,9 +11,21 @@ export class ConfirmationdialogComponent implements OnInit {
 
   public modalTitle: string;
   public message: string;
+
+  public output = undefined;
+
   modal: OpenModal = new OpenModal(this.modalService, this.changeDetection);
   constructor(public bsModalRef: BsModalRef, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) { }
 
   ngOnInit() {
+  }
+  onConfirm() {
+
+    this.output = "ok";
+    this.modal.onClose("ok");
+  }
+  onCancel() {
+    this.output = "cancel";
+    this.modal.onClose("cancel");
   }
 }

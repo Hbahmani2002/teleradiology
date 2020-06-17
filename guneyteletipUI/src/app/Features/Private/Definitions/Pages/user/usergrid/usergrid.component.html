@@ -2,15 +2,14 @@
 <button (click)="openEditUserModal('ekle')" class="btn btn-info smalbutton" tooltip="Ekle"><fa name="plus-circle"></fa></button>
 <button (click)="openEditUserModal('düzenle')" class="btn btn-primary smalbutton" tooltip="Güncelle"><fa name="pencil"></fa></button>
 <button (click)="openConfirmationDialog()"class="btn btn-danger smalbutton" tooltip="Sil"><fa name="trash"></fa></button>
+
 <div class="card mt-2">
   <div class="card-header">
     <fa name="list"></fa>
-    Kullanıcı Listesi
+    Kullanıcı Listesi > [Toplam:{{gridTetkik.data.totalCount}}/Seçili:{{gridTetkik.selectedItems.length}}/Tıklanan:{{gridTetkik.clickedItem!=undefined?1:0}}]
     <div class="pull-right">
-      <select>
-        <option value="undefined">10</option>
-        <option value="undefined">25</option>
-        <option value="undefined">50</option>
+      <select [(ngModel)]="gridUser.model.paging.count" (change)="gridUser.onRefresh()">
+        <option *ngFor="let c of gridUser.pager" [ngValue]="c">{{c}}</option>
       </select>
     </div>
   </div>
@@ -18,14 +17,14 @@
     <table #filterSection class="table table-bordered m-0 medlifeGrid">
       <thead>
         <tr>
-          <th scope="col" class="p-0"><input type="checkbox"></th>
-          <th scope="col" class="p-0">Id</th>
-          <th scope="col" class="p-0">Kullanıcı Adı</th>
-          <th scope="col" class="p-0">Tc Kimlik No</th>
-          <th scope="col" class="p-0">Adı</th>
-          <th scope="col" class="p-0">Soyadı</th>
-          <th scope="col" class="p-0">Doğum Tarihi</th>
-          <th scope="col" class="p-0">Rol</th>
+          <th scope="col" class="p-0" ><input type="checkbox"></th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('pk')">Id</th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('Id')">Kullanıcı Adı</th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('Id')">Tc Kimlik No</th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('Id')">Adı</th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('Id')">Soyadı</th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('Id')">Doğum Tarihi</th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('Id')">Rol</th>
 
         </tr>
         <tr>
@@ -54,53 +53,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr (click)="gridUser.onClickItem(item)" *ngFor="let item of gridUser.data.list" [class]="gridUser.getRowClass(item)">
           <td class="p-0">
-            <input type="checkbox" class="">
+            <input type="checkbox" class="" [checked]="gridUser.isSelected(item)"
+                   (change)="gridUser.onSelectItem(item)">
           </td>
-          <td class="p-0">123</td>
-          <td class="p-0">@aliak</td>
-          <td class="p-0">12345678945</td>
-          <td class="p-0">Ali</td>
-          <td class="p-0">Ak</td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-        </tr>
-        <tr>
-          <td class="p-0">
-            <input type="checkbox" class="">
-          </td>
-          <td class="p-0">234</td>
-          <td class="p-0">@muratbas</td>
-          <td class="p-0">78945614234</td>
-          <td class="p-0">Murat</td>
-          <td class="p-0">Baş</td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-        </tr>
-        <tr>
-          <td class="p-0">
-            <input type="checkbox" class="">
-          </td>
-          <td class="p-0">345</td>
-          <td class="p-0">@serhatsaglam</td>
-          <td class="p-0">78945632145</td>
-          <td class="p-0">Serhat</td>
-          <td class="p-0">Sağlam</td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-        </tr>
-        <tr>
-          <td class="p-0">
-            <input type="checkbox" class="">
-          </td>
-          <td class="p-0">96541235847</td>
-          <td class="p-0">@firatgul</td>
-          <td class="p-0">45214789654</td>
-          <td class="p-0">Fırat</td>
-          <td class="p-0">Gül</td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
+          <td class="p-0">{{item.pk}}</td>
+          <td class="p-0">{{item.Id}}</td>
+          <td class="p-0">{{item.Id}}</td>
+          <td class="p-0">{{item.Id}}</td>
+          <td class="p-0">{{item.Id}}</td>
+          <td class="p-0">{{item.Id}}</td>
+          <td class="p-0">{{item.Id}}</td>
         </tr>
       </tbody>
     </table>

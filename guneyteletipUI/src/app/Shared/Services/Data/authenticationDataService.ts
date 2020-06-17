@@ -14,7 +14,7 @@ export class authenticationDataService {
       ,
 
       catchError(err => {
-        debugger;
+       
         return of(false);
       })
       //result is success
