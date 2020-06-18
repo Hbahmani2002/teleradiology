@@ -17,17 +17,13 @@ export class KosgridComponent implements OnInit {
 
 }
 export class kosFilter {
-  pk: any;
-  emailAdress: any;
-  name: any;
-  password: any;
-  surname: any;
-  timeCreated: any;
-  timeDelete: any;
-  userFk: any;
-  userName: any;
-  userFkLastModfiead: any;
-  recordType: any;
+  hastaneList: any[];
+  basTarih: any;
+  bitTarih: any;
+  modalite: any;
+  eslesmeDurumu: any;
+  tcList: any[];
+  accessionNumberList: any[];
 }
 namespace KosListComponent_Models {
 
