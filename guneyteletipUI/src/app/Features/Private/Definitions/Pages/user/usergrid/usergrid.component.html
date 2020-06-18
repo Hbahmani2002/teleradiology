@@ -17,7 +17,7 @@
     <table #filterSection class="table table-bordered m-0 medlifeGrid">
       <thead>
         <tr>
-          <th scope="col" class="p-0"><input type="checkbox"></th>
+          <th scope="col" class="p-0"><input type="checkbox" (click)="gridUser.onSelectAll($event)"></th>
           <th scope="col" class="p-0" (click)="gridUser.onSorting('pk')">Id<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
           <th scope="col" class="p-0" (click)="gridUser.onSorting('userName')">Kullanıcı Adı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
           <th scope="col" class="p-0" (click)="gridUser.onSorting('name')">Adı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
