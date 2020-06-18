@@ -11,4 +11,6 @@ export class userViewModel {
   userName: any;
   userFkLastModfiead: any;
   recordType: any;
+  rolName: any;
+  rolID: any;
 }

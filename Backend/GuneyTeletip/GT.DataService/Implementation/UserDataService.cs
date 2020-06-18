@@ -142,21 +142,13 @@ namespace GT.DataService.Implementation
             return 1;
         }
 
-        public PagingResult<TenantViewModel> GetTenantList(Gridable<TenantViewFilter> parms)
+        public List<TenantViewModel> GetTenantList()
         {
-            if (parms == null)
-            {
-                parms = new Gridable<TenantViewFilter>();
-            }
-            if (parms.Filter == null)
-            {
-                parms.Filter = new TenantViewFilter();
-            }
             var t = new TenantConditionFilter
             {
-                TenantAd = parms.Filter.TenantAd
+                
             };
-            return tenatRepository.Query(t).GetGridQuery(parms);
+            return tenatRepository.Query(t).ToList();
         }
         public int SaveTenant(long userID, long[] tenantIDList)
         {

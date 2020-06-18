@@ -39,8 +39,8 @@ export class userDataServices {
   public saveRol(model: saveRolUIModel): Observable<number> {
     return this.apiDataService.callDataService('Service/SaveRol', model);
   }
-  public getTenantList(model: Grid.GridInputModel<tenantViewFilter>): Observable<Grid.GridOutputModel<tenantViewModel>> {
-    return this.apiDataService.callDataService('User/GetTenantList', model);
+  public getTenantList(): Observable<Array<tenantViewModel>> {
+    return this.apiDataService.callDataService('User/GetTenantList', undefined);
   }
   public saveTenant(model: saveTenantUIModel): Observable<number> {
     return this.apiDataService.callDataService('Service/SaveTenant', model);

@@ -11,6 +11,8 @@ namespace GT.Repository.Models.Filter
         public string Name { get; set; }
         public string Password { get; set; }
         public string Surname { get; set; }
+        public string RolName { get; set; }
+        public long RolID { get; set; }
         public DateTime? TimeCreated { get; set; }
         public DateTime? TimeDelete { get; set; }
         public long? UserFk { get; set; }

@@ -13,6 +13,8 @@ namespace GT.Repository.Models.View
         public string Name { get; set; }
         public string Password { get; set; }
         public string Surname { get; set; }
+        public string RolName { get; set; }
+        public long RolID { get; set; }
         public DateTime? TimeCreated { get; set; }
         public DateTime? TimeModified { get; set; }
         public long? FkUserCreated { get; set; }
