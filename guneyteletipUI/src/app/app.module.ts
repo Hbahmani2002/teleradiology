@@ -53,6 +53,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { TestpageComponent } from './Features/Public/testpage/testpage.component';
 import { userDataServices } from './Features/Private/Definitions/Services/userDataServices';
+import { kosDataServices } from './Features/Private/Operations/Services/kosDataServices';
 
 @NgModule({
   declarations: [
@@ -126,6 +127,7 @@ import { userDataServices } from './Features/Private/Definitions/Services/userDa
       LoginCheckActivate,
       authenticationDataService,
       userDataServices,
+      kosDataServices,
     ],
   entryComponents:
     [

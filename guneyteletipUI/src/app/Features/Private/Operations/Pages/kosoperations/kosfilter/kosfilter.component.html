@@ -4,7 +4,8 @@
     <div class="form-row p-0 ">
       <div class="col-md-3">
         <label class="font-weight-bold">Hastane Seçimi</label>
-        <ng-multiselect-dropdown [placeholder]="'Hastane Seçimi'"
+        <ng-multiselect-dropdown name ="multiSelect"
+                                 [placeholder]="'Hastane Seçimi'"
                                  [data]="dropdownList"
                                  [(ngModel)]="selectedItems"
                                  [settings]="dropdownSettings"
@@ -23,7 +24,12 @@
       <div class="col-md-3">
         <label class="font-weight-bold">Modalite</label>
         <div class="input-group input-group-sm">
-          <input type="text" class="form-control" name="modalite">
+          <select class="form-control input-sm" name="ddlModality">
+            <option value="undefined">modaliti 1</option>
+            <option value="undefined">Durum 2</option>
+            <option value="undefined">Durum 3</option>
+            <option value="undefined">Durum 4</option>
+          </select>
         </div>
       </div>
       <div class="col-md-3">
