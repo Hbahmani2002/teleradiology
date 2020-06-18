@@ -1,9 +1,7 @@
 export class infStudyViewModel {
-  hastaneList: any[];
-  basTarih: any;
-  bitTarih: any;
-  modalite: any;
-  eslesmeDurumu: any;
-  tcList: any[];
-  accessionNumberList: any[];
+  AccessionNumber: any;
+  Modalite: any;
+  Patinetıd: any;
+  Patinename: any;
+  Pk: any;
 }

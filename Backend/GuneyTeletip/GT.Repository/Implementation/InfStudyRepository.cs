@@ -47,7 +47,7 @@ namespace GT.Repository.Implementation
                        join u in userLogin on s.InfFkStudy equals u.Pk
                        select new InfStudyViewModel
                        {
-
+                           //Modalite=
                            //Modality = s.Modality,
                            //Accession_no = s.AccessionNo,
                            //Patinet_id = s.PatientId,

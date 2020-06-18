@@ -49,7 +49,7 @@ namespace GT.UI.WebApi.Controllers
             {
                 List = new List<InfStudyViewModel>()
                 {
-                    new InfStudyViewModel { /*AccessionNumberList = "AC123", Modalite = "23", Patinet_id = "123", Patine_name = "Adı soyadu", ı = 999 */}
+                    new InfStudyViewModel { AccessionNumber = "AC123", Modalite = "23", Patinetıd = "123", Patinename = "Adı soyadu", Pk = 999 }
                 }
             });
         }
