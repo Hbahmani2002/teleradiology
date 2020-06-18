@@ -1,7 +1,9 @@
 export class infStudyViewModel {
-  modality: any;
-  patine_name: any;
-  accession_no: any;
-  patinet_id: any;
-  pk: any;
+  hastaneList: any[];
+  basTarih: any;
+  bitTarih: any;
+  modalite: any;
+  eslesmeDurumu: any;
+  tcList: any[];
+  accessionNumberList: any[];
 }

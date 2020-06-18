@@ -21,7 +21,7 @@ namespace GT.UI.WebApi.Controllers
     [ApiController]
 
     [Route("[controller]")]
-    public class UserController : AuthenticatedBaseController, IUserController
+    public class UserController : AuthenticatedBaseController
     {
 
         [HttpPost]
@@ -89,11 +89,11 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/User/GetTenantList")]
-        public ServiceResult<PagingResult<TenantViewModel>> GetTenantList(Gridable<TenantViewFilter> parms)
+        public ServiceResult<List<TenantViewModel>> GetTenantList()
         {
             var cx = GetBussinesContext();
             var service = new UserDataService(cx);
-            return HttpMessageService.Ok(service.GetTenantList(parms));
+            return HttpMessageService.Ok(service.GetTenantList());
         }
 
         [HttpPost]

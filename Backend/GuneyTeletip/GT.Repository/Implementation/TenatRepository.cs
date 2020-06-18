@@ -23,6 +23,11 @@ namespace GT.Repository.Implementation
             throw new NotImplementedException();
         }
 
+        public Tenant GetByID(long id)
+        {
+            return Single(o => o.Pk == id);
+        }
+
         public IQueryable<TenantViewModel> Query(TenantConditionFilter t)
         {
             var res = TenatCondition.Get(t);

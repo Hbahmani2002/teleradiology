@@ -6,4 +6,6 @@ export class userViewFilter {
   surname: any;
   userName: any;
   recordType: any;
+  rolName: any;
+  rolID: any;
 }

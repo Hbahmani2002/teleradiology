@@ -29,7 +29,7 @@ namespace Gt.Data.Test
 
                         var filter = new InfStudyFilter();
                         grid.Filter = filter;
-                        filter.Patinet_id = "45529049390";
+                       // filter.Patinet_id = "45529049390";
                         var list = service.GetInfStudyList(grid);
 
 

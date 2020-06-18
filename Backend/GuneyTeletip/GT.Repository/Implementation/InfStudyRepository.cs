@@ -48,11 +48,11 @@ namespace GT.Repository.Implementation
                        select new InfStudyViewModel
                        {
 
-                           Modality = s.Modality,
-                           Accession_no = s.AccessionNo,
-                           Patinet_id = s.PatientId,
-                           Patine_name = s.PatinetNameSurname,
-                           Pk = s.Pk
+                           //Modality = s.Modality,
+                           //Accession_no = s.AccessionNo,
+                           //Patinet_id = s.PatientId,
+                           //Patine_name = s.PatinetNameSurname,
+                           //Pk = s.Pk
 
                        };
 
@@ -68,11 +68,11 @@ namespace GT.Repository.Implementation
                        select new InfStudyViewModel
                        {
 
-                           Modality = s.Modality,
-                           Accession_no = s.AccessionNo,
-                           Patinet_id = s.PatientId,
-                           Patine_name = s.PatinetNameSurname,
-                           Pk = s.Pk
+                           //Modality = s.Modality,
+                           //Accession_no = s.AccessionNo,
+                           //Patinet_id = s.PatientId,
+                           //Patine_name = s.PatinetNameSurname,
+                           //Pk = s.Pk
 
                        };
 
