@@ -11,8 +11,4 @@
     <ProjectReference Include="..\Util.Grid\Util.Grid.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Conditions\" />
-  </ItemGroup>
-
 </Project>
