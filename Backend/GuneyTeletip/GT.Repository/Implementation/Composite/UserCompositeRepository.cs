@@ -46,7 +46,9 @@ namespace GT.Repository.Implementation.Composite
                            TimeModified = u.TimeModified,
                            FkUserCreated = u.FkUserCreated,
                            UserName = u.UserName,
-                           FkUserModified = u.FkUserModified
+                           FkUserModified = u.FkUserModified,
+                           RolID=r.Pk,
+                           RolName=r.UsrRoleAd
                        };
             return list;
         }

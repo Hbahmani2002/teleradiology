@@ -12,6 +12,7 @@ namespace GT.Repository.Conditions
         public class RoleConditionFilter
         {
             public string RoleName { get; set; }
+            public long? ID { get; set; }
         }
         public static Expression<Func<UsrRole, bool>> Get(RoleConditionFilter filter)
         {
@@ -19,6 +20,10 @@ namespace GT.Repository.Conditions
             if (!string.IsNullOrEmpty(filter.RoleName))
             {
                 exp = exp.And(o => o.UsrRoleAd.Contains(filter.RoleName));
+            }
+            if (filter.ID.HasValue)
+            {
+                exp = exp.And(o => o.Pk==filter.ID);
             }
             return exp;
         }

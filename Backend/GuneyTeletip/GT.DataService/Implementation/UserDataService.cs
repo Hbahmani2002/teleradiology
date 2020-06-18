@@ -19,19 +19,13 @@ namespace GT.DataService.Implementation
     public class UserDataService : BaseService
     {
         AbstractWorkspace _Workspace;
-        UserLoginRepository userLoginRepository;
-        UserRoleRepository userRoleRepository;
         UserCompositeRepository userCompositeRepository;
-        RoleRepository roleRepository;
-        TenatRepository tenatRepository;
+        UserLoginRepository userLoginRepository;
         public UserDataService(IBussinessContext context) : base(context)
         {
             _Workspace = WorkspaceFactory.Create(true);
-            userLoginRepository = new UserLoginRepository(_Workspace);
-            userRoleRepository = new UserRoleRepository(_Workspace);
             userCompositeRepository = new UserCompositeRepository(_Workspace);
-            roleRepository = new RoleRepository(_Workspace);
-            tenatRepository = new TenatRepository(_Workspace);
+            userLoginRepository = new UserLoginRepository(_Workspace);
         }
 
         public PagingResult<UserViewModel> GetUserList(Gridable<UserViewFilter> parms)
@@ -58,7 +52,12 @@ namespace GT.DataService.Implementation
                 FkUserModified=parms.Filter.UserFkLastModfiead,
                 UserName=parms.Filter.UserName
             };
-            return userLoginRepository.Query(u)
+            var r = new RoleConditionFilter
+            {
+                RoleName=parms.Filter.RolName,
+                ID=parms.Filter.RolID
+            };
+            return userCompositeRepository.Query(u,r)
                 .GetGridQuery(parms);
         }
 
@@ -90,45 +89,47 @@ namespace GT.DataService.Implementation
 
         public UserViewModel GetByID(long userID)
         {
-            var user = userLoginRepository.GetByID(userID);
-            var item = new UserViewModel
-            {
-                EmailAdress=user.EmailAdress,
-                FkUserCreated=user.FkUserCreated,
-                FkUserModified=user.FkUserModified,
-                Name=user.Name,
-                Password=user.Password,
-                Pk=user.Pk,
-                RecordState=user.RecordState,
-                Surname=user.Surname,
-                TimeCreated=user.TimeCreated,
-                TimeModified=user.TimeModified,
-                UserName=user.UserName
-            };
-            return item;
+            //var user = userLoginRepository.GetByID(userID);
+            //var item = new UserViewModel
+            //{
+            //    EmailAdress=user.EmailAdress,
+            //    FkUserCreated=user.FkUserCreated,
+            //    FkUserModified=user.FkUserModified,
+            //    Name=user.Name,
+            //    Password=user.Password,
+            //    Pk=user.Pk,
+            //    RecordState=user.RecordState,
+            //    Surname=user.Surname,
+            //    TimeCreated=user.TimeCreated,
+            //    TimeModified=user.TimeModified,
+            //    UserName=user.UserName
+            //};
+            //  return item;
+            return null;
         }
         public int Delete(long userID)
         {
-            var user = userLoginRepository.GetByID(userID);
-            var userRol = userRoleRepository.GetByUserID(userID);
-            //Kullanıcının rolü olmak zorunda mı??
-            //if (user == null && userRol==null)
-            //{
-            //    throw new Exception("Kullanıcı veya kullanıcı Rolü bulunamadı");
-            //}
-            userLoginRepository.Delete(user);
-            userRoleRepository.Delete(userRol);
-            _Workspace.CommitChanges();
+            //var user = userLoginRepository.GetByID(userID);
+            //var userRol = userRoleRepository.GetByUserID(userID);
+            ////Kullanıcının rolü olmak zorunda mı??
+            ////if (user == null && userRol==null)
+            ////{
+            ////    throw new Exception("Kullanıcı veya kullanıcı Rolü bulunamadı");
+            ////}
+            //userLoginRepository.Delete(user);
+            //userRoleRepository.Delete(userRol);
+            //_Workspace.CommitChanges();
             return 0;
         }
 
         public List<RoleViewModel> GetRolList()
         {
-            return roleRepository.Query().Select(o => new RoleViewModel
-            {
-                RoleName=o.UsrRoleAd,
-                RolePK=o.Pk
-            }).ToList();
+            //return roleRepository.Query().Select(o => new RoleViewModel
+            //{
+            //    RoleName=o.UsrRoleAd,
+            //    RolePK=o.Pk
+            //}).ToList();
+            return null;
         }
 
         public int GetRoleByID(long userID)
@@ -144,11 +145,12 @@ namespace GT.DataService.Implementation
 
         public List<TenantViewModel> GetTenantList()
         {
-            var t = new TenantConditionFilter
-            {
-                
-            };
-            return tenatRepository.Query(t).ToList();
+            //var t = new TenantConditionFilter
+            //{
+
+            //};
+            //return tenatRepository.Query(t).ToList();
+            return null;
         }
         public int SaveTenant(long userID, long[] tenantIDList)
         {
