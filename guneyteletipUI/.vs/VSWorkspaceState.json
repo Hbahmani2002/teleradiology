@@ -4,10 +4,13 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\Features",
+    "\\src\\app\\Features\\Private",
+    "\\src\\app\\Features\\Private\\Operations",
+    "\\src\\app\\Features\\Private\\Operations\\Pages",
+    "\\src\\app\\Features\\Private\\Operations\\Services",
     "\\src\\app\\Shared",
-    "\\src\\app\\Shared\\Services",
-    "\\src\\app\\Shared\\Services\\Api"
+    "\\src\\app\\Shared\\Services"
   ],
-  "SelectedNode": "\\src\\app\\Shared\\Services\\Api\\apiService.ts",
+  "SelectedNode": "\\src\\app\\Features\\Private\\Operations\\Services\\kosDataServices.ts",
   "PreviewInSolutionExplorer": false
 }
