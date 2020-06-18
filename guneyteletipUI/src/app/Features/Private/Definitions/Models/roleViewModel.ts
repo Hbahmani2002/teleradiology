@@ -1,5 +1,5 @@
 
 export class roleViewModel {
-  rolePk: any;
+  roleID: any;
   roleName: any;
 }

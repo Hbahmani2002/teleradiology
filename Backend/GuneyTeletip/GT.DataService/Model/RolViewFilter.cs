@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GT.Repository.Models.View
+namespace GT.DataService.Model
 {
-    public class RolViewModel
+    public class RoleViewFilter
     {
-        public long RoleID { get; set; }
+        public long ID { get; set; }
         public string RoleName { get; set; }
     }
 }

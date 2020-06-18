@@ -29,18 +29,21 @@ namespace GT.UI.WebApi.Controllers
         {
             return HttpMessageService.Ok(999);
         }
+
         [HttpPost]
         [Route("/Kos/DeleteKos")]
         public ServiceResult<int> DeleteKos(Gridable<InfStudyFilter> parms)
         {
             return HttpMessageService.Ok(999);
         }
+
         [HttpPost]
         [Route("/Kos/ExportExcel")]
         public ServiceResult<string> ExportExcel(Gridable<InfStudyFilter> parms)
         {
             return HttpMessageService.Ok("Export_GEN_2020.xlsx");
         }
+
         [HttpPost]
         [Route("/Kos/GetKosList")]
         public ServiceResult<PagingResult<InfStudyViewModel>> GetKosList(Gridable<InfStudyFilter> parms)
@@ -60,12 +63,14 @@ namespace GT.UI.WebApi.Controllers
         {
             throw new NotImplementedException();
         }
+
         [HttpPost]
         [Route("/Kos/ReprocessKos")]
         public ServiceResult<int> ReprocessKos(Gridable<InfStudyFilter> parms)
         {
             throw new NotImplementedException();
         }
+
         [HttpPost]
         [Route("/Kos/UpdateReadKos")]
         public ServiceResult<int> UpdateReadKos(Gridable<InfStudyFilter> parms)

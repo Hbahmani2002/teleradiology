@@ -62,7 +62,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/User/GetRolList")]
-        public ServiceResult<List<RoleViewModel>> GetRolList()
+        public ServiceResult<List<RolViewModel>> GetRolList()
         {
             var cx = GetBussinesContext();
             var service = new UserDataService(cx);

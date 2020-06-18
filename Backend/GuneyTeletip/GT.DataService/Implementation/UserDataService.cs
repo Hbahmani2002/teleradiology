@@ -122,7 +122,7 @@ namespace GT.DataService.Implementation
             return 0;
         }
 
-        public List<RoleViewModel> GetRolList()
+        public List<RolViewModel> GetRolList()
         {
             //return roleRepository.Query().Select(o => new RoleViewModel
             //{
