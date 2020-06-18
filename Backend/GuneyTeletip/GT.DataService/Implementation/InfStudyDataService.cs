@@ -1,5 +1,6 @@
 ﻿using Gt.PERSISTANCE;
 using GT.DataService.Model;
+using GT.Persistance.Domain.Models;
 using GT.Repository.Conditions;
 using GT.Repository.Implementation;
 using GT.Repository.Implementation.Composite;
@@ -11,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
 namespace GT.DataService.Implementation
 {
 
@@ -19,14 +21,28 @@ namespace GT.DataService.Implementation
     {
         AbstractWorkspace _Workspace;
         InfStudyRepository _InfStudyRepository;
-        TenatCompositeRepository tenatCompositeRepository;
+        TenantCompositeRepository tenatCompositeRepository;
+
+        InfStudyParameterRepository _InfStudyParameterRepository;
+        InfBatchRepository _InfBatchRepository;
         public InfStudyDataService(IBussinessContext context) : base(context)
         {
             _Workspace = GTWorkspaceFactory.Create(true);
             _InfStudyRepository = new InfStudyRepository(_Workspace);
-            tenatCompositeRepository = new TenatCompositeRepository(_Workspace);
+            tenatCompositeRepository = new TenantCompositeRepository(_Workspace);
+            _InfStudyParameterRepository = new InfStudyParameterRepository(_Workspace);
+            _InfBatchRepository = new InfBatchRepository(_Workspace);
         }
 
+        public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<InfStudyParameter> GetTimerParameters(InfStudyParameterConditionFilter filter)
+        {
+            return _InfStudyParameterRepository.Query(filter);
+        }
         public PagingResult<InfStudyViewModel> GetInfStudyList(Gridable<InfStudyFilter> parms)
         {
             if (parms == null)
@@ -38,8 +54,9 @@ namespace GT.DataService.Implementation
                 parms.Filter = new InfStudyFilter();
             }
 
-            var s = new InfStudyConditionFilter { 
-            
+            var s = new InfStudyConditionFilter
+            {
+
                 //Accession_no = parms.Filter.Accession_no,
                 //Modality = parms.Filter.Modality,
                 //Patinet_id = parms.Filter.Patinet_id,
@@ -50,9 +67,25 @@ namespace GT.DataService.Implementation
                 .GetGridQuery(parms);
         }
 
+        public void Save(IEnumerable<InfStudy> studies)
+        {
+
+            var item = new InfBatch();
+            item.TimeCreated = DateTime.Now;
+
+            foreach (var study in studies)
+            {
+                item.InfStudy.Add(study);
+            }
+            _InfBatchRepository.Add(item);
+            _Workspace.CommitChanges();
+
+        }
+
         public string GetAccessionOnekNoByTenantID(long tenantID)
         {
-            return tenatCompositeRepository.Query(tenantID).FirstOrDefault();
+            var item = tenatCompositeRepository.Single(tenantID);
+            return item.AccessionNoOnek;
         }
     }
 }
