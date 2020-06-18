@@ -4,6 +4,7 @@ import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 
 import { infStudyFilter } from '../Models/infStudyFilter';
 import { infStudyViewModel } from '../Models/infStudyViewModel';
+
 export class kosDataServices {
 
   constructor(private apiDataService: ApiDataService) { }
