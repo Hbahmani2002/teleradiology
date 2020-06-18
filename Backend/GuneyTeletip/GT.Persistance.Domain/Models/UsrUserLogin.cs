@@ -5,11 +5,6 @@ namespace GT.Persistance.Domain.Models
 {
     public partial class UsrUserLogin
     {
-        public UsrUserLogin()
-        {
-            UsrUserRole = new HashSet<UsrUserRole>();
-        }
-
         public long Pk { get; set; }
         public string EmailAdress { get; set; }
         public string Name { get; set; }
@@ -22,6 +17,6 @@ namespace GT.Persistance.Domain.Models
         public long? FkUserModified { get; set; }
         public short? RecordState { get; set; }
 
-        public virtual ICollection<UsrUserRole> UsrUserRole { get; set; }
+        public virtual UsrUserRole UsrUserRole { get; set; }
     }
 }

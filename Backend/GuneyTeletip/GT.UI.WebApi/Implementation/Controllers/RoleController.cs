@@ -27,7 +27,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Role/GetRoleList")]
-        public ServiceResult<PagingResult<RolViewModel>> GetRoleList(Gridable<RoleViewFilter> parms)
+        public ServiceResult<PagingResult<RoleViewModel>> GetRoleList(Gridable<RoleViewFilter> parms)
         {
             var cx = GetBussinesContext();
             var service = new RolDataService(cx);

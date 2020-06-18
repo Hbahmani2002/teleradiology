@@ -13,12 +13,12 @@ namespace GT.Repository.Conditions
     }
     public class TenatCondition
     {
-        public static Expression<Func<Tenant, bool>> Get(TenantConditionFilter filter)
+        public static Expression<Func<UsrTenant, bool>> Get(TenantConditionFilter filter)
         {
-            var exp = PredicateBuilder.True<Tenant>();
+            var exp = PredicateBuilder.True<UsrTenant>();
             if (!string.IsNullOrEmpty(filter.TenantAd))
             {
-                exp = exp.And(o => o.TenantAd.Contains(filter.TenantAd));
+                exp = exp.And(o => o.Name.Contains(filter.TenantAd));
             }
             return exp;
         }

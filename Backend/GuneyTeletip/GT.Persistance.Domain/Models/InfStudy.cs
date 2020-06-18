@@ -6,11 +6,10 @@ namespace GT.Persistance.Domain.Models
     public partial class InfStudy
     {
         public long Pk { get; set; }
-        public long InfFkStudy { get; set; }
-        public long TenantFk { get; set; }
-        public long InfFkBatch { get; set; }
-        public long FkUserCreated { get; set; }
-        public long UserFkModfiead { get; set; }
+        public long? FkTenant { get; set; }
+        public long? FkInfBatch { get; set; }
+        public long? FkUserCreated { get; set; }
+        public long? FkUserModfiead { get; set; }
         public string PatientId { get; set; }
         public string Gender { get; set; }
         public string StudyDescription { get; set; }
@@ -39,8 +38,8 @@ namespace GT.Persistance.Domain.Models
         public string ValumeStat { get; set; }
         public string ValumePathname { get; set; }
         public DateTime? CreationDttm { get; set; }
-        public long? StudyKey { get; set; }
+        public long? OracleStudyKey { get; set; }
 
-        public virtual InfBatch InfFkBatchNavigation { get; set; }
+        public virtual InfBatch FkInfBatchNavigation { get; set; }
     }
 }

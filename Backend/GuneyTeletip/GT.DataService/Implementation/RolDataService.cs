@@ -21,7 +21,7 @@ namespace GT.DataService.Implementation
             roleRepository = new RoleRepository(_Workspace);
         }
 
-        public PagingResult<RolViewModel> GetRoleList(Gridable<RoleViewFilter> parms)
+        public PagingResult<RoleViewModel> GetRoleList(Gridable<RoleViewFilter> parms)
         {
             if (parms == null)
             {

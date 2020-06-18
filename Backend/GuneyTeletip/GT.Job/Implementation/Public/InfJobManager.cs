@@ -42,13 +42,13 @@ namespace GT.BAL.Job.Implementation
 
             foreach (var item in jobs)
             {
-                JobManager.Register(item.Name, item.IntervalMinut.Value, () =>
+                JobManager.Register(item.Name, item.IntervalMinute.Value, () =>
                 {
                     try
                     {
 
                         var dt = new InfinityDataSyncronizer();
-                        dt.SyncronizeInfinityStudyList(item.TenatFk, item.InfStudyPkLast, item.InfCreationStartDate, item.InfCreationStopDate);
+                        dt.SyncronizeInfinityStudyList(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
                     }
                     catch (Exception)
                     {

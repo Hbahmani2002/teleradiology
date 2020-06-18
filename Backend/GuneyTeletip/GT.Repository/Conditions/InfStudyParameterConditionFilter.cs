@@ -16,7 +16,7 @@ namespace GT.Repository.Implementation
             var exp = PredicateBuilder.True<InfStudyParameter>();
             if (filter.RecordState.HasValue)
             {
-                exp = exp.And(o => o.RecordType==filter.RecordState.Value);
+                exp = exp.And(o => o.RecordStatus==filter.RecordState.Value);
             }
             return exp;
         }

@@ -19,7 +19,7 @@ namespace GT.Repository.Conditions
             var exp = PredicateBuilder.True<UsrRole>();
             if (!string.IsNullOrEmpty(filter.RolName))
             {
-                exp = exp.And(o => o.UsrRoleAd.Contains(filter.RolName));
+                exp = exp.And(o => o.Name.Contains(filter.RolName));
             }
             if (filter.ID.HasValue)
             {

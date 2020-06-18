@@ -14,7 +14,7 @@ namespace GT.UI.WebApi.Controllers
         ServiceResult<UserViewModel> GetByID(UserUIModel model);
         ServiceResult<int> GetPermission(UserView model);
         ServiceResult<int> GetRoleByID(UserUIModel model);
-        ServiceResult<List<RolViewModel>> GetRolList();
+        ServiceResult<List<RoleViewModel>> GetRolList();
         ServiceResult<int> GetTenantByID(UserUIModel model);
         ServiceResult<PagingResult<TenantViewModel>> GetTenantList(Gridable<TenantViewFilter> parms);
         ServiceResult<PagingResult<UserViewModel>> GetUserList(Gridable<UserViewFilter> parms);

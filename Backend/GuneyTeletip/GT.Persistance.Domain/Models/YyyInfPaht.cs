@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GT.Persistance.Domain.Models
 {
-    public partial class InfPaht
+    public partial class YyyInfPaht
     {
         public long Pk { get; set; }
         public string PahtCode { get; set; }

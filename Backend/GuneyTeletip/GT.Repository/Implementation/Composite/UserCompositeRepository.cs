@@ -48,7 +48,7 @@ namespace GT.Repository.Implementation.Composite
                            UserName = u.UserName,
                            FkUserModified = u.FkUserModified,
                            RolID=r.Pk,
-                           RolName=r.UsrRoleAd
+                           RolName=r.Name
                        };
             return list;
         }

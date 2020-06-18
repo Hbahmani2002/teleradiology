@@ -22,15 +22,15 @@ namespace GT.Repository.Implementation.Composite
 
         public IQueryable<TenantSkrsCompositeViewModel> Query()
         {
-            var tenantdata = _AbstractWorkspace.Query<Tenant>();
-            var tenantskrsdata = _AbstractWorkspace.Query<TenantSkrs>();
+            var tenantdata = _AbstractWorkspace.Query<UsrTenant>();
+            var tenantskrsdata = _AbstractWorkspace.Query<UsrTenantSkrs>();
 
             var query = from t in tenantdata
-                        join s in tenantskrsdata on t.Pk equals s.FkTenat
+                        join s in tenantskrsdata on t.Pk equals s.FkTenant
                         select new TenantSkrsCompositeViewModel
                         {
                             ID = t.Pk,
-                            AccessionNoOnek = s.AccessionNoOnek
+                            AccessionNoOnek = s.AccessionNoPrefix
                         };
             return query;
         }

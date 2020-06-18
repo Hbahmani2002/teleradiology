@@ -62,7 +62,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/User/GetRolList")]
-        public ServiceResult<List<RolViewModel>> GetRolList()
+        public ServiceResult<List<RoleViewModel>> GetRolList()
         {
             var cx = GetBussinesContext();
             var service = new UserDataService(cx);
@@ -71,7 +71,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/User/GetRoleByID")]
-        public ServiceResult<int> GetRoleByID(UserUIModel model)
+        public ServiceResult<long> GetRoleByID(UserUIModel model)
         {
             var cx = GetBussinesContext();
             var service = new UserDataService(cx);
@@ -105,13 +105,13 @@ namespace GT.UI.WebApi.Controllers
             return HttpMessageService.Ok(service.SaveTenant(model.UserID, model.TenantIDList));
         }
 
-        [HttpPost]
-        [Route("/User/GetTenantByID")]
-        public ServiceResult<int> GetTenantByID(UserUIModel model)
-        {
-            var cx = GetBussinesContext();
-            var service = new UserDataService(cx);
-            return HttpMessageService.Ok(service.GetTenantByID(model.UserID));
-        }
+        //[HttpPost]
+        //[Route("/User/GetTenantByID")]
+        //public ServiceResult<int> GetTenantByID(UserUIModel model)
+        //{
+        //    var cx = GetBussinesContext();
+        //    var service = new UserDataService(cx);
+        //    return HttpMessageService.Ok(service.GetTenantByID(model.UserID));
+        //}
     }
 }

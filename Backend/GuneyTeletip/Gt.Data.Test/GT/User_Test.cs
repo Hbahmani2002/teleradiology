@@ -27,23 +27,13 @@ namespace GT.Test.GT
         }
 
         [Test]
-        public void GetUserListAndRole()
-        {
-            var gri = new Gridable<UserViewFilter>();
-            var filter = new UserViewFilter();
-            gri.Filter = filter;
-           // var list = service.GetUserListAndRole(gri);
-        }
-
-        [Test]
         public void Save()
         {
             UserView model = new UserView();
-            model.UserName = "testUserName";
-            model.Pk = 1;
-            model.Name = "testName";
-            model.Surname = "testSurname";
-            model.EmailAdress = "test@test.com";
+            model.UserName = "baskaTestUserName";
+            model.Name = "baskaTestName";
+            model.Surname = "baskaTestSurname";
+            model.EmailAdress = "baskaTest@test.com";
             var list = service.Save(model);
         }
 
@@ -51,6 +41,28 @@ namespace GT.Test.GT
         public void Delete()
         {
             var list = service.Delete(1);
+        }
+        [Test]
+        public void GetByID()
+        {
+            var item = service.GetByID(2);
+        }
+
+        [Test]
+        public void GetRolList()
+        {
+             var list = service.GetRolList();
+        }
+
+        [Test]
+        public void GetRoleByID()
+        {
+            var roleID = service.GetRoleByID(2);
+        }
+        [Test]
+        public void SaveRol()
+        {
+            var list = service.SaveRol(2,1);
         }
     }
 }
