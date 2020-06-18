@@ -1,10 +1,10 @@
-﻿using GT.DataService.Model;
+﻿using Gt.PERSISTANCE;
+using GT.DataService.Model;
 using GT.Repository.Conditions;
 using GT.Repository.Implementation;
 using GT.Repository.Models.View;
-using MEDLIFE.PERSISTANCE;
-using MEDLIFE.SERVICE;
-using MEDLIFE.UTILS.GRID;
+using GT.SERVICE;
+using GT.UTILS.GRID;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,7 +17,7 @@ namespace GT.DataService.Implementation
         RoleRepository roleRepository;
         public RolDataService(IBussinessContext context) : base(context)
         {
-            _Workspace = WorkspaceFactory.Create(true);
+            _Workspace = GTWorkspaceFactory.Create(true);
             roleRepository = new RoleRepository(_Workspace);
         }
 

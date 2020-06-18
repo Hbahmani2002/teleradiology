@@ -3,7 +3,7 @@ using GT.Repository.Models.Filter;
 using GT.Repository.Models.View;
 using GT.UI.WebApi.Models;
 using GT.UI.WebApi.Models.UserModel;
-using MEDLIFE.UTILS.GRID;
+using GT.UTILS.GRID;
 using System.Collections.Generic;
 
 namespace GT.UI.WebApi.Controllers

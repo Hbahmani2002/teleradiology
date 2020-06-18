@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace MEDLIFE.PERSISTANCE
+namespace Gt.PERSISTANCE
 {
     public abstract class AbstractWorkspace :  IAbstractWorkspace
     {

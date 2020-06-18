@@ -1,7 +1,7 @@
 ﻿
 
 
-namespace MEDLIFE.UTILS.GRID
+namespace GT.UTILS.GRID
 {
     public class FilterBase
     {

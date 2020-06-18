@@ -1,13 +1,13 @@
-﻿using GT.DataService.Model;
+﻿using Gt.PERSISTANCE;
+using GT.DataService.Model;
 using GT.Persistance.Domain.Models;
 using GT.Repository.Conditions;
 using GT.Repository.Implementation;
 using GT.Repository.Implementation.Composite;
 using GT.Repository.Models.Filter;
 using GT.Repository.Models.View;
-using MEDLIFE.PERSISTANCE;
-using MEDLIFE.SERVICE;
-using MEDLIFE.UTILS.GRID;
+using GT.SERVICE;
+using GT.UTILS.GRID;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +23,7 @@ namespace GT.DataService.Implementation
         UserLoginRepository userLoginRepository;
         public UserDataService(IBussinessContext context) : base(context)
         {
-            _Workspace = WorkspaceFactory.Create(true);
+            _Workspace = GTWorkspaceFactory.Create(true);
             userCompositeRepository = new UserCompositeRepository(_Workspace);
             userLoginRepository = new UserLoginRepository(_Workspace);
         }

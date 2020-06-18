@@ -1,10 +1,10 @@
-﻿using GT.DataService.infinity.Conditions;
+﻿using Gt.PERSISTANCE;
+using GT.DataService.infinity.Conditions;
 using GT.DataService.infinity.Model;
+using GT.PERSISTANCE;
 using GT.Repository.infinity.Implementation.CompositeView;
 using GT.Repository.infinity.Model.View;
-using MEDLIFE.PERSISTANCE;
-using MEDLIFE.SERVICE;
-using MEDLIFE.UTILS.GRID;
+using GT.SERVICE;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,7 +22,7 @@ namespace GT.DataService.infinity.Implementation
 
         public InfOracleDataService(IBussinessContext context) : base(context)
         {
-            _Workspace = WorkspaceFactory.Create(true);
+            _Workspace = InfWorkspaceFactory.Create(true);
 
             _InfOracleCompositRepository = new InfOracleCompositRepository(_Workspace);
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace MEDLIFE.UTILS.GRID
+namespace GT.UTILS.GRID
 {
 
     public class PagingResult

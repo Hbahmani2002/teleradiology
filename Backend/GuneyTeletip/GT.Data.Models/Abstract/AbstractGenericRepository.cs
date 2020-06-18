@@ -1,10 +1,10 @@
-﻿using MEDLIFE.PERSISTANCE;
+﻿using Gt.PERSISTANCE;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace MEDLIFE.REPOSITORY
+namespace GT.REPOSITORY
 {
     public abstract class AbstractRepository
     {

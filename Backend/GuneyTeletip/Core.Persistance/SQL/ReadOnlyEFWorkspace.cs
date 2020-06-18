@@ -1,9 +1,10 @@
-﻿using MEDLIFE.PERSISTANCE;
+﻿using Gt.PERSISTANCE;
+using GT.PERSISTANCE;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace MEDLIFE.PERSISTANCE.Data.SQL
+namespace GT.PERSISTANCE.Data.SQL
 {
     public class ReadOnlyEFWorkspace : AbstractWorkspace
     {

@@ -1,4 +1,4 @@
-﻿namespace MEDLIFE.SERVICE
+﻿namespace GT.SERVICE
 {
     public class BaseService
     {

@@ -2,7 +2,7 @@
 using TIF.DAL.Linq;
 using TIF.DTO.Types.Reflection;
 
-namespace MEDLIFE.UTILS.GRID
+namespace GT.UTILS.GRID
 {
     public static class Pager
     {

@@ -1,12 +1,12 @@
-﻿using MEDLIFE.PERSISTANCE.Data.Text;
-using MEDLIFE.PERSISTANCE;
+﻿using GT.PERSISTANCE.Data.Text;
+using GT.PERSISTANCE;
 using System;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace MEDLIFE.PERSISTANCE.Text
+namespace Gt.PERSISTANCE.Text
 {
     public class TextFileWorkspace : AbstractWorkspace
     {

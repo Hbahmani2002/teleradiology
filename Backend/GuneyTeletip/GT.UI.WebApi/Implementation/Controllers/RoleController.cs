@@ -11,7 +11,7 @@ using GT.UI.WebApi.Implementation;
 using GT.UI.WebApi.Models;
 using GT.UI.WebApi.Models.RoleModel;
 using GT.UI.WebApi.Models.UserModel;
-using MEDLIFE.UTILS.GRID;
+using GT.UTILS.GRID;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;

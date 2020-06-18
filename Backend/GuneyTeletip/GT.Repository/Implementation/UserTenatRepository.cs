@@ -1,6 +1,6 @@
-﻿using GT.Persistance.Domain.Models;
-using MEDLIFE.PERSISTANCE;
-using MEDLIFE.REPOSITORY;
+﻿using Gt.PERSISTANCE;
+using GT.Persistance.Domain.Models;
+using GT.REPOSITORY;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -1,7 +1,8 @@
-﻿namespace MEDLIFE.PERSISTANCE.DOMAIN.Models
+﻿namespace GT.PERSISTANCE.DOMAIN.Models
 {
+    using Gt.PERSISTANCE;
     using GT.Persistance.Domain.Models;
-    using MEDLIFE.PERSISTANCE.Data.SQL;
+    using GT.PERSISTANCE.Data.SQL;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Logging.Console;
@@ -10,7 +11,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class DataContext : CommonDbContext
+    public partial class GTDataContext : CommonDbContext
     {
         //https://docs.microsoft.com/en-us/ef/core/miscellaneous/logging?tabs=v3
         public static readonly ILoggerFactory consoleLoggerFactory
@@ -19,11 +20,11 @@
                 builder.AddDebug();
             });
 
-        public DataContext()
+        public GTDataContext()
             : base("name=DataContext")
         {
         }
-        public DataContext(bool autoDetectChangesEnabled, bool proxyCreationEnabled = true, bool lazyLoadingEnabled = true, bool validateOnSaveEnabled = true, Action<string> logAction = null)
+        public GTDataContext(bool autoDetectChangesEnabled, bool proxyCreationEnabled = true, bool lazyLoadingEnabled = true, bool validateOnSaveEnabled = true, Action<string> logAction = null)
            : base($"name={LocalSettings.AppName}")
         {
             //Database.SetInitializer<DataContext>(null);
