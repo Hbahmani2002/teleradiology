@@ -9,7 +9,7 @@ namespace GT.Repository.Conditions
 {
     public class UserConditionFilter
     {
-        public long? Pk { get; set; }
+        public long? ID { get; set; }
         public string EmailAdress { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
@@ -46,9 +46,9 @@ namespace GT.Repository.Conditions
             {
                 exp = exp.And(o => o.UserName.Contains(filter.UserName));
             }
-            if (filter.Pk.HasValue)
+            if (filter.ID.HasValue)
             {
-                exp = exp.And(o => o.Pk == filter.Pk.Value);
+                exp = exp.And(o => o.Pk == filter.ID.Value);
             }
             if (filter.TimeCreated.HasValue)
             {

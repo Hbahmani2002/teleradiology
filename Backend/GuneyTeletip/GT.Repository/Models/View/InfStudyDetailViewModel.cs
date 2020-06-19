@@ -5,10 +5,8 @@ using System.Text;
 
 namespace GT.Repository.Models.View
 {
-    public class TenantViewModel
+    public class InfStudyDetailViewModel:InfStudyViewModel
     {
-        [DataEntityID]
-        public long? ID { get; set; }
-        public string TenantAd { get; set; }
+
     }
 }

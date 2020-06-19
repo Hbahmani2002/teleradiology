@@ -25,6 +25,7 @@ namespace GT.DataService.Implementation
         UserRoleRepository userRoleRepository;
         RoleRepository roleRepository;
         UserTenantRepository userTenantRepository;
+        UserTenantCompositeRepository userTenantCompositeRepository;
         public UserDataService(IBussinessContext context) : base(context)
         {
             _Workspace = GTWorkspaceFactory.Create(true);
@@ -34,6 +35,7 @@ namespace GT.DataService.Implementation
             userRoleRepository = new UserRoleRepository(_Workspace);
             roleRepository = new RoleRepository(_Workspace);
             userTenantRepository = new UserTenantRepository(_Workspace);
+            userTenantCompositeRepository = new UserTenantCompositeRepository(_Workspace);
         }
 
         public PagingResult<UserViewModel> GetUserList(Gridable<UserViewFilter> parms)
@@ -51,7 +53,7 @@ namespace GT.DataService.Implementation
                 EmailAdress=parms.Filter.EmailAdress,
                 Name=parms.Filter.Name,
                 Password=parms.Filter.Password,
-                Pk=parms.Filter.Pk,
+                ID=parms.Filter.ID,
                 RecordState=parms.Filter.RecordType,
                 Surname=parms.Filter.Surname,
                 TimeCreated=parms.Filter.TimeCreated,
@@ -79,7 +81,7 @@ namespace GT.DataService.Implementation
             }
             else
             {
-                userLogin = userLoginRepository.GetByID(model.ID);
+                userLogin = userLoginRepository.GetByID(model.ID.Value);
                 if (model.ID == null)
                 {
                     throw new Exception("User bulunamadı. UserID:" + model.ID);
@@ -93,7 +95,7 @@ namespace GT.DataService.Implementation
             userLogin.Password = model.Password;
             userLogin.Surname = model.Surname;
             userLogin.UserName = model.UserName;
-            userLogin.RecordState = 1;
+            userLogin.RecordState = model.RecordState;
             _Workspace.CommitChanges();
             return 1;
         }
@@ -108,12 +110,11 @@ namespace GT.DataService.Implementation
             var item = new UserViewModel
             {
                 EmailAdress = user.EmailAdress,
-                FkUserCreated = user.FkUserCreated,
-                FkUserModified = user.FkUserModified,
+                UserIDCreated = user.FkUserCreated,
+                UserIDModified = user.FkUserModified,
                 Name = user.Name,
-                Password = user.Password,
-                Pk = user.Pk,
-                RecordState = user.RecordState,
+                ID = user.Pk,
+                RecordStatus = user.RecordState,
                 Surname = user.Surname,
                 TimeCreated = user.TimeCreated,
                 TimeModified = user.TimeModified,
@@ -125,7 +126,6 @@ namespace GT.DataService.Implementation
         {
             var user = userLoginRepository.GetByID(userID);
             var userRol = userRoleRepository.GetByUserID(userID);
-           // Kullanıcının rolü olmak zorunda mı ??
             if (user == null && userRol == null)
             {
                 throw new Exception("Kullanıcı veya kullanıcı Rolü bulunamadı");
@@ -185,19 +185,34 @@ namespace GT.DataService.Implementation
         }
         public int SaveTenant(long userID, long[] tenantIDList)
         {
+            var userTenantIDList = userTenantRepository.GetTenantIDByUserID(userID).Select(x => x.FkTenant).ToList();
             foreach (var tenantID in tenantIDList)
             {
-
+                var tenantVarMi = false;
+                foreach (var userTenantID in userTenantIDList)
+                {
+                    if(tenantID== userTenantID)
+                    {
+                        tenantVarMi = true;
+                        break;
+                    }
+                }
+                if (!tenantVarMi)
+                {
+                    var yeniTenant = new UsrUserTenant();
+                    yeniTenant.FkUser = userID;
+                    yeniTenant.FkTenant = tenantID;
+                    yeniTenant.TimeCreated = DateTime.Now;
+                    yeniTenant.FkUserCreated = Context.UserInfo.UserIDCurrent;
+                    userTenantRepository.Add(yeniTenant);
+                    _Workspace.CommitChanges();
+                }
             }
             return 1;
         }
-        public List<TenantViewModel> GetTenantListByID(long userID)
+        public List<TenantViewModel> GetTenantListByUserID(long userID)
         {
-            var userTenantList = userTenantRepository.GetTenantIDByUserID(userID).Select(o => new TenantViewModel {
-               ID=o.Pk,
-               //TenantAd=o.FkTenant
-            });
-            return userTenantList.ToList();
+            return userTenantCompositeRepository.Query(userID).ToList();
         }
     }
 }

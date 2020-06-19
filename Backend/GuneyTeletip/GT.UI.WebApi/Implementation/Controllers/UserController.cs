@@ -105,13 +105,13 @@ namespace GT.UI.WebApi.Controllers
             return HttpMessageService.Ok(service.SaveTenant(model.UserID, model.TenantIDList));
         }
 
-        //[HttpPost]
-        //[Route("/User/GetTenantByID")]
-        //public ServiceResult<int> GetTenantByID(UserUIModel model)
-        //{
-        //    var cx = GetBussinesContext();
-        //    var service = new UserDataService(cx);
-        //    return HttpMessageService.Ok(service.GetTenantByID(model.UserID));
-        //}
+        [HttpPost]
+        [Route("/User/GetTenantListByUserID")]
+        public ServiceResult<List<TenantViewModel>> GetTenantListByUserID(UserUIModel model)
+        {
+            var cx = GetBussinesContext();
+            var service = new UserDataService(cx);
+            return HttpMessageService.Ok(service.GetTenantListByUserID(model.UserID));
+        }
     }
 }

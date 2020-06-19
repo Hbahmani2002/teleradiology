@@ -9,11 +9,15 @@ namespace GT.Repository.Models.View
     {
 
         [DataEntityID]
+        public long ID { get; set; }
         public string AccessionNumber { get; set; }
-        public string Modalite { get; set; }
-        public string Patinetıd { get; set; }
-        public string Patinename { get; set; }
-        public string Pk { get; set; }
+        public string HastaNo { get; set; }
+        public string PatientName { get; set; }
+        public string IstemAdi { get; set; }
+        public DateTime IstemTarihi { get; set; }
+        public string Modality { get; set; }
+        public string KosStateTag { get; set; }
+        public int KosState { get; set; }
 
     }
 }

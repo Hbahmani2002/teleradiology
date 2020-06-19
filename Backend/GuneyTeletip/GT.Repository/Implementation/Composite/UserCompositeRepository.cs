@@ -38,15 +38,14 @@ namespace GT.Repository.Implementation.Composite
                        {
                            EmailAdress = u.EmailAdress,
                            Name = u.Name,
-                           Password = u.Password,
-                           Pk = u.Pk,
-                           RecordState = u.RecordState,
+                           ID = u.Pk,
+                           RecordStatus = u.RecordState,
                            Surname = u.Surname,
                            TimeCreated = u.TimeCreated,
                            TimeModified = u.TimeModified,
-                           FkUserCreated = u.FkUserCreated,
+                           UserIDCreated = u.FkUserCreated,
                            UserName = u.UserName,
-                           FkUserModified = u.FkUserModified,
+                           UserIDModified = u.FkUserModified,
                            RolID=r.Pk,
                            RolName=r.Name
                        };

@@ -6,7 +6,7 @@ namespace GT.Repository.Models.Filter
 {
     public class UserViewFilter
     {
-        public long? Pk { get; set; }
+        public long? ID { get; set; }
         public string EmailAdress { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }

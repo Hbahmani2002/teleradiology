@@ -59,10 +59,26 @@ namespace GT.Test.GT
         {
             var roleID = service.GetRoleByID(2);
         }
+
         [Test]
         public void SaveRol()
         {
             var list = service.SaveRol(2,1);
+        }
+
+        [Test]
+        public void SaveTenant()
+        {
+            var tenantIDList = new long[2];
+            tenantIDList[0] = 1;
+            tenantIDList[1] = 10;
+            var list = service.SaveTenant(2, tenantIDList);
+        }
+
+        [Test]
+        public void GetTenantListByUserID()
+        {
+            var list = service.GetTenantListByUserID(2);
         }
     }
 }
