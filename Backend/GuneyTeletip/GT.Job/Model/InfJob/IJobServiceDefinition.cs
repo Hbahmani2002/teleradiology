@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GT.BAL.Job.Interface
+namespace GT.Job.Interface
 {
 
     internal interface IInfJobServiceDefinition
