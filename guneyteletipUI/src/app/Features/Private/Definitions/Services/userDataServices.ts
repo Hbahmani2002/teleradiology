@@ -45,7 +45,7 @@ export class userDataServices {
   public saveTenant(model: saveTenantUIModel): Observable<number> {
     return this.apiDataService.callDataService('User/SaveTenant', model);
   }
-  public getTenantByID(model: userUIModel): Observable<number> {
-    return this.apiDataService.callDataService('User/GetTenantByID', model);
+  public GetTenantListByUserID(model: userUIModel): Observable<number> {
+    return this.apiDataService.callDataService('User/GetTenantListByUserID', model);
   }
 }

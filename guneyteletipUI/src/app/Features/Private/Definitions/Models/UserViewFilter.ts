@@ -1,11 +1,10 @@
 
 export class userViewFilter {
-  pk: any;
-  emailAdress: any;
-  name: any;
-  surname: any;
-  userName: any;
-  recordType: any;
-  rolName: any;
-  rolID: any;
+  ID: any;
+  EmailAdress: any;
+  Name: any;
+  Surname: any;
+  RolName: any;
+  RolID: any;
+  UserName: any;
 }

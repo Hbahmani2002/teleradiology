@@ -35,7 +35,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/User/Save")]
-        public ServiceResult<int> GetPermission(UserView model)
+        public ServiceResult<int> Save(UserView model)
         {
             var cx = GetBussinesContext();
             var service = new UserDataService(cx);
