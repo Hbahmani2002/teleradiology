@@ -22,27 +22,10 @@ namespace Gt.Data.Test.Infinity
         [Test]
         public void GetInfStudy()
         {
-
-
-
-    
-
-
-
-
-         
-
             var filter = new InfOracleFilter();
-            filter.Accession_no = "RAM";
-       
+            // filter.Infcreationstartdate = new DateTime(2020,01,01);
+            filter.Infstudypklast = 999;
             var list = service.GetInfOracleList(filter);
-
-
         }
-
-
     }
-
-
-
 }

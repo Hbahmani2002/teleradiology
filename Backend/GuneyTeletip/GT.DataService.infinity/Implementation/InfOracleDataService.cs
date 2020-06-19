@@ -43,7 +43,4 @@ namespace GT.DataService.infinity.Implementation
         }
 
     }
-
-
-
 }

@@ -2,20 +2,23 @@
 using GT.Persistance.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 
 namespace GT.Repository.Conditions
 {
     public class InfStudyConditionFilter
     {
         public string Modality { get; set; }
-        public string Patine_name { get; set; }
-        public string Accession_no { get; set; }
-        public string[] AccessionNoList { get; set; }
-        public string Patinet_id { get; set; }
         public long? Pk { get; set; }
-        public long InfFkStudy { get; set; }
+        public long[] HastaneIDList { get; set; }
+        public DateTime? BasTarih { get; set; }
+        public DateTime? BitTarih { get; set; }
+        public string EslesmeDurumu { get; set; }
+        public string[] AccessionNumberList { get; set; }
+        public string[] TcList { get; set; }
     }
     public class InfStudyCondition
     {
@@ -26,19 +29,29 @@ namespace GT.Repository.Conditions
             {
                 exp = exp.And(o => o.Modality.Contains(filter.Modality));
             }     
-            if (!string.IsNullOrEmpty(filter.Patine_name))
+            if (filter.HastaneIDList!=null && filter.HastaneIDList.Length > 0)
             {
-                exp = exp.And(o => o.PatinetNameSurname.Contains(filter.Patine_name));
+                var arr = filter.HastaneIDList.ToList();
+                exp = exp.And(o => arr.Contains(o.FkTenant.Value));
             }
-            if (!string.IsNullOrEmpty(filter.Accession_no))
+            if (filter.TcList != null && filter.TcList.Length > 0)
             {
-                exp = exp.And(o => o.AccessionNo.Contains(filter.Accession_no));
+                var arr = filter.TcList.ToList();
+                exp = exp.And(o => arr.Contains(o.PatientId));
             }
-            if (!string.IsNullOrEmpty(filter.Patinet_id))
+            if (filter.AccessionNumberList != null && filter.AccessionNumberList.Length > 0)
             {
-                exp = exp.And(o => o.PatientId.Contains(filter.Patinet_id));
+                var arr = filter.AccessionNumberList.ToList();
+                exp = exp.And(o => arr.Contains(o.AccessionNo));
             }
-
+            if (filter.BasTarih.HasValue)
+            {
+                exp = exp.And(o => o.TimeCreated <= filter.BasTarih.Value);
+            }
+            if (filter.BitTarih.HasValue)
+            {
+                exp = exp.And(o => o.TimeCreated >= filter.BitTarih.Value);
+            }
             if (filter.Pk.HasValue)
             {
                 exp = exp.And(o => o.Pk == filter.Pk.Value);

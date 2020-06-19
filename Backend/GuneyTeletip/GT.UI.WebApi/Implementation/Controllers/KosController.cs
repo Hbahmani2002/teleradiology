@@ -9,6 +9,7 @@ using GT.Repository.Models.Filter;
 using GT.Repository.Models.View;
 using GT.UI.WebApi.Implementation;
 using GT.UI.WebApi.Models;
+using GT.UI.WebApi.Models.Data.Kos;
 using GT.UI.WebApi.Models.KosModel;
 using GT.UI.WebApi.Models.UserModel;
 using GT.UTILS.GRID;
@@ -50,18 +51,9 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Kos/GetKosList")]
         public ServiceResult<PagingResult<InfStudyViewModel>> GetKosList(Gridable<InfStudyFilter> parms)
         {
-            var list = RandomDataGenerator.CreateRandom<InfStudyViewModel>(12).ToList();
-            //return HttpMessageService.Ok(new PagingResult<InfStudyViewModel>
-            //{
-            //    List = new List<InfStudyViewModel>()
-            //    {
-            //        new InfStudyViewModel {}
-            //    }
-            //});
-            return HttpMessageService.Ok(new PagingResult<InfStudyViewModel>
-            {
-                List = list
-            });
+            var cx = GetBussinesContext();
+            var service = new InfStudyDataService(cx);
+            return HttpMessageService.Ok(service.GetInfStudyList(parms));
         }
 
         [HttpPost]
@@ -112,6 +104,24 @@ namespace GT.UI.WebApi.Controllers
             var cx = GetBussinesContext();
             var service = new InfStudyDataService(cx);
             return HttpMessageService.Ok(service.GetEnumTypeList());
+        }
+
+        [HttpPost]
+        [Route("/Kos/GetKosDurumIst")]
+        public ServiceResult<List<KosDurumIstModel>> GetKosDurumIst()
+        {
+            var cx = GetBussinesContext();
+            var service = new InfStudyDataService(cx);
+            return HttpMessageService.Ok(service.GetKosDurumIst());
+        }
+
+        [HttpPost]
+        [Route("/Kos/UpdateKosDurum")]
+        public ServiceResult<long> UpdateKosDurum(UpdateKosDurumModel model)
+        {
+            var cx = GetBussinesContext();
+            var service = new InfStudyDataService(cx);
+            return HttpMessageService.Ok(service.UpdateKosDurum(model.KosStudyID,model.KosEnumID));
         }
 
     }

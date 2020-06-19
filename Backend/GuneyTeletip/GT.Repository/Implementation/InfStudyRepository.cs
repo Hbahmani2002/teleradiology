@@ -37,7 +37,7 @@ namespace GT.Repository.Implementation
             var userLogin = _AbstractWorkspace.Query<UsrUserLogin>();
             var infStudiesLogin = _AbstractWorkspace.Query<InfStudy>(exp);
             var list = from s in infStudiesLogin
-                       join u in userLogin on s.OracleStudyKey equals u.Pk
+                      // join u in userLogin on s.OracleStudyKey equals u.Pk
                        select new InfStudyViewModel
                        {
                            AccessionNumber=s.AccessionNo,

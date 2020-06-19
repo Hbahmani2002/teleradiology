@@ -7,6 +7,8 @@ import { infStudyViewModel } from '../Models/infStudyViewModel';
 import { kosEnumTypeViewModel } from '../Models/kosEnumTypeViewModel';
 import { kosModel } from '../Models/kosModel';
 import { kosHistoryModel } from '../Models/KosHistoryModel';
+import { kosDurumIstModel } from '../Models/kosDurumIstModel';
+import { updateKosDurumModel } from '../Models/updateKosDurumModel';
 
 export class kosDataServices {
 
@@ -44,5 +46,11 @@ export class kosDataServices {
   }
   public GetEnumTypeList(model: kosModel): Observable<Array<kosEnumTypeViewModel>> {
     return this.apiDataService.callDataService('Kos/GetEnumTypeList', model);
+  }
+  public GetKosDurumIst(model: kosModel): Observable<Array<kosDurumIstModel>> {
+    return this.apiDataService.callDataService('Kos/GetKosDurumIst', model);
+  }
+  public UpdateKosDurum(model: updateKosDurumModel): Observable<number> {
+    return this.apiDataService.callDataService('Kos/UpdateKosDurum', model);
   }
 }

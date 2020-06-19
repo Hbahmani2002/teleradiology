@@ -1,5 +1,5 @@
 export class infStudyFilter {
-  hastaneList: any[];
+  hastaneIDList: any[];
   basTarih: any;
   bitTarih: any;
   modalite: any;
