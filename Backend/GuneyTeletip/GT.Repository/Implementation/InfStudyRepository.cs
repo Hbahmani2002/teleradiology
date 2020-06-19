@@ -26,62 +26,31 @@ namespace GT.Repository.Implementation
             return Single(o => o.Pk == id);
         }
 
-
-        public List<InfStudyViewModel> Query(InfStudyConditionFilter filter)
+        public IQueryable<InfStudyViewModel> Query(InfStudyConditionFilter filter)
         {
             var exp = InfStudyCondition.Get(filter);
             return Query(exp);
         }
 
-        public IQueryable<InfStudyViewModel> QueryGrid(InfStudyConditionFilter filter)
+        public IQueryable<InfStudyViewModel> Query(Expression<Func<InfStudy, bool>> exp)
         {
-            var exp = InfStudyCondition.Get(filter);
-            return QueryGrid(exp);
-        }
-        public List<InfStudyViewModel> Query(Expression<Func<InfStudy, bool>> exp)
-        {
-
-            var userLogin = _AbstractWorkspace.Query<UsrUserLogin>();
-            var infStudiesLogin  = _AbstractWorkspace.Query<InfStudy>(exp);
-            var list = from s in infStudiesLogin
-                       join u in userLogin on s.OracleStudyKey equals u.Pk
-                       select new InfStudyViewModel
-                       {
-                           //Modalite=
-                           //Modality = s.Modality,
-                           //Accession_no = s.AccessionNo,
-                           //Patinet_id = s.PatientId,
-                           //Patine_name = s.PatinetNameSurname,
-                           //Pk = s.Pk
-
-                       };
-
-            return list.ToList();
-        }
-        public IQueryable<InfStudyViewModel> QueryGrid(Expression<Func<InfStudy, bool>> exp)
-        {
-
             var userLogin = _AbstractWorkspace.Query<UsrUserLogin>();
             var infStudiesLogin = _AbstractWorkspace.Query<InfStudy>(exp);
             var list = from s in infStudiesLogin
                        join u in userLogin on s.OracleStudyKey equals u.Pk
                        select new InfStudyViewModel
                        {
-
-                           //Modality = s.Modality,
-                           //Accession_no = s.AccessionNo,
-                           //Patinet_id = s.PatientId,
-                           //Patine_name = s.PatinetNameSurname,
-                           //Pk = s.Pk
-
+                           AccessionNumber=s.AccessionNo,
+                           IstemAdi="",
+                           HastaNo=s.PatientId,
+                           ID=s.Pk,
+                           PatientName=s.PatinetNameSurname,
+                           Modality=s.Modality,
+                           KosStateTag=s.StudyDescription,
+                           //KosState=s.
                        };
 
             return list;
         }
-
-
     }
-
-
-
 }

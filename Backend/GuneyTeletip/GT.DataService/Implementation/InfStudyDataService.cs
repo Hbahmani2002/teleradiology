@@ -41,7 +41,9 @@ namespace GT.DataService.Implementation
 
         public IEnumerable<InfStudyParameter> GetTimerParameters(InfStudyParameterConditionFilter filter)
         {
-            return _InfStudyParameterRepository.Query(filter);
+            return _InfStudyParameterRepository
+                .Query(filter)
+                .ToArray();
         }
         public PagingResult<InfStudyViewModel> GetInfStudyList(Gridable<InfStudyFilter> parms)
         {
@@ -63,7 +65,7 @@ namespace GT.DataService.Implementation
                 //Patine_name = parms.Filter.Patine_name,
                 //Pk = parms.Filter.Pk,
             };
-            return _InfStudyRepository.QueryGrid(s)
+            return _InfStudyRepository.Query(s)
                 .GetGridQuery(parms);
         }
 

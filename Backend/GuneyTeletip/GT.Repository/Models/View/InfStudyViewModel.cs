@@ -7,7 +7,6 @@ namespace GT.Repository.Models.View
 {
     public class InfStudyViewModel
     {
-
         [DataEntityID]
         public long ID { get; set; }
         public string AccessionNumber { get; set; }
