@@ -15,9 +15,9 @@ namespace Util.Job.Interface
             _Jobs = new Dictionary<string, JobItem>();
             JobItems = new ReadOnlyDictionary<string, JobItem>(_Jobs);
         }
-        public JobItem Register(string name, int intervalMinute, Action action)
+        public JobItem Register(string name, int interval, Action action)
         {
-            var item = new JobItem(intervalMinute, action);
+            var item = new JobItem(interval, action);
             _Jobs.Add(name, item);
             return item;
         }

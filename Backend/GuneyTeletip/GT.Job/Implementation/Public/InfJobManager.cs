@@ -1,5 +1,4 @@
 ﻿using GT.BAL.Infinity.DataSynronizer;
-using GT.BAL.Job.Interface;
 using GT.DataService.Implementation;
 using GT.Persistance.Domain.Models;
 using GT.Repository.Implementation;
@@ -8,27 +7,32 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Util.Job.Interface;
+using Util.Logger;
 
-namespace GT.BAL.Job.Implementation
+namespace GT.Job.Implementation
 {
-    public class InfJobManager : IInfJobManager
+    public class InfJobManager : JobManager
     {
         private static InfJobManager _InfJobManager;
-        public static InfJobManager Create()
+        private ILogger logger;
+
+        public static InfJobManager Create(ILogger logger)
         {
             if (_InfJobManager != null)
             {
                 throw new Exception("Infinity Job zaten başlamış");
             }
-            _InfJobManager = new InfJobManager();
+            _InfJobManager = new InfJobManager(logger);
             return _InfJobManager;
         }
-        private InfJobManager()
+
+
+        private InfJobManager(ILogger logger)
         {
-            JobManager = new JobManager();
-
+            if (logger == null)
+                throw new ArgumentException("Joıg logger boşi olamaz");
+            this.logger = logger;
         }
-
 
         private IEnumerable<InfStudyParameter> GetJobs()
         {
@@ -36,36 +40,68 @@ namespace GT.BAL.Job.Implementation
             var paramters = jobs.GetTimerParameters(new InfStudyParameterConditionFilter { RecordState = 1 });
             return paramters;
         }
-        public void Load()
+        public void Start()
         {
-            var jobs = this.GetJobs();
-
-            foreach (var item in jobs)
+            logger.LogInfo("Jobs START");
+            try
             {
-                JobManager.Register(item.Name, item.IntervalMinute.Value, () =>
+                var jobs = this.GetJobs();
+                logger.LogInfo($"Jobs COUNT:{jobs.Count()}");
+                foreach (var item in jobs)
                 {
+                    RegisterJobs(item);
+                }
+                StartJobs();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Jobs FAIL");
+                throw ex;
+            }
+            logger.LogInfo("Jobs OK");
+
+
+
+        }
+
+        private void RegisterJobs(InfStudyParameter item)
+        {
+            Register(item.Name, item.IntervalMinute.Value * 60 * 1000, () =>
+                {
+                    logger.LogInfo(item.Name + " başladı");
+                    Exception ex = null;
                     try
                     {
-
-                        var dt = new InfinityDataSyncronizer();
-                        dt.SyncronizeInfinityStudyList(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
+                        ActionFunction(item);
                     }
-                    catch (Exception)
+                    catch (Exception ex2)
                     {
+                        ex = ex2;
 
-                        throw;
+                    }
+                    if (ex == null)
+                    {
+                        logger.LogInfo(item.Name + " bitti");
+
+                    }
+                    else
+                    {
+                        logger.LogError(ex, item.Name);
                     }
 
                 });
-            }
-            StartJobs();
+        }
+
+        private static void ActionFunction(InfStudyParameter item)
+        {
+            var dt = new InfinityDataSyncronizer();
+            dt.SyncronizeInfinityStudyList(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
         }
 
         private void StartJobs()
         {
-            JobManager.JobItems.ToList().ForEach(o => o.Value.Start());
+            JobItems.ToList().ForEach(o => o.Value.Start());
         }
 
-        public JobManager JobManager { get; set; }
     }
 }
