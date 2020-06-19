@@ -133,8 +133,9 @@ namespace GT.BAL.TeletipKos
             grid.Paging.Count = 1000;
             grid.Filter = filter;
 
-            var list = _InfStudyDataService.GetInfStudyList(grid).List;
-            return list;
+            // var list = _InfStudyDataService.GetInfStudyList(grid).List;
+            // return list;
+            return null;
         }
 
     }

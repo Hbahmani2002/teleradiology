@@ -52,14 +52,8 @@ namespace GT.DataService.Implementation
             {
                 EmailAdress=parms.Filter.EmailAdress,
                 Name=parms.Filter.Name,
-                Password=parms.Filter.Password,
                 ID=parms.Filter.ID,
-                RecordState=parms.Filter.RecordType,
                 Surname=parms.Filter.Surname,
-                TimeCreated=parms.Filter.TimeCreated,
-                TimeModified=parms.Filter.TimeDelete,
-                FkUserCreated=parms.Filter.UserFk,
-                FkUserModified=parms.Filter.UserFkLastModfiead,
                 UserName=parms.Filter.UserName
             };
             var r = new RoleConditionFilter

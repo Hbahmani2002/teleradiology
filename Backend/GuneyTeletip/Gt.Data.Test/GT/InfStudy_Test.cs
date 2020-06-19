@@ -22,15 +22,12 @@ namespace Gt.Data.Test
                 [Test]
                 public void GetInfStudy()
                 {
-
-
-
                         var grid = new Gridable<InfStudyFilter>();
 
                         var filter = new InfStudyFilter();
                         grid.Filter = filter;
                        // filter.Patinet_id = "45529049390";
-                        var list = service.GetInfStudyList(grid);
+                      //  var list = service.GetInfStudyList(grid);
 
 
                 }
