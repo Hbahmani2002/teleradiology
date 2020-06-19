@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { kosDataServices } from '../../../Services/kosDataServices';
 import { userDataServices } from 'src/app/Features/Private/Definitions/Services/userDataServices';
 import { kosFilter } from '../kosgrid/kosgrid.component';
+import { ddlSettings } from './ddlSettings';
 
 
 @Component({
@@ -12,48 +13,65 @@ import { kosFilter } from '../kosgrid/kosgrid.component';
 })
 export class KosfilterComponent implements OnInit {
 
+  public ddlSettings: ddlSettings = new ddlSettings();
+  public ddlTenantSettings;
+  public ddlModalitySettings;
+  public ddlStateSettings;
+  public ddlTenant = [];
+  public ddlModality = [];
+  public ddlState = [];
+  public ddlTenantSelectedItems = [];
+  public ddlModalitySelectedItems = [];
+  public ddlStateSelectedItems = [];
+ 
 
-  dropdownList = [];
-  selectedItems = [];
-  dropdownSettings: IDropdownSettings = {};
-
-  isCollapsed = false;
+  public isCollapsed = false;
+  public dateRange;
   public tcKimlikNo: string;
   public tcKimlikNoList: string[] = [];
   public accessionNo: string;
   public accessionNoList: string[] = [];
   public kosFilter: kosFilter = new kosFilter();
+  public kosFilterOutput: kosFilter = new kosFilter();
 
 
   constructor(private kosService: kosDataServices, private userService: userDataServices) {
   }
-
   ngOnInit() {
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: true
-    };
-    this.getTenantList();
 
+    this.ddlTenantSettings = this.ddlSettings.ddlTenantSettings;
+    this.ddlModalitySettings = this.ddlSettings.ddlModalitySettings;
+    this.ddlStateSettings = this.ddlSettings.ddlStateSettings;
+    //test için
+    this.ddlModality.push({ pk: 1, tenantAd: 'mert11' });
+    this.ddlModality.push({ pk: 2, tenantAd: 'mert22' });
+    this.ddlModality.push({ pk: 3, tenantAd: 'mert33' });
+
+    this.ddlState.push({ pk: 1, tenantAd: 'mert1' });
+    this.ddlState.push({ pk: 2, tenantAd: 'mert2' });
+    this.ddlState.push({ pk: 3, tenantAd: 'mert3' });
+
+    this.getTenantList();
+    this.getModalityList();
+
+   
   }
- 
   //GET MODALITY AND TENANT FOR DROPDOWNLIST
   getTenantList() {
-    this.dropdownList.push({ item_id: 1, item_text: 'HAYAT HAST'});
-   //this.userService.getTenantList();
+    this.userService.getTenantList().subscribe(data => {
+      this.ddlTenant = data;
+      console.log(this.ddlTenant);
+    });
   }
   getModalityList() {
     this.kosService.getModalityList().subscribe(data => {
-      console.log(data);
+      this.ddlModality = data;
+      console.log(this.ddlModality);
     });
   }
-
-
+  getStateList() {
+    //Eşleşme durumu servisi şuan yok
+  }
   //SPLIT
   split(type) {
     if (type == 'tc') {
@@ -62,6 +80,7 @@ export class KosfilterComponent implements OnInit {
           this.tcKimlikNoList.push(item);
         }
       });
+      return this.tcKimlikNoList;
     }
     else if (type = 'accession') {
       this.accessionNo.split(" ").forEach(item => {
@@ -69,6 +88,30 @@ export class KosfilterComponent implements OnInit {
           this.accessionNoList.push(item);
         }
       });
+      return this.accessionNoList;
     }
+  }
+
+  onFilter() {
+    this.ddlTenantSelectedItems.forEach(item => {
+      this.kosFilter.hastaneList.push(item.item_text);
+    });
+    this.kosFilter.basTarih = this.dateRange[0];
+    this.kosFilter.bitTarih = this.dateRange[1];
+
+    this.kosFilter.tcList = this.split('tc');
+    this.kosFilter.accessionNumberList = this.split('accession');
+
+
+    this.kosFilterOutput = this.kosFilter;
+    console.log(this.kosFilterOutput);
+    this.tcKimlikNoList = [];
+    this.accessionNoList = [];
+    
+  }
+  clearFilter() {
+    this.dateRange = [];
+    this.tcKimlikNo = '';
+    this.accessionNo = '';
   }
 }

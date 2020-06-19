@@ -1,53 +1,49 @@
 <div class="m-0">
-  <button class="btn btn-info smalbutton" tooltip="Seçilenlerin KOS'larını Gönder"><fa name="share-square"></fa></button>
-  <button class="btn btn-danger smalbutton" tooltip="Seçilenlerin KOS'larını Teletıp'tan sil"><fa name="trash"></fa></button>
-  <button class="btn btn-primary smalbutton" tooltip="Seçilenlerin KOS Durumlarını Teletıp'tan oku"><fa name="get-pocket"></fa></button>
-  <button class="btn btn-info smalbutton" tooltip="Seçilenler için PACS'tan talep yap"><fa name="plus-circle"></fa></button>
-  <button class="btn btn-primary smalbutton" tooltip="Seçilenlerin görüntülerini PACS'a gönder"><fa name="share-square"></fa></button>
-  <button class="btn btn-primary smalbutton" tooltip="Excel'e çevir"><fa name="table"></fa></button>
+  <button [disabled]="gridKos.clickedItem == undefined"(click)="gridKos.onClickCreateKos()"    class="btn btn-info smalbutton"   tooltip="Koş Oluştur"><fa name="plus-circle"></fa></button>
+  <button [disabled]="gridKos.clickedItem == undefined"(click)="gridKos.onClickSendKos()"      class="btn btn-info smalbutton"   tooltip="Seçilenlerin KOS'larını Gönder"><fa name="share-square"></fa></button>
+  <button [disabled]="gridKos.clickedItem == undefined"(click)="gridKos.onClickDeleteKos()"    class="btn btn-danger smalbutton" tooltip="Seçilenlerin KOS'larını Teletıp'tan sil"><fa name="trash"></fa></button>
+  <button [disabled]="gridKos.clickedItem == undefined"(click)="gridKos.onClickUpdateReadKos()"class="btn btn-primary smalbutton"tooltip="Seçilenlerin KOS Durumlarını Teletıp'tan oku"><fa name="get-pocket"></fa></button>
+  <button [disabled]="gridKos.clickedItem == undefined"(click)="gridKos.onClickExportExcel()"  class="btn btn-primary smalbutton"tooltip="Excel'e çevir"><fa name="table"></fa></button>
 </div>
 
 <div class="card mt-2">
   <div class="card-header">
     <fa name="list"></fa>
-    Kayıt Listesi
+    Kayıt Listesi > [Toplam:{{gridKos.data.totalCount}}/Seçili:{{gridKos.selectedItems.length}}/Tıklanan:{{gridKos.clickedItem!=undefined?1:0}}]
     <div class="pull-right">
-     
+      <select [(ngModel)]="gridKos.model.paging.count" (change)="gridKos.onRefresh()">
+        <option *ngFor="let c of gridKos.pager" [ngValue]="c">{{c}}</option>
+      </select>
     </div>
   </div>
   <div class="card-body p-0 table-responsive">
     <table #filterSection class="table table-bordered m-0 medlifeGrid">
       <thead>
         <tr>
-          <th scope="col" class="p-0"><input type="checkbox"></th>
+          <th scope="col" class="p-0"><input type="checkbox" (click)="gridKos.onSelectAll($event)"></th>
           <th scope="col" class="p-0">Hasta No<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
           <th scope="col" class="p-0">Hasta İsmi<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
           <th scope="col" class="p-0">Accession No<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0">İşlem Bilgisi<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0">İşlem Zamanı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0">Modelite<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0">Kos Durumu<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0">Modalite<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr (click)="gridKos.onClickItem(item)" *ngFor="let item of gridKos.data.list" [class]="gridKos.getRowClass(item)">
           <td class="p-0">
-            <input type="checkbox" class="">
+            <input type="checkbox" class="" [checked]="gridKos.isSelected(item)"
+                   (change)="gridKos.onSelectItem(item)">
           </td>
-          <td class="p-0">123123</td>
-          <td class="p-0">Ali Ak</td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
+          <td class="p-0">{{item.patinetid}}</td>
+          <td class="p-0">{{item.patinename}}</td>
+          <td class="p-0">{{item.accessionNumber}}</td>
+          <td class="p-0">{{item.modalite}}</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="row justify-content-center   mt-3">
+  <div class="row justify-content-center  mb-3">
     <div class="col-sm-7 pagination-sm  justify-content-center pageNumber">
-      <pagination class="justify-content-center" [boundaryLinks]="true" [totalItems]="10" [maxSize]="4" [itemsPerPage]="4" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      <pagination class="justify-content-center" [boundaryLinks]="true" [totalItems]="gridKos.data.totalCount" [maxSize]="4" [(ngModel)]="gridKos.model.paging.pageNumber" [itemsPerPage]="gridKos.model.paging.count" (pageChanged)="gridKos.onPageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
       </pagination>
     </div>
   </div>

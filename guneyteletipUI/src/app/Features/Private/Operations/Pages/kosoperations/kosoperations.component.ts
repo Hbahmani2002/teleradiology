@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { userDataServices } from '../../../Definitions/Services/userDataServices';
+import { KosfilterComponent } from './kosfilter/kosfilter.component';
 
 @Component({
   selector: 'app-kosoperations',
@@ -7,11 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KosoperationsComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild(KosfilterComponent, { static: false })
+  public kosFilterComponent: KosfilterComponent;
+
+  constructor(private userService: userDataServices) { }
 
   ngOnInit() {
   }
-
-
 
 }
