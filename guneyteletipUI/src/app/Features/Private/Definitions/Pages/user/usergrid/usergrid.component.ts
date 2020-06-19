@@ -44,6 +44,10 @@ export class UsergridComponent implements OnInit {
       };
       this.modal.openModal(EdituserComponent, initialState).subscribe((data) => {
         console.log(data.reason);
+        if (data.reason == 'save') {
+          this.gridUser.onRefresh();
+        }
+        
       });
     }
     else if ('düzenle') {
@@ -53,6 +57,9 @@ export class UsergridComponent implements OnInit {
       };
       this.modal.openModal(EdituserComponent, initialState).subscribe((data) => {
         console.log(data.reason);
+        if (data.reason == 'save') {
+          this.gridUser.onRefresh();
+        }
       });
     }
   }
@@ -69,6 +76,7 @@ export class UsergridComponent implements OnInit {
         this.userUIModel.userID = this.gridUser.clickedItem.pk;
         this.userService.delete(this.userUIModel).subscribe(o => {
           console.log(o);
+          this.gridUser.onRefresh();
         });
       }
     });

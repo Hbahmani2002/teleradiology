@@ -1,89 +1,75 @@
 <div class="card mt-2">
-  <div class="card-header">
+  <div class="card-header p-1">
     <fa name="bar-chart"></fa>
     İstatistikler
+    <div class="pull-right mr-1">
+      <button (click)="onRefresh()" class="btn btn-sm btn-light p-0 m-0" style="height: 1.5rem; width:2rem">
+        <fa name="refresh"></fa>
+      </button>
+    </div>
   </div>
-  <div class="card-body">
-    <div class="card">
-      <div class="card-header">
-        MAKE KOS İstatistikleri
+  <div class="card-body p-1 m-1">
+    <div class="card p-0 m-0">
+      <div class="card-header p-0">
+        <label class="m-1">KOS Durum</label>
         <div class="pull-right">
-          <button (click)="isCollapsed = !isCollapsed;" class="btn btn-sm btn-light" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">
-            <fa *ngIf="isCollapsed" name="angle-down"></fa>
-            <fa *ngIf="!isCollapsed" name="angle-up"></fa>
+          <button (click)="isCollapsed = !isCollapsed;" class="btn btn-sm btn-light p-0 m-0" style="height: 1.5rem; width:2rem" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic" >
+            <fa class="m-2" *ngIf="isCollapsed" name="angle-down"></fa>
+            <fa class="m-2" *ngIf="!isCollapsed" name="angle-up"></fa>
           </button>
         </div>
       </div>
       <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
         <div class="card-body">
-          <div class="row">
-            <div class="col-2">
-              <button class="btn btn-success btn-sm"></button>
-            </div>
-            <div class="col-10">
-              <label class="font-weight-bold">Başarılı : 248</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-2">
-              <button class="btn btn-danger btn-sm"></button>
-            </div>
-            <div class="col-10">
-              <label class="font-weight-bold">Başarısız : 22</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-2">
-              <button class="btn btn-primary btn-sm"></button>
-            </div>
-            <div class="col-10">
-              <label class="font-weight-bold">Toplam : 270</label>
-            </div>
-          </div>
+          <ul class="row" *ngFor="let item of enumData">
+            <li>
+              <label>{{item.name}} : <span class="font-weight-bold">{{item.result}}</span></label>
+            </li>
+          </ul>
         </div>
       </div>
 
     </div>
-    <div class="card">
-      <div class="card-header">
-        SEND KOS İstatistikleri
-        <div class="pull-right">
-          <button (click)="isCollapsed1 = !isCollapsed1;" class="btn btn-sm btn-light" [attr.aria-expanded]="!isCollapsed1" aria-controls="collapseBasic1">
-            <fa *ngIf="isCollapsed1" name="angle-down"></fa>
-            <fa *ngIf="!isCollapsed1" name="angle-up"></fa>
-          </button>
-        </div>
+    <!--<div class="card">
+    <div class="card-header">
+      SEND KOS İstatistikleri
+      <div class="pull-right">
+        <button (click)="isCollapsed1 = !isCollapsed1;" class="btn btn-sm btn-light" [attr.aria-expanded]="!isCollapsed1" aria-controls="collapseBasic1">
+          <fa *ngIf="isCollapsed1" name="angle-down"></fa>
+          <fa *ngIf="!isCollapsed1" name="angle-up"></fa>
+        </button>
       </div>
-      <div id="collapseBasic1" [collapse]="isCollapsed1" [isAnimated]="true">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-2">
-              <button class="btn btn-success btn-sm"></button>
-            </div>
-            <div class="col-10">
-              <label class="font-weight-bold">Başarılı : 356</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-2">
-              <button class="btn btn-danger btn-sm"></button>
-            </div>
-            <div class="col-10">
-              <label class="font-weight-bold">Başarısız : 45</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-2">
-              <button class="btn btn-primary btn-sm"></button>
-            </div>
-            <div class="col-10">
-              <label class="font-weight-bold">Toplam : 401</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
+    <div id="collapseBasic1" [collapse]="isCollapsed1" [isAnimated]="true">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-2">
+            <button class="btn btn-success btn-sm"></button>
+          </div>
+          <div class="col-10">
+            <label class="font-weight-bold">Başarılı : 356</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">
+            <button class="btn btn-danger btn-sm"></button>
+          </div>
+          <div class="col-10">
+            <label class="font-weight-bold">Başarısız : 45</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">
+            <button class="btn btn-primary btn-sm"></button>
+          </div>
+          <div class="col-10">
+            <label class="font-weight-bold">Toplam : 401</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>-->
   </div>
 </div>
 

@@ -3,7 +3,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 export class ddlSettings {
   ddlTenantSettings: IDropdownSettings = {};
   ddlModalitySettings: IDropdownSettings = {};
-  ddlStateSettings: IDropdownSettings = {};
+  ddlEnumSettings: IDropdownSettings = {};
   ddlRoleSettings: IDropdownSettings = {};
 
   constructor() {
@@ -11,8 +11,8 @@ export class ddlSettings {
       singleSelection: false,
       idField: 'id',
       textField: 'tenantAd',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
+      selectAllText: 'Tümünü Seç',
+      unSelectAllText: 'Tümünü Kaldır',
       itemsShowLimit: 0,
       allowSearchFilter: true
     };
@@ -20,17 +20,17 @@ export class ddlSettings {
       singleSelection: false,
       idField: 'id',
       textField: 'name',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
+      selectAllText: 'Tümünü Seç',
+      unSelectAllText: 'Tümünü Kaldır',
       itemsShowLimit: 0,
       //allowSearchFilter: true
     };
-    this.ddlStateSettings = {
+    this.ddlEnumSettings = {
       singleSelection: false,
-      idField: 'pk',
-      textField: 'tenantAd',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'Tümünü Seç',
+      unSelectAllText: 'Tümünü Kaldır',
       itemsShowLimit: 0,
       //allowSearchFilter: true
     };

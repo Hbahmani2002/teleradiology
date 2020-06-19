@@ -38,8 +38,8 @@ namespace GT.UI.WebApi
 
         private void TOkenAuthenticaation(IServiceCollection services)
         {
-            services.Configure<AppSettings>(AppSettings.Init(Configuration));
-            var key = Encoding.ASCII.GetBytes(AppSettings.JWT.Secret);
+            services.Configure<WebAppSettings>(WebAppSettings.Init(Configuration));
+            var key = Encoding.ASCII.GetBytes(WebAppSettings.JWT.Secret);
 
             services.AddAuthentication(x =>
             {

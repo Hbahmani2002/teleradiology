@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GT.UI.WebApi.Implementation
 {
-    public class AppSettings
+    public class WebAppSettings
     {
         private static IConfiguration Configuration;
         public static JWT JWT;

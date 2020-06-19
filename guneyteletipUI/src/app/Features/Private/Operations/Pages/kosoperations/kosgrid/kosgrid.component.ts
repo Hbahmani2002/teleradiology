@@ -11,7 +11,8 @@ import { infStudyFilter } from '../../../Models/infStudyFilter';
 export class KosgridComponent implements OnInit {
   
   @Input() set filterData(value: any) {
-    if (value == null)
+    debugger;
+    if (value == null || value == undefined)
       return;
 
     this.kosFilter = value;
@@ -31,8 +32,8 @@ export class kosFilter {
   hastaneList: any[] = [];
   basTarih: any = undefined;
   bitTarih: any = undefined;
-  modalite: any = undefined;
-  eslesmeDurumu: any;
+  modalite: any[] = [];
+  eslesmeDurumu: any[] = [];
   tcList: any[] = [];
   accessionNumberList: any[] = [];
 }
@@ -104,7 +105,7 @@ namespace KosListComponent_Models {
     onRefresh() {
       var item = this.getFilter()
       var filter = item.filter;
-
+      console.log(item);
       this.kosService.getKosList(item).subscribe(o => {
 
         this.data.list = o["list"];

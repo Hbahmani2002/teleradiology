@@ -36,13 +36,12 @@ export class EdituserComponent implements OnInit {
     }
   }
   onSave() {
-
     console.log(this.userSaveModel)
     this.userService.save(this.userSaveModel).subscribe(data => {
       console.log(data);
-      //this.modal.onClose("save");
+      this.modal.onClose("save");
     });
-    this.modal.onClose("save");
+    //this.modal.onClose("save");
   }
 
    

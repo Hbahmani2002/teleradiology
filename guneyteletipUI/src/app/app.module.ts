@@ -54,6 +54,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { TestpageComponent } from './Features/Public/testpage/testpage.component';
 import { userDataServices } from './Features/Private/Definitions/Services/userDataServices';
 import { kosDataServices } from './Features/Private/Operations/Services/kosDataServices';
+import { roleDataServices } from './Features/Private/Definitions/Services/roleDataServices';
 
 @NgModule({
   declarations: [
@@ -128,6 +129,7 @@ import { kosDataServices } from './Features/Private/Operations/Services/kosDataS
       authenticationDataService,
       userDataServices,
       kosDataServices,
+      roleDataServices,
     ],
   entryComponents:
     [
