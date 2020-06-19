@@ -17,9 +17,9 @@ import { userSaveModel } from '../../../Models/userSaveModel';
 export class UsergridComponent implements OnInit {
 
   @Input() set filterValue(value: any) {
-    if (value == undefined)
+    if (value == null || value == undefined)
       return;
-    this.userFilter.userName = value;
+    this.userFilter.UserName = value;
     this.gridUser.onRefresh();
   }
 
@@ -43,7 +43,6 @@ export class UsergridComponent implements OnInit {
         userId: undefined
       };
       this.modal.openModal(EdituserComponent, initialState).subscribe((data) => {
-        console.log(data.outputData);
         console.log(data.reason);
       });
     }
@@ -63,8 +62,9 @@ export class UsergridComponent implements OnInit {
       message: "Kullanıcıyı silmek istediğinize emin misiniz?"
     };
     this.modal.openModal(ConfirmationdialogComponent, initialState).subscribe((result) => {
+
       console.log(result.reason);
-      debugger;
+      console.log(result.outputData);
       if (result.reason == 'ok') {
         this.userUIModel.userID = this.gridUser.clickedItem.pk;
         this.userService.delete(this.userUIModel).subscribe(o => {
@@ -75,17 +75,13 @@ export class UsergridComponent implements OnInit {
   }
 }
 export class userFilter {
-  pk: any;
-  emailAdress: any;
-  name: any;
-  password: any;
-  surname: any;
-  timeCreated: any;
-  timeDelete: any;
-  userFk: any;
-  userName: any;
-  userFkLastModfiead: any;
-  recordType: any;
+  ID: any;
+  EmailAdress: any;
+  Name: any;
+  Surname: any;
+  RolName: any;
+  RolID: any;
+  UserName: any;
 }
 namespace UserListComponent_Models {
 
@@ -107,13 +103,7 @@ namespace UserListComponent_Models {
       let item = this.filter.filter;
       var o = this.userFilter;
 
-      item.pk = o.pk;
-      item.userName = o.userName;
-      item.name = o.name;
-      item.surname = o.surname;
-      item.emailAdress = o.emailAdress;
-      item.recordType = o.recordType;
-
+      item.UserName = o.UserName;
       return this.filter;
     };
     onSorting(colName) {

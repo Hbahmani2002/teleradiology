@@ -1,9 +1,10 @@
 
 export class userSaveModel {
-  pk: any;
-  emailadress: any;
-  name: any;
-  password: any;
-  surname: any;
-  username: any;
+  ID: any;
+  EmailAdress: any;
+  Name: any;
+  Password: any;
+  Surname: any;
+  UserName: any;
+  RecordState: any;
 }

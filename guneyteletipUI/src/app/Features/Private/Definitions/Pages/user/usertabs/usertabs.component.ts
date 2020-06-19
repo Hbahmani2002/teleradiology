@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { userDataServices } from '../../../Services/userDataServices';
 import { userUIModel } from '../../../Models/UserUIModel';
 import { ddlSettings } from 'src/app/Features/Private/Operations/Pages/kosoperations/kosfilter/ddlSettings';
+import { saveRolUIModel } from '../../../Models/SaveRolUIModel';
 
 @Component({
   selector: 'app-usertabs',
@@ -14,19 +15,15 @@ export class UsertabsComponent implements OnInit {
     if (value == undefined)
       return;
     console.log(value)
+    this.saveRole.userID = value;
     this.userModel.userID = value;
-    this.userService.getRoleByID(this.userModel).subscribe(data => {
-     // this.ddlRoleSelectedItem = data;
-      console.log(data);
-    });
-    this.userService.getTenantByID(this.userModel).subscribe(data => {
-      //this.ddlTenantSelectedItem = data;
-      console.log(data);
-    });
+    this.getDdlRoleSelectedItems();
+    this.getDdlTenantSelectedItems();
   }
 
   ddlSettings: ddlSettings = new ddlSettings();
   userModel: userUIModel = new userUIModel();
+  saveRole: saveRolUIModel = new saveRolUIModel();
 
   ddlTenantData = [];
   ddlTenantSelectedItem = [];
@@ -43,6 +40,8 @@ export class UsertabsComponent implements OnInit {
   ngOnInit() {
     this.ddlTenantSettings = this.ddlSettings.ddlTenantSettings;
     this.ddlRoleSettings = this.ddlSettings.ddlRoleSettings;
+    this.getDdlRoleData();
+    this.getDdlTenantData();
   }
   getDdlRoleData() {
     this.userService.getRolList().subscribe(data => {
@@ -56,10 +55,31 @@ export class UsertabsComponent implements OnInit {
       console.log(data);
     });
   }
+  getDdlTenantSelectedItems() {
+    this.userService.GetTenantListByUserID(this.userModel).subscribe(data => {
+      this.ddlTenantSelectedItem = data;
+      console.log(data);
+    });
+  }
+  getDdlRoleSelectedItems() {
+    this.userService.getRoleByID(this.userModel).subscribe(data => {
+      this.ddlRoleSelectedItem.push(data);
+    });
+  }
   onSaveRole() {
+    if (this.ddlRoleDisabled) {
+      this.saveRole.roleID = this.ddlRoleSelectedItem[0].roleID;
+      console.log(this.saveRole);
+      this.userService.saveRol(this.saveRole).subscribe(o => {
+        console.log(o);
+      });
 
+    }
   }
   onSaveTenant() {
+    if (this.ddlRoleDisabled) {
+      //this.user
 
+    }
   }
 }

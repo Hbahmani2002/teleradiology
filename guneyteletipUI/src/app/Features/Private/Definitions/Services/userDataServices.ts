@@ -24,7 +24,7 @@ export class userDataServices {
   public save(model: userSaveModel): Observable<number> {
     return this.apiDataService.callDataService('User/Save', model);
   }
-  public getByID(model: userUIModel): Observable<userViewModel> {
+  public getByID(model: userUIModel): Observable<userSaveModel> {
     return this.apiDataService.callDataService('User/GetByID', model);
   }
   public delete(model: userUIModel): Observable<number> {
@@ -33,7 +33,7 @@ export class userDataServices {
   public getRolList(): Observable<Array<roleViewModel>> {
     return this.apiDataService.callDataService('User/GetRolList', undefined);
   }
-  public getRoleByID(model: userUIModel): Observable<number> {
+  public getRoleByID(model: userUIModel): Observable<roleViewModel> {
     return this.apiDataService.callDataService('User/GetRoleByID', model);
   }
   public saveRol(model: saveRolUIModel): Observable<number> {
@@ -45,7 +45,7 @@ export class userDataServices {
   public saveTenant(model: saveTenantUIModel): Observable<number> {
     return this.apiDataService.callDataService('User/SaveTenant', model);
   }
-  public GetTenantListByUserID(model: userUIModel): Observable<number> {
+  public GetTenantListByUserID(model: userUIModel): Observable<Array<tenantViewModel>> {
     return this.apiDataService.callDataService('User/GetTenantListByUserID', model);
   }
 }
