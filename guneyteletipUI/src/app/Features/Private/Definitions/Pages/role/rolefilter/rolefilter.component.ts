@@ -8,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class RolefilterComponent implements OnInit {
 
   constructor() { }
-
+  roleName;
+  roleNameOutput;
   ngOnInit() {
   }
-
+  onFiler() {
+    this.roleNameOutput = this.roleName;
+  }
 }

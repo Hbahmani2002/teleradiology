@@ -10,41 +10,49 @@
         <div class="form-group row m-1" *ngIf="idDisabled">
           <label class="col-sm-4 col-form-label">ID : </label>
           <div class="col-sm-8">
-            <input type="number" class="form-control" name="id" [(ngModel)]="userViewModel.pk" disabled>
+            <input type="number" class="form-control" name="id" [(ngModel)]="userSaveModel.ID" disabled>
           </div>
         </div>
         <div class="form-group row m-1">
           <label class="col-sm-4 col-form-label">Ad : </label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" name="ad" [(ngModel)]="userViewModel.name">
+            <input type="text" class="form-control" name="ad" [(ngModel)]="userSaveModel.Name">
           </div>
         </div>
         <div class="form-group row m-1">
           <label class="col-sm-4 col-form-label">Soyad : </label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" name="soyad" [(ngModel)]="userViewModel.surname">
+            <input type="text" class="form-control" name="soyad" [(ngModel)]="userSaveModel.Surname">
           </div>
         </div>
         <div class="form-group row m-1">
           <label class="col-sm-4 col-form-label">Kullanıcı Adı : </label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" name="kullaniciAdi" [(ngModel)]="userViewModel.username">
+            <input type="text" class="form-control" name="kullaniciAdi" [(ngModel)]="userSaveModel.UserName">
           </div>
         </div>
 
         <div class="form-group row m-1">
           <label class="col-sm-4 col-form-label">E-Posta : </label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" name="email" [(ngModel)]="userViewModel.emailAdress">
+            <input type="text" class="form-control" name="email" [(ngModel)]="userSaveModel.EmailAdress">
           </div>
         </div>
         <div class="form-group row m-1">
           <label class="col-sm-4 col-form-label">Şifre : </label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" name="sifre" [(ngModel)]="userViewModel.password">
+            <input type="text" class="form-control" name="sifre" [(ngModel)]="userSaveModel.Password">
           </div>
         </div>
-        <!--<div class="form-group row m-1">
+        <div class="form-group row m-1 ml-5">
+          <label class="col-sm-4 col-form-label">Aktif : </label>
+          <div class="custom-control custom-checkbox mb-2">
+            <input name="Aktif" id="Aktif" type="checkbox" class="custom-control-input" [(ngModel)]="userSaveModel.RecordState">
+            <label class="custom-control-label" for="Aktif"></label>
+          </div>
+        </div>
+
+        <!--<div class="form-group row m-1">RecordState
     <label class="col-sm-4 col-form-label">Şifre Onay : </label>
     <div class="col-sm-8">
       <input type="text" class="form-control" name="Sifre">

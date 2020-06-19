@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, EventEmitter } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { combineLatest, Subscription, Observable } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { modalOutput } from './modalOutput';
 
 export class OpenModal {
@@ -9,8 +9,6 @@ export class OpenModal {
   subscriptions: Subscription[] = [];
   messages: string[] = [];
   data: any;
-
-  public event: EventEmitter<any> = new EventEmitter();
 
   constructor(private modalService: BsModalService, private changeDetection: ChangeDetectorRef) {}
 

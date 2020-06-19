@@ -8,11 +8,11 @@ import { OpenModal } from '../../Models/openModal';
   styleUrls: ['./confirmationdialog.component.css']
 })
 export class ConfirmationdialogComponent implements OnInit {
-
+  
   public modalTitle: string;
   public message: string;
 
-  public output = undefined;
+  public output = undefined;// modal'ın açıldığı sayfada modal kapandıktan sonra alınacak veri
 
   modal: OpenModal = new OpenModal(this.modalService, this.changeDetection);
   constructor(public bsModalRef: BsModalRef, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) { }
@@ -20,9 +20,11 @@ export class ConfirmationdialogComponent implements OnInit {
   ngOnInit() {
   }
   onConfirm() {
-   this.modal.onClose("ok");
+    this.output = 'confirm';
+    this.modal.onClose("ok");
   }
   onCancel() {
+    this.output = 'cancel';
     this.modal.onClose("cancel");
   }
 }

@@ -9,7 +9,7 @@ export class ddlSettings {
   constructor() {
     this.ddlTenantSettings = {
       singleSelection: false,
-      idField: 'pk',
+      idField: 'id',
       textField: 'tenantAd',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
@@ -18,8 +18,8 @@ export class ddlSettings {
     };
     this.ddlModalitySettings = {
       singleSelection: false,
-      idField: 'pk',
-      textField: 'tenantAd',
+      idField: 'id',
+      textField: 'name',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 0,
@@ -36,8 +36,8 @@ export class ddlSettings {
     };
     this.ddlRoleSettings = {
       singleSelection: true,
-      idField: 'item_id',
-      textField: 'item_text',
+      idField: 'roleID',
+      textField: 'roleName',
     };
   }
 }
