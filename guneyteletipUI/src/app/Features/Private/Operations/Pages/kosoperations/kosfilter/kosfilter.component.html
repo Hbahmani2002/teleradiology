@@ -4,44 +4,40 @@
     <div class="form-row p-0 ">
       <div class="col-md-3">
         <label class="font-weight-bold">Hastane Seçimi</label>
-        <ng-multiselect-dropdown name ="multiSelect"
+        <ng-multiselect-dropdown name ="ddlTenant"
                                  [placeholder]="'Hastane Seçimi'"
-                                 [data]="dropdownList"
-                                 [(ngModel)]="selectedItems"
-                                 [settings]="dropdownSettings"
-                                 (onSelect)="onItemSelect($event)"
-                                 (onSelectAll)="onSelectAll($event)">
+                                 [data]="ddlTenant"
+                                 [(ngModel)]="ddlTenantSelectedItems"
+                                 [settings]="ddlTenantSettings">
         </ng-multiselect-dropdown>
       </div>
       <div class="col-md-3">
         <label class="font-weight-bold">Tarih Aralığı</label>
         <div class="input-group input-group-sm mb-3">
           <input class="form-control" type="text"
-                 placeholder="Tarih Aralığı" [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY'}" #drp="bsDaterangepicker" bsDaterangepicker>
+                 name="dateRange"
+                 [(ngModel)]="dateRange"
+                 placeholder="Tarih Aralığı" [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY'}" #drp="bsDaterangepicker" bsDaterangepicker >
         </div>
         
       </div>
       <div class="col-md-3">
         <label class="font-weight-bold">Modalite</label>
-        <div class="input-group input-group-sm">
-          <select class="form-control input-sm" name="ddlModality">
-            <option value="undefined">modaliti 1</option>
-            <option value="undefined">Durum 2</option>
-            <option value="undefined">Durum 3</option>
-            <option value="undefined">Durum 4</option>
-          </select>
-        </div>
+        <ng-multiselect-dropdown name="ddlModality"
+                                 [placeholder]="'Modalite'"
+                                 [data]="ddlModality"
+                                 [(ngModel)]="ddlModalitySelectedItems"
+                                 [settings]="ddlModalitySettings">
+        </ng-multiselect-dropdown>
       </div>
       <div class="col-md-3">
         <label class="font-weight-bold">Eşleşme Durumu</label>
-        <div class="input-group input-group-sm">
-          <select class="form-control input-sm" name="ddlState">
-            <option value="undefined">Durum 1</option>
-            <option value="undefined">Durum 2</option>
-            <option value="undefined">Durum 3</option>
-            <option value="undefined">Durum 4</option>
-          </select>
-        </div>
+        <ng-multiselect-dropdown name="ddlState"
+                                 [placeholder]="'Eşleşme Durumu'"
+                                 [data]="ddlState"
+                                 [(ngModel)]="ddlStateSelectedItems"
+                                 [settings]="ddlStateSettings">
+        </ng-multiselect-dropdown>
       </div>
     </div>
     <div class="form-row">
@@ -54,13 +50,13 @@
       <div class="col-md-6">
         <label class="font-weight-bold">Accession No</label>
         <div class="input-group input-group-sm">
-          <input type="text" class="form-control input-sm" name="accesion">
+          <input type="text" class="form-control input-sm" name="accesion" [(ngModel)]="accessionNo">
         </div>
       </div>
     </div>
   </form>
   <div class="mt-1">
-    <button class="btn btn-success btn-sm mr-2" tooltip="Filtrele" (click)="splitTc()"><fa name="search"></fa></button>
+    <button class="btn btn-success btn-sm mr-2" tooltip="Filtrele" (click)="onFilter()"><fa name="search"></fa></button>
     <button class="btn btn-danger  btn-sm" tooltip="Filtreleri Temizle"><fa name="close"></fa></button>
   </div>
 </filter>

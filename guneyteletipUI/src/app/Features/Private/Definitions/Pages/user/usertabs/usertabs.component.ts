@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {  IDropdownSettings } from 'ng-multiselect-dropdown';
 import { userDataServices } from '../../../Services/userDataServices';
-import { concat } from 'rxjs/operators';
+import { userUIModel } from '../../../Models/UserUIModel';
+import { ddlSettings } from 'src/app/Features/Private/Operations/Pages/kosoperations/kosfilter/ddlSettings';
 
 @Component({
   selector: 'app-usertabs',
@@ -10,57 +10,56 @@ import { concat } from 'rxjs/operators';
 })
 export class UsertabsComponent implements OnInit {
 
-  
   @Input() set clickedItem(value: any) {
     if (value == undefined)
       return;
     console.log(value)
-    this.userService.getRoleByID(value).subscribe(data => {
+    this.userModel.userID = value;
+    this.userService.getRoleByID(this.userModel).subscribe(data => {
+     // this.ddlRoleSelectedItem = data;
+      console.log(data);
+    });
+    this.userService.getTenantByID(this.userModel).subscribe(data => {
+      //this.ddlTenantSelectedItem = data;
       console.log(data);
     });
   }
-  dropdownListRol = [];
-  selectedItemsRol = [];
-  dropdownListHosp = [];
-  selectedItemsHosp = [];
 
-  dropdownSettings: IDropdownSettings = {};
-  dropdownSettings2: IDropdownSettings = {};
+  ddlSettings: ddlSettings = new ddlSettings();
+  userModel: userUIModel = new userUIModel();
+
+  ddlTenantData = [];
+  ddlTenantSelectedItem = [];
+  ddlTenantDisabled = true;
+  ddlTenantSettings;
+
+  ddlRoleData = [];
+  ddlRoleSelectedItem = [];
+  ddlRoleDisabled = true;
+  ddlRoleSettings;
  
-  dropdownDisabled = true;
-  dropdownDisabled1 = true;
   constructor(private userService: userDataServices) { }
 
   ngOnInit() {
-    this.ddlRolData();
-    /*this.dropdownList = [
-    ];
-    this.selectedItems = [
-    ];*/
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: true,
-    };
-    this.dropdownSettings2 = {
-      singleSelection: true,
-      idField: 'item_id',
-      textField: 'item_text',
-    };
+    this.ddlTenantSettings = this.ddlSettings.ddlTenantSettings;
+    this.ddlRoleSettings = this.ddlSettings.ddlRoleSettings;
   }
-  ddlRolData() {
+  getDdlRoleData() {
     this.userService.getRolList().subscribe(data => {
+      this.ddlRoleData = data;
       console.log(data);
     });
   }
-  ddlHospData() {
-    this.userService.getTenantList(null).subscribe(data => {
+  getDdlTenantData() {
+    this.userService.getTenantList().subscribe(data => {
+      this.ddlTenantData = data;
       console.log(data);
     });
   }
+  onSaveRole() {
 
+  }
+  onSaveTenant() {
+
+  }
 }

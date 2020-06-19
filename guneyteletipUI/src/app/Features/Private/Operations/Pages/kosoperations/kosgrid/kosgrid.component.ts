@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 import { kosDataServices } from '../../../Services/kosDataServices';
 import { infStudyFilter } from '../../../Models/infStudyFilter';
@@ -9,21 +9,32 @@ import { infStudyFilter } from '../../../Models/infStudyFilter';
   styleUrls: ['./kosgrid.component.css']
 })
 export class KosgridComponent implements OnInit {
+  
+  @Input() set filterData(value: any) {
+    if (value == null)
+      return;
 
-  constructor() { }
-
-  ngOnInit() {
+    this.kosFilter = value;
+    console.log(this.kosFilter)
+    this.gridKos.onRefresh();
   }
 
+  constructor(private kosService: kosDataServices) { }
+
+  ngOnInit() {
+    this.gridKos.onRefresh();
+  }
+  kosFilter: kosFilter = new kosFilter();
+  gridKos: KosListComponent_Models.GridUser = new KosListComponent_Models.GridUser(this.kosService, this.kosFilter);
 }
 export class kosFilter {
-  hastaneList: any[];
-  basTarih: any;
-  bitTarih: any;
-  modalite: any;
+  hastaneList: any[] = [];
+  basTarih: any = undefined;
+  bitTarih: any = undefined;
+  modalite: any = undefined;
   eslesmeDurumu: any;
-  tcList: any[];
-  accessionNumberList: any[];
+  tcList: any[] = [];
+  accessionNumberList: any[] = [];
 }
 namespace KosListComponent_Models {
 
@@ -45,15 +56,41 @@ namespace KosListComponent_Models {
       let item = this.filter.filter;
       var o = this.kosFilter;
 
-      /*item.pk = o.pk;
-      item.userName = o.userName;
-      item.name = o.name;
-      item.surname = o.surname;
-      item.emailAdress = o.emailAdress;
-      item.recordType = o.recordType;*/
+      item.hastaneList = o.hastaneList;
+      item.basTarih = o.bitTarih;
+      item.modalite = o.modalite;
+      item.eslesmeDurumu = o.eslesmeDurumu;
+      item.tcList = o.tcList;
+      item.accessionNumberList = o.accessionNumberList;
 
       return this.filter;
     };
+
+    onClickCreateKos() {
+      this.kosService.createKos(this.getFilter()).subscribe(o => {
+        console.log(o);
+      });
+    }
+    onClickSendKos() {
+      this.kosService.sendKos(this.getFilter()).subscribe(o => {
+        console.log(o);
+      });;
+    }
+    onClickDeleteKos() {
+      this.kosService.deleteKos(this.getFilter()).subscribe(o => {
+        console.log(o);
+      });;
+    }
+    onClickUpdateReadKos() {
+      this.kosService.updateReadKos(this.getFilter()).subscribe(o => {
+        console.log(o);
+      });;
+    }
+    onClickExportExcel() {
+      this.kosService.exportExcel(this.getFilter()).subscribe(o => {
+        console.log(o);
+      });;
+    }
     onSorting(colName) {
       if (this.direction == 0) {
         this.direction = 1;
@@ -69,8 +106,10 @@ namespace KosListComponent_Models {
       var filter = item.filter;
 
       this.kosService.getKosList(item).subscribe(o => {
+
         this.data.list = o["list"];
         this.data.totalCount = o["totalCount"];
+        console.log(this.data.list)
       })
     }
   }
