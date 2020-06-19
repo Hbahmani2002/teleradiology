@@ -23,6 +23,10 @@ namespace GT.Repository.Implementation
         {
             throw new NotImplementedException();
         }
+        public UsrRole GetByID(long id)
+        {
+            return Single(o => o.Pk == id);
+        }
         public IQueryable<RoleViewModel> Query(RolConditionFilter r)
         {
             var exp = RolCondition.Get(r);

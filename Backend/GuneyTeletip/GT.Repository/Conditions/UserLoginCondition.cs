@@ -68,7 +68,7 @@ namespace GT.Repository.Conditions
             }
             if (filter.RecordState.HasValue)
             {
-                exp = exp.And(o => o.RecordState == filter.RecordState.Value);
+                exp = exp.And(o => o.RecordStatus == filter.RecordState.Value);
             }
             return exp;
         }

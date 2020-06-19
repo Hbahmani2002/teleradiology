@@ -12,6 +12,6 @@ namespace GT.DataService.Model
         public string Password { get; set; }
         public string Surname { get; set; }
         public string UserName { get; set; }
-        public short RecordState { get; set; }
+        public long? RecordState { get; set; }
     }
 }

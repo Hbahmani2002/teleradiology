@@ -39,6 +39,7 @@ namespace GT.Persistance.Domain.Models
         public string ValumePathname { get; set; }
         public DateTime? CreationDttm { get; set; }
         public long? OracleStudyKey { get; set; }
+        public long? FkKosEnumType { get; set; }
 
         public virtual InfBatch FkInfBatchNavigation { get; set; }
     }

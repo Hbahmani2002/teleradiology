@@ -39,7 +39,7 @@ namespace GT.Repository.Implementation.Composite
                            EmailAdress = u.EmailAdress,
                            Name = u.Name,
                            ID = u.Pk,
-                           RecordStatus = u.RecordState,
+                           RecordStatus = u.RecordStatus,
                            Surname = u.Surname,
                            TimeCreated = u.TimeCreated,
                            TimeModified = u.TimeModified,

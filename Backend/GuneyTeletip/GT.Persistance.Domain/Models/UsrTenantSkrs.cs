@@ -14,7 +14,7 @@ namespace GT.Persistance.Domain.Models
         public string ServerHost { get; set; }
         public string CallingAe { get; set; }
         public int? ServerPort { get; set; }
-        public short? RecordState { get; set; }
+        public long? RecordStatus { get; set; }
         public DateTime? TimeCreated { get; set; }
         public DateTime? TimeModified { get; set; }
         public long FkUserCreated { get; set; }
