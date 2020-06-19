@@ -33,13 +33,8 @@ namespace GT.UI.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
             TOkenAuthenticaation(services);
-
-
         }
-
-
 
         private void TOkenAuthenticaation(IServiceCollection services)
         {
