@@ -51,6 +51,7 @@
     <Compile Include="JSONUtil.cs" />
     <Compile Include="PhotoUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomDataGenerator.cs" />
     <Compile Include="RandomPasswordGenerator.cs" />
   </ItemGroup>
   <ItemGroup>

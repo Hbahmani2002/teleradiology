@@ -84,7 +84,7 @@
 
                 entity.Property(e => e.Pk)
                     .HasColumnName("pk")
-                    .ValueGeneratedNever();
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Desc1)
                     .HasColumnName("desc1")
@@ -273,6 +273,8 @@
                 entity.Property(e => e.FkInfBatch)
                     .HasColumnName("fk_inf_batch")
                     .HasDefaultValueSql("nextval('inf_study_inf_fk_batch_seq'::regclass)");
+
+                entity.Property(e => e.FkKosEnumType).HasColumnName("fk_kos_enum_type");
 
                 entity.Property(e => e.FkTenant)
                     .HasColumnName("fk_tenant")
@@ -531,7 +533,7 @@
 
                 entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
 
-                entity.Property(e => e.RecordState).HasColumnName("record_state");
+                entity.Property(e => e.RecordStatus).HasColumnName("record_status");
 
                 entity.Property(e => e.ServerAetitle)
                     .HasColumnName("server_aetitle")
@@ -599,7 +601,7 @@
                     .HasColumnName("password")
                     .HasMaxLength(128);
 
-                entity.Property(e => e.RecordState).HasColumnName("record_state");
+                entity.Property(e => e.RecordStatus).HasColumnName("record_status");
 
                 entity.Property(e => e.Surname)
                     .HasColumnName("surname")
@@ -622,12 +624,8 @@
 
                 entity.ToTable("usr_user_role");
 
-                entity.HasIndex(e => e.FkRole)
+                entity.HasIndex(e => new { e.FkUser, e.FkRole })
                     .HasName("usr_user_role_fk_role_key")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.FkUser)
-                    .HasName("usr_user_role_fk_user_key")
                     .IsUnique();
 
                 entity.Property(e => e.Pk).HasColumnName("pk");
@@ -637,14 +635,14 @@
                 entity.Property(e => e.FkUser).HasColumnName("fk_user");
 
                 entity.HasOne(d => d.FkRoleNavigation)
-                    .WithOne(p => p.UsrUserRole)
-                    .HasForeignKey<UsrUserRole>(d => d.FkRole)
+                    .WithMany(p => p.UsrUserRole)
+                    .HasForeignKey(d => d.FkRole)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_usr_role");
 
                 entity.HasOne(d => d.FkUserNavigation)
-                    .WithOne(p => p.UsrUserRole)
-                    .HasForeignKey<UsrUserRole>(d => d.FkUser)
+                    .WithMany(p => p.UsrUserRole)
+                    .HasForeignKey(d => d.FkUser)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_usr_user_login");
             });
@@ -656,12 +654,8 @@
 
                 entity.ToTable("usr_user_tenant");
 
-                entity.HasIndex(e => e.FkTenant)
-                    .HasName("usr_user_tenant_fk_tenant_key")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.FkUser)
-                    .HasName("usr_user_tenant_fk_user_key")
+                entity.HasIndex(e => new { e.FkUser, e.FkTenant })
+                    .HasName("user_tenant_uni")
                     .IsUnique();
 
                 entity.Property(e => e.Pk)

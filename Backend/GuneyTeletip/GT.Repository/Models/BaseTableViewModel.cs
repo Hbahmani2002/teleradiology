@@ -10,6 +10,6 @@ namespace GT.Repository.Models
         public DateTime? TimeModified { get; set; }
         public long? UserIDCreated { get; set; }
         public long? UserIDModified { get; set; }
-        public int? RecordStatus { get; set; }
+        public long? RecordStatus { get; set; }
     }
 }

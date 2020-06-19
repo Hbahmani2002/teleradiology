@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Util.Extensions;
 
 namespace GT.UI.WebApi.Controllers
 {
@@ -44,7 +45,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/User/GetByID")]
-        public ServiceResult<UserViewModel> GetByID(UserUIModel model)
+        public ServiceResult<UserView> GetByID(UserUIModel model)
         {
             var cx = GetBussinesContext();
             var service = new UserDataService(cx);
@@ -71,7 +72,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/User/GetRoleByID")]
-        public ServiceResult<long> GetRoleByID(UserUIModel model)
+        public ServiceResult<RoleViewModel> GetRoleByID(UserUIModel model)
         {
             var cx = GetBussinesContext();
             var service = new UserDataService(cx);

@@ -89,29 +89,25 @@ namespace GT.DataService.Implementation
             userLogin.Password = model.Password;
             userLogin.Surname = model.Surname;
             userLogin.UserName = model.UserName;
-            userLogin.RecordState = model.RecordState;
+            userLogin.RecordStatus = model.RecordState;
             _Workspace.CommitChanges();
             return 1;
         }
 
-        public UserViewModel GetByID(long userID)
+        public UserView GetByID(long userID)
         {
             var user = userLoginRepository.GetByID(userID);
             if (user == null)
             {
                 throw new Exception("User bulunamadı. UserID:"+userID);
             }
-            var item = new UserViewModel
+            var item = new UserView
             {
                 EmailAdress = user.EmailAdress,
-                UserIDCreated = user.FkUserCreated,
-                UserIDModified = user.FkUserModified,
                 Name = user.Name,
                 ID = user.Pk,
-                RecordStatus = user.RecordState,
+                RecordState = user.RecordStatus,
                 Surname = user.Surname,
-                TimeCreated = user.TimeCreated,
-                TimeModified = user.TimeModified,
                 UserName = user.UserName
             };
             return item;
@@ -140,14 +136,20 @@ namespace GT.DataService.Implementation
             return list.ToList();
         }
 
-        public long GetRoleByID(long userID)
+        public RoleViewModel GetRoleByID(long userID)
         {
-            var user = userRoleRepository.GetByUserID(userID);
-            if (user == null)
+            var userRol = userRoleRepository.GetByUserID(userID);
+            var rol = roleRepository.GetByID(userRol.FkRole);
+            if (userRol == null || rol==null)
             {
-                throw new Exception("Kullanıcının yetkisi bulunmamaktadır");
+                throw new Exception("Kullanıcı veya kullanıcı rolü bulunmamaktadır");
             }
-            return user.FkRole;
+            var item = new RoleViewModel
+            {
+                RoleID= rol.Pk,
+                RoleName=rol.Name
+            };
+            return item;
         }
 
         public int SaveRol(long userID, long roleID)

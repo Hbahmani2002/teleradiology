@@ -59,11 +59,6 @@ namespace GT.DataService.Implementation
             var s = new InfStudyConditionFilter
             {
 
-                //Accession_no = parms.Filter.Accession_no,
-                //Modality = parms.Filter.Modality,
-                //Patinet_id = parms.Filter.Patinet_id,
-                //Patine_name = parms.Filter.Patine_name,
-                //Pk = parms.Filter.Pk,
             };
             return _InfStudyRepository.Query(s)
                 .GetGridQuery(parms);
