@@ -40,8 +40,8 @@ namespace GT.Repository.Implementation
             var list = from t in tenant
                        select new TenantViewModel
                        {
-                           //TenantAd=t.TenantAd,
-                           //Pk=t.Pk
+                           TenantAd=t.TenantShortName,
+                           ID=t.Pk
                        };
             return list;
         }

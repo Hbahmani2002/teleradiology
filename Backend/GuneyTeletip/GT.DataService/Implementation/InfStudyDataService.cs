@@ -22,9 +22,11 @@ namespace GT.DataService.Implementation
         AbstractWorkspace _Workspace;
         InfStudyRepository _InfStudyRepository;
         TenantCompositeRepository tenatCompositeRepository;
-
         InfStudyParameterRepository _InfStudyParameterRepository;
         InfBatchRepository _InfBatchRepository;
+        InfStudyHistoryRepository infStudyHistoryRepository;
+        KosEnumTypeRepository kosEnumTypeRepository;
+        ModalityRepository modalityRepository;
         public InfStudyDataService(IBussinessContext context) : base(context)
         {
             _Workspace = GTWorkspaceFactory.Create(true);
@@ -32,6 +34,9 @@ namespace GT.DataService.Implementation
             tenatCompositeRepository = new TenantCompositeRepository(_Workspace);
             _InfStudyParameterRepository = new InfStudyParameterRepository(_Workspace);
             _InfBatchRepository = new InfBatchRepository(_Workspace);
+            infStudyHistoryRepository = new InfStudyHistoryRepository(_Workspace);
+            kosEnumTypeRepository = new KosEnumTypeRepository(_Workspace);
+            modalityRepository = new ModalityRepository(_Workspace);
         }
 
         public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items)
@@ -58,7 +63,8 @@ namespace GT.DataService.Implementation
 
             var s = new InfStudyConditionFilter
             {
-
+                AccessionNoList=parms.Filter.AccessionNumberList,
+                Modality=parms.Filter.Modalite
             };
             return _InfStudyRepository.Query(s)
                 .GetGridQuery(parms);
@@ -83,6 +89,82 @@ namespace GT.DataService.Implementation
         {
             var item = tenatCompositeRepository.Single(tenantID);
             return item.AccessionNoOnek;
+        }
+
+        public InfStudyViewModel GetByID(int id)
+        {
+            var infStudy = _InfStudyRepository.GetByID(id);
+            var item = new InfStudyViewModel
+            {
+                AccessionNumber= infStudy.AccessionNo,
+                Desc1= infStudy.Desc1,
+                Desc2= infStudy.Desc2,
+                Desc3= infStudy.Desc3,
+                Gender=infStudy.Gender,
+                InstitutionName= infStudy.InstitutionName,
+                ID= infStudy.Pk,
+                PatientID= infStudy.PatientId,
+                FileName= infStudy.FileName,
+                CreationDttm= infStudy.CreationDttm,
+                InstanceKey= infStudy.InstanceKey,
+                DateBirth= infStudy.DateBirth,
+                Institution= infStudy.Institution,
+                CihazDeviceSerialNumber= infStudy.CihazDeviceSerialNumber,
+                Modality= infStudy.Modality,
+                OracleStudyKey= infStudy.OracleStudyKey,
+                InfBatchID= infStudy.FkInfBatch,
+                InstanceCount= infStudy.InstanceCount,
+                SeriesCount= infStudy.SeriesCount,
+                SeriesKey= infStudy.SeriesKey,
+                StudyDate= infStudy.StudyDate,
+                StudyInstanceuid= infStudy.StudyInstanceuid,
+                ValumeCode= infStudy.ValumeCode,
+                StudyDescription= infStudy.StudyDescription,
+                UserIDCreated= infStudy.FkUserCreated,
+                TimeCreated= infStudy.TimeCreated,
+                PatientName= infStudy.PatinetNameSurname,
+                TimeModified= infStudy.TimeModified,
+                ValumePathname= infStudy.ValumePathname,
+                ValumeStat= infStudy.ValumeStat,
+                UserIDModfiead= infStudy.FkUserModfiead,
+                ValumeType= infStudy.ValumeType,
+                TenantID= infStudy.FkTenant,
+                StoragePath= infStudy.StoragePath,
+                HastaNo= infStudy.PatientId,
+            };
+            return item;
+        }
+
+        public List<KosHistoryModel> GetKosHistoryByStudyID(long studyID)
+        {
+            return infStudyHistoryRepository.GetByKosStudyID(studyID)
+                .Select(o => new KosHistoryModel { 
+                    EnumType=o.EnumType,
+                    ID=o.Pk,
+                    KosStudyID=o.FkKosStudy,
+                    Result=o.Result,
+                    TimeCreated=o.TimeCreated,
+                    TimeModified=o.TimeModified,
+                    UserIDCreated=o.FkUserCreated,
+                    UserIDModified=o.FkUserModified
+                }).ToList();
+        }
+
+        public List<KosEnumTypeViewModel> GetEnumTypeList()
+        {
+            return kosEnumTypeRepository.Query().Select(o => new KosEnumTypeViewModel{
+                ID=o.Pk,
+                Name=o.Name
+            }).ToList();
+        }
+
+        public List<KosEnumTypeViewModel> GetModalityList()
+        {
+            return modalityRepository.Query().Select(o => new KosEnumTypeViewModel
+            {
+                ID = o.Pk,
+                Name = o.Name
+            }).ToList();
         }
     }
 }

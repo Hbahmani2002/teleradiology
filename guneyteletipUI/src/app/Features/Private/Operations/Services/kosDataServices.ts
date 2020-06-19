@@ -4,6 +4,9 @@ import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 
 import { infStudyFilter } from '../Models/infStudyFilter';
 import { infStudyViewModel } from '../Models/infStudyViewModel';
+import { kosEnumTypeViewModel } from '../Models/kosEnumTypeViewModel';
+import { kosModel } from '../Models/kosModel';
+import { kosHistoryModel } from '../Models/KosHistoryModel';
 
 export class kosDataServices {
 
@@ -21,7 +24,7 @@ export class kosDataServices {
   public exportExcel(model: Grid.GridInputModel<infStudyFilter>): Observable<string> {
     return this.apiDataService.callDataService('Kos/ExportExcel', model);
   }
-  public getModalityList(): Observable<any> {
+  public getModalityList(): Observable<Array<kosEnumTypeViewModel>> {
     return this.apiDataService.callDataService('Kos/getModalityList', undefined);
   }
   public reprocessKos(model: Grid.GridInputModel<infStudyFilter>): Observable<number> {
@@ -32,5 +35,14 @@ export class kosDataServices {
   }
   public sendKos(model: Grid.GridInputModel<infStudyFilter>): Observable<number> {
     return this.apiDataService.callDataService('Kos/SendKos', model);
+  }
+  public GetByID(model: kosModel): Observable<infStudyViewModel> {
+    return this.apiDataService.callDataService('Kos/GetByID', model);
+  }
+  public GetKosHistoryByStudyID(model: kosModel): Observable<kosHistoryModel> {
+    return this.apiDataService.callDataService('Kos/GetKosHistoryByStudyID', model);
+  }
+  public GetEnumTypeList(model: kosModel): Observable<Array<kosEnumTypeViewModel>> {
+    return this.apiDataService.callDataService('Kos/GetEnumTypeList', model);
   }
 }

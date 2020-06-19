@@ -30,10 +30,11 @@ namespace GT.Test.GT
         public void Save()
         {
             UserView model = new UserView();
-            model.UserName = "baskaTestUserName";
-            model.Name = "baskaTestName";
-            model.Surname = "baskaTestSurname";
-            model.EmailAdress = "baskaTest@test.com";
+            model.UserName = "Zehra";
+            model.Name = "Zehra";
+            model.Surname = "Zehra";
+            model.EmailAdress = "Zehra@test.com";
+            //model.ID = 2;
             var list = service.Save(model);
         }
 

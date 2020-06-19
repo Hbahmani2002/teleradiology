@@ -9,19 +9,21 @@ using GT.Repository.Models.Filter;
 using GT.Repository.Models.View;
 using GT.UI.WebApi.Implementation;
 using GT.UI.WebApi.Models;
+using GT.UI.WebApi.Models.KosModel;
 using GT.UI.WebApi.Models.UserModel;
 using GT.UTILS.GRID;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Util.Extensions;
 
 namespace GT.UI.WebApi.Controllers
 {
     [ApiController]
 
     [Route("[controller]")]
-    public class KosController : AuthenticatedBaseController, IKosController
+    public class KosController : AuthenticatedBaseController
     {
         [HttpPost]
         [Route("/Kos/CreateKos")]
@@ -48,34 +50,69 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Kos/GetKosList")]
         public ServiceResult<PagingResult<InfStudyViewModel>> GetKosList(Gridable<InfStudyFilter> parms)
         {
+            var list = RandomDataGenerator.CreateRandom<InfStudyViewModel>(12).ToList();
+            //return HttpMessageService.Ok(new PagingResult<InfStudyViewModel>
+            //{
+            //    List = new List<InfStudyViewModel>()
+            //    {
+            //        new InfStudyViewModel {}
+            //    }
+            //});
             return HttpMessageService.Ok(new PagingResult<InfStudyViewModel>
             {
-                List = new List<InfStudyViewModel>()
-                {
-                    new InfStudyViewModel {/* AccessionNumber = "AC123", Modalite = "23", Patinetıd = "123", Patinename = "Adı soyadu", Pk = "999" */}
-                }
+                List = list
             });
         }
 
         [HttpPost]
         [Route("/Kos/GetModalityList")]
-        public ServiceResult<PagingResult<object>> GetModalityList()
+        public ServiceResult<List<KosEnumTypeViewModel>> GetModalityList()
         {
-            throw new NotImplementedException();
+            var cx = GetBussinesContext();
+            var service = new InfStudyDataService(cx);
+            return HttpMessageService.Ok(service.GetModalityList());
         }
 
         [HttpPost]
         [Route("/Kos/ReprocessKos")]
         public ServiceResult<int> ReprocessKos(Gridable<InfStudyFilter> parms)
         {
-            throw new NotImplementedException();
+            return HttpMessageService.Ok(40);
         }
 
         [HttpPost]
         [Route("/Kos/UpdateReadKos")]
         public ServiceResult<int> UpdateReadKos(Gridable<InfStudyFilter> parms)
         {
-            throw new NotImplementedException();
+            return HttpMessageService.Ok(66);
         }
+
+        [HttpPost]
+        [Route("/Kos/GetByID")]
+        public ServiceResult<InfStudyViewModel> GetByID(KosModel model)
+        {
+            var cx = GetBussinesContext();
+            var service = new InfStudyDataService(cx);
+            return HttpMessageService.Ok(service.GetByID(model.ID));
+        }
+
+        [HttpPost]
+        [Route("/Kos/GetKosHistoryByStudyID")]
+        public ServiceResult<List<KosHistoryModel>> GetKosHistoryByStudyID(StudyHistoryModel model)
+        {
+            var cx = GetBussinesContext();
+            var service = new InfStudyDataService(cx);
+            return HttpMessageService.Ok(service.GetKosHistoryByStudyID(model.ID));
+        }
+
+        [HttpPost]
+        [Route("/Kos/GetEnumTypeList")]
+        public ServiceResult<List<KosEnumTypeViewModel>> GetEnumTypeList()
+        {
+            var cx = GetBussinesContext();
+            var service = new InfStudyDataService(cx);
+            return HttpMessageService.Ok(service.GetEnumTypeList());
+        }
+
     }
 }

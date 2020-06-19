@@ -6,6 +6,8 @@ using GT.SERVICE;
 using GT.UTILS.GRID;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Util.Extensions;
 
 namespace GT.BAL.TeletipKos
 {
@@ -25,7 +27,7 @@ namespace GT.BAL.TeletipKos
             {
 
             }
-            throw new NotImplementedException();
+            return RandomDataGenerator.CreateRandom<MultipleOperationResultModel>(1).FirstOrDefault();
         }
         public void CreateKosBackground(InfStudyFilter filter)
         {
@@ -35,7 +37,6 @@ namespace GT.BAL.TeletipKos
             {
 
             }
-            throw new NotImplementedException();
         }
 
         public MultipleOperationResultModel MakeKos(InfStudyFilter filter)
@@ -45,7 +46,7 @@ namespace GT.BAL.TeletipKos
             {
 
             }
-            throw new NotImplementedException();
+            return RandomDataGenerator.CreateRandom<MultipleOperationResultModel>(1).FirstOrDefault();
         }
         public MultipleOperationResultModel MakeKosBackground(InfStudyFilter filter)
         {
@@ -54,7 +55,7 @@ namespace GT.BAL.TeletipKos
             {
 
             }
-            throw new NotImplementedException();
+            return RandomDataGenerator.CreateRandom<MultipleOperationResultModel>(1).FirstOrDefault();
         }
 
 
@@ -65,7 +66,7 @@ namespace GT.BAL.TeletipKos
             {
 
             }
-            throw new NotImplementedException();
+            return RandomDataGenerator.CreateRandom<MultipleOperationResultModel>(1).FirstOrDefault();
         }
 
         public MultipleOperationResultModel DeleteKosBackground(InfStudyFilter filter)
@@ -75,7 +76,7 @@ namespace GT.BAL.TeletipKos
             {
 
             }
-            throw new NotImplementedException();
+            return RandomDataGenerator.CreateRandom<MultipleOperationResultModel>(1).FirstOrDefault();
         }
 
         public void ReprocessKos(InfStudyFilter filter)
@@ -135,7 +136,7 @@ namespace GT.BAL.TeletipKos
 
             // var list = _InfStudyDataService.GetInfStudyList(grid).List;
             // return list;
-            return null;
+            return RandomDataGenerator.CreateRandom<InfStudyViewModel>(12).ToList();
         }
 
     }

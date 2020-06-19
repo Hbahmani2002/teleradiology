@@ -12,6 +12,7 @@ namespace GT.Repository.Conditions
         public string Modality { get; set; }
         public string Patine_name { get; set; }
         public string Accession_no { get; set; }
+        public string[] AccessionNoList { get; set; }
         public string Patinet_id { get; set; }
         public long? Pk { get; set; }
         public long InfFkStudy { get; set; }
