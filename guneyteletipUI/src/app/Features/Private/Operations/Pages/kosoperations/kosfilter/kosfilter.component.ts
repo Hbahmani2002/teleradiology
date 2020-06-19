@@ -14,15 +14,16 @@ import { ddlSettings } from './ddlSettings';
 export class KosfilterComponent implements OnInit {
 
   public ddlSettings: ddlSettings = new ddlSettings();
+
   public ddlTenantSettings;
   public ddlModalitySettings;
-  public ddlStateSettings;
-  public ddlTenant = [];
-  public ddlModality = [];
-  public ddlState = [];
+  public ddlEnumSettings;
+  public ddlTenantData = [];
+  public ddlModalityData = [];
+  public ddlEnumData = [];
   public ddlTenantSelectedItems = [];
   public ddlModalitySelectedItems = [];
-  public ddlStateSelectedItems = [];
+  public ddlEnumSelectedItems = [];
  
 
   public isCollapsed = false;
@@ -38,39 +39,34 @@ export class KosfilterComponent implements OnInit {
   constructor(private kosService: kosDataServices, private userService: userDataServices) {
   }
   ngOnInit() {
-
+    this.kosFilterOutput = null;
     this.ddlTenantSettings = this.ddlSettings.ddlTenantSettings;
     this.ddlModalitySettings = this.ddlSettings.ddlModalitySettings;
-    this.ddlStateSettings = this.ddlSettings.ddlStateSettings;
-    //test için
-    this.ddlModality.push({ pk: 1, tenantAd: 'mert11' });
-    this.ddlModality.push({ pk: 2, tenantAd: 'mert22' });
-    this.ddlModality.push({ pk: 3, tenantAd: 'mert33' });
-
-    this.ddlState.push({ pk: 1, tenantAd: 'mert1' });
-    this.ddlState.push({ pk: 2, tenantAd: 'mert2' });
-    this.ddlState.push({ pk: 3, tenantAd: 'mert3' });
+    this.ddlEnumSettings = this.ddlSettings.ddlEnumSettings;
 
     this.getTenantList();
     this.getModalityList();
-
+    this.getEnumList();
    
   }
   //GET MODALITY AND TENANT FOR DROPDOWNLIST
   getTenantList() {
     this.userService.getTenantList().subscribe(data => {
-      this.ddlTenant = data;
-      console.log(this.ddlTenant);
+      this.ddlTenantData = data;
+      console.log(this.ddlTenantData);
     });
   }
   getModalityList() {
     this.kosService.getModalityList().subscribe(data => {
-      this.ddlModality = data;
-      console.log(this.ddlModality);
+      this.ddlModalityData = data;
+      console.log(this.ddlModalityData);
     });
   }
-  getStateList() {
-    //Eşleşme durumu servisi şuan yok
+  getEnumList() {
+    this.kosService.GetEnumTypeList().subscribe(data => {
+      this.ddlEnumData = data;
+      console.log(data);
+    });
   }
   //SPLIT
   split(type) {
@@ -94,8 +90,15 @@ export class KosfilterComponent implements OnInit {
 
   onFilter() {
     this.ddlTenantSelectedItems.forEach(item => {
-      this.kosFilter.hastaneList.push(item.item_text);
+      this.kosFilter.hastaneList.push(item.tenantAd);
     });
+    this.ddlModalitySelectedItems.forEach(item => {
+      this.kosFilter.modalite.push(item.name);
+    });
+    this.ddlEnumSelectedItems.forEach(item => {
+      this.kosFilter.eslesmeDurumu.push(item.name);
+    });
+
     this.kosFilter.basTarih = this.dateRange[0];
     this.kosFilter.bitTarih = this.dateRange[1];
 
@@ -109,7 +112,10 @@ export class KosfilterComponent implements OnInit {
     this.accessionNoList = [];
     
   }
-  clearFilter() {
+  onClearFilter() {
+    this.ddlTenantSelectedItems = [];
+    this.ddlModalitySelectedItems = [];
+    this.ddlEnumSelectedItems = [];
     this.dateRange = [];
     this.tcKimlikNo = '';
     this.accessionNo = '';

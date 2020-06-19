@@ -15,35 +15,28 @@
     <table #filterSection class="table table-bordered m-0 medlifeGrid">
       <thead>
         <tr>
+
           <th scope="col" class="p-0"><input type="checkbox"></th>
-          <th scope="col" class="p-0" (click)="gridRole.onSorting('pk')">Id<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridRole.onSorting('pk')">Rol Adı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridRole.onSorting('pk')">Kolon 2<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridRole.onSorting('pk')">Kolon 2<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridRole.onSorting('pk')">Kolon 2<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridRole.onSorting('pk')">Kolon 2<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridRole.onSorting('pk')">Kolon 2<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridRole.onSorting('id')">Id<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridRole.onSorting('roleName')">Rol Adı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr (click)="gridRole.onClickItem(item)" *ngFor="let item of gridRole.data.list" [class]="gridRole.getRowClass(item)">
           <td class="p-0">
-            <input type="checkbox" class="">
+            <input type="checkbox" class="" [checked]="gridRole.isSelected(item)"
+                   (change)="gridRole.onSelectItem(item)">
           </td>
-          <td class="p-0">123</td>
-          <td class="p-0">Admin</td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
-          <td class="p-0"></td>
+          <td class="p-0">{{item.id}}</td>
+          <td class="p-0">{{item.roleName}}</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="row justify-content-center   mt-3">
+  <div class="row justify-content-center  mb-3">
     <div class="col-sm-7 pagination-sm  justify-content-center pageNumber">
-      <pagination class="justify-content-center" [boundaryLinks]="true" [totalItems]="10" [maxSize]="4" [itemsPerPage]="4" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      <pagination class="justify-content-center" [boundaryLinks]="true" [totalItems]="gridRole.data.totalCount" [maxSize]="4" [(ngModel)]="gridRole.model.paging.pageNumber" [itemsPerPage]="gridRole.model.paging.count" (pageChanged)="gridRole.onPageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
       </pagination>
     </div>
   </div>

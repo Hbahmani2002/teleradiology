@@ -6,7 +6,7 @@
         <label class="font-weight-bold">Hastane Seçimi</label>
         <ng-multiselect-dropdown name ="ddlTenant"
                                  [placeholder]="'Hastane Seçimi'"
-                                 [data]="ddlTenant"
+                                 [data]="ddlTenantData"
                                  [(ngModel)]="ddlTenantSelectedItems"
                                  [settings]="ddlTenantSettings">
         </ng-multiselect-dropdown>
@@ -25,18 +25,18 @@
         <label class="font-weight-bold">Modalite</label>
         <ng-multiselect-dropdown name="ddlModality"
                                  [placeholder]="'Modalite'"
-                                 [data]="ddlModality"
+                                 [data]="ddlModalityData"
                                  [(ngModel)]="ddlModalitySelectedItems"
                                  [settings]="ddlModalitySettings">
         </ng-multiselect-dropdown>
       </div>
       <div class="col-md-3">
         <label class="font-weight-bold">Eşleşme Durumu</label>
-        <ng-multiselect-dropdown name="ddlState"
+        <ng-multiselect-dropdown name="ddlEnum"
                                  [placeholder]="'Eşleşme Durumu'"
-                                 [data]="ddlState"
-                                 [(ngModel)]="ddlStateSelectedItems"
-                                 [settings]="ddlStateSettings">
+                                 [data]="ddlEnumData"
+                                 [(ngModel)]="ddlEnumSelectedItems"
+                                 [settings]="ddlEnumSettings">
         </ng-multiselect-dropdown>
       </div>
     </div>
@@ -57,6 +57,6 @@
   </form>
   <div class="mt-1">
     <button class="btn btn-success btn-sm mr-2" tooltip="Filtrele" (click)="onFilter()"><fa name="search"></fa></button>
-    <button class="btn btn-danger  btn-sm" tooltip="Filtreleri Temizle"><fa name="close"></fa></button>
+    <button class="btn btn-danger  btn-sm" tooltip="Filtreleri Temizle" (click)="onClearFilter()"><fa name="close"></fa></button>
   </div>
 </filter>

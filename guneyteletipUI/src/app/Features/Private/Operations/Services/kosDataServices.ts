@@ -42,7 +42,7 @@ export class kosDataServices {
   public GetKosHistoryByStudyID(model: kosModel): Observable<kosHistoryModel> {
     return this.apiDataService.callDataService('Kos/GetKosHistoryByStudyID', model);
   }
-  public GetEnumTypeList(model: kosModel): Observable<Array<kosEnumTypeViewModel>> {
-    return this.apiDataService.callDataService('Kos/GetEnumTypeList', model);
+  public GetEnumTypeList(): Observable<Array<kosEnumTypeViewModel>> {
+    return this.apiDataService.callDataService('Kos/GetEnumTypeList',undefined);
   }
 }
