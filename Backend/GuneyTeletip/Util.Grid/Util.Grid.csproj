@@ -7,8 +7,8 @@
     <ProjectGuid>{3908C804-B44D-4A62-B62F-40F1C66CFF1E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MEDLIFE.UTILS.GRID</RootNamespace>
-    <AssemblyName>MEDLIFE.UTILS.GRID</AssemblyName>
+    <RootNamespace>Util.Grid</RootNamespace>
+    <AssemblyName>Util.Grid</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
