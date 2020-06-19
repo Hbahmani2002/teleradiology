@@ -1,3 +1,4 @@
+using GT.Core.Settings;
 using GT.Job.Implementation;
 using NUnit.Framework;
 using System;
@@ -21,12 +22,13 @@ namespace GT.BAL.Test
         /// UC1.1. Job
         /// </summary>
         [Test]
-        public void UC11()
+        public void UC1()
         {
 
-            var filePath = Path.Combine(Environment.CurrentDirectory, "_jobLog.txt");
-            var logger = new TextFileLogger(filePath);
+            var filePath = AppSettings.Logging.PATH_JobInfinity;
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
+            var logger = new TextFileLogger(filePath);
             var jobManager = InfJobManager.Create(logger);
             jobManager.Start();
             Thread.Sleep(10000);
