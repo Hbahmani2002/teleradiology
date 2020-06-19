@@ -1,8 +1,8 @@
-﻿using GT.DataService.infinity.Conditions;
+﻿using Gt.PERSISTANCE;
+using GT.DataService.infinity.Conditions;
 using GT.Persistance.Domain.infinity.Models;
 using GT.Repository.infinity.Model.View;
-using MEDLIFE.PERSISTANCE;
-using MEDLIFE.REPOSITORY;
+using GT.REPOSITORY;
 using System;
 using System.Collections.Generic;
 using System.Linq;

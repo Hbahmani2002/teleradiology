@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using MEDLIFE.PERSISTANCE;
+using GT.PERSISTANCE;
 
-namespace MEDLIFE.PERSISTANCE.Data.Text
+namespace GT.PERSISTANCE.Data.Text
 {
     public class DataStorage
     {

@@ -22,30 +22,30 @@ export class userDataServices {
     return this.apiDataService.callDataService('User/GetUserList', model);
   }
   public save(model: userSaveModel): Observable<number> {
-    return this.apiDataService.callDataService('Service/Save', model);
+    return this.apiDataService.callDataService('User/Save', model);
   }
   public getByID(model: userUIModel): Observable<userViewModel> {
-    return this.apiDataService.callDataService('Service/GetByID', model);
+    return this.apiDataService.callDataService('User/GetByID', model);
   }
   public delete(model: userUIModel): Observable<number> {
-    return this.apiDataService.callDataService('Service/Delete', model);
+    return this.apiDataService.callDataService('User/Delete', model);
   }
   public getRolList(): Observable<Array<roleViewModel>> {
-    return this.apiDataService.callDataService('Service/GetRolList', undefined);
+    return this.apiDataService.callDataService('User/GetRolList', undefined);
   }
   public getRoleByID(model: userUIModel): Observable<number> {
-    return this.apiDataService.callDataService('Service/GetRoleByID', model);
+    return this.apiDataService.callDataService('User/GetRoleByID', model);
   }
   public saveRol(model: saveRolUIModel): Observable<number> {
-    return this.apiDataService.callDataService('Service/SaveRol', model);
+    return this.apiDataService.callDataService('User/SaveRol', model);
   }
   public getTenantList(): Observable<Array<tenantViewModel>> {
     return this.apiDataService.callDataService('User/GetTenantList', undefined);
   }
   public saveTenant(model: saveTenantUIModel): Observable<number> {
-    return this.apiDataService.callDataService('Service/SaveTenant', model);
+    return this.apiDataService.callDataService('User/SaveTenant', model);
   }
   public getTenantByID(model: userUIModel): Observable<number> {
-    return this.apiDataService.callDataService('Service/GetTenantByID', model);
+    return this.apiDataService.callDataService('User/GetTenantByID', model);
   }
 }

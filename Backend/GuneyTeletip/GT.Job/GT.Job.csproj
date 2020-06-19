@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GT.BAL.Infinity.DataSynronizer\GT.BAL.Infinity.DataSynronizer.csproj" />
+    <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
+    <ProjectReference Include="..\GT.Repository\GT.Repository.csproj" />
+    <ProjectReference Include="..\Util.Job\Util.Job.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Implementation\Private\" />
+  </ItemGroup>
+
+</Project>

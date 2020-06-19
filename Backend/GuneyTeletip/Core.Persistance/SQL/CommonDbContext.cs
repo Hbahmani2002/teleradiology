@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Linq;
 
-namespace MEDLIFE.PERSISTANCE.Data.SQL
+namespace GT.PERSISTANCE.Data.SQL
 {
     public class CommonDbContext : DbContext
     {

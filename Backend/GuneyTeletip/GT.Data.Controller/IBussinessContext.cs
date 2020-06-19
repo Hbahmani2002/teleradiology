@@ -1,5 +1,6 @@
 ﻿
-namespace MEDLIFE.SERVICE
+
+namespace GT.SERVICE
 {
     public interface IBussinessContext
     {

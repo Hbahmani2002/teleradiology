@@ -1,7 +1,9 @@
-﻿using MEDLIFE.PERSISTANCE.Data;
-using MEDLIFE.PERSISTANCE.Data.SQL;
-using MEDLIFE.PERSISTANCE.DOMAIN.Models;
-using MEDLIFE.PERSISTANCE.Text;
+﻿using Gt.PERSISTANCE;
+using Gt.PERSISTANCE.Text;
+using GT.PERSISTANCE;
+using GT.PERSISTANCE.Data;
+using GT.PERSISTANCE.Data.SQL;
+using GT.PERSISTANCE.DOMAIN.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,9 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MEDLIFE.PERSISTANCE
+namespace GT.PERSISTANCE
 {
-    public class WorkspaceFactory
+    public class InfWorkspaceFactory
     {
         private static TextFileWorkspace _textFileWorkspace;
         private static string _connectionString;
@@ -57,7 +59,7 @@ namespace MEDLIFE.PERSISTANCE
 
         public static AbstractWorkspace Create(bool log = false)
         {
-            var dc = new DataContext(true, true, true, true,
+            var dc = new InfDataContext(true, true, true, true,
                      log ? o => Debug.WriteLine(o) : (Action<string>)null);
             //dc.Configuration.ValidateOnSaveEnabled = false;
             return new WritableEFWorkspace(dc);
@@ -65,7 +67,7 @@ namespace MEDLIFE.PERSISTANCE
 
         public static AbstractWorkspace CreateReadOnly(bool log = false)
         {
-            var dc = new DataContext(false, false, false, false,
+            var dc = new InfDataContext(false, false, false, false,
                      log ? o => Debug.WriteLine(o) : (Action<string>)null);
             return new ReadOnlyEFWorkspace(dc);
         }

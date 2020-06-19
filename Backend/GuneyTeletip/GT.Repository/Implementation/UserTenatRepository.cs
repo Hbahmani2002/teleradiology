@@ -1,22 +1,27 @@
-﻿using GT.Persistance.Domain.Models;
-using MEDLIFE.PERSISTANCE;
-using MEDLIFE.REPOSITORY;
+﻿using Gt.PERSISTANCE;
+using GT.Persistance.Domain.Models;
+using GT.REPOSITORY;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace GT.Repository.Implementation
 {
-    public class UserTenatRepository : AbstractTableRepository<UsrUserTenat>
+    public class UserTenantRepository : AbstractTableRepository<UsrUserTenant>
     {
-        public UserTenatRepository(IAbstractWorkspace workspace) : base(workspace)
+        public UserTenantRepository(IAbstractWorkspace workspace) : base(workspace)
         {
 
         }
 
-        public override UsrUserTenat GetByID(int id)
+        public override UsrUserTenant GetByID(int id)
         {
             throw new NotImplementedException();
+        }
+        public IQueryable<UsrUserTenant> GetTenantIDByUserID(long userID)
+        {
+            return Query(o => o.FkUser == userID);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 using TIF.DTO.Types.Reflection;
 
-namespace MEDLIFE.UTILS.GRID
+namespace GT.UTILS.GRID
 {
     public class FilterPagingBase : FilterBase, IPaging
     {

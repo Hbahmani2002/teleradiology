@@ -10,7 +10,7 @@ using GT.Repository.Models.View;
 using GT.UI.WebApi.Implementation;
 using GT.UI.WebApi.Models;
 using GT.UI.WebApi.Models.UserModel;
-using MEDLIFE.UTILS.GRID;
+using GT.UTILS.GRID;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -71,7 +71,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/User/GetRoleByID")]
-        public ServiceResult<int> GetRoleByID(UserUIModel model)
+        public ServiceResult<long> GetRoleByID(UserUIModel model)
         {
             var cx = GetBussinesContext();
             var service = new UserDataService(cx);
@@ -105,13 +105,13 @@ namespace GT.UI.WebApi.Controllers
             return HttpMessageService.Ok(service.SaveTenant(model.UserID, model.TenantIDList));
         }
 
-        [HttpPost]
-        [Route("/User/GetTenantByID")]
-        public ServiceResult<int> GetTenantByID(UserUIModel model)
-        {
-            var cx = GetBussinesContext();
-            var service = new UserDataService(cx);
-            return HttpMessageService.Ok(service.GetTenantByID(model.UserID));
-        }
+        //[HttpPost]
+        //[Route("/User/GetTenantByID")]
+        //public ServiceResult<int> GetTenantByID(UserUIModel model)
+        //{
+        //    var cx = GetBussinesContext();
+        //    var service = new UserDataService(cx);
+        //    return HttpMessageService.Ok(service.GetTenantByID(model.UserID));
+        //}
     }
 }

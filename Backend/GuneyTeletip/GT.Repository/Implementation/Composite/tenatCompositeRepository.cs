@@ -1,8 +1,8 @@
-﻿using GT.Persistance.Domain.Models;
+﻿using Gt.PERSISTANCE;
+using GT.Persistance.Domain.Models;
 using GT.Repository.Conditions;
 using GT.Repository.Models.View;
-using MEDLIFE.PERSISTANCE;
-using MEDLIFE.REPOSITORY;
+using GT.REPOSITORY;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,14 +22,14 @@ namespace GT.Repository.Implementation.Composite
 
         public IQueryable<string> Query(long tenantID)
         {
-            var tenantdata = _AbstractWorkspace.Query<Tenant>(o => o.Pk == tenantID);
-            var tenantskrsdata = _AbstractWorkspace.Query<TenantSkrs>();
+            var tenantdata = _AbstractWorkspace.Query<UsrTenant>(o => o.Pk == tenantID);
+            var tenantskrsdata = _AbstractWorkspace.Query<UsrTenantSkrs>();
        
             var list = from t in tenantdata
-                       join s in tenantskrsdata on t.Pk  equals s.FkTenat
+                       join s in tenantskrsdata on t.Pk  equals s.FkTenant
                         select new
                         {
-                           s.AccessionNoOnek
+                           s.AccessionNoPrefix
                         };
             return null;
         }

@@ -1,8 +1,8 @@
-﻿using GT.Persistance.Domain.Models;
+﻿using Gt.PERSISTANCE;
+using GT.Persistance.Domain.Models;
 using GT.Repository.Conditions;
 using GT.Repository.Models.View;
-using MEDLIFE.PERSISTANCE;
-using MEDLIFE.REPOSITORY;
+using GT.REPOSITORY;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +11,19 @@ using System.Text;
 
 namespace GT.Repository.Implementation
 {
-    public class TenatRepository : AbstractTableRepository<Tenant>
+    public class TenantRepository : AbstractTableRepository<UsrTenant>
     {
-        public TenatRepository(IAbstractWorkspace workspace) : base(workspace)
+        public TenantRepository(IAbstractWorkspace workspace) : base(workspace)
         {
 
         }
 
-        public override Tenant GetByID(int id)
+        public override UsrTenant GetByID(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Tenant GetByID(long id)
+        public UsrTenant GetByID(long id)
         {
             return Single(o => o.Pk == id);
         }
@@ -34,13 +34,14 @@ namespace GT.Repository.Implementation
 
             return Query(res);
         }
-        private IQueryable<TenantViewModel> Query(Expression<Func<Tenant, bool>> exp)
+        private IQueryable<TenantViewModel> Query(Expression<Func<UsrTenant, bool>> exp)
         {
-            var tenant = _AbstractWorkspace.Query<Tenant>(exp);
+            var tenant = _AbstractWorkspace.Query<UsrTenant>(exp);
             var list = from t in tenant
                        select new TenantViewModel
                        {
-                           TenantAd=t.TenantAd
+                           //TenantAd=t.TenantAd,
+                           //Pk=t.Pk
                        };
             return list;
         }

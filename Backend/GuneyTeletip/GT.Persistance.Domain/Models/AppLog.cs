@@ -12,7 +12,7 @@ namespace GT.Persistance.Domain.Models
         public string Desc3 { get; set; }
         public DateTime? TimeCreated { get; set; }
         public DateTime? TimeModified { get; set; }
-        public long FkUserCreated { get; set; }
-        public long FkUserModified { get; set; }
+        public long? FkUserCreated { get; set; }
+        public long? FkUserModified { get; set; }
     }
 }

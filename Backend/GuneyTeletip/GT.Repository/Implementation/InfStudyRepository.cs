@@ -1,8 +1,8 @@
-﻿using GT.Persistance.Domain.Models;
+﻿using Gt.PERSISTANCE;
+using GT.Persistance.Domain.Models;
 using GT.Repository.Conditions;
 using GT.Repository.Models.View;
-using MEDLIFE.PERSISTANCE;
-using MEDLIFE.REPOSITORY;
+using GT.REPOSITORY;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +44,7 @@ namespace GT.Repository.Implementation
             var userLogin = _AbstractWorkspace.Query<UsrUserLogin>();
             var infStudiesLogin  = _AbstractWorkspace.Query<InfStudy>(exp);
             var list = from s in infStudiesLogin
-                       join u in userLogin on s.InfFkStudy equals u.Pk
+                       join u in userLogin on s.OracleStudyKey equals u.Pk
                        select new InfStudyViewModel
                        {
                            //Modalite=
@@ -64,7 +64,7 @@ namespace GT.Repository.Implementation
             var userLogin = _AbstractWorkspace.Query<UsrUserLogin>();
             var infStudiesLogin = _AbstractWorkspace.Query<InfStudy>(exp);
             var list = from s in infStudiesLogin
-                       join u in userLogin on s.StudyKey equals u.Pk
+                       join u in userLogin on s.OracleStudyKey equals u.Pk
                        select new InfStudyViewModel
                        {
 

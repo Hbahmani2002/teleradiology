@@ -1,8 +1,8 @@
-﻿using GT.Persistance.Domain.Models;
+﻿using Gt.PERSISTANCE;
+using GT.Persistance.Domain.Models;
 using GT.Repository.Conditions;
 using GT.Repository.Models.View;
-using MEDLIFE.PERSISTANCE;
-using MEDLIFE.REPOSITORY;
+using GT.REPOSITORY;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +46,9 @@ namespace GT.Repository.Implementation.Composite
                            TimeModified = u.TimeModified,
                            FkUserCreated = u.FkUserCreated,
                            UserName = u.UserName,
-                           FkUserModified = u.FkUserModified
+                           FkUserModified = u.FkUserModified,
+                           RolID=r.Pk,
+                           RolName=r.Name
                        };
             return list;
         }

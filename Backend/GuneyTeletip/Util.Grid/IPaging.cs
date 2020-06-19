@@ -1,5 +1,5 @@
 ﻿
-namespace MEDLIFE.UTILS.GRID
+namespace GT.UTILS.GRID
 {
     public interface IPaging
     {

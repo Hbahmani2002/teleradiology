@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MEDLIFE.PERSISTANCE
+namespace GT.PERSISTANCE
 {
     public class LocalSettings
     {

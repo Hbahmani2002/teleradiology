@@ -1,5 +1,7 @@
 ﻿
-namespace MEDLIFE.SERVICE
+using GT.SERVICE;
+
+namespace GT.SERVICE
 {
     public class BussinessContext : IBussinessContext
     {

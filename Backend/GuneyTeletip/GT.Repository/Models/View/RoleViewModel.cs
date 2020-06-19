@@ -6,7 +6,7 @@ namespace GT.Repository.Models.View
 {
     public class RoleViewModel
     {
-        public long RolePK { get; set; }
+        public long RoleID { get; set; }
         public string RoleName { get; set; }
     }
 }
