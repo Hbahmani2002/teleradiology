@@ -15,6 +15,7 @@ using GT.Repository.Models.View;
 using GT.SERVICE;
 using GT.UI.WebApi.Implementation;
 using GT.UI.WebApi.Models;
+using KOS.TeletipKos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -38,17 +39,24 @@ namespace GT.UI.WebApi.Controllers
             return HttpMessageService.Ok((object)new
             {
                 Version = ass.Version.ToString(),
+                Settings = AppSettings.GetCurrent(),
                 Environment = new
                 {
+                    CurrentTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff"),
                     CurrentDirectory = Environment.CurrentDirectory,
                     MachineName = Environment.MachineName,
                     WorkingSet = Environment.WorkingSet,
                 },
-                Settings=AppSettings.GetCurrent()
-            });
+                Threads = new
+                {
+                    ThreadManager.AvailableThreads,
+                    ThreadManager.MaxThreads,
+                    ThreadManager.PendingWorkItemCount
+                }                
+            }); 
         }
 
-       
+
 
         public class ModelItem
         {
