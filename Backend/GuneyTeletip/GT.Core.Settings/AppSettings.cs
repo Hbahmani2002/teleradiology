@@ -5,10 +5,6 @@ namespace GT.Core.Settings
 {
     public class AppSettings
     {
-        public Logging Log { get; }
-        public STMService STM { get; }
-        public KosService Kos { get; }
-
         private static AppSettings _AppSettings;
         public static AppSettings GetCurrent()
         {
@@ -23,6 +19,20 @@ namespace GT.Core.Settings
             Log = new Logging();
             STM = new STMService();
             Kos = new KosService();
+            DatabaseConnection = new Database();
+        }
+
+        public Logging Log { get; }
+        public STMService STM { get; }
+        public KosService Kos { get; }
+
+        public Database DatabaseConnection { get; }
+
+
+        public class Database
+        {
+            public string StudyPostgreConnectionString => "???";
+            public string InfinityOracleConnectionString => "????";
         }
         public class Logging
         {
