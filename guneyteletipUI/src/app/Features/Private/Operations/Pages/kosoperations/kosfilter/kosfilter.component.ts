@@ -27,7 +27,7 @@ export class KosfilterComponent implements OnInit {
  
 
   public isCollapsed = false;
-  public dateRange;
+  public dateRange: any[] = [];
   public tcKimlikNo: string;
   public tcKimlikNoList: string[] = [];
   public accessionNo: string;
@@ -39,7 +39,7 @@ export class KosfilterComponent implements OnInit {
   constructor(private kosService: kosDataServices, private userService: userDataServices) {
   }
   ngOnInit() {
-    this.kosFilterOutput = null;
+   
     this.ddlTenantSettings = this.ddlSettings.ddlTenantSettings;
     this.ddlModalitySettings = this.ddlSettings.ddlModalitySettings;
     this.ddlEnumSettings = this.ddlSettings.ddlEnumSettings;
@@ -69,23 +69,25 @@ export class KosfilterComponent implements OnInit {
     });
   }
   //SPLIT
-  split(type) {
-    if (type == 'tc') {
-      this.tcKimlikNo.split(" ").forEach(item => {
-        if (item.length == 11) {
-          this.tcKimlikNoList.push(item);
-        }
-      });
-      return this.tcKimlikNoList;
-    }
-    else if (type = 'accession') {
-      this.accessionNo.split(" ").forEach(item => {
-        if (item.length == 11) {
-          this.accessionNoList.push(item);
-        }
-      });
-      return this.accessionNoList;
-    }
+  splitTC() {
+    if (this.tcKimlikNo == "" || this.tcKimlikNo == undefined)
+      return;
+    this.tcKimlikNo.split(" ").forEach(item => {
+      if (item.length == 11) {
+        this.tcKimlikNoList.push(item);
+      }
+    });
+    return this.tcKimlikNoList;
+  }
+  splitAccession() {
+    if (this.accessionNo == "" || this.accessionNo == undefined)
+      return;
+    this.accessionNo.split(" ").forEach(item => {
+      if (item.length == 11) {
+        this.accessionNoList.push(item);
+      }
+    });
+    return this.accessionNoList;
   }
 
   onFilter() {
@@ -102,15 +104,26 @@ export class KosfilterComponent implements OnInit {
     this.kosFilter.basTarih = this.dateRange[0];
     this.kosFilter.bitTarih = this.dateRange[1];
 
-    this.kosFilter.tcList = this.split('tc');
-    this.kosFilter.accessionNumberList = this.split('accession');
+    this.kosFilter.tcList = this.splitTC();
+    this.kosFilter.accessionNumberList = this.splitAccession();
 
-
+    debugger;
+   
     this.kosFilterOutput = this.kosFilter;
+    this.onClearKosFilter();
     console.log(this.kosFilterOutput);
     this.tcKimlikNoList = [];
     this.accessionNoList = [];
     
+  }
+  onClearKosFilter() {
+    this.kosFilter.accessionNumberList = [];
+    this.kosFilter.basTarih = undefined;
+    this.kosFilter.bitTarih = undefined;
+    this.kosFilter.eslesmeDurumu = [];
+    this.kosFilter.hastaneList = [];
+    this.kosFilter.modalite = [];
+    this.kosFilter.tcList = [];
   }
   onClearFilter() {
     this.ddlTenantSelectedItems = [];

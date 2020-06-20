@@ -106,7 +106,7 @@ namespace RoleListComponent_Models {
       this.roleService.GetRoleList(item).subscribe(o => {
         this.data.list = o["list"];
         this.data.totalCount = o["totalCount"];
-        console.log(data);
+        console.log(this.data);
       })
     }
   }
