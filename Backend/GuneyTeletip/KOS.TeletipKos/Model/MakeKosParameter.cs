@@ -1,6 +1,8 @@
-﻿namespace GT.TeletipKos
+﻿using KOS.TeletipKos.Interface;
+
+namespace GT.TeletipKos
 {
-    public class MakeKosParameter
+    public class MakeKosParameter: IIDLog
     {
         public string ID { get; set; }
         public string InstitutionName { get; }

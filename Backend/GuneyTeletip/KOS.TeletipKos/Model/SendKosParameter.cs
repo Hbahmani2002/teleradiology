@@ -1,22 +1,23 @@
-﻿using System;
+﻿using KOS.TeletipKos.Interface;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace GT.TeletipKos.Model
 {
-    public class SendKosParameter
+    public class SendKosParameter : IIDLog
     {
         public string ID { get; set; }
         public SendKosParameter(string id, string patientId, string kosFilePath)
         {
             ID = id;
             PatientId = patientId;
-            KosFilePath = kosFilePath;            
+            KosFilePath = kosFilePath;
         }
 
         public string PatientId { get; }
         //RepositoryPath
-        public string KosFilePath { get; }      
+        public string KosFilePath { get; }
 
 
     }
