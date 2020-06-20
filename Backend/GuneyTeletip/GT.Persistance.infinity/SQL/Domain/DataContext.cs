@@ -1123,7 +1123,7 @@ namespace GT.PERSISTANCE.DOMAIN.Models
                     .HasColumnType("CHAR(1)");
             });
 
-           // OnModelCreatingPartial(modelBuilder);
+          //  OnModelCreatingPartial(modelBuilder);
         }
     }
 }

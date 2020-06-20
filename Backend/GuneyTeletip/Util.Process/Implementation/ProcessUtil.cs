@@ -7,27 +7,62 @@ namespace Util.ProcessUtil
 {
     public class ProcessUtil
     {
-        
+        public static ProcessResult Start(string command, string args, string workingDirectory = null)
+        {
+            var process = new Process()
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = command,
+                    Arguments = args,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                }
+            };
+            process.Start();
+            string output = process.StandardOutput.ReadToEnd();
+            string error = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+
+            var res = new ProcessResult();
+            res.Arguments = args;
+            if (string.IsNullOrEmpty(error))
+            {
+                res.IsSuccess = true;
+                res.Message = output;                
+            }
+            else
+            {
+                res.IsSuccess = false;
+                res.Message = error;
+            }
+            return res;
+        }
         // static string WorkingDirectory = ConfigurationManager.AppSettings["WorkingDirectory"];
-        public static ProcessResult Start(string fileName, string args, string workingDirectory)
+        private static ProcessResult Start2(string fileName, string args, string workingDirectory)
         {
             var startInfo = new ProcessStartInfo
             {
                 FileName = fileName,
                 Arguments = args,
-                ErrorDialog = false,
+
+                //ErrorDialog = false,
                 UseShellExecute = false,
-                RedirectStandardOutput = true,
-                StandardOutputEncoding = Encoding.UTF8,
-                RedirectStandardError = true,
                 CreateNoWindow = true,
-                WorkingDirectory = workingDirectory
+                //WorkingDirectory = workingDirectory
+
+                //StandardOutputEncoding = Encoding.UTF8,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+
             };
             var res = new ProcessResult();
             var stringBuilder = new StringBuilder();
 
             try
-            {                
+            {
                 using (var process = Process.Start(startInfo))
                 using (var output = process.StandardOutput)
                 using (var error = process.StandardError)

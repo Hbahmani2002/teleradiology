@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Util.Logger\Util.Logger.csproj" />
     <ProjectReference Include="..\Util.Process\Util.Process.csproj" />
   </ItemGroup>
 

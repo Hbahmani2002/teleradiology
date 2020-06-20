@@ -11,10 +11,10 @@ using Util.Extensions;
 
 namespace GT.BAL.TeletipKos
 {
-    public class TeletipKosService
+    public class StudyKosService
     {
         InfStudyDataService _InfStudyDataService;
-        public TeletipKosService(IBussinessContext context)
+        public StudyKosService(IBussinessContext context)
         {
             _InfStudyDataService = new InfStudyDataService(context);
         }
@@ -33,6 +33,11 @@ namespace GT.BAL.TeletipKos
         {
 
             var list = GetStudyKos(filter);
+            CreateKos(list);
+        }
+
+        private static void CreateKos(IEnumerable<InfStudyViewModel> list)
+        {
             foreach (var item in list)
             {
 

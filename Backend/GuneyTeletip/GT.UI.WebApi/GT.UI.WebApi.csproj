@@ -11,10 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GT.Core.Settings\GT.Core.Settings.csproj" />
     <ProjectReference Include="..\GT.Data.Controller\GT.Data.Controller.csproj" />
     <ProjectReference Include="..\GT.DataService.infinity\GT.DataService.infinity.csproj" />
     <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
     <ProjectReference Include="..\GT.Repository\GT.Repository.csproj" />
+    <ProjectReference Include="..\KOS.TeletipKos\KOS.TeletipKos.csproj" />
     <ProjectReference Include="..\Util.Process\Util.Process.csproj" />
   </ItemGroup>
 

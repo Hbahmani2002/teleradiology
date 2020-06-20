@@ -27,6 +27,7 @@ namespace GT.DataService.Implementation
         InfStudyHistoryRepository infStudyHistoryRepository;
         KosEnumTypeRepository kosEnumTypeRepository;
         ModalityRepository modalityRepository;
+        KosDurumIstCompositeRepository kosDurumIstCompositeRepository;
         public InfStudyDataService(IBussinessContext context) : base(context)
         {
             _Workspace = GTWorkspaceFactory.Create(true);
@@ -37,6 +38,7 @@ namespace GT.DataService.Implementation
             infStudyHistoryRepository = new InfStudyHistoryRepository(_Workspace);
             kosEnumTypeRepository = new KosEnumTypeRepository(_Workspace);
             modalityRepository = new ModalityRepository(_Workspace);
+            kosDurumIstCompositeRepository = new KosDurumIstCompositeRepository(_Workspace);
         }
 
         public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items)
@@ -63,8 +65,12 @@ namespace GT.DataService.Implementation
 
             var s = new InfStudyConditionFilter
             {
-                AccessionNoList=parms.Filter.AccessionNumberList,
-                Modality=parms.Filter.Modalite
+                HastaneIDList=parms.Filter.HastaneIDList,
+                AccessionNumberList=parms.Filter.AccessionNumberList,
+                BasTarih=parms.Filter.BasTarih,
+                BitTarih=parms.Filter.BitTarih,
+                Modality=parms.Filter.Modalite,
+                TcList=parms.Filter.TCList
             };
             return _InfStudyRepository.Query(s)
                 .GetGridQuery(parms);
@@ -165,6 +171,32 @@ namespace GT.DataService.Implementation
                 ID = o.Pk,
                 Name = o.Name
             }).ToList();
+        }
+
+        public List<KosDurumIstModel> GetKosDurumIst()
+        {
+            return kosDurumIstCompositeRepository.Query().ToList();
+        }
+
+        public long UpdateKosDurum(int kosStudyID, int kosEnumID)
+        {
+            var kosStudyHistory = new KosStudyHistory();
+            kosStudyHistory.EnumType = kosEnumID;
+            kosStudyHistory.FkKosStudy = kosStudyID;
+            kosStudyHistory.FkUserCreated = Context.UserInfo.UserIDCurrent;
+            kosStudyHistory.TimeCreated = DateTime.Now;
+            //result ?
+
+            var kosStudy = _InfStudyRepository.GetByID(kosStudyID);
+            if (kosStudy == null)
+            {
+                throw new Exception("kosStudy bulunmadı. kosStudyID"+ kosStudyID);
+            }
+            kosStudy.FkKosEnumType = kosEnumID;
+            _InfStudyRepository.Update(kosStudy);
+
+            _Workspace.CommitChanges();
+            return kosStudy.Pk;
         }
     }
 }

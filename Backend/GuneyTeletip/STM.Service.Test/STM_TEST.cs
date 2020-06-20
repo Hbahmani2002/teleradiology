@@ -3,12 +3,13 @@ using Teletip.SorgulamaServis;
 using STM.Service.Test;
 using System.Diagnostics.CodeAnalysis;
 using System;
+using GT.Core.Settings;
 
 namespace STM.Service.Test
 {
     public class STM_TEST
     {
-        
+
         [SetUp]
         public void Setup()
         {
@@ -36,9 +37,9 @@ namespace STM.Service.Test
             startAy = 05;
             startYıl = DateTime.Now.Year;
 
-            finGun =DateTime.Now.Day;
+            finGun = DateTime.Now.Day;
             finAy = DateTime.Now.Month;
-            finYıl =DateTime.Now.Year;
+            finYıl = DateTime.Now.Year;
 
             DateTime StartDateTime;
             DateTime EndDateTime;
@@ -48,20 +49,19 @@ namespace STM.Service.Test
             EndDateTime = new DateTime(finYıl, finAy, finGun, 0, 0, 0);
 
 
-            var GlobalCls =  AppSettings.GetCredentials();
+            var stmSettings = AppSettings.GetCurrent().STM;
+            ISTMTokenProvider tk = new STMTokenProvider(stmSettings.BASEADDRESS, stmSettings.userTokenName, stmSettings.userTokenPassword, stmSettings.HBYS_PACS_ResourceOwnerClient, stmSettings.identityServerBaseUri);
+            var stm_token = tk.GetToken();
+            var service = new STMService(stm_token, stmSettings.BASEADDRESS);
 
-            ISTMTokenProvider tk = new STMTokenProvider(GlobalCls.baseAdress , GlobalCls.userTokenName , GlobalCls.userTokenPassword, GlobalCls.HBYS_PACS_ResourceOwnerClient, GlobalCls.identityServerBaseUri );
-            var stm_token= tk.GetToken();
-            var service = new STMService(stm_token, STMService.BASEADDRESS);
 
-           
 
             service.GetMedulaRegistrationFailedOrderList("11340028", "", StartDateTime, EndDateTime);
             service.GetMedulaRegistrationFailedOrderList("11340028", "", StartDateTime, EndDateTime);
 
             service.GetDailyStudyList(11340028, "", StartDateTime);
             service.GetDailyStudyList(11340028, "DX", StartDateTime);
-            service.GetDailyStudyList(11340028,"", StartDateTime);
+            service.GetDailyStudyList(11340028, "", StartDateTime);
 
         }
     }

@@ -11,9 +11,7 @@ using System.Text;
 namespace Teletip.SorgulamaServis
 {
     public class STMService : ISTMService
-    {
-        public const string BASEADDRESS = "https://api.teletip.saglik.gov.tr/Common.WebApi/api/Integration/";
-
+    {        
         private STMServiceParameter ServiceName_GetPatientOrderList = new STMServiceParameter("GetPatientOrderList");
         private STMServiceParameter ServiceName_GetNonMatchingOrderList = new STMServiceParameter("GetNonMatchingOrderList", "nonMatchingParameter");
         private STMServiceParameter ServiceName_GetNonMatchingStudyList = new STMServiceParameter("GetNonMatchingStudyList", "nonMatchingParameter");

@@ -10,34 +10,32 @@ using System.Text;
 
 namespace Gt.Data.Test
 {
- 
-
-        public class InfStudy_Test
+    public class InfStudy_Test
+    {
+        [SetUp]
+        public void Setup()
         {
-                [SetUp]
-                public void Setup()
-                {
-                }
-                    InfStudyDataService service = new InfStudyDataService(new BussinessContext(new UserContextModel(1)));
-                [Test]
-                public void GetInfStudy()
-                {
-                        var grid = new Gridable<InfStudyFilter>();
+        }
+        InfStudyDataService service = new InfStudyDataService(new BussinessContext(new UserContextModel(1)));
+        [Test]
+        public void GetInfStudy()
+        {
+            var grid = new Gridable<InfStudyFilter>();
 
-                        var filter = new InfStudyFilter();
-                        grid.Filter = filter;
-                       // filter.Patinet_id = "45529049390";
-                      //  var list = service.GetInfStudyList(grid);
-
-
-                }
-
-
+            var filter = new InfStudyFilter();
+            grid.Filter = filter;
+            var tcList = new string[2];
+            tcList[0] = "61840519756";
+            tcList[1] = "44528074396";
+            filter.TCList = tcList;
+            var list = service.GetInfStudyList(grid);
         }
 
+        [Test]
+        public void GetKosDurumIst()
+        {
+              var list = service.GetKosDurumIst();
+        }
 
-   
-
-
-
+    }
 }

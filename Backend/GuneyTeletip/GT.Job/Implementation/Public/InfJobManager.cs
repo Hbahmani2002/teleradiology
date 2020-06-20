@@ -59,9 +59,6 @@ namespace GT.Job.Implementation
                 throw ex;
             }
             logger.LogInfo("Jobs OK");
-
-
-
         }
 
         private void RegisterJobs(InfStudyParameter item)

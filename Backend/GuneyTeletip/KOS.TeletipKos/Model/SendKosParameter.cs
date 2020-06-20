@@ -6,17 +6,17 @@ namespace GT.TeletipKos.Model
 {
     public class SendKosParameter
     {
-        public SendKosParameter(string patientId, string kosFilePath, string serviceUrl)
+        public string ID { get; set; }
+        public SendKosParameter(string id, string patientId, string kosFilePath)
         {
+            ID = id;
             PatientId = patientId;
-            KosFilePath = kosFilePath;
-            ServiceUrl = serviceUrl;
+            KosFilePath = kosFilePath;            
         }
 
         public string PatientId { get; }
         //RepositoryPath
-        public string KosFilePath { get; }
-        public string ServiceUrl { get; }
+        public string KosFilePath { get; }      
 
 
     }
