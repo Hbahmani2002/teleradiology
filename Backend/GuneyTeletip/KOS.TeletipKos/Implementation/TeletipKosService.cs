@@ -6,49 +6,71 @@ namespace GT.TeletipKos
 {
     public class TeletipKosService
     {
-        public static TeletipKosService Create()
+        public TeletipKosServiceSettings Settings { get; }
+        public TeletipKosService(TeletipKosServiceSettings settings)
         {
-            return new TeletipKosService(
-            "SendKOS_v15.jar",
-            "MakeKOSProtek.jar",
-            "C:/_Teletip/Programs/Archive"
-            );
-
-
+            Settings = settings;
         }
-        public string SendKosJarName { get; }
-        public string MakeKosJarName { get; }
-        public string WorkingDirectory { get; }
-
-
-
-        public TeletipKosService(string sendKosJarName, string makeKosJarName, string workingDirectory)
+        private ProcessResult SendKosOLD(SendKosParameter par)
         {
-            SendKosJarName = sendKosJarName;
-            MakeKosJarName = makeKosJarName;
-            WorkingDirectory = workingDirectory;
+            /*
+            var res = string.Format(" {0} {1} \"{2}\"", par.PatientId, par.KosFilePath.Replace('\\', '/'), Settings.SendKosServiceURL.Replace('\\', '/'));
+            var processStr = string.Format("-jar -Duser.language=en {1} {0}", res, Settings.SendKosJarName);
+            var ret = ProcessUtil.Start("java", processStr);
+            return ret;
+            */
+            return null;
         }
 
         public ProcessResult SendKos(SendKosParameter par)
         {
-            var res = string.Format(" {0} {1} \"{2}\"", par.PatientId, par.KosFilePath.Replace('\\', '/'), par.ServiceUrl.Replace('\\', '/'));
-            var processStr = string.Format("-jar -Duser.language=en {1} {0}", res, SendKosJarName);
-            var ret = ProcessUtil.Start("java", processStr, WorkingDirectory);
-            return ret;
+            var settings = Settings.SendKosSettings;
+
+            var processParameter = $"-jar {settings.AppFilePath} {par.KosFilePath} {settings.ServiceURL}";
+            var processResult = ProcessUtil.Start("java", processParameter);
+            return processResult;
         }
 
         public ProcessResult MakeKos(MakeKosParameter par)
         {
-            var res = string.Format(@"--title {0} --institution-insname {1}^^^SKRS{2}^^^{3} --location-uid {4} --temp-tlocation {5} --dcm-dcmlocation {6} --number-accession {7} --patient-sex {8} --patient-pid {9} -o {10} {11}",
-              par.Title, par.InstitutionName, par.InstitutionSKRS, par.InstitutionFirmaKodu, par.LocationUid,
-              par.TempDirectoryPath.Replace('\\', '/'), par.DcmDirectoryPath.Replace('\\', '/'),
-              par.AccessionNumber, par.PatientSex, par.PatientId, par.OutputKosFilePath.Replace('\\', '/'),
-              par.InputStudyDirectoryPath.Replace('\\', '/'));
+            var makeKosSettings = Settings.MakeKosSettings;
 
-            var processStr = string.Format("-jar {1} {0}", res, MakeKosJarName);
-            Console.WriteLine(processStr);
-            var ret = ProcessUtil.Start("java", processStr, WorkingDirectory);
-            return ret;
+            var output = par.OutputKosFilePath;
+            var input = par.InputStudyDirectoryPath;
+
+            var res = $@"--title {makeKosSettings.Title} --location-uid  {makeKosSettings.LocationUID} --temp-tlocation {makeKosSettings.TempDirectory} --dcm-dcmlocation {makeKosSettings.DCM4CheeDirectory}";
+            var processParameter = $"-jar {makeKosSettings.AppFilePath} {res} -o {output} {input}";
+
+            var processResult = ProcessUtil.Start("java", processParameter);
+            return processResult;
+        }
+        private ProcessResult MakeKosOld(MakeKosParameter par)
+        {
+            //var res = $@"--title {par.Title} --institution-insname {par.InstitutionName}^^^SKRS{par.InstitutionSKRS}^^^{par.InstitutionFirmaKodu} --location-uid {par.LocationUid} --temp-tlocation {par.TempDirectoryPath.Replace('\\', '/')} --dcm-dcmlocation {par.DcmDirectoryPath.Replace('\\', '/')} --number-accession {par.AccessionNumber} --patient-sex {par.PatientSex} --patient-pid {par.PatientId} -o {par.OutputKosFilePath.Replace('\\', '/')} {par.InputStudyDirectoryPath.Replace('\\', '/')}";
+
+            //var processStr = string.Format("-jar {1} {0}", res, "jar file name");
+            //Console.WriteLine(processStr);
+            //var ret = ProcessUtil.Start("java", processStr);
+            //return ret;
+            return null;
+        }
+
+        private string GetTESTInfo()
+        {
+
+            var makeKosJarName = "MakeKOS_v21";
+            var makeKosAppLocation = $"/gt/app/teletip_kos/{makeKosJarName}.jar";
+
+            var output = $"/gt/dicom/kos/test_{Guid.NewGuid().ToString().Replace("-", "")}.dcm";
+            var input = "/gt/dicom/study/YKCK01/20200519/E0071610";
+
+            var tempTLocation = "/gt/dicom/temp_kos";
+            var dcmLocation = "/gt/app/teletip_kos/dcm4che-5.22.2/bin";
+            var res = $@" --title DCM-113030 --location-uid  1.3.6.1.4.1.21367.2017.10.26.111 --temp-tlocation {tempTLocation} --dcm-dcmlocation {dcmLocation} -o {output} {input}";
+            //java -jar /app/dicom/MakeKOS_v21.jar --title DCM-113030 --location-uid  1.3.6.1.4.1.21367.2017.10.26.111 --temp-tlocation /app/dicom/temp --dcm-dcmlocation /app/dicom/dcm4che-5.22.2/bin -o /app/dicom/output/test.dcm /app/dicom/dicom-input-files
+            var processStr = $"-jar {makeKosAppLocation} {res}";
+            return processStr;
+
         }
     }
 }
