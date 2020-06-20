@@ -55,6 +55,7 @@ import { TestpageComponent } from './Features/Public/testpage/testpage.component
 import { userDataServices } from './Features/Private/Definitions/Services/userDataServices';
 import { kosDataServices } from './Features/Private/Operations/Services/kosDataServices';
 import { roleDataServices } from './Features/Private/Definitions/Services/roleDataServices';
+import { KosdetailComponent } from './Features/Private/Operations/Pages/kosoperations/kostabs/kosdetail/kosdetail.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { roleDataServices } from './Features/Private/Definitions/Services/roleDa
     RolefilterComponent,
     EditroleComponent,
     TestpageComponent,
+    KosdetailComponent,
 
     
   ],

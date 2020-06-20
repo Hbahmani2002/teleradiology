@@ -47,8 +47,8 @@ export class kosDataServices {
   public GetEnumTypeList(): Observable<Array<kosEnumTypeViewModel>> {
     return this.apiDataService.callDataService('Kos/GetEnumTypeList',undefined);
   }
-  public GetKosDurumIst(model: kosModel): Observable<Array<kosDurumIstModel>> {
-    return this.apiDataService.callDataService('Kos/GetKosDurumIst', model);
+  public GetKosDurumIst(): Observable<Array<kosDurumIstModel>> {
+    return this.apiDataService.callDataService('Kos/GetKosDurumIst',undefined);
   }
   public UpdateKosDurum(model: updateKosDurumModel): Observable<number> {
     return this.apiDataService.callDataService('Kos/UpdateKosDurum', model);

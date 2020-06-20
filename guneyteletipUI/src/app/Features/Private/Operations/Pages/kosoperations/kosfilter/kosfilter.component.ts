@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { kosDataServices } from '../../../Services/kosDataServices';
 import { userDataServices } from 'src/app/Features/Private/Definitions/Services/userDataServices';
@@ -12,6 +12,8 @@ import { ddlSettings } from './ddlSettings';
   styleUrls: ['./kosfilter.component.css']
 })
 export class KosfilterComponent implements OnInit {
+
+  @Output() filterChanged = new EventEmitter<kosFilter>();
 
   public ddlSettings: ddlSettings = new ddlSettings();
 
@@ -89,7 +91,6 @@ export class KosfilterComponent implements OnInit {
     });
     return this.accessionNoList;
   }
-
   onFilter() {
     this.ddlTenantSelectedItems.forEach(item => {
       this.kosFilter.hastaneList.push(item.tenantAd);
@@ -107,13 +108,11 @@ export class KosfilterComponent implements OnInit {
     this.kosFilter.tcList = this.splitTC();
     this.kosFilter.accessionNumberList = this.splitAccession();
 
-    debugger;
    
-    this.kosFilterOutput = this.kosFilter;
+    this.filterChanged.emit(this.kosFilter);
+   /* this.kosFilterOutput = this.kosFilter;
     this.onClearKosFilter();
-    console.log(this.kosFilterOutput);
-    this.tcKimlikNoList = [];
-    this.accessionNoList = [];
+    console.log(this.kosFilterOutput);*/
     
   }
   onClearKosFilter() {

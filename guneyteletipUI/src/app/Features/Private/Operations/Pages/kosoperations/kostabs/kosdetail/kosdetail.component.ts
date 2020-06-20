@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-kosdetailgrid',
-  templateUrl: './kosdetailgrid.component.html',
-  styleUrls: ['./kosdetailgrid.component.css']
+  selector: 'app-kosdetail',
+  templateUrl: './kosdetail.component.html',
+  styleUrls: ['./kosdetail.component.css']
 })
-export class KosdetailgridComponent implements OnInit {
+export class KosdetailComponent implements OnInit {
 
   @Input() set kosId(value: any) {
     if (value == null || value == undefined)
