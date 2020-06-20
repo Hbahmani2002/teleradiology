@@ -25,7 +25,7 @@ namespace GT.BAL.Test
         public void UC1()
         {
 
-            var filePath = AppSettings.Logging.PATH_JobInfinity;
+            var filePath = AppSettings.GetCurrent().Log.PATH_JobInfinity;
             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
             var logger = new TextFileLogger(filePath);

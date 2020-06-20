@@ -87,7 +87,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GT.BAL.Test", "GT.BAL.Test\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Logger", "Util.Logger\Util.Logger.csproj", "{5708177F-CA5E-4C28-B23C-AE147BF6E6CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GT.Core.Settings", "GT.Core.Settings\GT.Core.Settings.csproj", "{BBC68B2D-BCFB-427F-B64D-A5C41BFD5FD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GT.Core.Settings", "GT.Core.Settings\GT.Core.Settings.csproj", "{BBC68B2D-BCFB-427F-B64D-A5C41BFD5FD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

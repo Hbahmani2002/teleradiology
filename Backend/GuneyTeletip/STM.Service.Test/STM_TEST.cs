@@ -49,10 +49,10 @@ namespace STM.Service.Test
             EndDateTime = new DateTime(finYıl, finAy, finGun, 0, 0, 0);
 
 
-
-            ISTMTokenProvider tk = new STMTokenProvider(AppSettings.STMService.BASEADDRESS, AppSettings.STMService.userTokenName, AppSettings.STMService.userTokenPassword, AppSettings.STMService.HBYS_PACS_ResourceOwnerClient, AppSettings.STMService.identityServerBaseUri);
+            var stmSettings = AppSettings.GetCurrent().STM;
+            ISTMTokenProvider tk = new STMTokenProvider(stmSettings.BASEADDRESS, stmSettings.userTokenName, stmSettings.userTokenPassword, stmSettings.HBYS_PACS_ResourceOwnerClient, stmSettings.identityServerBaseUri);
             var stm_token = tk.GetToken();
-            var service = new STMService(stm_token, AppSettings.STMService.BASEADDRESS);
+            var service = new STMService(stm_token, stmSettings.BASEADDRESS);
 
 
 
