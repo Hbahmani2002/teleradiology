@@ -27,13 +27,13 @@ export class KosgridComponent implements OnInit {
   gridKos: KosListComponent_Models.GridUser = new KosListComponent_Models.GridUser(this.kosService, this.kosFilter);
 }
 export class kosFilter {
-  hastaneList: any[] = [];
-  basTarih: any = undefined;
-  bitTarih: any = undefined;
-  modalite: any[] = [];
-  eslesmeDurumu: any[] = [];
-  tcList: any[] = [];
-  accessionNumberList: any[] = [];
+  hastaneIDList;
+  basTarih;
+  bitTarih;
+  modalite;
+  eslesmeDurumu;
+  tcList;
+  accessionNumberList;
 }
 namespace KosListComponent_Models {
 
@@ -55,7 +55,7 @@ namespace KosListComponent_Models {
       let item = this.filter.filter;
       var o = this.kosFilter;
 
-      item.hastaneIDList = o.hastaneList;
+      item.hastaneIDList = o.hastaneIDList;
       item.basTarih = o.bitTarih;
       item.modalite = o.modalite;
       item.eslesmeDurumu = o.eslesmeDurumu;

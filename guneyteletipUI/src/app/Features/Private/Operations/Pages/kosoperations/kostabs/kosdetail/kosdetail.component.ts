@@ -1,4 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { kosModel } from '../../../../Models/kosModel';
+import { kosDataServices } from '../../../../Services/kosDataServices';
+import { infStudyViewModel } from '../../../../Models/infStudyViewModel';
+
 
 @Component({
   selector: 'app-kosdetail',
@@ -11,9 +15,15 @@ export class KosdetailComponent implements OnInit {
     if (value == null || value == undefined)
       return;
     console.log(value);
+    this.kosModel.id = 2 // value;
+    this.kosService.GetByID(this.kosModel).subscribe(data => {
+      console.log(data);
+      this.kosDetailModel = data;
+    });
   }
-
-  constructor() { }
+  kosModel: kosModel = new kosModel();
+  kosDetailModel: infStudyViewModel = new infStudyViewModel();
+  constructor(private kosService: kosDataServices) { }
 
   ngOnInit() {
   }

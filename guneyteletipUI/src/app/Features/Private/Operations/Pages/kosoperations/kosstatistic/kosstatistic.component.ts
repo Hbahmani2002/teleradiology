@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { kosDataServices } from '../../../Services/kosDataServices';
+import { kosDurumIstModel } from '../../../Models/kosDurumIstModel';
 
 @Component({
   selector: 'app-kosstatistic',
@@ -9,20 +11,16 @@ export class KosstatisticComponent implements OnInit {
 
   public isCollapsed: boolean = true;
   public isCollapsed1: boolean = true;
-
-  public enumData: any[] = []
-  constructor() { }
+  kosDurumModel= Array<kosDurumIstModel>();
+  constructor(private kosService: kosDataServices) { }
 
   ngOnInit() {
-    this.enumData.push({ id: 1, name: 'Kos oluşumu hatalı olanlar', result: 8956 });
-    this.enumData.push({ id: 1, name: 'KOS Oluşmamış Olanlar', result: 5236 });
-    this.enumData.push({ id: 1, name: 'KOS Oluşmuş Olanlar', result: 7412 });
-    this.enumData.push({ id: 1, name: 'KOS Gönderip Eşleşenler', result: 9856 });
-    this.enumData.push({ id: 1, name: 'KOS Gönderilip Eşleşmeyenler', result: 4884 });
-    this.enumData.push({ id: 1, name: 'KOS Hatalı Gönderilenler', result: 4849 });
-    this.enumData.push({ id: 1, name: 'KOS Silinenler', result: 4546 });
+    this.onRefresh();
   }
   onRefresh() {
-
+    this.kosService.GetKosDurumIst().subscribe(data => {
+      console.log(data);
+      this.kosDurumModel = data;
+    });
   }
 }

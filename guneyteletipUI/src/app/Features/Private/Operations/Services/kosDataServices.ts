@@ -41,7 +41,7 @@ export class kosDataServices {
   public GetByID(model: kosModel): Observable<infStudyViewModel> {
     return this.apiDataService.callDataService('Kos/GetByID', model);
   }
-  public GetKosHistoryByStudyID(model: kosModel): Observable<kosHistoryModel> {
+  public GetKosHistoryByStudyID(model: Grid.GridInputModel<kosHistoryModel>): Observable<Grid.GridOutputModel<kosHistoryModel>> {
     return this.apiDataService.callDataService('Kos/GetKosHistoryByStudyID', model);
   }
   public GetEnumTypeList(): Observable<Array<kosEnumTypeViewModel>> {
