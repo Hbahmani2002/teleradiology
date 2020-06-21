@@ -4,12 +4,19 @@ namespace GT.PERSISTANCE.DOMAIN.Models
     using GT.Persistance.infinity.Util;
     using GT.PERSISTANCE.Data.SQL;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
     using System;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
     public partial class InfDataContext : CommonDbContext
     {
+        //https://docs.microsoft.com/en-us/ef/core/miscellaneous/logging?tabs=v3
+        public static readonly ILoggerFactory consoleLoggerFactory
+            = LoggerFactory.Create(builder =>
+            {
+                builder.AddDebug();
+            });
         public InfDataContext()
             : base("name=DataContext")
         {
@@ -39,6 +46,7 @@ namespace GT.PERSISTANCE.DOMAIN.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+                optionsBuilder.UseLoggerFactory(consoleLoggerFactory);
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseOracle("User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;");
             }
@@ -1123,7 +1131,7 @@ namespace GT.PERSISTANCE.DOMAIN.Models
                     .HasColumnType("CHAR(1)");
             });
 
-          //  OnModelCreatingPartial(modelBuilder);
+            //  OnModelCreatingPartial(modelBuilder);
         }
     }
 }
