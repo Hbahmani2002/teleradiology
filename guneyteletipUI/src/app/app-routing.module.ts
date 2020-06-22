@@ -9,6 +9,7 @@ import { LoginComponent } from './Features/Public/Login/Pages/login/login.compon
 
 import { LoginCheckActivate } from './Shared/Services/Guards/authorizationGuard';
 import { TestpageComponent } from './Features/Public/testpage/testpage.component';
+import { JobsComponent } from './Features/Private/Operations/Pages/jobs/jobs.component';
 const routes: Routes = [
   {
     path: '',
@@ -19,6 +20,8 @@ const routes: Routes = [
       { path: 'operations/kos', component: KosoperationsComponent, pathMatch: 'full' },
       { path: 'definitions/user', component: UserComponent, pathMatch: 'full' },
       { path: 'definitions/role', component: RoleComponent, pathMatch: 'full' },
+      { path: 'definitions/jobs', component: JobsComponent, pathMatch: 'full' },
+      { path: 'gt_test', component: TestpageComponent, pathMatch: 'full' },
       { path: 'gt_test', component: TestpageComponent, pathMatch: 'full' },
     ]
   },

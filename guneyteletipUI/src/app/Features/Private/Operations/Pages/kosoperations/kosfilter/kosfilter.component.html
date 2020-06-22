@@ -1,6 +1,6 @@
 <!--filter is a component, created by Protek Developer Team. You can see the attribute of filter in Shared/Components/filter-->
 <filter header="Filtreleme">
-  <form>
+  <form style="font-family:'Times New Roman', Times, serif !important; font-size: small; color: black;"> 
     <div class="form-row p-0 ">
       <div class="col-md-3">
         <label class="font-weight-bold">Hastane Seçimi</label>
@@ -44,13 +44,15 @@
       <div class="col-md-6">
         <label class="font-weight-bold">TC Kimlik No</label>
         <div class="input-group input-group-sm">
-          <input type="text" class="form-control input-sm" name="tcno" [(ngModel)]="tcKimlikNo">
+          <!--<input type="text" class="form-control input-sm" name="tcno" [(ngModel)]="tcKimlikNo">-->
+          <textarea class="form-control input-sm" [(ngModel)]="tcKimlikNo" name="tcno" style="height: 2rem;"></textarea>
         </div>
       </div>
       <div class="col-md-6">
         <label class="font-weight-bold">Accession No</label>
         <div class="input-group input-group-sm">
-          <input type="text" class="form-control input-sm" name="accesion" [(ngModel)]="accessionNo">
+          <!--<input type="text" class="form-control input-sm" name="accesion" [(ngModel)]="accessionNo">-->
+          <textarea class="form-control input-sm" [(ngModel)]="accessionNo" name="accesion" style="height: 2rem;"></textarea>
         </div>
       </div>
     </div>
