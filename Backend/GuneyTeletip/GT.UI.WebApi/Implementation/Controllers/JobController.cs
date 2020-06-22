@@ -9,7 +9,6 @@ using GT.Repository.Models.Filter;
 using GT.Repository.Models.View;
 using GT.UI.WebApi.Implementation;
 using GT.UI.WebApi.Models;
-using GT.UI.WebApi.Models.Data.Job;
 using GT.UI.WebApi.Models.Data.Kos;
 using GT.UI.WebApi.Models.KosModel;
 using GT.UI.WebApi.Models.UserModel;
@@ -34,15 +33,6 @@ namespace GT.UI.WebApi.Controllers
             var cx = GetBussinesContext();
             var service = new JobDataService(cx);
             return HttpMessageService.Ok(service.GetJobList(parms));
-        }
-
-        [HttpPost]
-        [Route("/Job/Save")]
-        public ServiceResult<int> Save(SaveJobModel model)
-        {
-            var cx = GetBussinesContext();
-            var service = new JobDataService(cx);
-            return HttpMessageService.Ok(service.Save(model.basTar,model.bitTar,model.tip,model.basariliSayisi,model.basarisizSayisi));
         }
 
     }
