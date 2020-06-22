@@ -141,9 +141,9 @@ namespace GT.DataService.Implementation
             return item;
         }
 
-        public List<KosHistoryModel> GetKosHistoryByStudyID(long studyID)
+        public PagingResult<KosHistoryModel> GetKosHistoryByStudyID(Gridable<KosHistoryFilter> parms)
         {
-            return infStudyHistoryRepository.GetByKosStudyID(studyID)
+            return infStudyHistoryRepository.GetByKosStudyID(parms.Filter.StudyID)
                 .Select(o => new KosHistoryModel { 
                     EnumType=o.EnumType,
                     ID=o.Pk,
@@ -153,7 +153,7 @@ namespace GT.DataService.Implementation
                     TimeModified=o.TimeModified,
                     UserIDCreated=o.FkUserCreated,
                     UserIDModified=o.FkUserModified
-                }).ToList();
+                }).GetGridQuery(parms);
         }
 
         public List<KosEnumTypeViewModel> GetEnumTypeList()

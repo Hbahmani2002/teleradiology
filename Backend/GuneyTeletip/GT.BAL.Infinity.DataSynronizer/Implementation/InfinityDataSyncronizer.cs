@@ -23,6 +23,7 @@ namespace GT.BAL.Infinity.DataSynronizer
             var filter = new DataService.infinity.Model.InfOracleFilter();
             filter.Infcreationstartdate = startTime;
             filter.Infstudypklast = lastID;
+            filter.Accession_no = _InfStudyDataService.GetAccessionOnekNoByTenantID(tenantID);
             var items=_InfOracleDataService.GetInfOracleList(filter);
             var list = new List<InfOraclePostgreStudyViewModel>();
             foreach (var item in items)
@@ -32,7 +33,7 @@ namespace GT.BAL.Infinity.DataSynronizer
                 model.AccessionNo = item.AccessNo;
                 model.TimeCreated = item.CreationDttm;
                 list.Add(model);
-                throw new NotImplementedException();
+               // throw new NotImplementedException();
                 
             }
             _InfStudyDataService.Save(list);
