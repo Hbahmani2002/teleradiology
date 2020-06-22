@@ -42,5 +42,18 @@ namespace GT.DataService.infinity.Implementation
             return _InfOracleCompositRepository.Query(f);
         }
 
+        //public List<InfOracleViewModel> GetInfOracleList(InfOracleFilter filter)
+        //{
+        //    var f = new InfStudyConditionFilter
+        //    {
+        //        AccessionNo = filter.Accession_no,
+        //        InfStudyPkLast = filter.Infstudypklast,
+        //        CreationStartDate = filter.Infcreationstartdate,
+
+        //    };
+        //    return _InfOracleCompositRepository.Query(f);
+        //}
+
+
     }
 }

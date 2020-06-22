@@ -11,4 +11,8 @@ namespace GT.DataService.infinity.Model
         public long? Infstudypklast { get; set; } 
 
     }
+
+
+
+
 }
