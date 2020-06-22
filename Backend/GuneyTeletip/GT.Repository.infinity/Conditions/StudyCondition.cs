@@ -27,20 +27,23 @@ namespace GT.DataService.infinity.Conditions
             if (!string.IsNullOrEmpty(filter.AccessionNo))
             {
                 exp = exp.And(o => o.AccessNo.Contains(filter.AccessionNo));
-            }          
+            }
             if (filter.InfStudyPkLast.HasValue)
             {
-                exp = exp.And(o => o.StudyKey == filter.InfStudyPkLast.Value);
+                exp = exp.And(o => o.StudyKey >= filter.InfStudyPkLast.Value);
+
             }
             if (filter.CreationStartDate.HasValue)
             {
                 exp = exp.And(o => o.CreationDttm >= filter.CreationStartDate.Value);
+
+
             }
             if (filter.StudyStartDate.HasValue)
             {
-                exp = exp.And(o => o.StudyDttm == filter.StudyStartDate.Value);
+                exp = exp.And(o => o.StudyDttm >= filter.StudyStartDate.Value);
             }
-        
+
             return exp;
         }
     }

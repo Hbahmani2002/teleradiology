@@ -19,7 +19,7 @@ namespace GT.Repository.Implementation
         {
             throw new NotImplementedException();
         }
-        public IQueryable<UsrUserTenant> GetTenantIDByUserID(long userID)
+        public IEnumerable<UsrUserTenant> GetTenantIDByUserID(long userID)
         {
             return Query(o => o.FkUser == userID);
         }

@@ -31,8 +31,8 @@ namespace GT.Core.Settings
 
         public class Database
         {
-            public string StudyPostgreConnectionString => "???";
-            public string InfinityOracleConnectionString => "????";
+            public string StudyPostgreConnectionString => "​UserID=test_protek;Password=test123;Server=85.95.238.211;Port=9002;Database=guney_teletip_db;Integrated Security=true;Pooling=true;";
+            public string InfinityOracleConnectionString => "User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;";
         }
         public class Logging
         {
@@ -77,9 +77,13 @@ namespace GT.Core.Settings
             }
             public class SendKos
             {
-                public string AppFilePath => "/gt/app/teletip_kos/SendKOS_v15.jar";
+                public string AppFilePath => "/gt/app/teletip_kos/SendKOS_vProtek.jar";
                 public string ServiceAddressURL => "https://xdarep.teletip.saglik.gov.tr/axis2/services/xdsrepositoryb";
                 public string ServiceAddress_BETA_URL => "http://betaxdsrepository.teletip.saglik.gov.tr/axis2/services/xdsrepositoryb";
+
+                public string AxisRepoDirectoryPath => "/gt/app/teletip_kos/axis2Repo";
+                public string AxisXmlFilePath => "/gt/app/teletip_kos/axis2Repo/axis2_test.xml";
+
             }
 
         }

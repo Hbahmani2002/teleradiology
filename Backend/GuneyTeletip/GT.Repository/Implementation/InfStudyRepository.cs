@@ -13,7 +13,7 @@ namespace GT.Repository.Implementation
 {
 
 
-    public class InfStudyRepository : AbstractTableRepository<InfStudy>
+    public class InfStudyRepository : AbstractTableRepository<KosStudy>
     {
 
         public InfStudyRepository(IAbstractWorkspace workspace) : base(workspace)
@@ -21,7 +21,7 @@ namespace GT.Repository.Implementation
 
         }
 
-        public override InfStudy GetByID(int id)
+        public override KosStudy GetByID(int id)
         {
             return Single(o => o.Pk == id);
         }
@@ -32,10 +32,10 @@ namespace GT.Repository.Implementation
             return Query(exp);
         }
 
-        public IQueryable<InfStudyViewModel> Query(Expression<Func<InfStudy, bool>> exp)
+        public IQueryable<InfStudyViewModel> Query(Expression<Func<KosStudy, bool>> exp)
         {
             var userLogin = _AbstractWorkspace.Query<UsrUserLogin>();
-            var infStudiesLogin = _AbstractWorkspace.Query<InfStudy>(exp);
+            var infStudiesLogin = _AbstractWorkspace.Query<KosStudy>(exp);
             var list = from s in infStudiesLogin
                       // join u in userLogin on s.OracleStudyKey equals u.Pk
                        select new InfStudyViewModel

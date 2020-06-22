@@ -34,14 +34,20 @@ namespace GT.TeletipKos
 
         public class SendKosServiceSettings
         {
-            public SendKosServiceSettings(string appFilePath, string serviceURL)
+            public SendKosServiceSettings(string appFilePath, string serviceURL, string axisRepoDirectoryPath, string axisXmlFilePath)
             {
                 AppFilePath = appFilePath;
                 ServiceURL = serviceURL;
+                AxisRepoDirectoryPath = axisRepoDirectoryPath;
+                AxisXmlFilePath = axisXmlFilePath;
             }
 
             public string AppFilePath { get; }
             public string ServiceURL { get; }
+
+            public string AxisRepoDirectoryPath { get; set; }
+            public string AxisXmlFilePath { get; set; }
+
         }
 
 

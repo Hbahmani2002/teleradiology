@@ -90,11 +90,11 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Kos/GetKosHistoryByStudyID")]
-        public ServiceResult<List<KosHistoryModel>> GetKosHistoryByStudyID(StudyHistoryModel model)
+        public ServiceResult<PagingResult<KosHistoryModel>> GetKosHistoryByStudyID(Gridable<KosHistoryFilter> parms)
         {
             var cx = GetBussinesContext();
             var service = new InfStudyDataService(cx);
-            return HttpMessageService.Ok(service.GetKosHistoryByStudyID(model.ID));
+            return HttpMessageService.Ok(service.GetKosHistoryByStudyID(parms));
         }
 
         [HttpPost]

@@ -23,8 +23,9 @@ namespace Gt.Data.Test.Infinity
         public void GetInfStudy()
         {
             var filter = new InfOracleFilter();
-            // filter.Infcreationstartdate = new DateTime(2020,01,01);
-            filter.Infstudypklast = 999;
+            filter.Infcreationstartdate = new DateTime(2019, 01, 01);
+            filter.Infstudypklast = 995; 
+            filter.Accession_no  = "K"; 
             var list = service.GetInfOracleList(filter);
         }
     }
