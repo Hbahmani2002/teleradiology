@@ -7,14 +7,14 @@ using System.Text;
 
 namespace GT.Repository.Implementation
 {
-    public class InfBatchRepository : AbstractTableRepository<InfBatch>
+    public class InfBatchRepository : AbstractTableRepository<KosBatch>
     {
         public InfBatchRepository(IAbstractWorkspace workspace) : base(workspace)
         {
 
         }
 
-        public override InfBatch GetByID(int id)
+        public override KosBatch GetByID(int id)
         {
             throw new NotImplementedException();
         }

@@ -11,9 +11,9 @@ namespace GT.Repository.Implementation
     }
     public class InfStudyParameterCondition
     {
-        public static Expression<Func<InfStudyParameter, bool>> Get(InfStudyParameterConditionFilter filter)
+        public static Expression<Func<KosStudyParameter, bool>> Get(InfStudyParameterConditionFilter filter)
         {
-            var exp = PredicateBuilder.True<InfStudyParameter>();
+            var exp = PredicateBuilder.True<KosStudyParameter>();
             if (filter.RecordState.HasValue)
             {
                 exp = exp.And(o => o.RecordStatus==filter.RecordState.Value);

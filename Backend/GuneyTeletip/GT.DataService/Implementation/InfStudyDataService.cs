@@ -46,7 +46,7 @@ namespace GT.DataService.Implementation
             throw new NotImplementedException();
         }
 
-        public IEnumerable<InfStudyParameter> GetTimerParameters(InfStudyParameterConditionFilter filter)
+        public IEnumerable<KosStudyParameter> GetTimerParameters(InfStudyParameterConditionFilter filter)
         {
             return _InfStudyParameterRepository
                 .Query(filter)
@@ -76,15 +76,15 @@ namespace GT.DataService.Implementation
                 .GetGridQuery(parms);
         }
 
-        public void Save(IEnumerable<InfStudy> studies)
+        public void Save(IEnumerable<KosStudy> studies)
         {
 
-            var item = new InfBatch();
+            var item = new KosBatch();
             item.TimeCreated = DateTime.Now;
 
             foreach (var study in studies)
             {
-                item.InfStudy.Add(study);
+                item.KosStudy.Add(study);
             }
             _InfBatchRepository.Add(item);
             _Workspace.CommitChanges();
@@ -141,9 +141,9 @@ namespace GT.DataService.Implementation
             return item;
         }
 
-        public List<KosHistoryModel> GetKosHistoryByStudyID(long studyID)
+        public PagingResult<KosHistoryModel> GetKosHistoryByStudyID(Gridable<KosHistoryFilter> parms)
         {
-            return infStudyHistoryRepository.GetByKosStudyID(studyID)
+            return infStudyHistoryRepository.GetByKosStudyID(parms.Filter.StudyID)
                 .Select(o => new KosHistoryModel { 
                     EnumType=o.EnumType,
                     ID=o.Pk,
@@ -153,7 +153,7 @@ namespace GT.DataService.Implementation
                     TimeModified=o.TimeModified,
                     UserIDCreated=o.FkUserCreated,
                     UserIDModified=o.FkUserModified
-                }).ToList();
+                }).GetGridQuery(parms);
         }
 
         public List<KosEnumTypeViewModel> GetEnumTypeList()

@@ -36,7 +36,7 @@ namespace GT.Job.Implementation
             this.logger = logger;
         }
 
-        private IEnumerable<InfStudyParameter> GetJobs()
+        private IEnumerable<KosStudyParameter> GetJobs()
         {
             var jobs = new InfStudyDataService(null);
             var paramters = jobs.GetTimerParameters(new InfStudyParameterConditionFilter { RecordState = 1 });
@@ -63,7 +63,7 @@ namespace GT.Job.Implementation
             logger.LogInfo("Jobs OK");
         }
 
-        private void RegisterJobs(InfStudyParameter item)
+        private void RegisterJobs(KosStudyParameter item)
         {
             Register(item.Name, item.IntervalMinute.Value * 60 * 1000, () =>
                 {
@@ -91,7 +91,7 @@ namespace GT.Job.Implementation
                 });
         }
 
-        private static void ActionFunction(InfStudyParameter item)
+        private static void ActionFunction(KosStudyParameter item)
         {
 
 

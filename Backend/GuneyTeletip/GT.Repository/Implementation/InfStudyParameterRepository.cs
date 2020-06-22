@@ -8,19 +8,19 @@ using System.Text;
 
 namespace GT.Repository.Implementation
 {
-    public class InfStudyParameterRepository : AbstractTableRepository<InfStudyParameter>
+    public class InfStudyParameterRepository : AbstractTableRepository<KosStudyParameter>
     {
         public InfStudyParameterRepository(IAbstractWorkspace workspace) : base(workspace)
         {
 
         }
 
-        public override InfStudyParameter GetByID(int id)
+        public override KosStudyParameter GetByID(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<InfStudyParameter> Query(InfStudyParameterConditionFilter filter)
+        public IQueryable<KosStudyParameter> Query(InfStudyParameterConditionFilter filter)
         {
             var exp = InfStudyParameterCondition.Get(filter);
             return Query(exp);
