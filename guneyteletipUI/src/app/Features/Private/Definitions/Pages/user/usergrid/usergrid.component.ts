@@ -19,7 +19,8 @@ export class UsergridComponent implements OnInit {
   @Input() set filterValue(value: any) {
     if (value == null || value == undefined)
       return;
-    this.userFilter.UserName = value;
+    debugger;
+    this.gridUser.userFilter.UserName = value;
     this.gridUser.onRefresh();
   }
 
@@ -97,7 +98,7 @@ namespace UserListComponent_Models {
 
     public direction: number = 0;
 
-    constructor(private userService: userDataServices, private userFilter: userFilter) {
+    constructor(private userService: userDataServices, public userFilter: userFilter) {
       super();
     }
 

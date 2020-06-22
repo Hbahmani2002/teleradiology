@@ -8,12 +8,12 @@
       </div>
       <div class="row mb-2">
         <div class="col">
-          <app-kosfilter></app-kosfilter>
+          <app-kosfilter (filterChanged)="filter($event)"></app-kosfilter>
         </div>
       </div>
       <div class="row mb-3">
         <div class="col-md-9">
-          <app-kosgrid [filterData]="kosFilterComponent?.kosFilterOutput"></app-kosgrid>
+          <app-kosgrid [filter]="filterData"></app-kosgrid>
         </div>
         <div class="col-md-3 marginClass">
           <app-kosstatistic></app-kosstatistic>
@@ -22,7 +22,7 @@
 
       <div class="row mb-5">
         <div class="col">
-          <app-kostabs></app-kostabs>
+          <app-kostabs [kosId]="2"></app-kostabs>
         </div>
       </div>
     </div>

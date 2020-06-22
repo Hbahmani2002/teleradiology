@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { kosDataServices } from '../../../Services/kosDataServices';
 import { userDataServices } from 'src/app/Features/Private/Definitions/Services/userDataServices';
@@ -12,6 +12,8 @@ import { ddlSettings } from './ddlSettings';
   styleUrls: ['./kosfilter.component.css']
 })
 export class KosfilterComponent implements OnInit {
+
+  @Output() filterChanged = new EventEmitter<kosFilter>();
 
   public ddlSettings: ddlSettings = new ddlSettings();
 
@@ -27,13 +29,12 @@ export class KosfilterComponent implements OnInit {
  
 
   public isCollapsed = false;
-  public dateRange: any[] = [];
+  public dateRange;
   public tcKimlikNo: string;
   public tcKimlikNoList: string[] = [];
   public accessionNo: string;
   public accessionNoList: string[] = [];
   public kosFilter: kosFilter = new kosFilter();
-  public kosFilterOutput: kosFilter = new kosFilter();
 
 
   constructor(private kosService: kosDataServices, private userService: userDataServices) {
@@ -89,48 +90,54 @@ export class KosfilterComponent implements OnInit {
     });
     return this.accessionNoList;
   }
-
   onFilter() {
-    this.ddlTenantSelectedItems.forEach(item => {
-      this.kosFilter.hastaneList.push(item.tenantAd);
-    });
-    this.ddlModalitySelectedItems.forEach(item => {
-      this.kosFilter.modalite.push(item.name);
-    });
-    this.ddlEnumSelectedItems.forEach(item => {
-      this.kosFilter.eslesmeDurumu.push(item.name);
-    });
-
-    this.kosFilter.basTarih = this.dateRange[0];
-    this.kosFilter.bitTarih = this.dateRange[1];
-
-    this.kosFilter.tcList = this.splitTC();
-    this.kosFilter.accessionNumberList = this.splitAccession();
-
-    debugger;
-   
-    this.kosFilterOutput = this.kosFilter;
-    this.onClearKosFilter();
-    console.log(this.kosFilterOutput);
-    this.tcKimlikNoList = [];
-    this.accessionNoList = [];
+    if (this.ddlTenantSelectedItems.length != 0) {
+      this.kosFilter.hastaneIDList = [];
+      this.ddlTenantSelectedItems.forEach(item => {
+        this.kosFilter.hastaneIDList.push(item.id);
+      });
+    }
+    if (this.ddlModalitySelectedItems.length != 0) {
+      this.kosFilter.modalite = [];
+      this.ddlModalitySelectedItems.forEach(item => {
+        this.kosFilter.modalite.push(item.name);
+      });
+    }
+    if (this.ddlEnumSelectedItems.length != 0) {
+      this.kosFilter.eslesmeDurumu = [];
+      this.ddlEnumSelectedItems.forEach(item => {
+        this.kosFilter.eslesmeDurumu.push(item.name);
+      });
+    }
+    if (this.dateRange != undefined) {
+      this.kosFilter.basTarih = this.dateRange[0];
+      this.kosFilter.bitTarih = this.dateRange[1];
+    }
+    if (this.tcKimlikNo != "" || this.tcKimlikNo != undefined) {
+      this.kosFilter.tcList = this.splitTC();
+    }
+    if (this.accessionNo != "" || this.accessionNo != undefined){
+      this.kosFilter.accessionNumberList = this.splitAccession();
+    }
+    this.filterChanged.emit(this.kosFilter);
+    // this.onClearKosFilter();
     
   }
   onClearKosFilter() {
-    this.kosFilter.accessionNumberList = [];
+    this.kosFilter.accessionNumberList = undefined;
     this.kosFilter.basTarih = undefined;
     this.kosFilter.bitTarih = undefined;
-    this.kosFilter.eslesmeDurumu = [];
-    this.kosFilter.hastaneList = [];
-    this.kosFilter.modalite = [];
-    this.kosFilter.tcList = [];
+    this.kosFilter.eslesmeDurumu = undefined;
+    this.kosFilter.hastaneIDList = undefined;
+    this.kosFilter.modalite = undefined;
+    this.kosFilter.tcList = undefined;
   }
   onClearFilter() {
     this.ddlTenantSelectedItems = [];
     this.ddlModalitySelectedItems = [];
     this.ddlEnumSelectedItems = [];
-    this.dateRange = [];
-    this.tcKimlikNo = '';
-    this.accessionNo = '';
+    this.dateRange = undefined;
+    this.tcKimlikNo = undefined;
+    this.accessionNo = undefined;
   }
 }

@@ -20,10 +20,10 @@
         </div>
       </div>
       <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
-        <div class="card-body">
-          <ul class="row" *ngFor="let item of enumData">
-            <li>
-              <label>{{item.name}} : <span class="font-weight-bold">{{item.result}}</span></label>
+        <div class="card-body p-2">
+          <ul class="pl-4 mb-0">
+            <li *ngFor="let item of kosDurumModel">
+              <label>{{item.name}} : <span class="font-weight-bold">{{item.totalCount}}</span></label>
             </li>
           </ul>
         </div>

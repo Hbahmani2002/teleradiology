@@ -120,7 +120,7 @@ kos_22a8b125be6a4b15849e5f073f95346f.dcm
             var logger = new TextFileLogger(logFilePath);
             var kSettings = new TeletipKosServiceSettings(
                 new TeletipKosServiceSettings.MakeKosServiceSettings(makeKosSettings.AppFilePath, makeKosSettings.LocationUID, makeKosSettings.Title, makeKosSettings.TempDirectoryPath + "/", makeKosSettings.DCM4CheeDirectoryPath),
-                new TeletipKosServiceSettings.SendKosServiceSettings(sendKosSettings.AppFilePath, sendKosSettings.ServiceAddress_BETA_URL)
+                new TeletipKosServiceSettings.SendKosServiceSettings(sendKosSettings.AppFilePath, sendKosSettings.ServiceAddress_BETA_URL,sendKosSettings.AxisRepoDirectoryPath,sendKosSettings.AxisXmlFilePath)
             );
             var manager = new MultiKosOperationManager(logger, kSettings);
             return manager;

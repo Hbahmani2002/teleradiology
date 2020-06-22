@@ -41,14 +41,14 @@ export class kosDataServices {
   public GetByID(model: kosModel): Observable<infStudyViewModel> {
     return this.apiDataService.callDataService('Kos/GetByID', model);
   }
-  public GetKosHistoryByStudyID(model: Grid.GridInputModel<kosModel>): Observable<Grid.GridOutputModel<kosHistoryModel>> {
+  public GetKosHistoryByStudyID(model: Grid.GridInputModel<kosHistoryModel>): Observable<Grid.GridOutputModel<kosHistoryModel>> {
     return this.apiDataService.callDataService('Kos/GetKosHistoryByStudyID', model);
   }
   public GetEnumTypeList(): Observable<Array<kosEnumTypeViewModel>> {
     return this.apiDataService.callDataService('Kos/GetEnumTypeList',undefined);
   }
-  public GetKosDurumIst(model: kosModel): Observable<Array<kosDurumIstModel>> {
-    return this.apiDataService.callDataService('Kos/GetKosDurumIst', model);
+  public GetKosDurumIst(): Observable<Array<kosDurumIstModel>> {
+    return this.apiDataService.callDataService('Kos/GetKosDurumIst',undefined);
   }
   public UpdateKosDurum(model: updateKosDurumModel): Observable<number> {
     return this.apiDataService.callDataService('Kos/UpdateKosDurum', model);

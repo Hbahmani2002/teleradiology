@@ -10,13 +10,10 @@ import { infStudyFilter } from '../../../Models/infStudyFilter';
 })
 export class KosgridComponent implements OnInit {
   
-  @Input() set filterData(value: any) {
-    debugger;
+  @Input() set filter(value: any) {
     if (value == null || value == undefined)
       return;
-
-    this.kosFilter = value;
-    console.log(this.kosFilter)
+    this.gridKos.kosFilter = value;
     this.gridKos.onRefresh();
   }
 
@@ -25,17 +22,18 @@ export class KosgridComponent implements OnInit {
   ngOnInit() {
     this.gridKos.onRefresh();
   }
+
   kosFilter: kosFilter = new kosFilter();
   gridKos: KosListComponent_Models.GridUser = new KosListComponent_Models.GridUser(this.kosService, this.kosFilter);
 }
 export class kosFilter {
-  hastaneList: any[] = [];
-  basTarih: any = undefined;
-  bitTarih: any = undefined;
-  modalite: any[] = [];
-  eslesmeDurumu: any[] = [];
-  tcList: any[] = [];
-  accessionNumberList: any[] = [];
+  hastaneIDList;
+  basTarih;
+  bitTarih;
+  modalite;
+  eslesmeDurumu;
+  tcList;
+  accessionNumberList;
 }
 namespace KosListComponent_Models {
 
@@ -43,7 +41,7 @@ namespace KosListComponent_Models {
 
     public direction: number = 0;
 
-    constructor(private kosService: kosDataServices, private kosFilter: kosFilter) {
+    constructor(private kosService: kosDataServices, public kosFilter: kosFilter) {
       super();
     }
 
@@ -57,7 +55,7 @@ namespace KosListComponent_Models {
       let item = this.filter.filter;
       var o = this.kosFilter;
 
-      item.hastaneList = o.hastaneList;
+      item.hastaneIDList = o.hastaneIDList;
       item.basTarih = o.bitTarih;
       item.modalite = o.modalite;
       item.eslesmeDurumu = o.eslesmeDurumu;
@@ -106,8 +104,9 @@ namespace KosListComponent_Models {
       var item = this.getFilter()
       var filter = item.filter;
       console.log(item);
+      debugger;
       this.kosService.getKosList(item).subscribe(o => {
-
+        
         this.data.list = o["list"];
         this.data.totalCount = o["totalCount"];
         console.log(this.data.list)

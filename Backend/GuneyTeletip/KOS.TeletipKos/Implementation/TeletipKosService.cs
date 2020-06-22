@@ -26,7 +26,7 @@ namespace GT.TeletipKos
         {
             var settings = Settings.SendKosSettings;
 
-            var processParameter = $"-jar {settings.AppFilePath} {par.PatientId} {par.KosFilePath} \"{settings.ServiceURL}\"";
+            var processParameter = $"-jar \"{settings.AppFilePath}\" \"{par.PatientId}\" \"{par.KosFilePath}\" \"{settings.ServiceURL}\" \"{settings.AxisRepoDirectoryPath}\" \"{settings.AxisXmlFilePath}\" ";
             var processResult = ProcessUtil.Start("java", processParameter);
             return processResult;
         }
