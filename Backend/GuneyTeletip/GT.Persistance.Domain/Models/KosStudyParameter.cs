@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GT.Persistance.Domain.Models
 {
-    public partial class InfStudyParameter
+    public partial class KosStudyParameter
     {
         public long Pk { get; set; }
         public DateTime? TimeStart { get; set; }

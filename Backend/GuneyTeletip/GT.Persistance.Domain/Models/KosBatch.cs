@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace GT.Persistance.Domain.Models
 {
-    public partial class InfBatch
+    public partial class KosBatch
     {
-        public InfBatch()
+        public KosBatch()
         {
-            InfStudy = new HashSet<InfStudy>();
+            KosStudy = new HashSet<KosStudy>();
         }
 
         public long Pk { get; set; }
@@ -16,6 +16,6 @@ namespace GT.Persistance.Domain.Models
         public long? FkUserModified { get; set; }
         public DateTime? TimeModified { get; set; }
 
-        public virtual ICollection<InfStudy> InfStudy { get; set; }
+        public virtual ICollection<KosStudy> KosStudy { get; set; }
     }
 }

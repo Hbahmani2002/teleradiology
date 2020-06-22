@@ -22,9 +22,9 @@ namespace GT.Repository.Conditions
     }
     public class InfStudyCondition
     {
-        public static Expression<Func<InfStudy , bool>> Get(InfStudyConditionFilter filter)
+        public static Expression<Func<KosStudy , bool>> Get(InfStudyConditionFilter filter)
         {
-            var exp = PredicateBuilder.True<InfStudy>();
+            var exp = PredicateBuilder.True<KosStudy>();
             if (!string.IsNullOrEmpty(filter.Modality))
             {
                 exp = exp.And(o => o.Modality.Contains(filter.Modality));

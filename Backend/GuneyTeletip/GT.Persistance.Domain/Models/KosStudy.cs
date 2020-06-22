@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GT.Persistance.Domain.Models
 {
-    public partial class InfStudy
+    public partial class KosStudy
     {
         public long Pk { get; set; }
         public long? FkTenant { get; set; }
@@ -41,6 +41,6 @@ namespace GT.Persistance.Domain.Models
         public long? OracleStudyKey { get; set; }
         public long? FkKosEnumType { get; set; }
 
-        public virtual InfBatch FkInfBatchNavigation { get; set; }
+        public virtual KosBatch FkInfBatchNavigation { get; set; }
     }
 }

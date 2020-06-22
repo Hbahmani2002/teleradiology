@@ -18,7 +18,7 @@ namespace GT.Repository.Implementation.Composite
 
         public IEnumerable<KosDurumIstModel> Query()
         {
-            var study = _AbstractWorkspace.Query<InfStudy>();
+            var study = _AbstractWorkspace.Query<KosStudy>();
             var kosEnumType = _AbstractWorkspace.Query<KosEnumtype>();
 
             var query = from s in study
