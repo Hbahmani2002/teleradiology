@@ -16,7 +16,7 @@ namespace GT.Repository.Implementation.Composite
 
         }
 
-        public IQueryable<TenantViewModel> Query(long userID)
+        public IEnumerable<TenantViewModel> Query(long userID)
         {
             var userTenant = _AbstractWorkspace.Query<UsrUserTenant>(o => o.FkUser== userID);
             var tenant = _AbstractWorkspace.Query<UsrTenant>();

@@ -28,13 +28,13 @@ namespace GT.Repository.Implementation
             return Single(o => o.Pk == id);
         }
 
-        public IQueryable<TenantViewModel> Query(TenantConditionFilter t)
+        public IEnumerable<TenantViewModel> Query(TenantConditionFilter t)
         {
             var res = TenatCondition.Get(t);
 
             return Query(res);
         }
-        private IQueryable<TenantViewModel> Query(Expression<Func<UsrTenant, bool>> exp)
+        private IEnumerable<TenantViewModel> Query(Expression<Func<UsrTenant, bool>> exp)
         {
             var tenant = _AbstractWorkspace.Query<UsrTenant>(exp);
             var list = from t in tenant
