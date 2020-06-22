@@ -66,6 +66,9 @@ export namespace Grid {
 
 
     };
+    onSelectAllItems() {
+      this.selectedItems.length = 0;
+    }
     onSelectAll(event: any) {
       if (!event.srcElement.checked) {
         this.selectedItems.length = 0;
@@ -78,7 +81,6 @@ export namespace Grid {
     };
     onClickItem(item: any) {
       this.clickedItem = item;
-
     };
     onSelectItem(item: any) {
       if (this.isSelected(item)) {

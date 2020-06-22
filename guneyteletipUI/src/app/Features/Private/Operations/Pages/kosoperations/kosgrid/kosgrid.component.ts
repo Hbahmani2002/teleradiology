@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 import { kosDataServices } from '../../../Services/kosDataServices';
 import { infStudyFilter } from '../../../Models/infStudyFilter';
+
 
 @Component({
   selector: 'app-kosgrid',
@@ -16,15 +17,14 @@ export class KosgridComponent implements OnInit {
     this.gridKos.kosFilter = value;
     this.gridKos.onRefresh();
   }
-
   constructor(private kosService: kosDataServices) { }
 
   ngOnInit() {
-    this.gridKos.onRefresh();
+  
   }
-
   kosFilter: kosFilter = new kosFilter();
   gridKos: KosListComponent_Models.GridUser = new KosListComponent_Models.GridUser(this.kosService, this.kosFilter);
+
 }
 export class kosFilter {
   hastaneIDList;
@@ -40,6 +40,8 @@ namespace KosListComponent_Models {
   export class GridUser extends Grid.GridControl<any> {
 
     public direction: number = 0;
+    selectAll: boolean = false;
+    selectPage: boolean = false;
 
     constructor(private kosService: kosDataServices, public kosFilter: kosFilter) {
       super();
@@ -85,6 +87,11 @@ namespace KosListComponent_Models {
         console.log(o);
       });;
     }
+    onClickReprocessKos() {
+      this.kosService.reprocessKos(this.getFilter()).subscribe(o => {
+        console.log(o);
+      });;
+    }
     onClickExportExcel() {
       this.kosService.exportExcel(this.getFilter()).subscribe(o => {
         console.log(o);
@@ -104,13 +111,27 @@ namespace KosListComponent_Models {
       var item = this.getFilter()
       var filter = item.filter;
       console.log(item);
-      debugger;
       this.kosService.getKosList(item).subscribe(o => {
-        
         this.data.list = o["list"];
         this.data.totalCount = o["totalCount"];
         console.log(this.data.list)
       })
+    }
+    gridSelect(event, type) {
+      if (type == 'selectPage') {
+        if (event.srcElement.checked) {
+          this.selectAll = false;
+        }
+        console.log(event.srcElement.checked)
+        this.onSelectAll(event);
+      }
+      else if (type == 'selectAll') {
+        if (event.srcElement.checked) {
+          this.selectPage = false;
+        }
+        this.onSelectAllItems();
+      }
+      else { }
     }
   }
 

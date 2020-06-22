@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChanges } from '@angular/core';
 import { userDataServices } from '../../../Definitions/Services/userDataServices';
 import { KosfilterComponent } from './kosfilter/kosfilter.component';
 import { kosFilter } from './kosgrid/kosgrid.component';
@@ -10,15 +10,12 @@ import { kosFilter } from './kosgrid/kosgrid.component';
 })
 export class KosoperationsComponent implements OnInit {
 
-  /*@ViewChild(KosfilterComponent, { static: false })
-  public kosFilterComponent: KosfilterComponent;*/
   filterData: kosFilter = new kosFilter();
   constructor(private userService: userDataServices) { }
 
   ngOnInit() {
   }
-  filter(filterData: kosFilter) {
-    //debugger;
-    this.filterData = filterData;
+  filter(filter) {
+    this.filterData = filter;
   }
 }

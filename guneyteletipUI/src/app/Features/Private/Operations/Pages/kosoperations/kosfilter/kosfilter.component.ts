@@ -27,15 +27,12 @@ export class KosfilterComponent implements OnInit {
   public ddlModalitySelectedItems = [];
   public ddlEnumSelectedItems = [];
  
-
   public isCollapsed = false;
   public dateRange;
   public tcKimlikNo: string;
   public tcKimlikNoList: string[] = [];
   public accessionNo: string;
   public accessionNoList: string[] = [];
-  public kosFilter: kosFilter = new kosFilter();
-
 
   constructor(private kosService: kosDataServices, private userService: userDataServices) {
   }
@@ -50,7 +47,6 @@ export class KosfilterComponent implements OnInit {
     this.getEnumList();
    
   }
-  //GET MODALITY AND TENANT FOR DROPDOWNLIST
   getTenantList() {
     this.userService.getTenantList().subscribe(data => {
       this.ddlTenantData = data;
@@ -69,61 +65,65 @@ export class KosfilterComponent implements OnInit {
       console.log(data);
     });
   }
-  //SPLIT
   splitTC() {
+    let tcKimlikNoList = [];
     if (this.tcKimlikNo == "" || this.tcKimlikNo == undefined)
       return;
     this.tcKimlikNo.split(" ").forEach(item => {
       if (item.length == 11) {
-        this.tcKimlikNoList.push(item);
+        tcKimlikNoList.push(item);
       }
     });
-    return this.tcKimlikNoList;
+    return tcKimlikNoList;
   }
   splitAccession() {
+    let accessionNoList = [];
     if (this.accessionNo == "" || this.accessionNo == undefined)
       return;
     this.accessionNo.split(" ").forEach(item => {
       if (item.length == 11) {
-        this.accessionNoList.push(item);
+       accessionNoList.push(item);
       }
     });
-    return this.accessionNoList;
+    return accessionNoList;
   }
   onFilter() {
+    let filter = new kosFilter();
     if (this.ddlTenantSelectedItems.length != 0) {
-      this.kosFilter.hastaneIDList = [];
+      filter.hastaneIDList = [];
       this.ddlTenantSelectedItems.forEach(item => {
-        this.kosFilter.hastaneIDList.push(item.id);
+        filter.hastaneIDList.push(item.id);
       });
     }
     if (this.ddlModalitySelectedItems.length != 0) {
-      this.kosFilter.modalite = [];
+      filter.modalite = [];
       this.ddlModalitySelectedItems.forEach(item => {
-        this.kosFilter.modalite.push(item.name);
+        filter.modalite.push(item.name);
       });
     }
     if (this.ddlEnumSelectedItems.length != 0) {
-      this.kosFilter.eslesmeDurumu = [];
+      filter.eslesmeDurumu = [];
       this.ddlEnumSelectedItems.forEach(item => {
-        this.kosFilter.eslesmeDurumu.push(item.name);
+        filter.eslesmeDurumu.push(item.name);
       });
     }
     if (this.dateRange != undefined) {
-      this.kosFilter.basTarih = this.dateRange[0];
-      this.kosFilter.bitTarih = this.dateRange[1];
+      filter.basTarih = undefined;
+      filter.bitTarih = undefined;
+      filter.basTarih = this.dateRange[0];
+      filter.bitTarih = this.dateRange[1];
     }
     if (this.tcKimlikNo != "" || this.tcKimlikNo != undefined) {
-      this.kosFilter.tcList = this.splitTC();
+      filter.tcList = [];
+      filter.tcList = this.splitTC();
     }
-    if (this.accessionNo != "" || this.accessionNo != undefined){
-      this.kosFilter.accessionNumberList = this.splitAccession();
+    if (this.accessionNo != "" || this.accessionNo != undefined) {
+      filter.accessionNumberList = [];
+      filter.accessionNumberList = this.splitAccession();
     }
-    this.filterChanged.emit(this.kosFilter);
-    // this.onClearKosFilter();
-    
+    this.filterChanged.emit(filter);
   }
-  onClearKosFilter() {
+ /* onClearKosFilter() {
     this.kosFilter.accessionNumberList = undefined;
     this.kosFilter.basTarih = undefined;
     this.kosFilter.bitTarih = undefined;
@@ -131,7 +131,7 @@ export class KosfilterComponent implements OnInit {
     this.kosFilter.hastaneIDList = undefined;
     this.kosFilter.modalite = undefined;
     this.kosFilter.tcList = undefined;
-  }
+  }*/
   onClearFilter() {
     this.ddlTenantSelectedItems = [];
     this.ddlModalitySelectedItems = [];

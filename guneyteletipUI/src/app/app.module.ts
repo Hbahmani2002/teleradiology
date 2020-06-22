@@ -56,6 +56,10 @@ import { userDataServices } from './Features/Private/Definitions/Services/userDa
 import { kosDataServices } from './Features/Private/Operations/Services/kosDataServices';
 import { roleDataServices } from './Features/Private/Definitions/Services/roleDataServices';
 import { KosdetailComponent } from './Features/Private/Operations/Pages/kosoperations/kostabs/kosdetail/kosdetail.component';
+import { JobsComponent } from './Features/Private/Operations/Pages/jobs/jobs.component';
+import { JobsfilterComponent } from './Features/Private/Operations/Pages/jobs/jobsfilter/jobsfilter.component';
+import { JobsgridComponent } from './Features/Private/Operations/Pages/jobs/jobsgrid/jobsgrid.component';
+import { jobDataServices } from './Features/Private/Operations/Services/jobDataServices';
 
 @NgModule({
   declarations: [
@@ -88,6 +92,9 @@ import { KosdetailComponent } from './Features/Private/Operations/Pages/kosopera
     EditroleComponent,
     TestpageComponent,
     KosdetailComponent,
+    JobsComponent,
+    JobsfilterComponent,
+    JobsgridComponent,
 
     
   ],
@@ -132,6 +139,7 @@ import { KosdetailComponent } from './Features/Private/Operations/Pages/kosopera
       userDataServices,
       kosDataServices,
       roleDataServices,
+      jobDataServices,
     ],
   entryComponents:
     [
