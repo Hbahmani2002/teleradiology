@@ -1,7 +1,9 @@
 ﻿using GT.BAL.Infinity.DataSynronizer;
 using GT.DataService.Implementation;
+using GT.DataService.infinity.Implementation;
 using GT.Persistance.Domain.Models;
 using GT.Repository.Implementation;
+using GT.SERVICE;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -91,8 +93,12 @@ namespace GT.Job.Implementation
 
         private static void ActionFunction(KosStudyParameter item)
         {
+
+
             var dt = new InfinityDataSyncronizer();
             dt.SyncronizeInfinityStudyList(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
+
+
         }
 
         private void StartJobs()

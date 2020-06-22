@@ -1,5 +1,8 @@
 using GT.Core.Settings;
+using GT.DataService.infinity.Implementation;
+using GT.DataService.infinity.Model;
 using GT.Job.Implementation;
+using GT.SERVICE;
 using NUnit.Framework;
 using System;
 using System.IO;
@@ -21,6 +24,9 @@ namespace GT.BAL.Test
         /// <summary>
         /// UC1.1. Job
         /// </summary>
+        /// 
+
+   
         [Test]
         public void UC1()
         {
@@ -32,6 +38,14 @@ namespace GT.BAL.Test
             var jobManager = InfJobManager.Create(logger);
             jobManager.Start();
             Thread.Sleep(10000);
+
+
+
+       
+           
+
+
+
         }
 
     }
