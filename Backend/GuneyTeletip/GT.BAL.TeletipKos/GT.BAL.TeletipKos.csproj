@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interface\" />
+    <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
+    <ProjectReference Include="..\KOS.TeletipKos\KOS.TeletipKos.csproj" />
+    <ProjectReference Include="..\Util.Logger\Util.Logger.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
+    <Folder Include="Interface\" />
   </ItemGroup>
 
 </Project>

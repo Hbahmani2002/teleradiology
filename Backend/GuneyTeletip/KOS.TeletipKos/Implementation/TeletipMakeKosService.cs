@@ -4,39 +4,19 @@ using Util.ProcessUtil;
 
 namespace GT.TeletipKos
 {
-    public class TeletipKosService
+    public class TeletipMakeKosService
     {
-        public TeletipKosServiceSettings Settings { get; }
-        public TeletipKosService(TeletipKosServiceSettings settings)
+        public TeletipKosServiceSetting.MakeKosServiceSettings Settings { get; }
+        public TeletipMakeKosService(TeletipKosServiceSetting.MakeKosServiceSettings settings)
         {
             Settings = settings;
         }
-        private ProcessResult SendKosOLD(SendKosParameter par)
+        public ProcessResult MakeKos(string inputStudyDirectoryPath,string outputKosFilePath)
         {
-            /*
-            var res = string.Format(" {0} {1} \"{2}\"", par.PatientId, par.KosFilePath.Replace('\\', '/'), Settings.SendKosServiceURL.Replace('\\', '/'));
-            var processStr = string.Format("-jar -Duser.language=en {1} {0}", res, Settings.SendKosJarName);
-            var ret = ProcessUtil.Start("java", processStr);
-            return ret;
-            */
-            return null;
-        }
+            var makeKosSettings = Settings;
 
-        public ProcessResult SendKos(SendKosParameter par)
-        {
-            var settings = Settings.SendKosSettings;
-
-            var processParameter = $"-jar \"{settings.AppFilePath}\" \"{par.PatientId}\" \"{par.KosFilePath}\" \"{settings.ServiceURL}\" \"{settings.AxisRepoDirectoryPath}\" \"{settings.AxisXmlFilePath}\" ";
-            var processResult = ProcessUtil.Start("java", processParameter);
-            return processResult;
-        }
-
-        public ProcessResult MakeKos(MakeKosParameter par)
-        {
-            var makeKosSettings = Settings.MakeKosSettings;
-
-            var output = par.OutputKosFilePath;
-            var input = par.InputStudyDirectoryPath;
+            var output = outputKosFilePath;
+            var input = inputStudyDirectoryPath;
 
             var res = $@"--title {makeKosSettings.Title} --location-uid  {makeKosSettings.LocationUID} --temp-tlocation {makeKosSettings.TempDirectory} --dcm-dcmlocation {makeKosSettings.DCM4CheeDirectory}";
             var processParameter = $"-jar {makeKosSettings.AppFilePath} {res} -o {output} {input}";
