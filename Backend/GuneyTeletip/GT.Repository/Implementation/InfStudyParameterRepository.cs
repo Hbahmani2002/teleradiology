@@ -20,6 +20,16 @@ namespace GT.Repository.Implementation
             throw new NotImplementedException();
         }
 
+
+
+
+
+        public  KosStudyParameter GetByTenatID(long tenatID)
+        {
+            return Single(o => o.FkTenant == tenatID && o.RecordStatus == 1);
+        }
+
+
         public IEnumerable<KosStudyParameter> Query(InfStudyParameterConditionFilter filter)
         {
             var exp = InfStudyParameterCondition.Get(filter);

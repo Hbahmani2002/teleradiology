@@ -53,8 +53,8 @@ namespace GT.BAL.Infinity.DataSynronizer
                 model.AccessionNo = item.AccessNo;
                 model.StudyInstanceuid = item.StudyInstanceUid;
                 model.InstanceCount = 0;
-                model.DateBirth = DateTime.Now;
-                model.StudyDate = item.StudyDttm.Value;
+                model.DateBirth = DateTime.Now; // item.PatientBirthDttm.Value == null ? DateTime.Now : item.PatientBirthDttm.Value;
+                model.StudyDate = DateTime.Now;
                 model.StoragePath = item.Pathname;
                 model.PatinetNameSurname = item.PatientName;
                 model.CihazDeviceSerialNumber = null;
@@ -62,7 +62,7 @@ namespace GT.BAL.Infinity.DataSynronizer
                 model.Desc2 = null;
                 model.Desc3 = null;
                 model.TimeCreated = DateTime.Now;
-                model.TimeModified = DateTime.Now;
+                model.TimeModified =null;
                 model.Institution =item.Institution;
                 model.SeriesCount = 0;
                 model.SeriesKey = 0;
@@ -77,21 +77,24 @@ namespace GT.BAL.Infinity.DataSynronizer
                 model.FkKosEnumType = 2;
                 model.InfMergeKey = item.InfMergeKey;
                 model.SeriesInfo = item.SeriesInfo;
+                model.DicomPhat = item.VolumePathname + "\\" + item.Pathname;
 
-
-                string OrcleZeroImages = AppSettings.GetCurrent().InfinityOracleSettings.ToString();
+                string OrcleZeroImages = AppSettings.GetCurrent().InfinityOracleSettings.ZeroImageGeneratorName.ToString();
              
 
 
                 if ( item.SeriesInfo == OrcleZeroImages)
                 {
                     
-                        model.ZeroImg = item.ZeroImg;
+                    model.ZeroImg = 1;
+                }
+                else
+                {
+                    model.ZeroImg = 0;
                 }
 
+          
 
-               
-               
                 list.Add(model);
                // throw new NotImplementedException();
                 
