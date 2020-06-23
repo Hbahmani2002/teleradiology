@@ -16,7 +16,7 @@ namespace GT.Repository.Conditions
         public static Expression<Func<JobEnumtype, bool>> Get(EnumTypeJobConditionFilter filter)
         {
             var exp = PredicateBuilder.True<JobEnumtype>();
-            if (string.IsNullOrEmpty(filter.Name))
+            if (!string.IsNullOrEmpty(filter.Name))
             {
                 exp = exp.And(o => o.Name.Contains(filter.Name));
             }

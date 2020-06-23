@@ -64,7 +64,7 @@ namespace GT.DataService.Implementation
             {
                 
            
-                KosStudy.FkTenant = item.FkTenant;
+                KosStudy.FkTenant = item.FkTenant.Value;
                 KosStudy.FkInfBatch = KosBatch.Pk;
                 KosStudy.FkUserCreated = null;
                 KosStudy.FkUserModfiead =null;
@@ -179,7 +179,7 @@ namespace GT.DataService.Implementation
 
             foreach (var study in studies)
             {
-                item.KosStudy.Add(study);
+              //  item.KosStudy.Add(study);
             }
             _InfBatchRepository.Add(item);
             _Workspace.CommitChanges();

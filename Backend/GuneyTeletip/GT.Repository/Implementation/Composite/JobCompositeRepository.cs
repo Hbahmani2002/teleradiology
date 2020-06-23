@@ -27,7 +27,7 @@ namespace GT.Repository.Implementation.Composite
 
         public IQueryable<JobViewmodel> Query(Expression<Func<JobEnumtype, bool>> exp1, Expression<Func<KosStudyJob, bool>> exp2)
         {
-            var jobEnum = _AbstractWorkspace.Query<JobEnumtype>(exp1).ToList();
+            var jobEnum = _AbstractWorkspace.Query<JobEnumtype>(exp1);
             var job= _AbstractWorkspace.Query<KosStudyJob>(exp2);
             var list = from j in job
                        join je in jobEnum on j.FkJobEnumType equals je.Pk

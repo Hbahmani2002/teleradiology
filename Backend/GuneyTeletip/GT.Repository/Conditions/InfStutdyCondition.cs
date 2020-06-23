@@ -32,7 +32,7 @@ namespace GT.Repository.Conditions
             if (filter.HastaneIDList!=null && filter.HastaneIDList.Length > 0)
             {
                 var arr = filter.HastaneIDList.ToList();
-                exp = exp.And(o => arr.Contains(o.FkTenant.Value));
+                exp = exp.And(o => arr.Contains(o.FkTenant));
             }
             if (filter.TcList != null && filter.TcList.Length > 0)
             {
