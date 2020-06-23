@@ -15,5 +15,6 @@ namespace GT.DataService.Model
         public string[] TCList { get; set; }
         public string[] AccessionNumberList { get; set; }
         public KosEnumType KosEnum { get; set; }
+        public bool KosWaitHour { get; set; }
     }
 }

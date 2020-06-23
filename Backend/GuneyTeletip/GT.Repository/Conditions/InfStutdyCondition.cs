@@ -1,4 +1,5 @@
 ﻿using DBLayerIzcilikYonetimi.Moduller.IzciYonetimi;
+using GT.Core.Settings;
 using GT.Persistance.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace GT.Repository.Conditions
         public string[] AccessionNumberList { get; set; }
         public string[] TcList { get; set; }
         public KosEnumType? KosEnum { get; set; }
+        public bool KosWaitHour { get; set; }
     }
     public class InfStudyCondition
     {
@@ -39,6 +41,11 @@ namespace GT.Repository.Conditions
             {
                 var arr = filter.HastaneIDList.ToList();
                 exp = exp.And(o => arr.Contains(o.FkTenant));
+            }
+            if (filter.KosWaitHour==true)
+            {
+                var hour = AppSettings.GetCurrent().DataServiceSettings.KosWaitHour;
+                exp = exp.And(o => o.TimeCreated >= o.TimeCreated.Value.AddHours(-hour));
             }
             if (filter.TcList != null && filter.TcList.Length > 0)
             {
