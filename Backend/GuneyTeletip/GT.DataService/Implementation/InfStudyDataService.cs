@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using static GT.Repository.Conditions.InfStudyConditionFilter;
 
 namespace GT.DataService.Implementation
 {
@@ -182,6 +183,15 @@ namespace GT.DataService.Implementation
             };
             return _InfStudyRepository.Query(s)
                 .GetGridQuery(parms);
+        }
+        public List<InfStudyViewModel> GetMakeKosList(int count)
+        {
+            var s = new InfStudyConditionFilter
+            {
+                KosEnum = KosEnumType.KosOlusmus,
+                KosWaitHour=true
+            };
+            return _InfStudyRepository.Query(s).OrderBy(o => o.ID).Take(count).ToList();
         }
 
         public void Save(IEnumerable<KosStudy> studies)
