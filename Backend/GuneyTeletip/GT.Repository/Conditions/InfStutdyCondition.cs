@@ -11,6 +11,11 @@ namespace GT.Repository.Conditions
 {
     public class InfStudyConditionFilter
     {
+        public enum KosEnumType
+        {
+            KosOlusmamis = 10,
+            KosOlusmus = 30,
+        }
         public string Modality { get; set; }
         public long? Pk { get; set; }
         public long[] HastaneIDList { get; set; }
@@ -19,6 +24,7 @@ namespace GT.Repository.Conditions
         public string EslesmeDurumu { get; set; }
         public string[] AccessionNumberList { get; set; }
         public string[] TcList { get; set; }
+        public KosEnumType? KosEnum { get; set; }
     }
     public class InfStudyCondition
     {
@@ -43,6 +49,10 @@ namespace GT.Repository.Conditions
             {
                 var arr = filter.AccessionNumberList.ToList();
                 exp = exp.And(o => arr.Contains(o.AccessionNo));
+            }
+            if (filter.KosEnum.HasValue)
+            {
+                exp = exp.And(o => o.FkKosEnumType <= (int)filter.KosEnum.Value);
             }
             if (filter.BasTarih.HasValue)
             {

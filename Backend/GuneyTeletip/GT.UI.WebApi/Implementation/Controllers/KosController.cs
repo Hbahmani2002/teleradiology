@@ -121,7 +121,7 @@ namespace GT.UI.WebApi.Controllers
         {
             var cx = GetBussinesContext();
             var service = new InfStudyDataService(cx);
-            return HttpMessageService.Ok(service.UpdateKosDurum(model.KosStudyID,model.KosEnumID));
+            return HttpMessageService.Ok(service.UpdateKosDurum(model.KosStudyID,model.KosEnumID,""));
         }
 
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static GT.Repository.Conditions.InfStudyConditionFilter;
 
 namespace GT.DataService.Model
 {
@@ -13,6 +14,6 @@ namespace GT.DataService.Model
         public string EslesmeDurumu { get; set; }
         public string[] TCList { get; set; }
         public string[] AccessionNumberList { get; set; }
-
+        public KosEnumType KosEnum { get; set; }
     }
 }

@@ -76,7 +76,8 @@ namespace GT.Repository.Implementation
                            ValumeStat=s.VolumeStat,
                            StudyInstanceuid=s.StudyInstanceuid,
                            ValumeType=s.VolumeType,
-                           StoragePath=s.StoragePath
+                           StoragePath=s.StoragePath,
+                           DicomDirPath=s.DicomDirPath
                        };
 
             return list;

@@ -44,17 +44,37 @@ namespace GT.DataService.Implementation
             return jobCompositeRepository.Query(e,k).GetGridQuery(parms);
         }
 
-        public int Save(DateTime basTar, DateTime bitTar, string tip, long basariliSayisi, long basarisizSayisi)
+        public int Save(DateTime basTar, string tip)
         {
             var kosStudyJob = new KosStudyJob();
-            kosStudyJob.ErrorCount = basarisizSayisi;
-            kosStudyJob.TimeStop = bitTar;
             kosStudyJob.TimeStart = basTar;
             kosStudyJob.TimeCreated = DateTime.Now;
-            kosStudyJob.SuccessfulCount = basariliSayisi;
             kosStudyJob.FkJobEnumType = enumTypeJobRepository.GetByName(tip).Pk;
             kosStudyJob.FkUserCreated = Context.UserInfo.UserIDCurrent;
             kosStudyJobRepository.Add(kosStudyJob);
+            _Workspace.CommitChanges();
+            return 1;
+        }
+        public int Update(int id, DateTime? bitTar, string tip, long? basariliSayisi, long? basarisizSayisi)
+        {
+            var kosStudyJob = kosStudyJobRepository.GetByID(id);
+            kosStudyJob.ErrorCount = basarisizSayisi;
+            kosStudyJob.TimeStop = bitTar;
+            kosStudyJob.TimeModified = DateTime.Now;
+            kosStudyJob.SuccessfulCount = basariliSayisi;
+            kosStudyJob.FkJobEnumType = enumTypeJobRepository.GetByName(tip).Pk;
+            kosStudyJob.FkUserModified = Context.UserInfo.UserIDCurrent;
+            kosStudyJobRepository.Update(kosStudyJob);
+            _Workspace.CommitChanges();
+            return 1;
+        }
+        public int UpdateAndClose(int id,DateTime? bitTar)
+        {
+            var kosStudyJob = kosStudyJobRepository.GetByID(id);
+            kosStudyJob.TimeStop = bitTar;
+            kosStudyJob.TimeModified = DateTime.Now;
+            kosStudyJob.FkUserModified = Context.UserInfo.UserIDCurrent;
+            kosStudyJobRepository.Update(kosStudyJob);
             _Workspace.CommitChanges();
             return 1;
         }

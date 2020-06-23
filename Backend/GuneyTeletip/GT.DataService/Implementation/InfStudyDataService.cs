@@ -46,10 +46,6 @@ namespace GT.DataService.Implementation
 
         public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items)
         {
-
-
-       
-
             var KosBatch = new KosBatch();
             KosBatch.TimeCreated = DateTime.Now;
             KosBatch.FkUserCreated = 1;
@@ -60,8 +56,6 @@ namespace GT.DataService.Implementation
             var list = new List<InfOraclePostgreStudyViewModel>();
             foreach (InfOraclePostgreStudyViewModel item in items)
             {
-
-
                 KosStudy.FkTenant = item.FkTenant.Value;
                 KosStudy.FkInfBatch = KosBatch.Pk;
                 KosStudy.FkUserCreated = null;
@@ -100,14 +94,7 @@ namespace GT.DataService.Implementation
                 _InfStudyRepository.Add(KosStudy);
               
                 _Workspace.CommitChanges();
-            
             }
-
-       
-          
-
-
-
         }
 
 
@@ -155,7 +142,6 @@ namespace GT.DataService.Implementation
             {
                 parms.Filter = new InfStudyFilter();
             }
-
             var s = new InfStudyConditionFilter
             {
                 HastaneIDList=parms.Filter.HastaneIDList,
@@ -163,7 +149,8 @@ namespace GT.DataService.Implementation
                 BasTarih=parms.Filter.BasTarih,
                 BitTarih=parms.Filter.BitTarih,
                 Modality=parms.Filter.Modalite,
-                TcList=parms.Filter.TCList
+                TcList=parms.Filter.TCList,
+                KosEnum= parms.Filter.KosEnum
             };
             return _InfStudyRepository.Query(s)
                 .GetGridQuery(parms);
@@ -230,6 +217,7 @@ namespace GT.DataService.Implementation
                 TenantID= infStudy.FkTenant,
                 StoragePath= infStudy.StoragePath,
                 HastaNo= infStudy.PatientId,
+                DicomDirPath= infStudy.DicomDirPath
             };
             return item;
         }
@@ -271,7 +259,7 @@ namespace GT.DataService.Implementation
             return kosDurumIstCompositeRepository.Query().ToList();
         }
 
-        public long UpdateKosDurum(int kosStudyID, int kosEnumID)
+        public long UpdateKosDurum(int kosStudyID, int kosEnumID, string studyDescription)
         {
             var kosStudyHistory = new KosStudyHistory();
             kosStudyHistory.EnumType = kosEnumID;
@@ -286,6 +274,7 @@ namespace GT.DataService.Implementation
                 throw new Exception("kosStudy bulunmadı. kosStudyID"+ kosStudyID);
             }
             kosStudy.FkKosEnumType = kosEnumID;
+            kosStudy.StudyDescription = studyDescription;
             _InfStudyRepository.Update(kosStudy);
 
             _Workspace.CommitChanges();
