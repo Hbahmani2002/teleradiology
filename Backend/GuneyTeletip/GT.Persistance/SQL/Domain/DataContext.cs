@@ -324,8 +324,8 @@
                     .HasColumnName("desc3")
                     .HasMaxLength(64);
 
-                entity.Property(e => e.DicomPhat)
-                    .HasColumnName("dicom_phat")
+                entity.Property(e => e.DicomDirPath)
+                    .HasColumnName("dicom_dir_path")
                     .HasMaxLength(2048);
 
                 entity.Property(e => e.FileName)
@@ -340,7 +340,7 @@
 
                 entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
 
-                entity.Property(e => e.FkUserModfiead).HasColumnName("fk_user_modfiead");
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
 
                 entity.Property(e => e.Gender)
                     .HasColumnName("gender")
@@ -400,20 +400,20 @@
 
                 entity.Property(e => e.TimeModified).HasColumnName("time_modified");
 
-                entity.Property(e => e.ValumeCode)
-                    .HasColumnName("valume_code")
+                entity.Property(e => e.VolumeCode)
+                    .HasColumnName("volume_code")
                     .HasMaxLength(4);
 
-                entity.Property(e => e.ValumePathname)
-                    .HasColumnName("valume_pathname")
+                entity.Property(e => e.VolumePathname)
+                    .HasColumnName("volume_pathname")
                     .HasMaxLength(64);
 
-                entity.Property(e => e.ValumeStat)
-                    .HasColumnName("valume_stat")
+                entity.Property(e => e.VolumeStat)
+                    .HasColumnName("volume_stat")
                     .HasMaxLength(2);
 
-                entity.Property(e => e.ValumeType)
-                    .HasColumnName("valume_type")
+                entity.Property(e => e.VolumeType)
+                    .HasColumnName("volume_type")
                     .HasMaxLength(2);
 
                 entity.Property(e => e.ZeroImg).HasColumnName("zero_img");
@@ -1451,7 +1451,7 @@
                     .HasColumnName("username");
             });
 
-          //  OnModelCreatingPartial(modelBuilder);
+           // OnModelCreatingPartial(modelBuilder);
         }
     }
 }
