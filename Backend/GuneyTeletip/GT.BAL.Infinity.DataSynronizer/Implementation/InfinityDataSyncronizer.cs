@@ -1,4 +1,5 @@
 ﻿
+using GT.Core.Settings;
 using GT.DataService.Implementation;
 using GT.DataService.infinity.Implementation;
 using GT.Persistance.Domain.Models;
@@ -74,6 +75,22 @@ namespace GT.BAL.Infinity.DataSynronizer
                 model.CreationDttm = DateTime.Now;
                 model.OracleStudyKey = item.StudyKey;
                 model.FkKosEnumType = 2;
+                model.InfMergeKey = item.InfMergeKey;
+                model.SeriesInfo = item.SeriesInfo;
+
+
+                string OrcleZeroImages = AppSettings.GetCurrent().InfinityOracleSettings.ToString();
+             
+
+
+                if ( item.SeriesInfo == ZeroImages)
+                {
+                    
+                        model.ZeroImg = item.ZeroImg;
+                }
+
+
+               
                
                 list.Add(model);
                // throw new NotImplementedException();

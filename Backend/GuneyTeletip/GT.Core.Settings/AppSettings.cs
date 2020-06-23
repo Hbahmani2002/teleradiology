@@ -20,15 +20,19 @@ namespace GT.Core.Settings
             STM = new STMService();
             Kos = new KosService();
             DatabaseConnection = new Database();
+            InfinityOracleSettings = new InfinityOracleIntegration();
         }
 
         public Logging Log { get; }
         public STMService STM { get; }
         public KosService Kos { get; }
-
+        public InfinityOracleIntegration InfinityOracleSettings { get; }
         public Database DatabaseConnection { get; }
 
-
+        public class InfinityOracleIntegration
+        {
+            public string ZeroImageGeneratorName => "INFINITT::DCMCREATOR::::::";
+        }
         public class Database
         {
             public string StudyPostgreConnectionString => "​UserID=test_protek;Password=test123;Server=85.95.238.211;Port=9002;Database=guney_teletip_db;Integrated Security=true;Pooling=true;";
