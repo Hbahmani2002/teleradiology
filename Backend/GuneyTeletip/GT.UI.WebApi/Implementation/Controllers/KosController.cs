@@ -120,8 +120,7 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<long> UpdateKosDurum(UpdateKosDurumModel model)
         {
             var cx = GetBussinesContext();
-            var service = new InfStudyDataService(cx);
-            return HttpMessageService.Ok(service.UpdateKosDurum(model.KosStudyID,model.KosEnumID,""));
+            throw new NotImplementedException();            
         }
 
     }

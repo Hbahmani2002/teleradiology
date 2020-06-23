@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using GT.BAL.TeletipKos.Model;
 using GT.Core.Settings;
 using GT.DataService.Implementation;
 using GT.DataService.Model;
@@ -41,9 +42,9 @@ namespace GT.UI.WebApi.Controllers
             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
 
-            var list = GetMakeKosList(settings);
-            var manager = GetKosManager(filePath);
-            manager.MakeKos(list);
+            var item = GetMakeKosList(settings).First();
+            var manager = GetMakeKosManager(filePath);
+            manager.MakeKos(item.InputStudyDirectoryPath, item.OutputKosFilePath);
 
             return HttpMessageService.Ok((object)new
             {
@@ -64,9 +65,9 @@ namespace GT.UI.WebApi.Controllers
             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
 
-            var list = GetSendKosList(settings);
-            var manager = GetKosManager(filePath);
-            manager.SendKos(list);
+            var item = GetSendKosList(settings).First();
+            var manager = GetSendKosManager(filePath);
+            manager.SendKos(item.PatientId, item.KosFilePath);
 
             return HttpMessageService.Ok((object)new
             {
@@ -83,7 +84,7 @@ namespace GT.UI.WebApi.Controllers
             for (int i = 0; i < 20; i++)
             {
                 var inputDirPath = Path.Combine(settings.Kos.Make.DIR_StudyPath, "YKCK01/20200519/E0071610");
-                var outputKosFilePath = Path.Combine(settings.Kos.Make.DIR_KosPath, $"kos_{Guid.NewGuid().ToString().Replace("-", "")}.dcm");
+                var outputKosFilePath = KosOutFileNameGenerator.GetFilePath(Environment.TickCount64);
 
                 var item = new MakeKosParameter("", "", "", "", "", "", "", inputDirPath, outputKosFilePath);
                 list.Add(item);
@@ -110,19 +111,16 @@ kos_22a8b125be6a4b15849e5f073f95346f.dcm
 
             return list;
         }
-        private static MultiKosOperationManager GetKosManager(string logFilePath)
+        private TeletipMakeKosService GetMakeKosManager(string logFilePath)
         {
-            var settings = AppSettings.GetCurrent();
-            var makeKosSettings = settings.Kos.Make;
-            var sendKosSettings = settings.Kos.Send;
-
-
-            var logger = new TextFileLogger(logFilePath);
-            var kSettings = new TeletipKosServiceSettings(
-                new TeletipKosServiceSettings.MakeKosServiceSettings(makeKosSettings.AppFilePath, makeKosSettings.LocationUID, makeKosSettings.Title, makeKosSettings.TempDirectoryPath + "/", makeKosSettings.DCM4CheeDirectoryPath),
-                new TeletipKosServiceSettings.SendKosServiceSettings(sendKosSettings.AppFilePath, sendKosSettings.ServiceAddress_BETA_URL,sendKosSettings.AxisRepoDirectoryPath,sendKosSettings.AxisXmlFilePath)
-            );
-            var manager = new MultiKosOperationManager(logger, kSettings);
+            var kSettings = TeletipKosServiceSetting.GetCurrent();
+            var manager = new TeletipMakeKosService(kSettings.MakeKosSettings);
+            return manager;
+        }
+        public TeletipSendKosService GetSendKosManager(string logFilePath)
+        {
+            var kSettings = TeletipKosServiceSetting.GetCurrent();
+            var manager = new TeletipSendKosService(kSettings.SendKosSettings);
             return manager;
         }
 
