@@ -55,13 +55,16 @@ namespace GT.DataService.Implementation
             KosBatch.FkUserCreated = 1;
             _InfBatchRepository.Add(KosBatch);
             _Workspace.CommitChanges();
+            long tenatID = 0;
+            decimal Last_OracleStudyKey = 0;
 
-            
+
+
             var list = new List<InfOraclePostgreStudyViewModel>();
             foreach (InfOraclePostgreStudyViewModel item in items)
             {
                 var KosStudy = new KosStudy();
-
+                tenatID = item.FkTenant.Value;
                 KosStudy.FkTenant = item.FkTenant.Value;
                 KosStudy.FkInfBatch = KosBatch.Pk;
                 KosStudy.FkUserCreated = null;
@@ -95,18 +98,29 @@ namespace GT.DataService.Implementation
                 KosStudy.VolumePathname = item.ValumePathname;
                 KosStudy.CreationDttm = DateTime.Now;
                 KosStudy.OracleStudyKey = item.OracleStudyKey.Value;
-                KosStudy.DicomPhat = item.DicomPhat;
-
+                KosStudy.DicomDirPath = item.DicomPhat;
+                Last_OracleStudyKey = item.OracleStudyKey.Value;
                 _InfStudyRepository.Add(KosStudy);
-              
+
                 _Workspace.CommitChanges();
-            
+
             }
 
-       
-          
 
+            var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(tenatID);
 
+            if (ParamterTimertenatID == null)
+            {
+                throw new Exception("User bulunamadı. tenatID:" + tenatID);
+
+            }
+            else
+            {
+                ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(Last_OracleStudyKey);
+                _InfStudyParameterRepository.Update(ParamterTimertenatID);
+            }
+
+            _Workspace.CommitChanges();
 
         }
 

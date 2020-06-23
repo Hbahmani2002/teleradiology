@@ -53,8 +53,8 @@ namespace GT.BAL.Infinity.DataSynronizer
                 model.AccessionNo = item.AccessNo;
                 model.StudyInstanceuid = item.StudyInstanceUid;
                 model.InstanceCount = 0;
-                model.DateBirth = DateTime.Now;
-                model.StudyDate = item.StudyDttm.Value;
+                model.DateBirth = DateTime.Now; // item.PatientBirthDttm.Value == null ? DateTime.Now : item.PatientBirthDttm.Value;
+                model.StudyDate = DateTime.Now;
                 model.StoragePath = item.Pathname;
                 model.PatinetNameSurname = item.PatientName;
                 model.CihazDeviceSerialNumber = null;
@@ -62,7 +62,7 @@ namespace GT.BAL.Infinity.DataSynronizer
                 model.Desc2 = null;
                 model.Desc3 = null;
                 model.TimeCreated = DateTime.Now;
-                model.TimeModified = DateTime.Now;
+                model.TimeModified =null;
                 model.Institution =item.Institution;
                 model.SeriesCount = 0;
                 model.SeriesKey = 0;
