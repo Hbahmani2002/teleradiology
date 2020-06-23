@@ -1,0 +1,32 @@
+<filter header="Filtreleme">
+  <form style="font-family:'Times New Roman', Times, serif !important; font-size: small; color: black;">
+    <div class="form-row p-0 ">
+      <div class="col-md-4">
+        <label>Tarih Aralığı</label>
+        <div class="input-group input-group-sm mb-3">
+          <input class="form-control" type="text"
+                 autocomplete="off"
+                 [(ngModel)]="filterData.dateRange"
+                 name="dateRange"
+                 placeholder="Tarih Aralığı" [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY'}" #drp="bsDaterangepicker" bsDaterangepicker>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label>Job Id</label>
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control input-sm" name="id" [(ngModel)]="filterData.jobId">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label>Tip</label>
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control input-sm" name="type" [(ngModel)]="filterData.type">
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="mt-0">
+    <button class="btn btn-success btn-sm mr-2" tooltip="Filtrele" (click)="onFilter()"><fa name="search"></fa></button>
+    <button class="btn btn-danger  btn-sm" tooltip="Filtreleri Temizle" (click)="onClearFilter()"><fa name="close"></fa></button>
+  </div>
+</filter>

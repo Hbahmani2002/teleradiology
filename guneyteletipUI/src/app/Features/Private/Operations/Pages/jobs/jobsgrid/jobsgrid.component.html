@@ -1,0 +1,45 @@
+<div class="card mt-2">
+  <div class="card-header p-1">
+    <fa name="list"></fa>
+    Kayıt Listesi > [Toplam:{{gridJobs.data.totalCount}}/Seçili:{{gridJobs.selectedItems.length}}/Tıklanan:{{gridJobs.clickedItem!=undefined?1:0}}]
+    <div class="pull-right">
+      <select [(ngModel)]="gridJobs.model.paging.count" (change)="gridJobs.onRefresh()">
+        <option *ngFor="let c of gridJobs.pager" [ngValue]="c">{{c}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="card-body p-0 table-responsive">
+    <table #filterSection class="table table-bordered m-0 medlifeGrid">
+      <thead>
+        <tr>
+          <th scope="col" class="p-0">
+            <input type="checkbox" (click)="gridJobs.selectAll($event)">
+          </th>
+          <th scope="col" class="p-0">Hasta No<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0">Hasta İsmi<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0">Accession No<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0">Modalite<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr (click)="gridJobs.onClickItem(item)" *ngFor="let item of gridJobs.data.list" [class]="gridJobs.getRowClass(item)">
+          <td class="p-0">
+            <input type="checkbox" class="" [checked]="gridJobs.isSelected(item)"
+                   (change)="gridJobs.onSelectItem(item)">
+          </td>
+          <!--<td class="p-0">{{item.hastaNo}}</td>
+  <td class="p-0">{{item.patientName}}</td>
+  <td class="p-0">{{item.accessionNumber}}</td>
+  <td class="p-0">{{item.modality}}</td>-->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row justify-content-center  mb-3">
+    <div class="col-sm-7 pagination-sm  justify-content-center pageNumber">
+      <pagination class="justify-content-center" [boundaryLinks]="true" [totalItems]="gridJobs.data.totalCount" [maxSize]="4" [(ngModel)]="gridJobs.model.paging.pageNumber" [itemsPerPage]="gridJobs.model.paging.count" (pageChanged)="gridJobs.onPageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      </pagination>
+    </div>
+  </div>
+</div>
+

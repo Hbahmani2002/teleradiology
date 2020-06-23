@@ -41,10 +41,12 @@
         public virtual DbSet<AppParameter> AppParameter { get; set; }
         public virtual DbSet<ConstModality> ConstModality { get; set; }
         public virtual DbSet<ConstSkrs> ConstSkrs { get; set; }
+        public virtual DbSet<JobEnumtype> JobEnumtype { get; set; }
         public virtual DbSet<KosBatch> KosBatch { get; set; }
         public virtual DbSet<KosEnumtype> KosEnumtype { get; set; }
         public virtual DbSet<KosStudy> KosStudy { get; set; }
         public virtual DbSet<KosStudyHistory> KosStudyHistory { get; set; }
+        public virtual DbSet<KosStudyJob> KosStudyJob { get; set; }
         public virtual DbSet<KosStudyParameter> KosStudyParameter { get; set; }
         public virtual DbSet<UsrRole> UsrRole { get; set; }
         public virtual DbSet<UsrTenant> UsrTenant { get; set; }
@@ -213,6 +215,34 @@
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
                 entity.Property(e => e.TimeModified).HasColumnName("time_modified");
+            });
+
+            modelBuilder.Entity<JobEnumtype>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("enum_type_pkey");
+
+                entity.ToTable("job_enumtype");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasColumnType("character varying");
+
+                entity.Property(e => e.TimeCreated)
+                    .HasColumnName("time_created")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.TimeModified)
+                    .HasColumnName("time_modified")
+                    .HasColumnType("date");
             });
 
             modelBuilder.Entity<KosBatch>(entity =>
@@ -416,6 +446,46 @@
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
                 entity.Property(e => e.TimeModified).HasColumnName("time_modified");
+            });
+
+            modelBuilder.Entity<KosStudyJob>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("kos_study_job_pkey");
+
+                entity.ToTable("kos_study_job");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.ErrorCount).HasColumnName("error_count");
+
+                entity.Property(e => e.FkJobEnumType).HasColumnName("fk_job_enum_type");
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.RecordStatus).HasColumnName("record_status");
+
+                entity.Property(e => e.SuccessfulCount).HasColumnName("successful_count");
+
+                entity.Property(e => e.TimeCreated)
+                    .HasColumnName("time_created")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.TimeModified)
+                    .HasColumnName("time_modified")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.TimeStart)
+                    .HasColumnName("time_start")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.TimeStop)
+                    .HasColumnName("time_stop")
+                    .HasColumnType("date");
             });
 
             modelBuilder.Entity<KosStudyParameter>(entity =>
@@ -1370,7 +1440,7 @@
                     .HasColumnName("username");
             });
 
-          //  OnModelCreatingPartial(modelBuilder);
+            //OnModelCreatingPartial(modelBuilder);
         }
     }
 }

@@ -6,12 +6,13 @@ import { tokenService } from '../Util/tokenService';
 import { httpService } from '../Util/httpService';
 import { parameters } from '../../Consts/parameters';
 import { apiResponseModel } from './Models/apiResponseModel';
+import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
 export class ApiDataService {
 
-  constructor(private httpService: httpService, private tokenService : tokenService) {
+  constructor(private httpService: httpService, private tokenService : tokenService,private toastr:ToastrService) {
 
   }
 
@@ -25,13 +26,15 @@ export class ApiDataService {
         return this.onSuccessData(res);
       }),
       catchError(err => {
+        this.onFail(err);
         throw "Hata var networke bak..";        
       })
     );
     ;
   }
 
- private onFail(err: any): any {
+  private onFail(err: any): any {
+    debugger;
     var erData = err.error
     if (erData) {
       console.log(erData);
@@ -41,16 +44,19 @@ export class ApiDataService {
       }
       if (erData.Exception) {
         var message = erData.Exception.ClassName + ":" + erData.Exception.Message;
-        //this.toastr.error(message);
+        this.toastr.error(message);
       }
       return of(undefined);
     }
     else {
+      this.toastr.error(err.name+ " : " +err.message);
       console.log(err);
     }
   }
   private onSuccessData(res: any): any {    
     let model = apiResponseModel.parse(res);
+    console.log(model);
+    //this.toastr.success(model.type);
     console.log("TODO success control");
     //if (!this.authentication.isAuthenticated(res))
     //  this.authentication.redirectToLogin()

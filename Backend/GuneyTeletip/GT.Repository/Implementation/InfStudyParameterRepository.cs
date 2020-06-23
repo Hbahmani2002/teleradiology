@@ -20,7 +20,7 @@ namespace GT.Repository.Implementation
             throw new NotImplementedException();
         }
 
-        public IQueryable<KosStudyParameter> Query(InfStudyParameterConditionFilter filter)
+        public IEnumerable<KosStudyParameter> Query(InfStudyParameterConditionFilter filter)
         {
             var exp = InfStudyParameterCondition.Get(filter);
             return Query(exp);

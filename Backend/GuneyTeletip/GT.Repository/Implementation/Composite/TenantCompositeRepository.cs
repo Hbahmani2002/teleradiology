@@ -20,7 +20,7 @@ namespace GT.Repository.Implementation.Composite
 
         }
 
-        public IQueryable<TenantSkrsCompositeViewModel> Query()
+        public IEnumerable<TenantSkrsCompositeViewModel> Query()
         {
             var tenantdata = _AbstractWorkspace.Query<UsrTenant>();
             var tenantskrsdata = _AbstractWorkspace.Query<UsrTenantSkrs>();
