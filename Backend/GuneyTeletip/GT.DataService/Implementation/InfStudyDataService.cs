@@ -177,7 +177,8 @@ namespace GT.DataService.Implementation
                 BasTarih=parms.Filter.BasTarih,
                 BitTarih=parms.Filter.BitTarih,
                 Modality=parms.Filter.Modalite,
-                TcList=parms.Filter.TCList
+                TcList=parms.Filter.TCList,
+                KosEnum=parms.Filter.KosEnum
             };
             return _InfStudyRepository.Query(s)
                 .GetGridQuery(parms);
