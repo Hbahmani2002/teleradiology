@@ -53,18 +53,16 @@ namespace GT.DataService.Implementation
             var KosBatch = new KosBatch();
             KosBatch.TimeCreated = DateTime.Now;
             KosBatch.FkUserCreated = 1;
-
             _InfBatchRepository.Add(KosBatch);
             _Workspace.CommitChanges();
 
             var KosStudy = new KosStudy();
-
             var list = new List<InfOraclePostgreStudyViewModel>();
             foreach (InfOraclePostgreStudyViewModel item in items)
             {
-                
-           
-                KosStudy.FkTenant = item.FkTenant.Value;
+
+
+                KosStudy.FkTenant = item.FkTenant;
                 KosStudy.FkInfBatch = KosBatch.Pk;
                 KosStudy.FkUserCreated = null;
                 KosStudy.FkUserModfiead =null;
@@ -102,7 +100,7 @@ namespace GT.DataService.Implementation
                 _InfStudyRepository.Add(KosStudy);
               
                 _Workspace.CommitChanges();
-                Thread.Sleep(100);
+            
             }
 
        
@@ -179,7 +177,7 @@ namespace GT.DataService.Implementation
 
             foreach (var study in studies)
             {
-              //  item.KosStudy.Add(study);
+                item.KosStudy.Add(study);
             }
             _InfBatchRepository.Add(item);
             _Workspace.CommitChanges();
