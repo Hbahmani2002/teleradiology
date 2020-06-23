@@ -83,7 +83,7 @@ namespace GT.BAL.Infinity.DataSynronizer
              
 
 
-                if ( item.SeriesInfo == ZeroImages)
+                if ( item.SeriesInfo == OrcleZeroImages)
                 {
                     
                         model.ZeroImg = item.ZeroImg;
