@@ -2,6 +2,7 @@
 using GT.DataService.Model;
 using GT.Persistance.Domain.Models;
 using GT.Repository.Conditions;
+using GT.Repository.Implementation;
 using GT.Repository.Implementation.Composite;
 using GT.Repository.Models.View;
 using GT.SERVICE;
@@ -16,10 +17,14 @@ namespace GT.DataService.Implementation
     {
         AbstractWorkspace _Workspace;
         JobCompositeRepository jobCompositeRepository;
+        EnumTypeJobRepository enumTypeJobRepository;
+        KosStudyJobRepository kosStudyJobRepository;
         public JobDataService(IBussinessContext context) : base(context)
         {
             _Workspace = GTWorkspaceFactory.Create(true);
             jobCompositeRepository = new JobCompositeRepository(_Workspace);
+            enumTypeJobRepository = new EnumTypeJobRepository(_Workspace);
+            kosStudyJobRepository = new KosStudyJobRepository(_Workspace);
         }
 
         public PagingResult<JobViewmodel> GetJobList(Gridable<JobViewFilter> parms)
@@ -45,8 +50,12 @@ namespace GT.DataService.Implementation
             kosStudyJob.ErrorCount = basarisizSayisi;
             kosStudyJob.TimeStop = bitTar;
             kosStudyJob.TimeStart = basTar;
-            kosStudyJob.TimeCreated = DateTime.Now; ;
+            kosStudyJob.TimeCreated = DateTime.Now;
             kosStudyJob.SuccessfulCount = basariliSayisi;
+            kosStudyJob.FkJobEnumType = enumTypeJobRepository.GetByName(tip).Pk;
+            kosStudyJob.FkUserCreated = Context.UserInfo.UserIDCurrent;
+            kosStudyJobRepository.Add(kosStudyJob);
+            _Workspace.CommitChanges();
             return 1;
         }
     }
