@@ -41,6 +41,7 @@ namespace GT.DataService.Implementation
         public long? InfMergeKey { get; set; }
         public string SeriesInfo { get; set; }
         public int? ZeroImg { get; set; }
+        public string? DicomPhat { get; set; }
 
     }
 }

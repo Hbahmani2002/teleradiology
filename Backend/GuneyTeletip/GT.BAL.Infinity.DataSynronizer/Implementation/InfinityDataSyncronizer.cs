@@ -77,21 +77,24 @@ namespace GT.BAL.Infinity.DataSynronizer
                 model.FkKosEnumType = 2;
                 model.InfMergeKey = item.InfMergeKey;
                 model.SeriesInfo = item.SeriesInfo;
+                model.DicomPhat = item.VolumePathname + "\\" + item.Pathname;
 
-
-                string OrcleZeroImages = AppSettings.GetCurrent().InfinityOracleSettings.ToString();
+                string OrcleZeroImages = AppSettings.GetCurrent().InfinityOracleSettings.ZeroImageGeneratorName.ToString();
              
 
 
                 if ( item.SeriesInfo == OrcleZeroImages)
                 {
                     
-                        model.ZeroImg = item.ZeroImg;
+                    model.ZeroImg = 1;
+                }
+                else
+                {
+                    model.ZeroImg = 0;
                 }
 
+          
 
-               
-               
                 list.Add(model);
                // throw new NotImplementedException();
                 

@@ -56,11 +56,11 @@ namespace GT.DataService.Implementation
             _InfBatchRepository.Add(KosBatch);
             _Workspace.CommitChanges();
 
-            var KosStudy = new KosStudy();
+            
             var list = new List<InfOraclePostgreStudyViewModel>();
             foreach (InfOraclePostgreStudyViewModel item in items)
             {
-
+                var KosStudy = new KosStudy();
 
                 KosStudy.FkTenant = item.FkTenant.Value;
                 KosStudy.FkInfBatch = KosBatch.Pk;
@@ -75,7 +75,7 @@ namespace GT.DataService.Implementation
                 KosStudy.StudyInstanceuid = item.StudyInstanceuid;
                 KosStudy.InstanceCount = 0;
                 KosStudy.DateBirth = DateTime.Now;
-                KosStudy.StudyDate = item.StudyDate;
+                KosStudy.StudyDate = DateTime.Now;
                 KosStudy.StoragePath = item.StoragePath;
                 KosStudy.PatinetNameSurname = item.PatinetNameSurname;
                 KosStudy.CihazDeviceSerialNumber = "0";
@@ -95,7 +95,7 @@ namespace GT.DataService.Implementation
                 KosStudy.ValumePathname = item.ValumePathname;
                 KosStudy.CreationDttm = DateTime.Now;
                 KosStudy.OracleStudyKey = item.OracleStudyKey.Value;
-                KosStudy.FkKosEnumType = 10;
+                KosStudy.DicomPhat = item.DicomPhat;
 
                 _InfStudyRepository.Add(KosStudy);
               
