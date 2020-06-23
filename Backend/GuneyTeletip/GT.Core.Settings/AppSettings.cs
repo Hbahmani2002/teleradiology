@@ -37,6 +37,7 @@ namespace GT.Core.Settings
         }
         public class DataServiceSetting
         {
+            public int MakeKosServiceItemPerBatch => 50;
             public int KosWaitHour => 2;
         }
         public class Database
