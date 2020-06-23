@@ -389,6 +389,18 @@ namespace GT.Persistance.Domain.Models
                     .HasMaxLength(2);
 
                 entity.Property(e => e.ZeroImg).HasColumnName("zero_img");
+
+                entity.HasOne(d => d.FkInfBatchNavigation)
+                    .WithMany(p => p.KosStudy)
+                    .HasForeignKey(d => d.FkInfBatch)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_inf_batch");
+
+                entity.HasOne(d => d.FkTenantNavigation)
+                    .WithMany(p => p.KosStudy)
+                    .HasForeignKey(d => d.FkTenant)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_tenat");
             });
 
             modelBuilder.Entity<KosStudyHistory>(entity =>

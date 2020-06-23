@@ -43,5 +43,8 @@ namespace GT.Persistance.Domain.Models
         public DateTime? CreationDttm { get; set; }
         public decimal? OracleStudyKey { get; set; }
         public long? FkKosEnumType { get; set; }
+
+        public virtual KosBatch FkInfBatchNavigation { get; set; }
+        public virtual UsrTenant FkTenantNavigation { get; set; }
     }
 }

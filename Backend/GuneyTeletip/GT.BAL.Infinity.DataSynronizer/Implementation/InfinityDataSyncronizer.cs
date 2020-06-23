@@ -73,7 +73,7 @@ namespace GT.BAL.Infinity.DataSynronizer
                 model.ValumeStat = item.VolumeStat;
                 model.ValumePathname = item.VolumePathname;
                 model.CreationDttm = DateTime.Now;
-                model.OracleStudyKey = item.StudyKey;
+                model.OracleStudyKey =item.StudyKey;
                 model.FkKosEnumType = 2;
                 model.InfMergeKey = item.InfMergeKey;
                 model.SeriesInfo = item.SeriesInfo;

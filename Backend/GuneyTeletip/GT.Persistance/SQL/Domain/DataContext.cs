@@ -66,6 +66,7 @@
         public virtual DbSet<XxxSkrsKurumKodlari> XxxSkrsKurumKodlari { get; set; }
         public virtual DbSet<YyyInfPaht> YyyInfPaht { get; set; }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -412,6 +413,18 @@
                     .HasMaxLength(2);
 
                 entity.Property(e => e.ZeroImg).HasColumnName("zero_img");
+
+                entity.HasOne(d => d.FkInfBatchNavigation)
+                    .WithMany(p => p.KosStudy)
+                    .HasForeignKey(d => d.FkInfBatch)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_inf_batch");
+
+                entity.HasOne(d => d.FkTenantNavigation)
+                    .WithMany(p => p.KosStudy)
+                    .HasForeignKey(d => d.FkTenant)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_tenat");
             });
 
             modelBuilder.Entity<KosStudyHistory>(entity =>
@@ -1434,7 +1447,7 @@
                     .HasColumnName("username");
             });
 
-            //  OnModelCreatingPartial(modelBuilder);
+           // OnModelCreatingPartial(modelBuilder);
         }
     }
 }
