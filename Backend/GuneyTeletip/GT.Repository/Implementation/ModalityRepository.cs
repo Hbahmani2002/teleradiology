@@ -14,7 +14,7 @@ namespace GT.Repository.Implementation
 
         }
 
-        public override ConstModality GetByID(int id)
+        public override ConstModality GetByID(long id)
         {
             throw new NotImplementedException();
         }

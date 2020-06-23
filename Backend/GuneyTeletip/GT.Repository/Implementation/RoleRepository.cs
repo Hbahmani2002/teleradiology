@@ -19,14 +19,11 @@ namespace GT.Repository.Implementation
 
         }
 
-        public override UsrRole GetByID(int id)
-        {
-            throw new NotImplementedException();
-        }
-        public UsrRole GetByID(long id)
+        public override UsrRole GetByID(long id)
         {
             return Single(o => o.Pk == id);
         }
+
         public IQueryable<RoleViewModel> Query(RolConditionFilter r)
         {
             var exp = RolCondition.Get(r);

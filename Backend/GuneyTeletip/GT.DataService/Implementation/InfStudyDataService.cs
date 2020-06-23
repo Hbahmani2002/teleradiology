@@ -296,7 +296,7 @@ namespace GT.DataService.Implementation
             return kosDurumIstCompositeRepository.Query().ToList();
         }
 
-        public long UpdateKosDurum(int kosStudyID, int kosEnumID)
+        public long UpdateKosDurum(long kosStudyID, int kosEnumID)
         {
             var kosStudyHistory = new KosStudyHistory();
             kosStudyHistory.EnumType = kosEnumID;

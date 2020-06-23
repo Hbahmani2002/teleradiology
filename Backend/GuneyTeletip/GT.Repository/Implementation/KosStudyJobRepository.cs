@@ -15,7 +15,7 @@ namespace GT.Repository.Implementation
 
         }
 
-        public override KosStudyJob GetByID(int id)
+        public override KosStudyJob GetByID(long id)
         {
             return Single(o => o.Pk==id);
         }

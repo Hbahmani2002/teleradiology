@@ -68,7 +68,7 @@ namespace GT.DataService.Implementation
             _Workspace.CommitChanges();
             return kosStudyJob.Pk;
         }
-        public long UpdateAndClose(int id,DateTime? bitTar)
+        public long UpdateAndClose(long id,DateTime? bitTar)
         {
             var kosStudyJob = kosStudyJobRepository.GetByID(id);
             kosStudyJob.TimeStop = bitTar;

@@ -21,7 +21,7 @@ namespace GT.Repository.Implementation
 
         }
 
-        public override KosStudy GetByID(int id)
+        public override KosStudy GetByID(long id)
         {
             return Single(o => o.Pk == id);
         }

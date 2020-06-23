@@ -14,7 +14,7 @@ namespace GT.Repository.Implementation
 
         }
 
-        public override AppLog GetByID(int id)
+        public override AppLog GetByID(long id)
         {
             throw new NotImplementedException();
         }
