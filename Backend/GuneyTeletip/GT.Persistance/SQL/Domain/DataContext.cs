@@ -324,6 +324,10 @@
                     .HasColumnName("desc3")
                     .HasMaxLength(64);
 
+                entity.Property(e => e.DicomPhat)
+                    .HasColumnName("dicom_phat")
+                    .HasMaxLength(2048);
+
                 entity.Property(e => e.FileName)
                     .HasColumnName("file_name")
                     .HasMaxLength(256);
@@ -1447,7 +1451,7 @@
                     .HasColumnName("username");
             });
 
-           // OnModelCreatingPartial(modelBuilder);
+          //  OnModelCreatingPartial(modelBuilder);
         }
     }
 }

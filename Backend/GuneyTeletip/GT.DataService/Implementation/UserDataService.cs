@@ -173,6 +173,7 @@ namespace GT.DataService.Implementation
 
         public List<TenantViewModel> GetTenantList()
         {
+            var user = userRoleRepository.GetByID(Context.UserInfo.UserIDCurrent);
             var t = new TenantConditionFilter
             {
 
