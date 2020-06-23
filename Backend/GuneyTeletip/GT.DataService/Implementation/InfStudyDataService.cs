@@ -62,7 +62,7 @@ namespace GT.DataService.Implementation
             {
 
 
-                KosStudy.FkTenant = item.FkTenant;
+                KosStudy.FkTenant = item.FkTenant.Value;
                 KosStudy.FkInfBatch = KosBatch.Pk;
                 KosStudy.FkUserCreated = null;
                 KosStudy.FkUserModfiead =null;
@@ -94,7 +94,7 @@ namespace GT.DataService.Implementation
                 KosStudy.ValumeStat = item.ValumeStat;
                 KosStudy.ValumePathname = item.ValumePathname;
                 KosStudy.CreationDttm = DateTime.Now;
-                KosStudy.OracleStudyKey = item.OracleStudyKey;
+                KosStudy.OracleStudyKey = item.OracleStudyKey.Value;
                 KosStudy.FkKosEnumType = 10;
 
                 _InfStudyRepository.Add(KosStudy);

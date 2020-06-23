@@ -7,6 +7,7 @@ namespace GT.Persistance.Domain.Models
     {
         public UsrTenant()
         {
+            KosStudy = new HashSet<KosStudy>();
             UsrTenantSkrs = new HashSet<UsrTenantSkrs>();
         }
 
@@ -19,6 +20,7 @@ namespace GT.Persistance.Domain.Models
         public long? FkUserCreated { get; set; }
         public long? FkUserModified { get; set; }
 
+        public virtual ICollection<KosStudy> KosStudy { get; set; }
         public virtual ICollection<UsrTenantSkrs> UsrTenantSkrs { get; set; }
     }
 }
