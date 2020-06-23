@@ -270,13 +270,11 @@ namespace GT.Persistance.Domain.Models
             modelBuilder.Entity<KosStudy>(entity =>
             {
                 entity.HasKey(e => e.Pk)
-                    .HasName("inf_study_pkey");
+                    .HasName("kos_study_pkey");
 
                 entity.ToTable("kos_study");
 
-                entity.Property(e => e.Pk)
-                    .HasColumnName("pk")
-                    .HasDefaultValueSql("nextval('inf_study_pk_seq'::regclass)");
+                entity.Property(e => e.Pk).HasColumnName("pk");
 
                 entity.Property(e => e.AccessionNo)
                     .HasColumnName("accession_no")
@@ -306,27 +304,21 @@ namespace GT.Persistance.Domain.Models
                     .HasColumnName("file_name")
                     .HasMaxLength(256);
 
-                entity.Property(e => e.FkInfBatch)
-                    .HasColumnName("fk_inf_batch")
-                    .HasDefaultValueSql("nextval('inf_study_inf_fk_batch_seq'::regclass)");
+                entity.Property(e => e.FkInfBatch).HasColumnName("fk_inf_batch");
 
                 entity.Property(e => e.FkKosEnumType).HasColumnName("fk_kos_enum_type");
 
-                entity.Property(e => e.FkTenant)
-                    .HasColumnName("fk_tenant")
-                    .HasDefaultValueSql("nextval('inf_study_tenant_fk_seq'::regclass)");
+                entity.Property(e => e.FkTenant).HasColumnName("fk_tenant");
 
-                entity.Property(e => e.FkUserCreated)
-                    .HasColumnName("fk_user_created")
-                    .HasDefaultValueSql("nextval('inf_study_user_fk_seq'::regclass)");
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
 
-                entity.Property(e => e.FkUserModfiead)
-                    .HasColumnName("fk_user_modfiead")
-                    .HasDefaultValueSql("nextval('inf_study_user_fk_last_modfiead_seq'::regclass)");
+                entity.Property(e => e.FkUserModfiead).HasColumnName("fk_user_modfiead");
 
                 entity.Property(e => e.Gender)
                     .HasColumnName("gender")
                     .HasMaxLength(8);
+
+                entity.Property(e => e.InfMergeKey).HasColumnName("inf_merge_key");
 
                 entity.Property(e => e.InstanceCount).HasColumnName("instance_count");
 
@@ -355,6 +347,10 @@ namespace GT.Persistance.Domain.Models
                     .HasMaxLength(80);
 
                 entity.Property(e => e.SeriesCount).HasColumnName("series_count");
+
+                entity.Property(e => e.SeriesInfo)
+                    .HasColumnName("series_info")
+                    .HasMaxLength(128);
 
                 entity.Property(e => e.SeriesKey).HasColumnName("series_key");
 
@@ -392,10 +388,7 @@ namespace GT.Persistance.Domain.Models
                     .HasColumnName("valume_type")
                     .HasMaxLength(2);
 
-                entity.HasOne(d => d.FkInfBatchNavigation)
-                    .WithMany(p => p.KosStudy)
-                    .HasForeignKey(d => d.FkInfBatch)
-                    .HasConstraintName("	inf_fk_study_fk_inf_batch");
+                entity.Property(e => e.ZeroImg).HasColumnName("zero_img");
             });
 
             modelBuilder.Entity<KosStudyHistory>(entity =>

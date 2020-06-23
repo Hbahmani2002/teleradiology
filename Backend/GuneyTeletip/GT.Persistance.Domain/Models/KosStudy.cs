@@ -6,10 +6,11 @@ namespace GT.Persistance.Domain.Models
     public partial class KosStudy
     {
         public long Pk { get; set; }
-        public long? FkTenant { get; set; }
-        public long? FkInfBatch { get; set; }
+        public long FkTenant { get; set; }
+        public long FkInfBatch { get; set; }
         public long? FkUserCreated { get; set; }
         public long? FkUserModfiead { get; set; }
+        public long? InfMergeKey { get; set; }
         public string PatientId { get; set; }
         public string Gender { get; set; }
         public string StudyDescription { get; set; }
@@ -17,6 +18,8 @@ namespace GT.Persistance.Domain.Models
         public string Modality { get; set; }
         public string AccessionNo { get; set; }
         public string StudyInstanceuid { get; set; }
+        public string SeriesInfo { get; set; }
+        public int? ZeroImg { get; set; }
         public int? InstanceCount { get; set; }
         public DateTime? DateBirth { get; set; }
         public DateTime? StudyDate { get; set; }
@@ -40,7 +43,5 @@ namespace GT.Persistance.Domain.Models
         public DateTime? CreationDttm { get; set; }
         public decimal? OracleStudyKey { get; set; }
         public long? FkKosEnumType { get; set; }
-
-        public virtual KosBatch FkInfBatchNavigation { get; set; }
     }
 }

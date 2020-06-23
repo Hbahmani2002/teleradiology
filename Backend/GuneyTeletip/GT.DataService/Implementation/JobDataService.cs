@@ -1,5 +1,6 @@
 ﻿using Gt.PERSISTANCE;
 using GT.DataService.Model;
+using GT.Persistance.Domain.Models;
 using GT.Repository.Conditions;
 using GT.Repository.Implementation.Composite;
 using GT.Repository.Models.View;
@@ -40,6 +41,12 @@ namespace GT.DataService.Implementation
 
         public int Save(DateTime basTar, DateTime bitTar, string tip, long basariliSayisi, long basarisizSayisi)
         {
+            var kosStudyJob = new KosStudyJob();
+            kosStudyJob.ErrorCount = basarisizSayisi;
+            kosStudyJob.TimeStop = bitTar;
+            kosStudyJob.TimeStart = basTar;
+            kosStudyJob.TimeCreated = DateTime.Now; ;
+            kosStudyJob.SuccessfulCount = basariliSayisi;
             return 1;
         }
     }
