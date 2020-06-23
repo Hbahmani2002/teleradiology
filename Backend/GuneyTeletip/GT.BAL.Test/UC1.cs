@@ -37,7 +37,7 @@ namespace GT.BAL.Test
             var logger = new TextFileLogger(filePath);
             var jobManager = InfJobManager.Create(logger);
             jobManager.Start();
-            Thread.Sleep(10000);
+            Thread.Sleep(100000000);
 
 
 

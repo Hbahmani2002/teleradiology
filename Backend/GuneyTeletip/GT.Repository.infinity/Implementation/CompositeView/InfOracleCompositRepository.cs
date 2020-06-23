@@ -62,6 +62,7 @@ namespace GT.Repository.infinity.Implementation.CompositeView
                                VolumePathname = vol.Pathname,
                                ModifyDttm = stdy.ModifyDttm,
                                CreationDttm = stdy.CreationDttm
+                               
                            };
 
                 return list.ToList();
