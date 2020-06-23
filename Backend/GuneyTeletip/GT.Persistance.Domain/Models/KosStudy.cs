@@ -41,7 +41,7 @@ namespace GT.Persistance.Domain.Models
         public string ValumeStat { get; set; }
         public string ValumePathname { get; set; }
         public DateTime? CreationDttm { get; set; }
-        public long? OracleStudyKey { get; set; }
+        public decimal? OracleStudyKey { get; set; }
         public long? FkKosEnumType { get; set; }
     }
 }

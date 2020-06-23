@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading;
 
 namespace GT.DataService.Implementation
 {
@@ -41,9 +41,104 @@ namespace GT.DataService.Implementation
             kosDurumIstCompositeRepository = new KosDurumIstCompositeRepository(_Workspace);
         }
 
+
+   
+
         public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items)
         {
-            throw new NotImplementedException();
+
+
+       
+
+            var KosBatch = new KosBatch();
+            KosBatch.TimeCreated = DateTime.Now;
+            KosBatch.FkUserCreated = 1;
+
+            _InfBatchRepository.Add(KosBatch);
+            _Workspace.CommitChanges();
+
+            var KosStudy = new KosStudy();
+
+            var list = new List<InfOraclePostgreStudyViewModel>();
+            foreach (InfOraclePostgreStudyViewModel item in items)
+            {
+                
+           
+                KosStudy.FkTenant = item.FkTenant;
+                KosStudy.FkInfBatch = KosBatch.Pk;
+                KosStudy.FkUserCreated = null;
+                KosStudy.FkUserModfiead =null;
+                KosStudy.PatientId = item.PatientId;
+                KosStudy.Gender = item.Gender;
+                KosStudy.StudyDescription = item.StudyDescription;
+                KosStudy.InstitutionName = item.InstitutionName;
+                KosStudy.Modality = item.Modality;
+                KosStudy.AccessionNo = item.AccessionNo;
+                KosStudy.StudyInstanceuid = item.StudyInstanceuid;
+                KosStudy.InstanceCount = 0;
+                KosStudy.DateBirth = DateTime.Now;
+                KosStudy.StudyDate = item.StudyDate;
+                KosStudy.StoragePath = item.StoragePath;
+                KosStudy.PatinetNameSurname = item.PatinetNameSurname;
+                KosStudy.CihazDeviceSerialNumber = "0";
+                KosStudy.Desc1 = "";
+                KosStudy.Desc2 = "";
+                KosStudy.Desc3 = "";
+                KosStudy.TimeCreated = DateTime.Now;
+                KosStudy.TimeModified = DateTime.Now;
+                KosStudy.Institution = "";
+                KosStudy.SeriesCount = 0;
+                KosStudy.SeriesKey = 0;
+                KosStudy.InstanceKey = 0;
+                KosStudy.FileName = item.FileName;
+                KosStudy.ValumeCode = item.ValumeCode;
+                KosStudy.ValumeType = item.ValumeType;
+                KosStudy.ValumeStat = item.ValumeStat;
+                KosStudy.ValumePathname = item.ValumePathname;
+                KosStudy.CreationDttm = DateTime.Now;
+                KosStudy.OracleStudyKey = item.OracleStudyKey;
+                KosStudy.FkKosEnumType = 10;
+
+                _InfStudyRepository.Add(KosStudy);
+              
+                _Workspace.CommitChanges();
+                Thread.Sleep(100);
+            }
+
+       
+          
+
+
+
+        }
+
+
+
+
+        public int Save_Update(string tenatID)
+        {
+            //var InfStudyParameter = new InfStudyParameterRepository();
+            //if (tenatID == null)
+            //{
+               
+          
+            //    userLogin = userLoginRepository.GetByID(model.ID.Value);
+            //    if (model.ID == null)
+            //    {
+            //        throw new Exception("User bulunamadı. UserID:" + model.ID);
+            //    }
+            //    userLogin.TimeModified = DateTime.Now;
+            //    userLogin.FkUserModified = Context.UserInfo.UserIDCurrent;
+            //    userLoginRepository.Update(userLogin);
+            //}
+            //userLogin.EmailAdress = model.EmailAdress;
+            //userLogin.Name = model.Name;
+            //userLogin.Password = model.Password;
+            //userLogin.Surname = model.Surname;
+            //userLogin.UserName = model.UserName;
+            //userLogin.RecordStatus = model.RecordState;
+            //_Workspace.CommitChanges();
+            return 1;
         }
 
         public IEnumerable<KosStudyParameter> GetTimerParameters(InfStudyParameterConditionFilter filter)

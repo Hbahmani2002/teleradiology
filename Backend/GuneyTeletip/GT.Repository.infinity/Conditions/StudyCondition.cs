@@ -43,6 +43,9 @@ namespace GT.DataService.infinity.Conditions
             {
                 exp = exp.And(o => o.StudyDttm >= filter.StudyStartDate.Value);
             }
+      
+
+
 
             return exp;
         }

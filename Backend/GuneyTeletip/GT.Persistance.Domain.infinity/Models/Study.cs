@@ -11,7 +11,7 @@ namespace GT.Persistance.Domain.infinity.Models
             Series = new HashSet<Series>();
         }
 
-        public decimal StudyKey { get; set; }
+        public decimal? StudyKey { get; set; }
         public decimal? OrderKey { get; set; }
         public decimal? MergeKey { get; set; }
         public string PatientId { get; set; }

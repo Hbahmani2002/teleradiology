@@ -63,7 +63,14 @@ namespace GT.Job.Implementation
             logger.LogInfo("Jobs OK");
         }
 
-        private void RegisterJobs(KosStudyParameter item)
+
+        public void Stop()
+        {
+            JobItems.ToList().ForEach(o => o.Value.Stop());
+
+
+        }
+            private void RegisterJobs(KosStudyParameter item)
         {
             Register(item.Name, item.IntervalMinute.Value * 60 * 1000, () =>
                 {
@@ -72,6 +79,8 @@ namespace GT.Job.Implementation
                     try
                     {
                         ActionFunction(item);
+                      
+
                     }
                     catch (Exception ex2)
                     {
@@ -95,7 +104,7 @@ namespace GT.Job.Implementation
         {
 
 
-            var dt = new InfinityDataSyncronizer();
+            var dt = new InfinityDataSyncronizer(null);
             dt.SyncronizeInfinityStudyList(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
 
 
