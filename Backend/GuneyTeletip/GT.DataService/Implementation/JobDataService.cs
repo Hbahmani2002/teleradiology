@@ -26,7 +26,7 @@ namespace GT.DataService.Implementation
             enumTypeJobRepository = new EnumTypeJobRepository(_Workspace);
             kosStudyJobRepository = new KosStudyJobRepository(_Workspace);
         }
-
+      
         public PagingResult<JobViewmodel> GetJobList(Gridable<JobViewFilter> parms)
         {
             if (parms == null)
