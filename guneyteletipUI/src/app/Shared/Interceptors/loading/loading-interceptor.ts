@@ -4,9 +4,10 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpEvent,
+  HttpErrorResponse,
  } from '@angular/common/http';
-import { finalize } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { finalize, retry, catchError } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 import { NgxSpinnerService } from "ngx-spinner";
 
   
@@ -20,7 +21,8 @@ export class LoadingInterceptor implements HttpInterceptor {
         //console.log('http intercepted');
         this.spinnerservice.show();
 
-        return next.handle(req).pipe(
+      return next.handle(req).pipe(
+          
             finalize(() => {
                 this.totalRequests--;
                 if (this.totalRequests === 0) {

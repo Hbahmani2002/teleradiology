@@ -13,12 +13,13 @@
       <thead>
         <tr>
           <th scope="col" class="p-0">
-            <input type="checkbox" (click)="gridJobs.selectAll($event)">
+            <input type="checkbox" (click)="gridJobs.onSelectAll($event)">
           </th>
-          <th scope="col" class="p-0">Hasta No<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0">Hasta İsmi<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0">Accession No<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0">Modalite<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0">Tip<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0">Başlangıç Tarihi<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0">Bitiş Tarihi<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0">Başarılı Sayısı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0">Başarısız Sayısı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
         </tr>
       </thead>
       <tbody>
@@ -27,10 +28,11 @@
             <input type="checkbox" class="" [checked]="gridJobs.isSelected(item)"
                    (change)="gridJobs.onSelectItem(item)">
           </td>
-          <!--<td class="p-0">{{item.hastaNo}}</td>
-  <td class="p-0">{{item.patientName}}</td>
-  <td class="p-0">{{item.accessionNumber}}</td>
-  <td class="p-0">{{item.modality}}</td>-->
+          <td class="p-0">{{item.tip}}</td>
+          <td class="p-0">{{item.basTarih}}</td>
+          <td class="p-0">{{item.bitTarih}}</td>
+          <td class="p-0">{{item.basariliSayisi}}</td>
+          <td class="p-0">{{item.basarisizSayisi}}</td>
         </tr>
       </tbody>
     </table>
