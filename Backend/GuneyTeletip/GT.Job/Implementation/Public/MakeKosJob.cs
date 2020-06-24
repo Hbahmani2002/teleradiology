@@ -48,7 +48,7 @@ namespace GT.Job.Implementation
         }
 
         public void DoSingleBatch(System.Threading.CancellationTokenSource cancelToken)
-        {
+        {  
             var jobId = JobDataService.Save(DateTime.Now, "1");
             var items = StudyDataService.GetMakeKosList(Settings.ItemPerJob);
 

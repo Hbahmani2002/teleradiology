@@ -31,12 +31,12 @@ namespace GT.Repository.infinity.Implementation.CompositeView
                 var infvolume = _AbstractWorkspace.Query<Volume>();
                 var infimage = _AbstractWorkspace.Query<Image>();
 
-                var list = from stdy in infstudy
-                           let seri = infseries.Where(o =>o.StudyKey==stdy.StudyKey).FirstOrDefault()                       
-                           let ins = infinstance.Where(o => o.StudyKey == stdy.StudyKey).FirstOrDefault()
-                           let insloc = infinstanceLoc.Where(o => o.InstanceKey == ins.InstanceKey).FirstOrDefault()
-                           let vol = infvolume.Where(o => o.VolumeCode == insloc.VolumeCode).FirstOrDefault()
-                           let img = infimage.Where(o => o.InstanceKey == insloc.InstanceKey).FirstOrDefault()
+            var list = from stdy in infstudy
+                       let seri = infseries.Where(o => o.StudyKey == stdy.StudyKey).ToList()                     
+                           //let ins = infinstance.Where(o => o.StudyKey == stdy.StudyKey).FirstOrDefault()
+                           //let insloc = infinstanceLoc.Where(o => o.InstanceKey == ins.InstanceKey).FirstOrDefault()
+                           //let vol = infvolume.Where(o => o.VolumeCode == insloc.VolumeCode).FirstOrDefault()
+                           //let img = infimage.Where(o => o.InstanceKey == insloc.InstanceKey).FirstOrDefault()
 
                            //join seri in infseries on stdy.StudyKey equals seri.StudyKey
                            //join ins in infinstance on seri.SeriesKey equals ins.SeriesKey
@@ -54,28 +54,26 @@ namespace GT.Repository.infinity.Implementation.CompositeView
                                StudyInstanceUid = stdy.StudyInstanceUid,
                                StudyDttm = stdy.StudyDttm,
                                AccessNo = stdy.AccessNo,
-                               Institution = stdy.Institution,
-                               SeriesCount = stdy.SeriesCount,
-                               InstanceCount = stdy.InstanceCount,
-                               Modalities = stdy.Modalities,
-                               Pathname = insloc.Pathname,
-                               Filename = insloc.Filename,
-                               VolumeCode = vol.VolumeCode,
-                               VolumeType = vol.VolumeType,
-                               VolumeStat = vol.VolumeStat,
-                               VolumePathname = vol.Pathname,
-                               ModifyDttm = stdy.ModifyDttm,
-                               CreationDttm = stdy.CreationDttm,
-                               StudyDesc = stdy.StudyDesc,
-                               InfMergeKey = stdy.MergeKey,
-                               SeriesInfo = seri.SeriesInfo
+                               //Institution = stdy.Institution,
+                               //SeriesCount = stdy.SeriesCount,
+                               //InstanceCount = stdy.InstanceCount,
+                               //Modalities = stdy.Modalities,
+                               //Pathname = insloc.Pathname,
+                               //Filename = insloc.Filename,
+                               //VolumeCode = vol.VolumeCode,
+                               //VolumeType = vol.VolumeType,
+                               //VolumeStat = vol.VolumeStat,
+                               //VolumePathname = vol.Pathname,
+                               //ModifyDttm = stdy.ModifyDttm,
+                               //CreationDttm = stdy.CreationDttm,
+                               //StudyDesc = stdy.StudyDesc,
+                               //InfMergeKey = stdy.MergeKey,
+                               //SeriesInfo = seri.SeriesInfo
 
-      
+                           };
 
 
-    };
-
-                return list.ToList();
+                            return list.ToList();
 
         
 
