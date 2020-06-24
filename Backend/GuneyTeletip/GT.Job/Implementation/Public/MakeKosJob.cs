@@ -48,8 +48,8 @@ namespace GT.Job.Implementation
         }
 
         public void DoSingleBatch(System.Threading.CancellationTokenSource cancelToken)
-        {  
-            var jobId = JobDataService.Save(DateTime.Now, "1");
+        {
+            var jobId = JobDataService.Save(DateTime.Now, JobDataService.JopEnumType.MakeKos);
             var items = StudyDataService.GetMakeKosList(Settings.ItemPerJob);
 
             Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, o =>
@@ -58,9 +58,9 @@ namespace GT.Job.Implementation
                 {
                     return;
                 }
-                var outputPath = KosOutFileNameGenerator.GetFilePath(o.ID);
-                TeletipMakeKosService.MakeKos(o.DicomDirPath, outputPath);
-                StudyDataService.UpdateKosDurum(o.ID, 20);
+                var outputPath = KosOutFileNameGenerator.GetFilePath(o.StudyID);
+                TeletipMakeKosService.MakeKos(o.InputStudyDirectoryPath, outputPath);
+                StudyDataService.UpdateKosDurum(o.StudyID, 20);
             });
 
             JobDataService.UpdateAndClose(jobId, DateTime.Now);
