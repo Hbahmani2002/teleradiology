@@ -14,7 +14,7 @@ namespace GT.Repository.Implementation
 
         }
 
-        public override KosEnumtype GetByID(int id)
+        public override KosEnumtype GetByID(long id)
         {
             throw new NotImplementedException();
         }

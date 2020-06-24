@@ -1,12 +1,31 @@
-﻿using GT.TeletipKos.Model;
+﻿using GT.Core.Settings;
+using GT.TeletipKos.Model;
 using System;
 using Util.ProcessUtil;
 
 namespace GT.TeletipKos
 {
-    public class TeletipKosServiceSettings
+    public class TeletipKosServiceSetting
     {
-        public TeletipKosServiceSettings(MakeKosServiceSettings makeKosSettings, SendKosServiceSettings sendKosSettings)
+        private static TeletipKosServiceSetting _TeletipKosServiceSetting;
+        public static TeletipKosServiceSetting GetCurrent()
+        {
+            if (_TeletipKosServiceSetting == null)
+            {
+
+                var settings = AppSettings.GetCurrent();
+                var makeKosSettings = settings.Kos.Make;
+                var sendKosSettings = settings.Kos.Send;
+
+                var var = new TeletipKosServiceSetting(
+                   new TeletipKosServiceSetting.MakeKosServiceSettings(makeKosSettings.AppFilePath, makeKosSettings.LocationUID, makeKosSettings.Title, makeKosSettings.TempDirectoryPath + "/", makeKosSettings.DCM4CheeDirectoryPath),
+                   new TeletipKosServiceSetting.SendKosServiceSettings(sendKosSettings.AppFilePath, sendKosSettings.ServiceAddress_BETA_URL, sendKosSettings.AxisRepoDirectoryPath, sendKosSettings.AxisXmlFilePath)
+               );
+                _TeletipKosServiceSetting = var;
+            }
+            return _TeletipKosServiceSetting;
+        }
+        public TeletipKosServiceSetting(MakeKosServiceSettings makeKosSettings, SendKosServiceSettings sendKosSettings)
         {
             MakeKosSettings = makeKosSettings;
             SendKosSettings = sendKosSettings;

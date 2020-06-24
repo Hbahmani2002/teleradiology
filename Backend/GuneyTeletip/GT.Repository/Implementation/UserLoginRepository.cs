@@ -18,13 +18,9 @@ namespace GT.Repository.Implementation
 
         }
 
-        public override UsrUserLogin GetByID(int id)
-        {
-            throw new NotImplementedException();
-        }
-        public UsrUserLogin GetByID(long id)
+        public override UsrUserLogin GetByID(long id)
         {
             return Single(o => o.Pk == id);
-        }
+        }       
     }
 }

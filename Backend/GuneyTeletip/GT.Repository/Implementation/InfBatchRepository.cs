@@ -14,7 +14,7 @@ namespace GT.Repository.Implementation
 
         }
 
-        public override KosBatch GetByID(int id)
+        public override KosBatch GetByID(long id)
         {
             throw new NotImplementedException();
         }

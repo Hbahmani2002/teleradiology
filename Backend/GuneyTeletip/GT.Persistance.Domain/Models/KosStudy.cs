@@ -6,10 +6,11 @@ namespace GT.Persistance.Domain.Models
     public partial class KosStudy
     {
         public long Pk { get; set; }
-        public long? FkTenant { get; set; }
-        public long? FkInfBatch { get; set; }
+        public long FkTenant { get; set; }
+        public long FkInfBatch { get; set; }
         public long? FkUserCreated { get; set; }
-        public long? FkUserModfiead { get; set; }
+        public long? FkUserModified { get; set; }
+        public long? InfMergeKey { get; set; }
         public string PatientId { get; set; }
         public string Gender { get; set; }
         public string StudyDescription { get; set; }
@@ -17,6 +18,8 @@ namespace GT.Persistance.Domain.Models
         public string Modality { get; set; }
         public string AccessionNo { get; set; }
         public string StudyInstanceuid { get; set; }
+        public string SeriesInfo { get; set; }
+        public int? ZeroImg { get; set; }
         public int? InstanceCount { get; set; }
         public DateTime? DateBirth { get; set; }
         public DateTime? StudyDate { get; set; }
@@ -33,14 +36,16 @@ namespace GT.Persistance.Domain.Models
         public long? SeriesKey { get; set; }
         public long? InstanceKey { get; set; }
         public string FileName { get; set; }
-        public string ValumeCode { get; set; }
-        public string ValumeType { get; set; }
-        public string ValumeStat { get; set; }
-        public string ValumePathname { get; set; }
+        public string VolumeCode { get; set; }
+        public string VolumeType { get; set; }
+        public string VolumeStat { get; set; }
+        public string VolumePathname { get; set; }
         public DateTime? CreationDttm { get; set; }
-        public long? OracleStudyKey { get; set; }
+        public decimal? OracleStudyKey { get; set; }
         public long? FkKosEnumType { get; set; }
+        public string DicomDirPath { get; set; }
 
         public virtual KosBatch FkInfBatchNavigation { get; set; }
+        public virtual UsrTenant FkTenantNavigation { get; set; }
     }
 }

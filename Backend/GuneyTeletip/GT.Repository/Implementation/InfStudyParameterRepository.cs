@@ -15,10 +15,20 @@ namespace GT.Repository.Implementation
 
         }
 
-        public override KosStudyParameter GetByID(int id)
+        public override KosStudyParameter GetByID(long id)
         {
             throw new NotImplementedException();
         }
+
+
+
+
+
+        public  KosStudyParameter GetByTenatID(long tenatID)
+        {
+            return Single(o => o.FkTenant == tenatID && o.RecordStatus == 1);
+        }
+
 
         public IEnumerable<KosStudyParameter> Query(InfStudyParameterConditionFilter filter)
         {

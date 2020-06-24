@@ -6,9 +6,9 @@ namespace GT.DataService.Model
 {
     public class JobViewFilter
     {
-        public long[] JOBIDList { get; set; }
+        public long[] JobIDList { get; set; }
         public DateTime? BasTarih { get; set; }
         public DateTime? BitTarih { get; set; }
-        public long EnumType { get; set; }
+        public string EnumType { get; set; }
     }
 }

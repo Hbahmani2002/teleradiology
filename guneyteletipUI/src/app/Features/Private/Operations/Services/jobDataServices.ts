@@ -13,7 +13,4 @@ export class jobDataServices {
   public getJobList(model: Grid.GridInputModel<jobViewFilter>): Observable<Grid.GridOutputModel<jobViewmodel>> {
     return this.apiDataService.callDataService('job/GetJobList', model);
   }
-  public save(model: saveJobModel): Observable<number> {
-    return this.apiDataService.callDataService('Job/Save', model);
-  }
 }

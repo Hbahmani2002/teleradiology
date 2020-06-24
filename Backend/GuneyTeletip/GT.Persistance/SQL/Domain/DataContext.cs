@@ -1,6 +1,7 @@
 ﻿namespace GT.PERSISTANCE.DOMAIN.Models
 {
     using Gt.PERSISTANCE;
+    using GT.Core.Settings;
     using GT.Persistance.Domain.Models;
     using GT.PERSISTANCE.Data.SQL;
     using Microsoft.EntityFrameworkCore;
@@ -19,32 +20,32 @@
             {
                 builder.AddDebug();
             });
-
+        public bool IsLogging { get; set; }
         public GTDataContext()
             : base("name=DataContext")
         {
         }
-        public GTDataContext(bool autoDetectChangesEnabled, bool proxyCreationEnabled = true, bool lazyLoadingEnabled = true, bool validateOnSaveEnabled = true, Action<string> logAction = null)
+        public GTDataContext(bool autoDetectChangesEnabled, bool proxyCreationEnabled = true, bool lazyLoadingEnabled = true, bool validateOnSaveEnabled = true, bool logging = false)
            : base($"name={LocalSettings.AppName}")
         {
+            IsLogging = logging;
             //Database.SetInitializer<DataContext>(null);
             //Configuration.ProxyCreationEnabled = proxyCreationEnabled;
             //Configuration.AutoDetectChangesEnabled = autoDetectChangesEnabled;
             //Configuration.LazyLoadingEnabled = lazyLoadingEnabled;
             //Configuration.ValidateOnSaveEnabled = validateOnSaveEnabled;
-            //if (logAction != null)
-            //{
-            //    Database.Log = logAction;
-            //}
+
         }
         public virtual DbSet<AppLog> AppLog { get; set; }
         public virtual DbSet<AppParameter> AppParameter { get; set; }
         public virtual DbSet<ConstModality> ConstModality { get; set; }
         public virtual DbSet<ConstSkrs> ConstSkrs { get; set; }
+        public virtual DbSet<JobEnumtype> JobEnumtype { get; set; }
         public virtual DbSet<KosBatch> KosBatch { get; set; }
         public virtual DbSet<KosEnumtype> KosEnumtype { get; set; }
         public virtual DbSet<KosStudy> KosStudy { get; set; }
         public virtual DbSet<KosStudyHistory> KosStudyHistory { get; set; }
+        public virtual DbSet<KosStudyJob> KosStudyJob { get; set; }
         public virtual DbSet<KosStudyParameter> KosStudyParameter { get; set; }
         public virtual DbSet<UsrRole> UsrRole { get; set; }
         public virtual DbSet<UsrTenant> UsrTenant { get; set; }
@@ -64,12 +65,16 @@
         public virtual DbSet<XxxSkrsKurumKodlari> XxxSkrsKurumKodlari { get; set; }
         public virtual DbSet<YyyInfPaht> YyyInfPaht { get; set; }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+                if (IsLogging)
+                    optionsBuilder.UseLoggerFactory(consoleLoggerFactory);
+                var connectionString=AppSettings.GetCurrent().DatabaseConnection.StudyPostgreConnectionString;
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002");
+                optionsBuilder.UseNpgsql(connectionString);
             }
         }
 
@@ -88,15 +93,15 @@
 
                 entity.Property(e => e.Desc1)
                     .HasColumnName("desc1")
-                    .HasMaxLength(2048);
+                    .HasMaxLength(4000);
 
                 entity.Property(e => e.Desc2)
                     .HasColumnName("desc2")
-                    .HasMaxLength(2048);
+                    .HasMaxLength(4000);
 
                 entity.Property(e => e.Desc3)
                     .HasColumnName("desc3")
-                    .HasMaxLength(2048);
+                    .HasMaxLength(4000);
 
                 entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
 
@@ -215,6 +220,34 @@
                 entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
+            modelBuilder.Entity<JobEnumtype>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("enum_type_pkey");
+
+                entity.ToTable("job_enumtype");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasColumnType("character varying");
+
+                entity.Property(e => e.TimeCreated)
+                    .HasColumnName("time_created")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.TimeModified)
+                    .HasColumnName("time_modified")
+                    .HasColumnType("date");
+            });
+
             modelBuilder.Entity<KosBatch>(entity =>
             {
                 entity.HasKey(e => e.Pk)
@@ -262,13 +295,11 @@
             modelBuilder.Entity<KosStudy>(entity =>
             {
                 entity.HasKey(e => e.Pk)
-                    .HasName("inf_study_pkey");
+                    .HasName("kos_study_pkey");
 
                 entity.ToTable("kos_study");
 
-                entity.Property(e => e.Pk)
-                    .HasColumnName("pk")
-                    .HasDefaultValueSql("nextval('inf_study_pk_seq'::regclass)");
+                entity.Property(e => e.Pk).HasColumnName("pk");
 
                 entity.Property(e => e.AccessionNo)
                     .HasColumnName("accession_no")
@@ -294,31 +325,29 @@
                     .HasColumnName("desc3")
                     .HasMaxLength(64);
 
+                entity.Property(e => e.DicomDirPath)
+                    .HasColumnName("dicom_dir_path")
+                    .HasMaxLength(2048);
+
                 entity.Property(e => e.FileName)
                     .HasColumnName("file_name")
                     .HasMaxLength(256);
 
-                entity.Property(e => e.FkInfBatch)
-                    .HasColumnName("fk_inf_batch")
-                    .HasDefaultValueSql("nextval('inf_study_inf_fk_batch_seq'::regclass)");
+                entity.Property(e => e.FkInfBatch).HasColumnName("fk_inf_batch");
 
                 entity.Property(e => e.FkKosEnumType).HasColumnName("fk_kos_enum_type");
 
-                entity.Property(e => e.FkTenant)
-                    .HasColumnName("fk_tenant")
-                    .HasDefaultValueSql("nextval('inf_study_tenant_fk_seq'::regclass)");
+                entity.Property(e => e.FkTenant).HasColumnName("fk_tenant");
 
-                entity.Property(e => e.FkUserCreated)
-                    .HasColumnName("fk_user_created")
-                    .HasDefaultValueSql("nextval('inf_study_user_fk_seq'::regclass)");
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
 
-                entity.Property(e => e.FkUserModfiead)
-                    .HasColumnName("fk_user_modfiead")
-                    .HasDefaultValueSql("nextval('inf_study_user_fk_last_modfiead_seq'::regclass)");
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
 
                 entity.Property(e => e.Gender)
                     .HasColumnName("gender")
                     .HasMaxLength(8);
+
+                entity.Property(e => e.InfMergeKey).HasColumnName("inf_merge_key");
 
                 entity.Property(e => e.InstanceCount).HasColumnName("instance_count");
 
@@ -348,6 +377,10 @@
 
                 entity.Property(e => e.SeriesCount).HasColumnName("series_count");
 
+                entity.Property(e => e.SeriesInfo)
+                    .HasColumnName("series_info")
+                    .HasMaxLength(128);
+
                 entity.Property(e => e.SeriesKey).HasColumnName("series_key");
 
                 entity.Property(e => e.StoragePath)
@@ -368,26 +401,35 @@
 
                 entity.Property(e => e.TimeModified).HasColumnName("time_modified");
 
-                entity.Property(e => e.ValumeCode)
-                    .HasColumnName("valume_code")
+                entity.Property(e => e.VolumeCode)
+                    .HasColumnName("volume_code")
                     .HasMaxLength(4);
 
-                entity.Property(e => e.ValumePathname)
-                    .HasColumnName("valume_pathname")
+                entity.Property(e => e.VolumePathname)
+                    .HasColumnName("volume_pathname")
                     .HasMaxLength(64);
 
-                entity.Property(e => e.ValumeStat)
-                    .HasColumnName("valume_stat")
+                entity.Property(e => e.VolumeStat)
+                    .HasColumnName("volume_stat")
                     .HasMaxLength(2);
 
-                entity.Property(e => e.ValumeType)
-                    .HasColumnName("valume_type")
+                entity.Property(e => e.VolumeType)
+                    .HasColumnName("volume_type")
                     .HasMaxLength(2);
+
+                entity.Property(e => e.ZeroImg).HasColumnName("zero_img");
 
                 entity.HasOne(d => d.FkInfBatchNavigation)
                     .WithMany(p => p.KosStudy)
                     .HasForeignKey(d => d.FkInfBatch)
-                    .HasConstraintName("	inf_fk_study_fk_inf_batch");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_inf_batch");
+
+                entity.HasOne(d => d.FkTenantNavigation)
+                    .WithMany(p => p.KosStudy)
+                    .HasForeignKey(d => d.FkTenant)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_tenat");
             });
 
             modelBuilder.Entity<KosStudyHistory>(entity =>
@@ -418,10 +460,42 @@
                 entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
+            modelBuilder.Entity<KosStudyJob>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("kos_study_job_pkey");
+
+                entity.ToTable("kos_study_job");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.ErrorCount).HasColumnName("error_count");
+
+                entity.Property(e => e.FkJobEnumType).HasColumnName("fk_job_enum_type");
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.RecordStatus).HasColumnName("record_status");
+
+                entity.Property(e => e.SuccessfulCount).HasColumnName("successful_count");
+
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
+
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
+
+                entity.Property(e => e.TimeStart).HasColumnName("time_start");
+
+                entity.Property(e => e.TimeStop).HasColumnName("time_stop");
+            });
+
             modelBuilder.Entity<KosStudyParameter>(entity =>
             {
                 entity.HasKey(e => e.Pk)
-                    .HasName("inf_study_parameters_pkey");
+                    .HasName("kos_study_parameter_pkey");
 
                 entity.ToTable("kos_study_parameter");
 
@@ -429,9 +503,7 @@
                     .HasName("fk_tenant_uni")
                     .IsUnique();
 
-                entity.Property(e => e.Pk)
-                    .HasColumnName("pk")
-                    .UseIdentityAlwaysColumn();
+                entity.Property(e => e.Pk).HasColumnName("pk");
 
                 entity.Property(e => e.FkTenant).HasColumnName("fk_tenant");
 
@@ -1370,7 +1442,7 @@
                     .HasColumnName("username");
             });
 
-          //  OnModelCreatingPartial(modelBuilder);
+           // OnModelCreatingPartial(modelBuilder);
         }
     }
 }

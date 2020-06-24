@@ -66,7 +66,7 @@ namespace GT.REPOSITORY
 
         }
 
-        public abstract T GetByID(int id);
+        public abstract T GetByID(long id);
 
     }
 }

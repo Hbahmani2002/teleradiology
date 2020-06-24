@@ -6,8 +6,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GT.BAL.Infinity.DataSynronizer\GT.BAL.Infinity.DataSynronizer.csproj" />
+    <ProjectReference Include="..\GT.BAL.TeletipKos\GT.BAL.TeletipKos.csproj" />
     <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
     <ProjectReference Include="..\GT.Repository\GT.Repository.csproj" />
+    <ProjectReference Include="..\KOS.TeletipKos\KOS.TeletipKos.csproj" />
     <ProjectReference Include="..\Util.Job\Util.Job.csproj" />
     <ProjectReference Include="..\Util.Logger\Util.Logger.csproj" />
   </ItemGroup>

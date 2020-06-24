@@ -2,9 +2,11 @@ using GT.Core.Settings;
 using GT.DataService.infinity.Implementation;
 using GT.DataService.infinity.Model;
 using GT.Job.Implementation;
+using GT.Job.Model.AutoJobs;
 using GT.SERVICE;
 using NUnit.Framework;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using Util.Logger;
@@ -26,7 +28,7 @@ namespace GT.BAL.Test
         /// </summary>
         /// 
 
-   
+
         [Test]
         public void UC1()
         {
@@ -37,16 +39,16 @@ namespace GT.BAL.Test
             var logger = new TextFileLogger(filePath);
             var jobManager = InfJobManager.Create(logger);
             jobManager.Start();
-            Thread.Sleep(10000);
+            Thread.Sleep(100000000);
 
 
 
-       
-           
 
 
 
-        }
+
+
+        }        
 
     }
 }

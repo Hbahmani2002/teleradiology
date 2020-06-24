@@ -8,7 +8,7 @@ namespace GT.Repository.infinity.Model.View
     public class InfOracleViewModel
     {
         [DataEntityID]
-        public decimal StudyKey { get; set; }
+        public decimal? StudyKey { get; set; }
         public string PatientId { get; set; }
         public string PatientName { get; set; }
         public string PatientSex { get; set; }
@@ -28,7 +28,10 @@ namespace GT.Repository.infinity.Model.View
         public string VolumePathname { get; set; }
         public DateTime? ModifyDttm { get; set; }
         public DateTime CreationDttm { get; set; }
-
+        public string StudyDesc { get; set; }
+        public long? InfMergeKey { get; set; }
+        public string SeriesInfo { get; set; }
+        public int? ZeroImg { get; set; }
 
 
 

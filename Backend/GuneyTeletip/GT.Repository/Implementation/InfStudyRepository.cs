@@ -21,7 +21,7 @@ namespace GT.Repository.Implementation
 
         }
 
-        public override KosStudy GetByID(int id)
+        public override KosStudy GetByID(long id)
         {
             return Single(o => o.Pk == id);
         }
@@ -69,14 +69,15 @@ namespace GT.Repository.Implementation
                            TimeModified=s.TimeModified,
                            StudyDescription=s.StudyDescription,
                            UserIDCreated=s.FkUserCreated,
-                           UserIDModfiead=s.FkUserModfiead,
+                           UserIDModfiead=s.FkUserModified,
                            TimeCreated=s.TimeCreated,
-                           ValumeCode=s.ValumeCode,
-                           ValumePathname=s.ValumePathname,
-                           ValumeStat=s.ValumeStat,
+                           ValumeCode=s.VolumeCode,
+                           ValumePathname=s.VolumePathname,
+                           ValumeStat=s.VolumeStat,
                            StudyInstanceuid=s.StudyInstanceuid,
-                           ValumeType=s.ValumeType,
-                           StoragePath=s.StoragePath
+                           ValumeType=s.VolumeType,
+                           StoragePath=s.StoragePath,
+                           DicomDirPath=s.DicomDirPath
                        };
 
             return list;

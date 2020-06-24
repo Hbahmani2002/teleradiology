@@ -46,6 +46,7 @@ namespace GT.Repository.Models.View
         public string ValumeStat { get; set; }
         public string ValumePathname { get; set; }
         public DateTime? CreationDttm { get; set; }
-        public long? OracleStudyKey { get; set; }
+        public decimal? OracleStudyKey { get; set; }
+        public string DicomDirPath { get; set; }
     }
 }
