@@ -42,7 +42,7 @@ export class LoginServices {
       }),
       catchError(err => {
         debugger;
-        return of(err);
+        throw err;
       })
       //result is success
     );

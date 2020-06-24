@@ -26,8 +26,8 @@ export class ApiDataService {
         return this.onSuccessData(res);
       }),
       catchError(err => {
-        this.onFail(err);
-        throw "Hata var networke bak..";        
+        //this.onFail(err);
+        throw err;        
       })
     );
     ;

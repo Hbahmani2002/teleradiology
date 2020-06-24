@@ -17,8 +17,19 @@ export class JobsfilterComponent implements OnInit {
   }
   onFilter() {
     let filter = new jobFilter();
+    let jobIdList = [];
     filter.dateRange = this.filterData.dateRange;
-    filter.jobId = this.filterData.jobId;
+    if (this.filterData.jobIdList == "" || this.filterData.jobIdList == undefined) {
+
+    }
+    else {
+      this.filterData.jobIdList.split(" ").forEach(item => {
+        if (item != "") {
+          jobIdList.push(item);
+        }
+      });
+    }
+    filter.jobIdList = jobIdList;
     filter.type = this.filterData.type;
 
     this.filterChanged.emit(filter);
