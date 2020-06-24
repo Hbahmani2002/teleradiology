@@ -33,7 +33,7 @@ namespace GT.Job.Implementation
         }
         public MakeKosJobSetting Settings { get; }
         JobDataService JobDataService { get; }
-        InfStudyDataService StudyDataService { get; }
+        StudyKosDataService StudyDataService { get; }
         TeletipMakeKosService TeletipMakeKosService { get; set; }
 
         public MakeKosJob()
@@ -43,7 +43,7 @@ namespace GT.Job.Implementation
             var makeKosSetting = TeletipKosServiceSetting.GetCurrent().MakeKosSettings;
 
             JobDataService = new JobDataService(null);
-            StudyDataService = new InfStudyDataService(null);
+            StudyDataService = new StudyKosDataService(null);
             TeletipMakeKosService = new TeletipMakeKosService(makeKosSetting);
         }
 

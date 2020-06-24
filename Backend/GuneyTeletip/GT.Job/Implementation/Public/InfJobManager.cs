@@ -38,7 +38,7 @@ namespace GT.Job.Implementation
 
         private IEnumerable<KosStudyParameter> GetJobs()
         {
-            var jobs = new InfStudyDataService(null);
+            var jobs = new StudyKosDataService(null);
             var paramters = jobs.GetTimerParameters(new InfStudyParameterConditionFilter { RecordState = 1 });
             return paramters;
         }

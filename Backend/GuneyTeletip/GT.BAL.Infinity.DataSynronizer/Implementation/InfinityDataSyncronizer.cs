@@ -14,11 +14,11 @@ namespace GT.BAL.Infinity.DataSynronizer
     public class InfinityDataSyncronizer : BaseService
     {
         InfOracleDataService _InfOracleDataService;
-        InfStudyDataService _InfStudyDataService;
+        StudyKosDataService _InfStudyDataService;
         public InfinityDataSyncronizer(IBussinessContext context) : base(context)
         {            
             _InfOracleDataService = new InfOracleDataService(null);
-            _InfStudyDataService = new InfStudyDataService(null);
+            _InfStudyDataService = new StudyKosDataService(null);
 
         }
         public void SyncronizeInfinityStudyList(long tenantID, long lastID, System.DateTime? startTime, System.DateTime? endTime)

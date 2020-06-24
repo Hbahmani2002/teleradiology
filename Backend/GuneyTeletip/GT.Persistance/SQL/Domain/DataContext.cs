@@ -329,6 +329,14 @@
                     .HasColumnName("dicom_dir_path")
                     .HasMaxLength(2048);
 
+                entity.Property(e => e.DicomKosPath)
+                    .HasColumnName("dicom_kos_path")
+                    .HasColumnType("character varying");
+
+                entity.Property(e => e.FailtMakeKosCount).HasColumnName("failt_make_kos_count");
+
+                entity.Property(e => e.FailtSentKosCount).HasColumnName("failt_sent_kos_count");
+
                 entity.Property(e => e.FileName)
                     .HasColumnName("file_name")
                     .HasMaxLength(256);

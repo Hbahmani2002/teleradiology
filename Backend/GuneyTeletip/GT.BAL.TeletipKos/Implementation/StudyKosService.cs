@@ -13,10 +13,10 @@ namespace GT.BAL.TeletipKos
 {
     public class StudyKosService
     {
-        InfStudyDataService _InfStudyDataService;
+        StudyKosDataService _InfStudyDataService;
         public StudyKosService(IBussinessContext context)
         {
-            _InfStudyDataService = new InfStudyDataService(context);
+            _InfStudyDataService = new StudyKosDataService(context);
         }
 
         public MultipleOperationResultModel CreateKos(InfStudyFilter filter)

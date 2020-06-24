@@ -19,7 +19,7 @@ namespace GT.DataService.Implementation
 {
 
 
-    public class InfStudyDataService : BaseService
+    public class StudyKosDataService : BaseService
     {
 
         InfStudyRepository _InfStudyRepository;
@@ -32,15 +32,15 @@ namespace GT.DataService.Implementation
         KosDurumIstCompositeRepository kosDurumIstCompositeRepository;
         MakeKosCompositeRepository makeKosCompositeRepository;
 
-        public InfStudyDataService() : this(null, false)
+        public StudyKosDataService() : this(null, false)
         {
 
         }
-        public InfStudyDataService(IBussinessContext context, bool sqlLogging = false) : this(context, GTWorkspaceFactory.Create(sqlLogging))
+        public StudyKosDataService(IBussinessContext context, bool sqlLogging = false) : this(context, GTWorkspaceFactory.Create(sqlLogging))
         {
 
         }
-        public InfStudyDataService(IBussinessContext context, AbstractWorkspace Workspace) : base(context, Workspace)
+        public StudyKosDataService(IBussinessContext context, AbstractWorkspace Workspace) : base(context, Workspace)
         {
             _InfStudyRepository = new InfStudyRepository(_Workspace);
             tenatCompositeRepository = new TenantCompositeRepository(_Workspace);
@@ -306,21 +306,21 @@ namespace GT.DataService.Implementation
             return kosDurumIstCompositeRepository.Query().ToList();
         }
 
-        public long UpdateKosDurum(long kosStudyID, int kosEnumID)
+        public long Save_UpdateKosDurum(long kosStudyID, KosEnumType kosEnumType, string result)
         {
             var kosStudyHistory = new KosStudyHistory();
-            kosStudyHistory.EnumType = kosEnumID;
+            kosStudyHistory.EnumType = (int)kosEnumType;
             kosStudyHistory.FkKosStudy = kosStudyID;
             kosStudyHistory.FkUserCreated = Context.UserInfo.UserIDCurrent;
             kosStudyHistory.TimeCreated = DateTime.Now;
-            //result ?
+            kosStudyHistory.Result = result;
 
             var kosStudy = _InfStudyRepository.GetByID(kosStudyID);
             if (kosStudy == null)
             {
                 throw new Exception("kosStudy bulunmadı. kosStudyID" + kosStudyID);
             }
-            kosStudy.FkKosEnumType = kosEnumID;
+            kosStudy.FkKosEnumType = (int)kosEnumType;
             _InfStudyRepository.Update(kosStudy);
 
             _Workspace.CommitChanges();
