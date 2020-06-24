@@ -5,6 +5,7 @@ using GT.Repository.Conditions;
 using GT.Repository.Implementation;
 using GT.Repository.Implementation.Composite;
 using GT.Repository.Models.View;
+using GT.Repository.Models.View.Composite;
 using GT.SERVICE;
 using GT.UTILS.GRID;
 using System;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using static GT.Repository.Conditions.InfStudyConditionFilter;
 
 namespace GT.DataService.Implementation
 {
@@ -28,6 +30,7 @@ namespace GT.DataService.Implementation
         KosEnumTypeRepository kosEnumTypeRepository;
         ModalityRepository modalityRepository;
         KosDurumIstCompositeRepository kosDurumIstCompositeRepository;
+        MakeKosCompositeRepository makeKosCompositeRepository;
         public InfStudyDataService(IBussinessContext context) : base(context)
         {
             _Workspace = GTWorkspaceFactory.Create(true);
@@ -39,6 +42,7 @@ namespace GT.DataService.Implementation
             kosEnumTypeRepository = new KosEnumTypeRepository(_Workspace);
             modalityRepository = new ModalityRepository(_Workspace);
             kosDurumIstCompositeRepository = new KosDurumIstCompositeRepository(_Workspace);
+            makeKosCompositeRepository = new MakeKosCompositeRepository(_Workspace);
         }
 
 
@@ -182,10 +186,20 @@ namespace GT.DataService.Implementation
                 BasTarih=parms.Filter.BasTarih,
                 BitTarih=parms.Filter.BitTarih,
                 Modality=parms.Filter.Modalite,
-                TcList=parms.Filter.TCList
+                TcList=parms.Filter.TCList,
+                KosEnum=parms.Filter.KosEnum
             };
             return _InfStudyRepository.Query(s)
                 .GetGridQuery(parms);
+        }
+        public List<MakeKosViewModel> GetMakeKosList(int count)
+        {
+            var s = new InfStudyConditionFilter
+            {
+                KosEnum = KosEnumType.KosOlusmus,
+                KosWaitHour=true
+            };
+            return makeKosCompositeRepository.Query(s).OrderBy(o => o.StudyID).Take(count).ToList();
         }
 
         public void Save(IEnumerable<KosStudy> studies)
@@ -290,7 +304,7 @@ namespace GT.DataService.Implementation
             return kosDurumIstCompositeRepository.Query().ToList();
         }
 
-        public long UpdateKosDurum(int kosStudyID, int kosEnumID)
+        public long UpdateKosDurum(long kosStudyID, int kosEnumID)
         {
             var kosStudyHistory = new KosStudyHistory();
             kosStudyHistory.EnumType = kosEnumID;

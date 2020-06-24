@@ -21,22 +21,29 @@ namespace GT.Core.Settings
             Kos = new KosService();
             DatabaseConnection = new Database();
             InfinityOracleSettings = new InfinityOracleIntegration();
+            DataServiceSettings = new DataServiceSetting();
         }
 
         public Logging Log { get; }
         public STMService STM { get; }
         public KosService Kos { get; }
         public InfinityOracleIntegration InfinityOracleSettings { get; }
+        public DataServiceSetting DataServiceSettings { get; }
         public Database DatabaseConnection { get; }
 
         public class InfinityOracleIntegration
         {
             public string ZeroImageGeneratorName => "INFINITT::DCMCREATOR::::::";
         }
+        public class DataServiceSetting
+        {
+            public int MakeKosServiceItemPerBatch => 50;
+            public int KosWaitHour => 2;
+        }
         public class Database
         {
             public string StudyPostgreConnectionString => "​UserID=test_protek;Password=test123;Server=85.95.238.211;Port=9002;Database=guney_teletip_db;Integrated Security=true;Pooling=true;";
-          // "Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002"
+            // "Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002"
             public string InfinityOracleConnectionString => "User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;";
         }
         public class Logging

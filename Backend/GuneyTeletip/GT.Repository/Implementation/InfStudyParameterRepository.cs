@@ -15,7 +15,7 @@ namespace GT.Repository.Implementation
 
         }
 
-        public override KosStudyParameter GetByID(int id)
+        public override KosStudyParameter GetByID(long id)
         {
             throw new NotImplementedException();
         }

@@ -7,14 +7,14 @@ using System.Text;
 
 namespace GT.Repository.Implementation
 {
-    public class ModalityRepository : AbstractTableRepository<ConstModality>
+    public class AppLogRepository : AbstractTableRepository<AppLog>
     {
-        public ModalityRepository(IAbstractWorkspace workspace) : base(workspace)
+        public AppLogRepository(IAbstractWorkspace workspace) : base(workspace)
         {
 
         }
 
-        public override ConstModality GetByID(long id)
+        public override AppLog GetByID(long id)
         {
             throw new NotImplementedException();
         }

@@ -8,6 +8,6 @@
             Context = context;
         }
 
-        public IBussinessContext Context { get; }
+        public IBussinessContext? Context { get; }
     }
 }

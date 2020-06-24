@@ -173,13 +173,14 @@ namespace GT.DataService.Implementation
 
         public List<TenantViewModel> GetTenantList()
         {
+            var tenantUserIDList = userTenantRepository.GetTenantIDByUserID(Context.UserInfo.UserIDCurrent).Select(o => o.Pk).ToArray();
             var t = new TenantConditionFilter
             {
-
+                TenantIDList= tenantUserIDList
             };
-            
             return tenantRepository.Query(t).ToList();
         }
+
         public int SaveTenant(long userID, long[] tenantIDList)
         {
             var userTenantIDList = userTenantRepository.GetTenantIDByUserID(userID).Select(x => x.FkTenant).ToList();

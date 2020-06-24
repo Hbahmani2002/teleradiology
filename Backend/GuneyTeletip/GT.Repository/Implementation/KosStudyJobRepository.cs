@@ -3,6 +3,7 @@ using GT.Persistance.Domain.Models;
 using GT.REPOSITORY;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 using System.Text;
 
 namespace GT.Repository.Implementation
@@ -14,9 +15,9 @@ namespace GT.Repository.Implementation
 
         }
 
-        public override KosStudyJob GetByID(int id)
+        public override KosStudyJob GetByID(long id)
         {
-            throw new NotImplementedException();
+            return Single(o => o.Pk==id);
         }
     }
 }

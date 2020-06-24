@@ -4,4 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GT.Data.Models\GT.Data.Models.csproj" />
+    <ProjectReference Include="..\GT.Persistance\GT.Persistance.csproj" />
+    <ProjectReference Include="..\GT.Repository\GT.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

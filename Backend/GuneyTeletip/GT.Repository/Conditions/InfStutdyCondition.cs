@@ -1,4 +1,5 @@
 ﻿using DBLayerIzcilikYonetimi.Moduller.IzciYonetimi;
+using GT.Core.Settings;
 using GT.Persistance.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,11 @@ namespace GT.Repository.Conditions
 {
     public class InfStudyConditionFilter
     {
+        public enum KosEnumType
+        {
+            KosOlusmamis = 10,
+            KosOlusmus = 30,
+        }
         public string Modality { get; set; }
         public long? Pk { get; set; }
         public long[] HastaneIDList { get; set; }
@@ -19,6 +25,8 @@ namespace GT.Repository.Conditions
         public string EslesmeDurumu { get; set; }
         public string[] AccessionNumberList { get; set; }
         public string[] TcList { get; set; }
+        public KosEnumType? KosEnum { get; set; }
+        public bool KosWaitHour { get; set; }
     }
     public class InfStudyCondition
     {
@@ -34,6 +42,11 @@ namespace GT.Repository.Conditions
                 var arr = filter.HastaneIDList.ToList();
                 exp = exp.And(o => arr.Contains(o.FkTenant));
             }
+            if (filter.KosWaitHour==true)
+            {
+                var hour = AppSettings.GetCurrent().DataServiceSettings.KosWaitHour;
+                exp = exp.And(o => o.TimeCreated >= o.TimeCreated.Value.AddHours(-hour));
+            }
             if (filter.TcList != null && filter.TcList.Length > 0)
             {
                 var arr = filter.TcList.ToList();
@@ -43,6 +56,10 @@ namespace GT.Repository.Conditions
             {
                 var arr = filter.AccessionNumberList.ToList();
                 exp = exp.And(o => arr.Contains(o.AccessionNo));
+            }
+            if (filter.KosEnum.HasValue)
+            {
+                exp = exp.And(o => o.FkKosEnumType <= (int)filter.KosEnum.Value);
             }
             if (filter.BasTarih.HasValue)
             {

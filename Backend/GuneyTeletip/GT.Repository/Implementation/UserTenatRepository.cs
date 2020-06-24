@@ -15,7 +15,7 @@ namespace GT.Repository.Implementation
 
         }
 
-        public override UsrUserTenant GetByID(int id)
+        public override UsrUserTenant GetByID(long id)
         {
             throw new NotImplementedException();
         }

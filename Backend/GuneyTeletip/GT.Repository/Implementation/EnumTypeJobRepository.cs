@@ -14,7 +14,7 @@ namespace GT.Repository.Implementation
 
         }
 
-        public override JobEnumtype GetByID(int id)
+        public override JobEnumtype GetByID(long id)
         {
             throw new NotImplementedException();
         }
