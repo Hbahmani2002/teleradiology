@@ -57,16 +57,14 @@ namespace Gt.PERSISTANCE
 
         public static AbstractWorkspace Create(bool log = false)
         {
-            var dc = new GTDataContext(true, true, true, true,
-                     log ? o => Debug.WriteLine(o) : (Action<string>)null);
+            var dc = new GTDataContext(true, true, true, true,log);
             //dc.Configuration.ValidateOnSaveEnabled = false;
             return new WritableEFWorkspace(dc);
         }
 
         public static AbstractWorkspace CreateReadOnly(bool log = false)
         {
-            var dc = new GTDataContext(false, false, false, false,
-                     log ? o => Debug.WriteLine(o) : (Action<string>)null);
+            var dc = new GTDataContext(false, false, false, false,log);
             return new ReadOnlyEFWorkspace(dc);
         }
         private static string GetTextFileName()
