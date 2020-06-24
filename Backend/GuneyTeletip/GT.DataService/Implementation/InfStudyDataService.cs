@@ -5,6 +5,7 @@ using GT.Repository.Conditions;
 using GT.Repository.Implementation;
 using GT.Repository.Implementation.Composite;
 using GT.Repository.Models.View;
+using GT.Repository.Models.View.Composite;
 using GT.SERVICE;
 using GT.UTILS.GRID;
 using System;
@@ -29,6 +30,7 @@ namespace GT.DataService.Implementation
         KosEnumTypeRepository kosEnumTypeRepository;
         ModalityRepository modalityRepository;
         KosDurumIstCompositeRepository kosDurumIstCompositeRepository;
+        MakeKosCompositeRepository makeKosCompositeRepository;
         public InfStudyDataService(IBussinessContext context) : base(context)
         {
             _Workspace = GTWorkspaceFactory.Create(true);
@@ -40,6 +42,7 @@ namespace GT.DataService.Implementation
             kosEnumTypeRepository = new KosEnumTypeRepository(_Workspace);
             modalityRepository = new ModalityRepository(_Workspace);
             kosDurumIstCompositeRepository = new KosDurumIstCompositeRepository(_Workspace);
+            makeKosCompositeRepository = new MakeKosCompositeRepository(_Workspace);
         }
 
 
@@ -184,14 +187,14 @@ namespace GT.DataService.Implementation
             return _InfStudyRepository.Query(s)
                 .GetGridQuery(parms);
         }
-        public List<InfStudyViewModel> GetMakeKosList(int count)
+        public List<MakeKosViewModel> GetMakeKosList(int count)
         {
             var s = new InfStudyConditionFilter
             {
                 KosEnum = KosEnumType.KosOlusmus,
                 KosWaitHour=true
             };
-            return _InfStudyRepository.Query(s).OrderBy(o => o.ID).Take(count).ToList();
+            return makeKosCompositeRepository.Query(s).OrderBy(o => o.StudyID).Take(count).ToList();
         }
 
         public void Save(IEnumerable<KosStudy> studies)

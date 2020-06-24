@@ -13,6 +13,7 @@ namespace GT.Repository.Models.View.Composite
         public string PatientSex { get; set; }
         public string PatientId { get; set; }
         public string InputStudyDirectoryPath { get; set; }
+        public long StudyID { get; set; }
 
     }
 }

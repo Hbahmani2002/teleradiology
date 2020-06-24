@@ -25,20 +25,21 @@ namespace GT.Repository.Implementation.Composite
 
         public IEnumerable<MakeKosViewModel> Query(Expression<Func<KosStudy, bool>> exp)
         {
-            var infStudiesLogin = _AbstractWorkspace.Query<KosStudy>(exp);
+            var kosStudy = _AbstractWorkspace.Query<KosStudy>(exp);
             var skrs = _AbstractWorkspace.Query<ConstSkrs>();
             var userSkrs = _AbstractWorkspace.Query<UsrTenantSkrs>();
-            var list = from i in infStudiesLogin
-                       join us in userSkrs on i.FkTenant equals us.FkTenant
+            var list = from k in kosStudy
+                       join us in userSkrs on k.FkTenant equals us.FkTenant
                        join s in skrs on us.FkSkrs equals s.Pk
                        select new MakeKosViewModel
                        {
-                          AccessionNumber=i.AccessionNo,
-                          InputStudyDirectoryPath=i.DicomDirPath,
-                          PatientId=i.PatientId,
-                          PatientSex=i.Gender,
+                          AccessionNumber=k.AccessionNo,
+                          InputStudyDirectoryPath=k.DicomDirPath,
+                          PatientId=k.PatientId,
+                          PatientSex=k.Gender,
                           InstitutionName=s.InstitutionName,
-                          InstitutionSKRS=s.KurumSkrsAdi
+                          InstitutionSKRS=s.KurumSkrsAdi,
+                          StudyID=k.Pk
                        };
 
             return list;
