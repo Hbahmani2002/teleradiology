@@ -60,14 +60,13 @@ namespace GT.DataService.Implementation
             _Workspace.CommitChanges();
             return kosStudyJob.Pk;
         }
-        public long SaveProgress(int id, DateTime? bitTar, JopEnumType tip, long? basariliSayisi, long? basarisizSayisi)
+        public long SaveProgress(long id, DateTime progressTarih, long? basariliSayisi, long? basarisizSayisi)
         {
             var kosStudyJob = kosStudyJobRepository.GetByID(id);
             kosStudyJob.ErrorCount = basarisizSayisi;
-            kosStudyJob.TimeStop = bitTar;
+            kosStudyJob.TimeStop = progressTarih;
             kosStudyJob.TimeModified = DateTime.Now;
             kosStudyJob.SuccessfulCount = basariliSayisi;
-            kosStudyJob.FkJobEnumType = (int)tip;
             kosStudyJob.FkUserModified = Context.UserInfo.UserIDCurrent;
             kosStudyJobRepository.Update(kosStudyJob);
             _Workspace.CommitChanges();
