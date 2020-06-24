@@ -306,21 +306,59 @@ namespace GT.DataService.Implementation
             return kosDurumIstCompositeRepository.Query().ToList();
         }
 
-        public long Save_UpdateKosDurum(long kosStudyID, KosEnumType kosEnumType, string result)
+        public long Save_UpdateMakeKosDurum(long kosStudyID, bool isSuccess, string kosPath, string statusMessage)
         {
+            var newKosState = (int)(isSuccess ? KosEnumType.KosOlusmus : KosEnumType.KosOlusturulamamis);
             var kosStudyHistory = new KosStudyHistory();
-            kosStudyHistory.EnumType = (int)kosEnumType;
+            kosStudyHistory.EnumType = newKosState;
             kosStudyHistory.FkKosStudy = kosStudyID;
             kosStudyHistory.FkUserCreated = Context.UserInfo.UserIDCurrent;
             kosStudyHistory.TimeCreated = DateTime.Now;
-            kosStudyHistory.Result = result;
+            kosStudyHistory.Result = statusMessage;
 
             var kosStudy = _InfStudyRepository.GetByID(kosStudyID);
             if (kosStudy == null)
             {
                 throw new Exception("kosStudy bulunmadı. kosStudyID" + kosStudyID);
             }
-            kosStudy.FkKosEnumType = (int)kosEnumType;
+            kosStudy.FkKosEnumType = newKosState;
+            if (isSuccess)
+                kosStudy.DicomKosPath = kosPath;
+            _InfStudyRepository.Update(kosStudy);
+
+            _Workspace.CommitChanges();
+            return kosStudy.Pk;
+        }
+
+        public enum SentKosResult
+        {
+            Success=1,
+            Fail=2,
+            PartialSuccess
+        }
+        public long Save_UpdateSentKosDurum(long kosStudyID, SentKosResult result, string statusMessage)
+        {
+            var newKosState = 0;
+            if (result == SentKosResult.Success)
+                newKosState = (int)KosEnumType.KosGonderilipEslesenler;
+            else if(result == SentKosResult.Fail)
+                newKosState = (int)KosEnumType.KosHataliGonderileneler;
+            else if (result == SentKosResult.PartialSuccess)
+                newKosState = (int)KosEnumType.KosGonderilipEslesmeyenler;
+
+            var kosStudyHistory = new KosStudyHistory();
+            kosStudyHistory.EnumType = newKosState;
+            kosStudyHistory.FkKosStudy = kosStudyID;
+            kosStudyHistory.FkUserCreated = Context.UserInfo.UserIDCurrent;
+            kosStudyHistory.TimeCreated = DateTime.Now;
+            kosStudyHistory.Result = statusMessage;
+
+            var kosStudy = _InfStudyRepository.GetByID(kosStudyID);
+            if (kosStudy == null)
+            {
+                throw new Exception("kosStudy bulunmadı. kosStudyID" + kosStudyID);
+            }
+            kosStudy.FkKosEnumType = newKosState;
             _InfStudyRepository.Update(kosStudy);
 
             _Workspace.CommitChanges();

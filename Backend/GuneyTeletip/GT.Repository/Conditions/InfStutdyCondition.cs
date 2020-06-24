@@ -16,8 +16,9 @@ namespace GT.Repository.Conditions
         {
             KosOlusturulamamis = 10,
             KosOlusmus = 30,
-            KosGonderilmisEslesenler=40,
-            KosGonderilmisEslesmeyenler=50,
+            KosHataliGonderileneler=40,
+            KosGonderilipEslesmeyenler=50,
+            KosGonderilipEslesenler = 60
         }
         public string Modality { get; set; }
         public long? Pk { get; set; }
