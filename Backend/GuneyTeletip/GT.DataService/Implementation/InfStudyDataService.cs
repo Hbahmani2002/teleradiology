@@ -98,29 +98,34 @@ namespace GT.DataService.Implementation
                 KosStudy.VolumePathname = item.ValumePathname;
                 KosStudy.CreationDttm = DateTime.Now;
                 KosStudy.OracleStudyKey = item.OracleStudyKey.Value;
+                KosStudy.FkKosEnumType = 10;
                 KosStudy.DicomDirPath = item.DicomPhat;
                 Last_OracleStudyKey = item.OracleStudyKey.Value;
                 _InfStudyRepository.Add(KosStudy);
 
                 _Workspace.CommitChanges();
 
+
+                var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(tenatID);
+
+                if (ParamterTimertenatID == null)
+                {
+                    throw new Exception("User bulunamadı. tenatID:" + tenatID);
+
+                }
+                else
+                {
+                    ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(Last_OracleStudyKey);
+                    _InfStudyParameterRepository.Update(ParamterTimertenatID);
+                }
+                _Workspace.CommitChanges();
+
             }
 
 
-            var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(tenatID);
+            
 
-            if (ParamterTimertenatID == null)
-            {
-                throw new Exception("User bulunamadı. tenatID:" + tenatID);
-
-            }
-            else
-            {
-                ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(Last_OracleStudyKey);
-                _InfStudyParameterRepository.Update(ParamterTimertenatID);
-            }
-
-            _Workspace.CommitChanges();
+       
 
         }
 

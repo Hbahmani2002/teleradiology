@@ -53,7 +53,7 @@ namespace GT.BAL.Infinity.DataSynronizer
                 model.AccessionNo = item.AccessNo;
                 model.StudyInstanceuid = item.StudyInstanceUid;
                 model.InstanceCount = 0;
-                model.DateBirth = DateTime.Now; // item.PatientBirthDttm.Value == null ? DateTime.Now : item.PatientBirthDttm.Value;
+                model.DateBirth = item.PatientBirthDttm.HasValue? item.PatientBirthDttm.Value:DateTime.Now;
                 model.StudyDate = DateTime.Now;
                 model.StoragePath = item.Pathname;
                 model.PatinetNameSurname = item.PatientName;
@@ -77,7 +77,7 @@ namespace GT.BAL.Infinity.DataSynronizer
                 model.FkKosEnumType = 2;
                 model.InfMergeKey = item.InfMergeKey;
                 model.SeriesInfo = item.SeriesInfo;
-                model.DicomPhat = item.VolumePathname + "\\" + item.Pathname;
+                model.DicomPhat = item.VolumePathname + "\\" + item.Pathname.Replace("/","\\");
 
                 string OrcleZeroImages = AppSettings.GetCurrent().InfinityOracleSettings.ZeroImageGeneratorName.ToString();
              

@@ -29,7 +29,7 @@ namespace GT.Repository.infinity.Model.View
         public DateTime? ModifyDttm { get; set; }
         public DateTime CreationDttm { get; set; }
         public string StudyDesc { get; set; }
-        public long? InfMergeKey { get; set; }
+        public decimal? InfMergeKey { get; set; }
         public string SeriesInfo { get; set; }
         public int? ZeroImg { get; set; }
 

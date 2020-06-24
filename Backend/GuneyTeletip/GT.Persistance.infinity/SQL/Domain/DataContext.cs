@@ -34,6 +34,7 @@ namespace GT.PERSISTANCE.DOMAIN.Models
             //    Database.Log = logAction;
             //}
         }
+        public virtual DbSet<TestSql> TestSql { get; set; }
         public virtual DbSet<Image> Image { get; set; }
         public virtual DbSet<Instance> Instance { get; set; }
         public virtual DbSet<Instanceloc> Instanceloc { get; set; }
@@ -46,7 +47,6 @@ namespace GT.PERSISTANCE.DOMAIN.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-
                 //test deneme               
                 optionsBuilder.UseLoggerFactory(consoleLoggerFactory);
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.

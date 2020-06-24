@@ -21,11 +21,9 @@ namespace GT.Repository.infinity.Implementation.CompositeView
 
         public List<InfOracleViewModel> Query(Expression<Func<Study, bool>> exp)
         {
-
-          
+         
 
                 var infstudy = _AbstractWorkspace.Query<Study>(exp);
-
 
                 var infseries = _AbstractWorkspace.Query<Series>();
                 var infinstance = _AbstractWorkspace.Query<Instance>();
@@ -34,11 +32,17 @@ namespace GT.Repository.infinity.Implementation.CompositeView
                 var infimage = _AbstractWorkspace.Query<Image>();
 
                 var list = from stdy in infstudy
-                           join seri in infseries on stdy.StudyKey equals seri.StudyKey
-                           join ins in infinstance on seri.SeriesKey equals ins.SeriesKey
-                           join insloc in infinstanceLoc on ins.InstanceKey equals insloc.InstanceKey
-                           join vol in infvolume on insloc.VolumeCode equals vol.VolumeCode
-                           join img in infimage on insloc.InstanceKey equals img.InstanceKey
+                           let seri = infseries.Where(o =>o.StudyKey==stdy.StudyKey).FirstOrDefault()                       
+                           let ins = infinstance.Where(o => o.StudyKey == stdy.StudyKey).FirstOrDefault()
+                           let insloc = infinstanceLoc.Where(o => o.InstanceKey == ins.InstanceKey).FirstOrDefault()
+                           let vol = infvolume.Where(o => o.VolumeCode == insloc.VolumeCode).FirstOrDefault()
+                           let img = infimage.Where(o => o.InstanceKey == insloc.InstanceKey).FirstOrDefault()
+
+                           //join seri in infseries on stdy.StudyKey equals seri.StudyKey
+                           //join ins in infinstance on seri.SeriesKey equals ins.SeriesKey
+                           //join insloc in infinstanceLoc on ins.InstanceKey equals insloc.InstanceKey
+                           //join vol in infvolume on insloc.VolumeCode equals vol.VolumeCode
+                           //join img in infimage on insloc.InstanceKey equals img.InstanceKey
 
                            select new InfOracleViewModel
                            {
@@ -61,9 +65,15 @@ namespace GT.Repository.infinity.Implementation.CompositeView
                                VolumeStat = vol.VolumeStat,
                                VolumePathname = vol.Pathname,
                                ModifyDttm = stdy.ModifyDttm,
-                               CreationDttm = stdy.CreationDttm
-                               
-                           };
+                               CreationDttm = stdy.CreationDttm,
+                               StudyDesc = stdy.StudyDesc,
+                               InfMergeKey = stdy.MergeKey,
+                               SeriesInfo = seri.SeriesInfo
+
+      
+
+
+    };
 
                 return list.ToList();
 
@@ -77,7 +87,7 @@ namespace GT.Repository.infinity.Implementation.CompositeView
 
         public List<InfOracleViewModel> Query(InfStudyConditionFilter filter)
         {
-
+            
             var exp = InfStudyCondition.Get(filter);
             return Query(exp);
 
