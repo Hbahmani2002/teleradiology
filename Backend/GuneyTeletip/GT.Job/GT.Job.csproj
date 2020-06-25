@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\App.Data.Service\App.Data.Service.csproj" />
     <ProjectReference Include="..\GT.BAL.Infinity.DataSynronizer\GT.BAL.Infinity.DataSynronizer.csproj" />
     <ProjectReference Include="..\GT.BAL.TeletipKos\GT.BAL.TeletipKos.csproj" />
     <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
@@ -15,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Implementation\Private\" />
     <Folder Include="Interface\Private\" />
     <Folder Include="Interface\Public\" />
   </ItemGroup>

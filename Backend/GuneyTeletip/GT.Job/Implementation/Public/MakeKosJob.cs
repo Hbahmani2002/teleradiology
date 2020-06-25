@@ -5,12 +5,15 @@ using GT.DataService.Implementation;
 using GT.DataService.infinity.Implementation;
 using GT.Persistance.Domain.Models;
 using GT.Repository.Implementation;
+using GT.Repository.Models.View.Composite;
 using GT.SERVICE;
 using GT.TeletipKos;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Util.Job.Interface;
 using Util.Logger;
@@ -32,8 +35,6 @@ namespace GT.Job.Implementation
             }
         }
         public MakeKosJobSetting Settings { get; }
-        JobDataService JobDataService { get; }
-        StudyKosDataService StudyDataService { get; }
         TeletipMakeKosService TeletipMakeKosService { get; set; }
 
         public MakeKosJob()
@@ -41,30 +42,29 @@ namespace GT.Job.Implementation
             var globalSettings = AppSettings.GetCurrent();
             Settings = new MakeKosJobSetting(globalSettings.DataServiceSettings.MakeKosServiceItemPerBatch, globalSettings.Kos.Make.JOB_MaxParallelTask);
             var makeKosSetting = TeletipKosServiceSetting.GetCurrent().MakeKosSettings;
-
-            JobDataService = new JobDataService(null);
-            StudyDataService = new StudyKosDataService(null);
             TeletipMakeKosService = new TeletipMakeKosService(makeKosSetting);
         }
 
-        public void DoSingleBatch(System.Threading.CancellationTokenSource cancelToken)
+        public void DoSingleBatch(IEnumerable<MakeKosViewModel> items, System.Threading.CancellationTokenSource cancelToken, Action<JobBussinessServiceProgressItem> progressAction)
         {
-            var jobId = JobDataService.Save(DateTime.Now, JobDataService.JopEnumType.MakeKos);
-            var items = StudyDataService.GetMakeKosList(Settings.ItemPerJob);
-
-            Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, o =>
+            var resultCollection = new ConcurrentBag<string>();
+            Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, item =>
             {
                 if (cancelToken.IsCancellationRequested)
                 {
                     return;
                 }
-                var outputPath = KosOutFileNameGenerator.GetFilePath(o.StudyID);
-                TeletipMakeKosService.MakeKos(o.InputStudyDirectoryPath, outputPath);
-                StudyDataService.UpdateKosDurum(o.StudyID, 20);
+                var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
+                var res = TeletipMakeKosService.MakeKos(item.InputStudyDirectoryPath, outputPath);
+                var studyDataService = new StudyKosDataService();
+                var sb = new StringBuilder();
+                sb.AppendLine(res.Message);
+                sb.AppendLine("");
+                sb.AppendLine("");                
+                sb.Append(res.Arguments);
+                studyDataService.Save_UpdateMakeKosDurum(item.StudyID, res.IsSuccess, outputPath, res.Message + res.Arguments);
+                progressAction(new JobBussinessServiceProgressItem(0, 0));
             });
-
-            JobDataService.UpdateAndClose(jobId, DateTime.Now);
-
         }
 
     }
