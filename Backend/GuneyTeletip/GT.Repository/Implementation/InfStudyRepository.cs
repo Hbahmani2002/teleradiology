@@ -35,9 +35,9 @@ namespace GT.Repository.Implementation
         public IQueryable<InfStudyViewModel> Query(Expression<Func<KosStudy, bool>> exp)
         {
             var userLogin = _AbstractWorkspace.Query<UsrUserLogin>();
-            var infStudiesLogin = _AbstractWorkspace.Query<KosStudy>(exp);
-            var list = from s in infStudiesLogin
-                      // join u in userLogin on s.OracleStudyKey equals u.Pk
+            var kosStudy = _AbstractWorkspace.Query<KosStudy>(exp);
+            var list = from s in kosStudy
+                           // join u in userLogin on s.OracleStudyKey equals u.Pk
                        select new InfStudyViewModel
                        {
                            AccessionNumber=s.AccessionNo,
