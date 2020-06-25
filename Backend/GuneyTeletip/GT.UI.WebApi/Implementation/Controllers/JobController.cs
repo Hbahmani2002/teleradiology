@@ -28,7 +28,7 @@ namespace GT.UI.WebApi.Controllers
     {
         [HttpPost]
         [Route("/Job/GetJobList")]
-        public ServiceResult<PagingResult<JobViewmodel>> GetJobList(Gridable<JobViewFilter> parms)
+        public ServiceResult<PagingResult<JobViewModel>> GetJobList(Gridable<JobViewFilter> parms)
         {
             var cx = GetBussinesContext();
             var service = new JobDataService(cx);
