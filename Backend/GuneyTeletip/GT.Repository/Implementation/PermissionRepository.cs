@@ -20,7 +20,7 @@ namespace GT.Repository.Implementation
         }
         public IEnumerable<AppPermissionName> GetByRoleID(long id)
         {
-            return null;
+            return null;//Query(o => o.)
         }
     }
 }

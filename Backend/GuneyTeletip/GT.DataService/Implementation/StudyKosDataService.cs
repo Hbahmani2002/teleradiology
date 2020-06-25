@@ -31,6 +31,7 @@ namespace GT.DataService.Implementation
         ModalityRepository modalityRepository;
         KosDurumIstCompositeRepository kosDurumIstCompositeRepository;
         MakeKosCompositeRepository makeKosCompositeRepository;
+        KosStudyJobRepository kosStudyJobRepository;
 
         public StudyKosDataService() : this(null, false)
         {
@@ -51,6 +52,7 @@ namespace GT.DataService.Implementation
             modalityRepository = new ModalityRepository(_Workspace);
             kosDurumIstCompositeRepository = new KosDurumIstCompositeRepository(_Workspace);
             makeKosCompositeRepository = new MakeKosCompositeRepository(_Workspace);
+            kosStudyJobRepository = new KosStudyJobRepository(_Workspace);
         }
 
         public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items)
@@ -201,19 +203,19 @@ namespace GT.DataService.Implementation
         {
             var s = new InfStudyConditionFilter
             {
-                KosEnum = KosEnumType.KosOlusturulamamis,
+                KosEnum = KosEnumType.KosOlusturulamamisOlanlar,
                 KosWaitHour = true
             };
             return makeKosCompositeRepository.Query(s).OrderBy(o => o.StudyID).Take(count).ToList();
         }
-        public List<MakeKosViewModel> GetSentKosList(int count)
+        public List<SentKosViewModel> GetSentKosList(int count)
         {
             var s = new InfStudyConditionFilter
             {
-                KosEnum = KosEnumType.KosOlusmus,
+                KosEnum = KosEnumType.KosOlusmusOlanlar,
                 KosWaitHour = true
             };
-            return makeKosCompositeRepository.Query(s).OrderBy(o => o.StudyID).Take(count).ToList();
+            return kosStudyJobRepository.Query(s).OrderBy(o => o.StudyID).Take(count).ToList();
         }
 
         public void Save(IEnumerable<KosStudy> studies)
@@ -322,7 +324,7 @@ namespace GT.DataService.Implementation
 
         public long Save_UpdateMakeKosDurum(long kosStudyID, bool isSuccess, string kosPath, string statusMessage)
         {
-            var newKosState = (int)(isSuccess ? KosEnumType.KosOlusmus : KosEnumType.KosOlusturulamamis);
+            var newKosState = (int)(isSuccess ? KosEnumType.KosOlusmusOlanlar : KosEnumType.KosOlusturulamamisOlanlar);
             var kosStudyHistory = new KosStudyHistory();
             kosStudyHistory.EnumType = newKosState;
             kosStudyHistory.FkKosStudy = kosStudyID;
