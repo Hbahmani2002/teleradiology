@@ -16,13 +16,18 @@ namespace Gt.Data.Test
         public void Setup()
         {
         }
-        JobDataService service = new JobDataService(new BussinessContext(new UserContextModel(1)));
+        
         [Test]
         public void GetJobList()
         {
+            JobDataService service = new JobDataService(null);
             var grid = new Gridable<JobViewFilter>();
 
-            var filter = new JobViewFilter();
+            var filter = new JobViewFilter()
+            {
+                BasTarih = DateTime.Now.AddYears(-1),
+                BitTarih = DateTime.Now,
+            };
             grid.Filter = filter;
             var list = service.GetJobList(grid);
        }
