@@ -1,5 +1,6 @@
 ﻿using Gt.PERSISTANCE;
 using GT.DataService.Model;
+using GT.Persistance.Domain.Models;
 using GT.Repository.Conditions;
 using GT.Repository.Implementation;
 using GT.Repository.Models.View;
@@ -15,10 +16,12 @@ namespace GT.DataService.Implementation
     {
         AbstractWorkspace _Workspace;
         RoleRepository roleRepository;
+        RolePermissionRepository rolePermissionRepository;
         public RolDataService(IBussinessContext context) : base(context)
         {
             _Workspace = GTWorkspaceFactory.Create(true);
             roleRepository = new RoleRepository(_Workspace);
+            rolePermissionRepository = new RolePermissionRepository(_Workspace);
         }
 
         public PagingResult<RoleViewModel> GetRoleList(Gridable<RoleViewFilter> parms)
@@ -39,12 +42,39 @@ namespace GT.DataService.Implementation
             return roleRepository.Query(r).GetGridQuery(parms);
         }
 
-        public int Save(long? id, string rolAdi, string gorünenAd, string aciklama)
+        public long Save(long? id, string rolAdi, string aciklama)
         {
-            return 1;
+            var rol = new UsrRole();
+            if (id.HasValue)
+            {
+                rol = roleRepository.GetByID(id.Value);
+                rol.TimeModified = DateTime.Now;
+                rol.FkUserModified = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
+                roleRepository.Update(rol);
+            }
+            else
+            {
+                rol.TimeCreated = DateTime.Now;
+                rol.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
+                roleRepository.Add(rol);
+            }
+            rol.Description = aciklama;
+            rol.Name = rolAdi;
+            _Workspace.CommitChanges();
+            return rol.Pk;
         }
+
         public int Delete(long id)
         {
+            var rol = roleRepository.GetByID(id);
+            if (rol == null)
+                throw new Exception("RolID null olamaz. RolID"+id);
+            var permissionList = rolePermissionRepository.GetByRoleID(id);
+            foreach (var item in permissionList)
+            {
+                rolePermissionRepository.Delete(item);
+            }
+            _Workspace.CommitChanges();
             return 1;
         }
         
@@ -53,7 +83,7 @@ namespace GT.DataService.Implementation
             return null;
         }
 
-        public List<int> GetPermissionListByRoleID(long roleID)
+        public List<PermissionViewModel> GetPermissionListByRoleID(long roleID)
         {
             return null;
         }

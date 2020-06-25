@@ -201,6 +201,15 @@ namespace GT.DataService.Implementation
         {
             var s = new InfStudyConditionFilter
             {
+                KosEnum = KosEnumType.KosOlusturulamamis,
+                KosWaitHour = true
+            };
+            return makeKosCompositeRepository.Query(s).OrderBy(o => o.StudyID).Take(count).ToList();
+        }
+        public List<MakeKosViewModel> GetSentKosList(int count)
+        {
+            var s = new InfStudyConditionFilter
+            {
                 KosEnum = KosEnumType.KosOlusmus,
                 KosWaitHour = true
             };

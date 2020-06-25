@@ -67,7 +67,8 @@ namespace GT.UI.WebApi.Controllers
         {
             var cx = GetBussinesContext();
             var service = new RolDataService(cx);
-            return HttpMessageService.Ok(service.GetPermissionListByRoleID(model.RolID));
+            return null;
+            //return HttpMessageService.Ok(service.GetPermissionListByRoleID(model.RolID));
         }
 
         [HttpPost]

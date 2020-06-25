@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using static GT.Repository.Conditions.RoleCondition;
 
 namespace GT.DataService.Implementation
 {
@@ -26,6 +25,7 @@ namespace GT.DataService.Implementation
         RoleRepository roleRepository;
         UserTenantRepository userTenantRepository;
         UserTenantCompositeRepository userTenantCompositeRepository;
+        UserRoleCompositeRepository userRoleCompositeRepository;
         public UserDataService(IBussinessContext context) : base(context)
         {
             _Workspace = GTWorkspaceFactory.Create(true);
@@ -36,6 +36,7 @@ namespace GT.DataService.Implementation
             roleRepository = new RoleRepository(_Workspace);
             userTenantRepository = new UserTenantRepository(_Workspace);
             userTenantCompositeRepository = new UserTenantCompositeRepository(_Workspace);
+            userRoleCompositeRepository = new UserRoleCompositeRepository(_Workspace);
         }
 
         public PagingResult<UserViewModel> GetUserList(Gridable<UserViewFilter> parms)
@@ -56,27 +57,27 @@ namespace GT.DataService.Implementation
                 Surname=parms.Filter.Surname,
                 UserName=parms.Filter.UserName
             };
-            var r = new RoleConditionFilter
+            var r = new RolConditionFilter
             {
-                RoleName=parms.Filter.RolName,
+                RolName=parms.Filter.RolName,
                 ID=parms.Filter.RolID
             };
-            var roleList = userCompositeRepository.RoleList().ToList();
-            var userList = userCompositeRepository.Query(u, r).Select(o => new UserViewModel { 
-                RolIDList= roleList.Where(x => x.UserID==o.ID).Select(x=>x.RoleID).ToArray(),
+            var roleList = userCompositeRepository.RoleList();
+            var userList = userCompositeRepository.Query(u, r).Select(o => new UserViewModel
+            {
+                RolIDList = roleList.Where(x => x.UserID == o.ID).Select(x => x.RoleID).ToArray(),
                 RolNameList = roleList.Where(x => x.UserID == o.ID).Select(x => x.RoleName).ToArray(),
-                EmailAdress=o.EmailAdress,
-                ID=o.ID,
-                Name=o.Name,
-                RecordStatus=o.RecordStatus,
-                Surname=o.Surname,
-                TimeCreated=o.TimeCreated,
-                TimeModified=o.TimeModified,
-                UserIDCreated=o.UserIDCreated,
-                UserIDModified=o.UserIDModified,
-                UserName=o.UserName
+                EmailAdress = o.EmailAdress,
+                ID = o.ID,
+                Name = o.Name,
+                RecordStatus = o.RecordStatus,
+                Surname = o.Surname,
+                TimeCreated = o.TimeCreated,
+                TimeModified = o.TimeModified,
+                UserIDCreated = o.UserIDCreated,
+                UserIDModified = o.UserIDModified,
+                UserName = o.UserName
             });
-            
             return userList.GetGridQuery(parms);
         }
 
@@ -153,20 +154,16 @@ namespace GT.DataService.Implementation
             return list.ToList();
         }
 
-        public RoleViewModel GetRoleByID(long userID)
+        public List<UserRoleViewModel> GetRoleByID(long userID)
         {
-            var userRol = userRoleRepository.GetByUserID(userID);
-            var rol = roleRepository.GetByID(userRol.FkRole);
-            if (userRol == null || rol==null)
+            var rolIDList = userRoleRepository.GetRolListByUserID(userID).Select(x => x.FkRole).ToArray();
+            var ur = new UserRolConditionFilter { UserID= userID };
+            var r = new RolConditionFilter
             {
-                throw new Exception("Kullanıcı veya kullanıcı rolü bulunmamaktadır");
-            }
-            var item = new RoleViewModel
-            {
-                RoleID= rol.Pk,
-                RoleName=rol.Name
+                IDList= rolIDList
             };
-            return item;
+            var userRol = userRoleCompositeRepository.Query(ur,r).ToList();
+            return userRol;
         }
 
         public int SaveRol(long userID, long roleID)
