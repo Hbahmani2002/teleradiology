@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -60,6 +60,7 @@ import { JobsComponent } from './Features/Private/Operations/Pages/jobs/jobs.com
 import { JobsfilterComponent } from './Features/Private/Operations/Pages/jobs/jobsfilter/jobsfilter.component';
 import { JobsgridComponent } from './Features/Private/Operations/Pages/jobs/jobsgrid/jobsgrid.component';
 import { jobDataServices } from './Features/Private/Operations/Services/jobDataServices';
+import { GlobalErrorHandler } from './Shared/Services/ErrorHandling/GlobalErrorHandler';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,7 @@ import { jobDataServices } from './Features/Private/Operations/Services/jobDataS
     CollapseModule.forRoot(),
     PaginationModule.forRoot(),
     TabsModule.forRoot(),
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({ positionClass: 'toast-bottom-right'}),
     NgMultiSelectDropDownModule.forRoot(),
     AngularFontAwesomeModule,
     NgxSpinnerModule,
@@ -128,6 +129,8 @@ import { jobDataServices } from './Features/Private/Operations/Services/jobDataS
     ],
   providers:
     [
+      { provide: ErrorHandler, useClass: GlobalErrorHandler },
+
       { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
       CookieService,
       cookieService,

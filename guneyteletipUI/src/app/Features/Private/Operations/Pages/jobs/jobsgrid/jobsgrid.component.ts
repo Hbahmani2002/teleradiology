@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 import { jobDataServices } from '../../../Services/jobDataServices';
 import { infStudyFilter } from '../../../Models/infStudyFilter';
+import { jobViewFilter } from '../../../Models/jobViewFilter';
 
 @Component({
   selector: 'app-jobsgrid',
@@ -10,7 +11,6 @@ import { infStudyFilter } from '../../../Models/infStudyFilter';
 })
 export class JobsgridComponent implements OnInit {
   @Input() set filter(value: any) {
-    debugger;
     this.gridJobs.jobFilter = value;
     this.gridJobs.onRefresh();
   }
@@ -24,8 +24,8 @@ export class JobsgridComponent implements OnInit {
   gridJobs: JobListComponent_Models.GridJob = new JobListComponent_Models.GridJob(this.jobServices, this.jobFilter);
 }
 export class jobFilter {
-  dateRange;
-  jobId;
+  dateRange = [];
+  jobIdList;
   type;
 }
 namespace JobListComponent_Models {
@@ -40,7 +40,7 @@ namespace JobListComponent_Models {
       super();
     }
 
-    filter = new Grid.GridInputModel(new infStudyFilter());
+    filter = new Grid.GridInputModel(new jobViewFilter());
     getFilter() {
 
       this.filter.paging.pageNumber = this.model.paging.pageNumber;
@@ -50,12 +50,10 @@ namespace JobListComponent_Models {
       let item = this.filter.filter;
       var o = this.jobFilter;
 
-      /*item.hastaneIDList = o.hastaneIDList;
-      item.basTarih = o.bitTarih;
-      item.modalite = o.modalite;
-      item.eslesmeDurumu = o.eslesmeDurumu;
-      item.tcList = o.tcList;
-      item.accessionNumberList = o.accessionNumberList;*/
+      item.jobidList = o.jobIdList;
+      item.enumType = o.type;
+      item.basTarih = o.dateRange[0];
+      item.bitTarih = o.dateRange[1];
 
       return this.filter;
     };
@@ -72,13 +70,13 @@ namespace JobListComponent_Models {
     onRefresh() {
       var item = this.getFilter()
       var filter = item.filter;
-      debugger;
       console.log(item);
-      /*this.kosService.getKosList(item).subscribe(o => {
+      this.jobService.getJobList(item).subscribe(o => {
+        debugger;
         this.data.list = o["list"];
         this.data.totalCount = o["totalCount"];
         console.log(this.data.list)
-      })*/
+      })
     }
 
   }

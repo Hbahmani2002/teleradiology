@@ -18,17 +18,8 @@ import { parameters } from '../../Consts/parameters';
 })
 export class httpService {
 
-  constructor(
-    private http: HttpClient
-    /*private toastr: ToastrService,
-    private cookieService: cookieService,
-    private routing: Router,
-    private notificationToast: NotificationToastService,
-    public fileOperation: FileService,
-    public authentication: authenticationService*/
-  ) {
+  constructor(private http: HttpClient) {}
 
-  }
   public callGetService_Low(url: string, ): Observable<any> {
     /*
      ##validation

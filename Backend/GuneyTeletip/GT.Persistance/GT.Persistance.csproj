@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core.Persistance\Core.Persistance.csproj" />
+    <ProjectReference Include="..\GT.Core.Settings\GT.Core.Settings.csproj" />
     <ProjectReference Include="..\GT.Persistance.Domain\GT.Persistance.Domain.csproj" />
   </ItemGroup>
 

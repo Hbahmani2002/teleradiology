@@ -52,7 +52,7 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<PagingResult<InfStudyViewModel>> GetKosList(Gridable<InfStudyFilter> parms)
         {
             var cx = GetBussinesContext();
-            var service = new InfStudyDataService(cx);
+            var service = new StudyKosDataService(cx);
             return HttpMessageService.Ok(service.GetInfStudyList(parms));
         }
 
@@ -61,7 +61,7 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<List<KosEnumTypeViewModel>> GetModalityList()
         {
             var cx = GetBussinesContext();
-            var service = new InfStudyDataService(cx);
+            var service = new StudyKosDataService(cx);
             return HttpMessageService.Ok(service.GetModalityList());
         }
 
@@ -84,7 +84,7 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<InfStudyViewModel> GetByID(KosModel model)
         {
             var cx = GetBussinesContext();
-            var service = new InfStudyDataService(cx);
+            var service = new StudyKosDataService(cx);
             return HttpMessageService.Ok(service.GetByID(model.ID));
         }
 
@@ -93,7 +93,7 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<PagingResult<KosHistoryModel>> GetKosHistoryByStudyID(Gridable<KosHistoryFilter> parms)
         {
             var cx = GetBussinesContext();
-            var service = new InfStudyDataService(cx);
+            var service = new StudyKosDataService(cx);
             return HttpMessageService.Ok(service.GetKosHistoryByStudyID(parms));
         }
 
@@ -102,7 +102,7 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<List<KosEnumTypeViewModel>> GetEnumTypeList()
         {
             var cx = GetBussinesContext();
-            var service = new InfStudyDataService(cx);
+            var service = new StudyKosDataService(cx);
             return HttpMessageService.Ok(service.GetEnumTypeList());
         }
 
@@ -111,7 +111,7 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<List<KosDurumIstModel>> GetKosDurumIst()
         {
             var cx = GetBussinesContext();
-            var service = new InfStudyDataService(cx);
+            var service = new StudyKosDataService(cx);
             return HttpMessageService.Ok(service.GetKosDurumIst());
         }
 

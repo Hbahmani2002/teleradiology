@@ -1,6 +1,7 @@
 ﻿namespace GT.PERSISTANCE.DOMAIN.Models
 {
     using Gt.PERSISTANCE;
+    using GT.Core.Settings;
     using GT.Persistance.Domain.Models;
     using GT.PERSISTANCE.Data.SQL;
     using Microsoft.EntityFrameworkCore;
@@ -19,23 +20,21 @@
             {
                 builder.AddDebug();
             });
-
+        public bool IsLogging { get; set; }
         public GTDataContext()
             : base("name=DataContext")
         {
         }
-        public GTDataContext(bool autoDetectChangesEnabled, bool proxyCreationEnabled = true, bool lazyLoadingEnabled = true, bool validateOnSaveEnabled = true, Action<string> logAction = null)
+        public GTDataContext(bool autoDetectChangesEnabled, bool proxyCreationEnabled = true, bool lazyLoadingEnabled = true, bool validateOnSaveEnabled = true, bool logging = false)
            : base($"name={LocalSettings.AppName}")
         {
+            IsLogging = logging;
             //Database.SetInitializer<DataContext>(null);
             //Configuration.ProxyCreationEnabled = proxyCreationEnabled;
             //Configuration.AutoDetectChangesEnabled = autoDetectChangesEnabled;
             //Configuration.LazyLoadingEnabled = lazyLoadingEnabled;
             //Configuration.ValidateOnSaveEnabled = validateOnSaveEnabled;
-            //if (logAction != null)
-            //{
-            //    Database.Log = logAction;
-            //}
+
         }
         public virtual DbSet<AppLog> AppLog { get; set; }
         public virtual DbSet<AppParameter> AppParameter { get; set; }
@@ -71,9 +70,11 @@
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseLoggerFactory(consoleLoggerFactory);
+                if (IsLogging)
+                    optionsBuilder.UseLoggerFactory(consoleLoggerFactory);
+                var connectionString=AppSettings.GetCurrent().DatabaseConnection.StudyPostgreConnectionString;
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002");
+                optionsBuilder.UseNpgsql(connectionString);
             }
         }
 
@@ -92,15 +93,15 @@
 
                 entity.Property(e => e.Desc1)
                     .HasColumnName("desc1")
-                    .HasMaxLength(2048);
+                    .HasMaxLength(4000);
 
                 entity.Property(e => e.Desc2)
                     .HasColumnName("desc2")
-                    .HasMaxLength(2048);
+                    .HasMaxLength(4000);
 
                 entity.Property(e => e.Desc3)
                     .HasColumnName("desc3")
-                    .HasMaxLength(2048);
+                    .HasMaxLength(4000);
 
                 entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
 
@@ -328,6 +329,14 @@
                     .HasColumnName("dicom_dir_path")
                     .HasMaxLength(2048);
 
+                entity.Property(e => e.DicomKosPath)
+                    .HasColumnName("dicom_kos_path")
+                    .HasColumnType("character varying");
+
+                entity.Property(e => e.FailtMakeKosCount).HasColumnName("failt_make_kos_count");
+
+                entity.Property(e => e.FailtSentKosCount).HasColumnName("failt_sent_kos_count");
+
                 entity.Property(e => e.FileName)
                     .HasColumnName("file_name")
                     .HasMaxLength(256);
@@ -482,27 +491,19 @@
 
                 entity.Property(e => e.SuccessfulCount).HasColumnName("successful_count");
 
-                entity.Property(e => e.TimeCreated)
-                    .HasColumnName("time_created")
-                    .HasColumnType("date");
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeModified)
-                    .HasColumnName("time_modified")
-                    .HasColumnType("date");
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
 
-                entity.Property(e => e.TimeStart)
-                    .HasColumnName("time_start")
-                    .HasColumnType("date");
+                entity.Property(e => e.TimeStart).HasColumnName("time_start");
 
-                entity.Property(e => e.TimeStop)
-                    .HasColumnName("time_stop")
-                    .HasColumnType("date");
+                entity.Property(e => e.TimeStop).HasColumnName("time_stop");
             });
 
             modelBuilder.Entity<KosStudyParameter>(entity =>
             {
                 entity.HasKey(e => e.Pk)
-                    .HasName("inf_study_parameters_pkey");
+                    .HasName("kos_study_parameter_pkey");
 
                 entity.ToTable("kos_study_parameter");
 
@@ -510,9 +511,7 @@
                     .HasName("fk_tenant_uni")
                     .IsUnique();
 
-                entity.Property(e => e.Pk)
-                    .HasColumnName("pk")
-                    .UseIdentityAlwaysColumn();
+                entity.Property(e => e.Pk).HasColumnName("pk");
 
                 entity.Property(e => e.FkTenant).HasColumnName("fk_tenant");
 

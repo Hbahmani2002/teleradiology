@@ -14,8 +14,11 @@ namespace GT.Repository.Conditions
     {
         public enum KosEnumType
         {
-            KosOlusmamis = 10,
+            KosOlusturulamamis = 10,
             KosOlusmus = 30,
+            KosHataliGonderileneler=40,
+            KosGonderilipEslesmeyenler=50,
+            KosGonderilipEslesenler = 60
         }
         public string Modality { get; set; }
         public long? Pk { get; set; }

@@ -55,14 +55,58 @@ namespace GT.BAL.Test
         public void UC8_1()
         {
 
-            AutoJobs.MakeKos.Start();            
-            while (true)
-            {
-                AutoJobs.MakeKos.Stop();
-                AutoJobs.MakeKos.Start();
-            }
+            //AutoBussinessJobs.AutoJobService.
+            //while (true)
+            //{
+            //    AutoBussinessJobs.MakeKos.Stop();
+            //    AutoBussinessJobs.MakeKos.Start();
+            //}
 
         }
 
+        [Test]
+        public void UC8_2()
+        {
+
+            var t2 = new ThrottleTimer(o =>
+            Debug.WriteLine(DateTime.Now.ToString("yyyyMMdd hh:mm:ss:ffff"))
+            , 1200);
+            var i = 0;
+            while (i++ < 30000000)
+            {
+                t2.Trigger();
+            }
+            t2.timer.Dispose();
+            Console.Read();
+        }
+        [Test]
+        public void UC8_3()
+        {
+            var js = new JobBussinessService();
+
+
+            while (true)
+            {
+
+                var id = js.Create((o, t) =>
+                {
+                    Debug.WriteLine("JOb is working..............");
+                    int i = 0;
+                    while (i < 100)
+                    {
+                        var rnd = new Random();
+                        if (o.IsCancellationRequested)
+                        {
+                            Debug.WriteLine("JOb is cancelled");
+                            return;
+                        }
+
+                        t(new JobBussinessServiceProgressItem(rnd.Next(1000), rnd.Next(1000)));
+                    }
+                });
+                Thread.Sleep(1100);
+                js.Stop(id);
+            }
+        }
     }
 }

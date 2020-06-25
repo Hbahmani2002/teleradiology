@@ -51,7 +51,7 @@ namespace GT.Core.Settings
         }
         public class Database
         {
-            public string StudyPostgreConnectionString => "​UserID=test_protek;Password=test123;Server=85.95.238.211;Port=9002;Database=guney_teletip_db;Integrated Security=true;Pooling=true;";
+            public string StudyPostgreConnectionString => "Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002";
             // "Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002"
             public string InfinityOracleConnectionString => "User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;";
         }
