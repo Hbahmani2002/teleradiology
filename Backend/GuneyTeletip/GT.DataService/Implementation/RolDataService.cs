@@ -100,8 +100,27 @@ namespace GT.DataService.Implementation
 
         public int SavePermission(long roleID, long[] permissionIDList)
         {
-            var permission = new AppPermissionName();
-
+            var rolePermissionList = GetPermissionListByRoleID(roleID);
+            foreach (var permissionID in permissionIDList)
+            {
+                var permissionVarMi = false;
+                foreach (var item in rolePermissionList)
+                {
+                    if(item.PermissionID== permissionID)
+                    {
+                        permissionVarMi = true;
+                        break;
+                    }
+                }
+                if (!permissionVarMi)
+                {
+                    var permission = new AppRolePermission();
+                    permission.FkPermissionId = permissionID;
+                    permission.FkRoleId = roleID;
+                    rolePermissionRepository.Add(permission);
+                }
+            }
+            _Workspace.CommitChanges();
             return 1;
         }
     }

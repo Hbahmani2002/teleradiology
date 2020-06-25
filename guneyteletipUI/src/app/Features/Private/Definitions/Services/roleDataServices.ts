@@ -22,7 +22,7 @@ export class roleDataServices {
   public GetPermissionList(): Observable<Array<permissionViewModel>> {
     return this.apiDataService.callDataService('Role/GetPermissionList', undefined);
   }
-  public GetPermissionListByRoleID(model: roleModel): Observable<number> {
+  public GetPermissionListByRoleID(model: roleModel): Observable<Array<permissionViewModel>> {
     return this.apiDataService.callDataService('Role/GetPermissionListByRoleID', model);
   }
   public SavePermission(model: savePermissionModel): Observable<number> {
