@@ -1,5 +1,4 @@
 ﻿using GT.BAL.Infinity.DataSynronizer;
-using GT.BAL.TeletipKos.Model;
 using GT.Core.Settings;
 using GT.DataService.Implementation;
 using GT.DataService.infinity.Implementation;
