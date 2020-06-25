@@ -99,6 +99,7 @@ namespace GT.Core.Settings
                 public string Title => "DCM-113030";
                 public string TempDirectoryPath => "/gt/dicom/temp_kos";
                 public string DCM4CheeDirectoryPath => "/gt/app/teletip_kos/dcm4che-5.22.2/bin";
+                public string InstitutionFirmaKodu => "FK123";
             }
             public class SendKos
             {
