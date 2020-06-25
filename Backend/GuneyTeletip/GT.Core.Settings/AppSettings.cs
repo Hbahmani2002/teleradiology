@@ -22,6 +22,7 @@ namespace GT.Core.Settings
             DatabaseConnection = new Database();
             InfinityOracleSettings = new InfinityOracleIntegration();
             DataServiceSettings = new DataServiceSetting();
+            InfinityOracleTakeTopSettings = new InfinityOracleTakeIntegration();
         }
 
         public Logging Log { get; }
@@ -30,6 +31,14 @@ namespace GT.Core.Settings
         public InfinityOracleIntegration InfinityOracleSettings { get; }
         public DataServiceSetting DataServiceSettings { get; }
         public Database DatabaseConnection { get; }
+        public InfinityOracleTakeIntegration InfinityOracleTakeTopSettings { get; }
+
+
+        public class InfinityOracleTakeIntegration
+        {
+            public int InfinityOracleTakeTop => 200;
+        }
+
 
         public class InfinityOracleIntegration
         {
@@ -54,6 +63,10 @@ namespace GT.Core.Settings
                 return path;
             }
             public string DIR_JobsLog => FullPath("../upload/_jobs");
+
+            public string DIR_JobsLogMakeKos => Path.Combine(DIR_JobsLog, "MakeKos");
+            public string DIR_JobsLogSendKos => Path.Combine(DIR_JobsLog, "SendKos");
+            public string DIR_JobsLogSTM => Path.Combine(DIR_JobsLog, "STM");
             public string PATH_JobInfinity => Path.Combine(DIR_JobsLog, "infinity_job_log.txt");
             public string DIR_BackgroundProcess => FullPath("../upload/_background");
         }

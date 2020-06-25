@@ -1,3 +1,4 @@
+using GT.BAL.Infinity.DataSynronizer;
 using GT.Core.Settings;
 using GT.DataService.infinity.Implementation;
 using GT.DataService.infinity.Model;
@@ -41,14 +42,18 @@ namespace GT.BAL.Test
             jobManager.Start();
             Thread.Sleep(100000000);
 
+        }
+
+        [Test]
+        public void UC11()
+        {
+
+            var dc = new InfinityDataSyncronizer(null);
+            dc.SyncronizeInfinityStudyList(15, 71500, new DateTime(2019, 01, 01), new DateTime(2020, 01, 05));
 
 
 
-
-
-
-
-        }        
+        }
 
     }
 }

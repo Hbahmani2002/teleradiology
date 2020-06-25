@@ -20,15 +20,15 @@ namespace App.Data.Service
         public enum LogType
         {
             OtomatikMakeKos = 1,
-            OtomatikSentKos=2,
-            OtomatikStm= 3,
+            OtomatikSentKos = 2,
+            OtomatikStm = 3,
         }
         public long Save(LogType type, string desc)
         {
             var log = new AppLog();
             log.LogType = (int)type;
             log.TimeCreated = DateTime.Now;
-            log.FkUserCreated = Context.UserInfo.UserIDCurrent;
+            log.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
             log.Desc1 = desc;
             appLog.Add(log);
             _Workspace.CommitChanges();
