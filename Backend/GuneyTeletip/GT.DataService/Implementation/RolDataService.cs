@@ -3,11 +3,13 @@ using GT.DataService.Model;
 using GT.Persistance.Domain.Models;
 using GT.Repository.Conditions;
 using GT.Repository.Implementation;
+using GT.Repository.Implementation.Composite;
 using GT.Repository.Models.View;
 using GT.SERVICE;
 using GT.UTILS.GRID;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace GT.DataService.Implementation
@@ -17,11 +19,15 @@ namespace GT.DataService.Implementation
         AbstractWorkspace _Workspace;
         RoleRepository roleRepository;
         RolePermissionRepository rolePermissionRepository;
+        PermissionRepository permissionRepository;
+        RolePermissionCompositeRepository rolePermissionCompositeRepository;
         public RolDataService(IBussinessContext context) : base(context)
         {
             _Workspace = GTWorkspaceFactory.Create(true);
             roleRepository = new RoleRepository(_Workspace);
             rolePermissionRepository = new RolePermissionRepository(_Workspace);
+            permissionRepository = new PermissionRepository(_Workspace);
+            rolePermissionCompositeRepository = new RolePermissionCompositeRepository(_Workspace);
         }
 
         public PagingResult<RoleViewModel> GetRoleList(Gridable<RoleViewFilter> parms)
@@ -80,16 +86,22 @@ namespace GT.DataService.Implementation
         
         public List<PermissionViewModel> GetPermissionList()
         {
-            return null;
+            return permissionRepository.Query().Select(o => new PermissionViewModel { 
+                PermissionID=o.Pk,
+                PermissionName=o.Name
+            }).ToList();
         }
 
         public List<PermissionViewModel> GetPermissionListByRoleID(long roleID)
         {
-            return null;
+            var r = new RolConditionFilter { ID= roleID };
+            return rolePermissionCompositeRepository.Query(r).ToList();
         }
 
         public int SavePermission(long roleID, long[] permisiionIDList)
         {
+            var permission = new AppPermissionName();
+
             return 1;
         }
     }

@@ -18,9 +18,6 @@ namespace GT.Repository.Implementation
         {
             throw new NotImplementedException();
         }
-        public IEnumerable<AppPermissionName> GetByRoleID(long id)
-        {
-            return null;//Query(o => o.)
-        }
+
     }
 }
