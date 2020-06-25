@@ -20,7 +20,7 @@ using Util.Logger;
 
 namespace GT.Job.Implementation
 {
-    public class MakeKosJob
+    public class MakeKosOperation
     {
         public class MakeKosJobSetting
         {
@@ -37,7 +37,7 @@ namespace GT.Job.Implementation
         public MakeKosJobSetting Settings { get; }
         TeletipMakeKosService TeletipMakeKosService { get; set; }
 
-        public MakeKosJob()
+        public MakeKosOperation()
         {
             var globalSettings = AppSettings.GetCurrent();
             Settings = new MakeKosJobSetting(globalSettings.DataServiceSettings.MakeKosServiceItemPerBatch, globalSettings.Kos.Make.JOB_MaxParallelTask);
@@ -47,7 +47,7 @@ namespace GT.Job.Implementation
 
         public void DoSingleBatch(IEnumerable<MakeKosViewModel> items, System.Threading.CancellationTokenSource cancelToken, Action<JobBussinessServiceProgressItem> progressAction)
         {
-            var resultCollection = new ConcurrentBag<string>();
+            var resultCollection = new ConcurrentBag<int>();
             Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, item =>
             {
                 if (cancelToken.IsCancellationRequested)
@@ -55,12 +55,12 @@ namespace GT.Job.Implementation
                     return;
                 }
                 var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
-                var res = TeletipMakeKosService.MakeKos(item.InputStudyDirectoryPath, outputPath);
+                var res = TeletipMakeKosService.MakeKos(item.InputStudyDirectoryPath, outputPath,item.InstitutionName,item.InstitutionName);
                 var studyDataService = new StudyKosDataService();
                 var sb = new StringBuilder();
                 sb.AppendLine(res.Message);
                 sb.AppendLine("");
-                sb.AppendLine("");                
+                sb.AppendLine("");
                 sb.Append(res.Arguments);
                 studyDataService.Save_UpdateMakeKosDurum(item.StudyID, res.IsSuccess, outputPath, res.Message + res.Arguments);
                 progressAction(new JobBussinessServiceProgressItem(0, 0));

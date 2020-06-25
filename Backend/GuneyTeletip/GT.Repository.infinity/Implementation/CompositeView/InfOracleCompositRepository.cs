@@ -47,12 +47,10 @@ namespace GT.Repository.infinity.Implementation.CompositeView
                                           .DefaultIfEmpty()
 
                             //let seri = infseries.Where(o => o.StudyKey == stdy.StudyKey).FirstOrDefault()
-
                             //let ins =  infinstance.Where(o => o.SeriesKey == seri.SeriesKey).FirstOrDefault()
                             //let insloc =  infinstanceLoc.Where(o => o.InstanceKey == ins.InstanceKey).FirstOrDefault()
                             //let vol =  infvolume.Where(o => o.VolumeCode == insloc.VolumeCode).FirstOrDefault()
                             //let img = infimage.Where(o => o.InstanceKey == insloc.InstanceKey).FirstOrDefault()
-
                             //join seri in infseries on stdy.StudyKey equals seri.StudyKey into t
 
                             //join ins in infinstance on seri.SeriesKey equals ins.SeriesKey
@@ -87,15 +85,7 @@ namespace GT.Repository.infinity.Implementation.CompositeView
                             SeriesInfo = seri.SeriesInfo
 
                         };
-            try
-            {
-                var x = query.OrderBy(o => o.StudyKey).Take(100).ToList();
-            }
-            catch (Exception ex)
-            {
-
-
-            }
+         
 
 
             return query;

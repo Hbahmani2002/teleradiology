@@ -27,6 +27,7 @@ namespace GT.Job.Model.AutoJobs
         public static JobBussinessService.JobServiceItem SendKosJob { get; set; }
         public static JobBussinessService.JobServiceItem MakeKosJob { get; set; }
 
+        public static JobBussinessService.JobServiceItem STMJob { get; set; }
 
         static BussinessJobs()
         {
