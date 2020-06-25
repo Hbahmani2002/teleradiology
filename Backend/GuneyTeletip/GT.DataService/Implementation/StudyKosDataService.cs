@@ -323,9 +323,29 @@ namespace GT.DataService.Implementation
         {
             return kosDurumIstCompositeRepository.Query().ToList();
         }
-        public KosDeleteViewModel getKosDeleteList(string studyInstanceID)
+        public KosDeleteViewModel GetKosDeleteList(Gridable<InfStudyFilter> parms)
         {
-            return kosDeleteCompositeRepository.Query(studyInstanceID).FirstOrDefault();
+            if (parms == null)
+            {
+                parms = new Gridable<InfStudyFilter>();
+            }
+            if (parms.Filter == null)
+            {
+                parms.Filter = new InfStudyFilter();
+            }
+            var s = new InfStudyConditionFilter
+            {
+                HastaneIDList = parms.Filter.HastaneIDList,
+                AccessionNumberList = parms.Filter.AccessionNumberList,
+                BasTarih = parms.Filter.BasTarih,
+                BitTarih = parms.Filter.BitTarih,
+                Modality = parms.Filter.Modalite,
+                TcList = parms.Filter.TCList,
+                KosEnum = parms.Filter.KosEnum,
+                StudyInstanceUID=parms.Filter.StudyInstanceUID,
+                PatientID=parms.Filter.PatientID
+            };
+            return kosDeleteCompositeRepository.Query(s).FirstOrDefault();
         }
         public long Save_UpdateMakeKosDurum(long kosStudyID, bool isSuccess, string kosPath, string statusMessage)
         {

@@ -98,7 +98,7 @@ namespace GT.DataService.Implementation
             return rolePermissionCompositeRepository.Query(r).ToList();
         }
 
-        public int SavePermission(long roleID, long[] permisiionIDList)
+        public int SavePermission(long roleID, long[] permissionIDList)
         {
             var permission = new AppPermissionName();
 
