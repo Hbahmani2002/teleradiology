@@ -136,9 +136,9 @@ namespace GT.DataService.Implementation
             }
 
 
-            
 
-       
+
+
 
         }
 
@@ -323,7 +323,7 @@ namespace GT.DataService.Implementation
         {
             return kosDurumIstCompositeRepository.Query().ToList();
         }
-        public KosDeleteViewModel GetKosDeleteList(Gridable<InfStudyFilter> parms)
+        public IEnumerable<KosDeleteViewModel> GetKosDeleteList(Gridable<InfStudyFilter> parms)
         {
             if (parms == null)
             {
@@ -342,10 +342,10 @@ namespace GT.DataService.Implementation
                 Modality = parms.Filter.Modalite,
                 TcList = parms.Filter.TCList,
                 KosEnum = parms.Filter.KosEnum,
-                StudyInstanceUID=parms.Filter.StudyInstanceUID,
-                PatientID=parms.Filter.PatientID
+                StudyInstanceUID = parms.Filter.StudyInstanceUID,
+                PatientID = parms.Filter.PatientID
             };
-            return kosDeleteCompositeRepository.Query(s).FirstOrDefault();
+            return kosDeleteCompositeRepository.Query(s).ToArray();
         }
         public long Save_UpdateMakeKosDurum(long kosStudyID, bool isSuccess, string kosPath, string statusMessage)
         {
@@ -373,8 +373,8 @@ namespace GT.DataService.Implementation
 
         public enum SentKosResult
         {
-            Success=1,
-            Fail=2,
+            Success = 1,
+            Fail = 2,
             PartialSuccess
         }
         public long Save_UpdateSentKosDurum(long kosStudyID, SentKosResult result, string statusMessage)
@@ -382,7 +382,7 @@ namespace GT.DataService.Implementation
             var newKosState = 0;
             if (result == SentKosResult.Success)
                 newKosState = (int)KosEnumType.KosGonderilipEslesenler;
-            else if(result == SentKosResult.Fail)
+            else if (result == SentKosResult.Fail)
                 newKosState = (int)KosEnumType.KosHataliGonderileneler;
             else if (result == SentKosResult.PartialSuccess)
                 newKosState = (int)KosEnumType.KosGonderilipEslesmeyenler;
@@ -405,7 +405,7 @@ namespace GT.DataService.Implementation
             _Workspace.CommitChanges();
             return kosStudy.Pk;
         }
-        public long Save_UpdateDeleteKos(long studyID,string message)
+        public long Save_UpdateDeleteKos(long studyID, string message)
         {
             var kosStudyHistory = new KosStudyHistory();
             kosStudyHistory.EnumType = (int)KosEnumType.KosSilinenler;

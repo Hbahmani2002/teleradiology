@@ -69,31 +69,32 @@ namespace GT.BAL.TeletipKos
         }
 
 
-        public JobBussinessService.JobServiceItem DeleteKos(InfStudyFilter filter)
+        public JobBussinessService.JobServiceItem DeleteKos(Gridable<InfStudyFilter> filter)
         {
-           var job= BussinessJobs.ManuelJobService.Create((o, ac) =>
-            {
+            var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
+              {
 
-                var log = new AppLogDataService(null);
-               
-                    try
-                    {
-                        var globalSettings = AppSettings.GetCurrent();
-                        var studyDataService = new StudyKosDataService();
-                        var items = studyDataService.getKosDeleteList().AccessionNumber.ToString();
-                        var mc = new STMKosDeleteOperation();
-                        mc.DoSingleBatch(items, o, ac);
-                    }
-                    catch (Exception ex)
-                    {
-                        var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
-                        var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogMakeKos, fileName);
-                        Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                        File.WriteAllText(filePath, ex.ToString());
-                        log.Save(AppLogDataService.LogType.OtomatikMakeKos, "Log File Path:" + filePath);
-                    }
-              
-            })
+                  var log = new AppLogDataService(null);
+
+                  try
+                  {
+                      var globalSettings = AppSettings.GetCurrent();
+                      var studyDataService = new StudyKosDataService();
+                      var items = studyDataService.GetKosDeleteList(filter);
+                      var mc = new STMKosDeleteOperation();
+                      mc.DoSingleBatch(items, o, ac);
+                  }
+                  catch (Exception ex)
+                  {
+                      var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
+                      var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogMakeKos, fileName);
+                      Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                      File.WriteAllText(filePath, ex.ToString());
+                      log.Save(AppLogDataService.LogType.OtomatikMakeKos, "Log File Path:" + filePath);
+                  }
+
+              });
+            return job;
         }
 
         public MultipleOperationResultModel DeleteKosBackground(InfStudyFilter filter)

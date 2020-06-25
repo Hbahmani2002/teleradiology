@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Implementation\Public\" />
     <Folder Include="Interface\Private\" />
     <Folder Include="Interface\Public\" />
   </ItemGroup>
