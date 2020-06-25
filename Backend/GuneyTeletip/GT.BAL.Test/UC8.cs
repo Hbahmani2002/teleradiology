@@ -55,12 +55,21 @@ namespace GT.BAL.Test
         public void UC8_1()
         {
 
-            //AutoBussinessJobs.AutoJobService.
-            //while (true)
-            //{
-            //    AutoBussinessJobs.MakeKos.Stop();
-            //    AutoBussinessJobs.MakeKos.Start();
-            //}
+            BussinessJobs.StartAutomaticJobs();
+            while (true)
+            {
+                Thread.Sleep(100);
+                var item = BussinessJobs.SendKosJob.ProgressItem;
+                if (item == null)
+                {
+                    Debug.WriteLine($"Success:{item.Success} Error:{item.Error}");
+                }
+                else
+                {
+                    Debug.WriteLine("NO data");
+                }
+            }
+
 
         }
 
@@ -112,25 +121,5 @@ namespace GT.BAL.Test
             }
         }
 
-        [Test]
-        public void UC8_Main()
-        {
-            BussinessJobs.StartAutomaticJobs();
-            while (true)
-            {
-                Thread.Sleep(100);
-                var item = BussinessJobs.MakeKosJob.ProgressItem;
-                if(item==null)
-                {
-                    Debug.WriteLine($"Success:{item.Success} Error:{item.Error}");
-                }
-                else
-                {
-                    Debug.WriteLine("NO data");
-                }
-                
-            }
-
-        }
     }
 }

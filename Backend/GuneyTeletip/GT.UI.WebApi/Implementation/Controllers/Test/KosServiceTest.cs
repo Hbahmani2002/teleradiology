@@ -44,7 +44,7 @@ namespace GT.UI.WebApi.Controllers
 
             var item = GetMakeKosList(settings).First();
             var manager = GetMakeKosManager(filePath);
-            manager.MakeKos(item.InputStudyDirectoryPath, item.OutputKosFilePath);
+            manager.MakeKos(item.InputStudyDirectoryPath, item.OutputKosFilePath,"","");
 
             return HttpMessageService.Ok((object)new
             {

@@ -54,38 +54,11 @@ namespace GT.DataService.infinity.Implementation
             var list1 = _InfOracleCompositeRepository.Query(f)
                .OrderBy(o=>o.StudyKey).Skip(0).Take(TakeTop).ToList();
 
-
-           //var studyKeyList= list1.Select(o => o.StudyKey);
-           //foreach (var study in list1)
-           //{
-           // //    var series=_Workspace.Query<Series>().Where(o => o.StudyKey == study.StudyKey).ToList();
-           // //    if(series.Count>0)
-           // //    {
-
-           // //    }
-           // //    var serie1 = study.Series.FirstOrDefault();
-           // }
-
-
-
             return list1;
 
 
            
         }
-
-        //public List<InfOracleViewModel> GetInfOracleList(InfOracleFilter filter)
-        //{
-        //    var f = new InfStudyConditionFilter
-        //    {
-        //        AccessionNo = filter.Accession_no,
-        //        InfStudyPkLast = filter.Infstudypklast,
-        //        CreationStartDate = filter.Infcreationstartdate,
-
-        //    };
-        //    return _InfOracleCompositRepository.Query(f);
-        //}
-
 
     }
 }
