@@ -50,7 +50,7 @@ namespace GT.PERSISTANCE.DOMAIN.Models
                 //test deneme               
                 optionsBuilder.UseLoggerFactory(consoleLoggerFactory);
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseOracle("User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;");
+                optionsBuilder.UseOracle("User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;",o=>o.UseOracleSQLCompatibility("11"));
             }
         }
 

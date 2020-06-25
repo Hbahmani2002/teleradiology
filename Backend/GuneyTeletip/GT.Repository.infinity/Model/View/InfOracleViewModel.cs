@@ -33,7 +33,21 @@ namespace GT.Repository.infinity.Model.View
         public string SeriesInfo { get; set; }
         public int? ZeroImg { get; set; }
 
+        public override string ToString()
+        {
+            var
+                _PropertyInfos = this.GetType().GetProperties();
 
+            var sb = new StringBuilder();
+
+            foreach (var info in _PropertyInfos)
+            {
+                var value = info.GetValue(this, null) ?? "(null)";
+                sb.AppendLine(info.Name + ": " + value.ToString());
+            }
+
+            return sb.ToString();
+        }
 
     }
 }

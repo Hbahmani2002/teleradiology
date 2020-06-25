@@ -22,6 +22,7 @@ namespace GT.Core.Settings
             DatabaseConnection = new Database();
             InfinityOracleSettings = new InfinityOracleIntegration();
             DataServiceSettings = new DataServiceSetting();
+            InfinityOracleTakeTopSettings = new InfinityOracleTakeIntegration();
         }
 
         public Logging Log { get; }
@@ -30,6 +31,14 @@ namespace GT.Core.Settings
         public InfinityOracleIntegration InfinityOracleSettings { get; }
         public DataServiceSetting DataServiceSettings { get; }
         public Database DatabaseConnection { get; }
+        public InfinityOracleTakeIntegration InfinityOracleTakeTopSettings { get; }
+
+
+        public class InfinityOracleTakeIntegration
+        {
+            public int InfinityOracleTakeTop => 200;
+        }
+
 
         public class InfinityOracleIntegration
         {

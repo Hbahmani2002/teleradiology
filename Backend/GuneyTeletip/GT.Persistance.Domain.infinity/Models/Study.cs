@@ -45,7 +45,7 @@ namespace GT.Persistance.Domain.infinity.Models
         public decimal? MspsCount { get; set; }
         public decimal? SeriesCount { get; set; }
         public decimal? InstanceCount { get; set; }
-        public DateTime CreationDttm { get; set; }
+        public DateTime? CreationDttm { get; set; }
         public DateTime? AccessDttm { get; set; }
         public decimal StudyStat { get; set; }
         public string Modalities { get; set; }
