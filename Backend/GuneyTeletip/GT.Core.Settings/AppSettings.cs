@@ -63,6 +63,10 @@ namespace GT.Core.Settings
                 return path;
             }
             public string DIR_JobsLog => FullPath("../upload/_jobs");
+
+            public string DIR_JobsLogMakeKos => Path.Combine(DIR_JobsLog, "MakeKos");
+            public string DIR_JobsLogSendKos => Path.Combine(DIR_JobsLog, "SendKos");
+            public string DIR_JobsLogSTM => Path.Combine(DIR_JobsLog, "STM");
             public string PATH_JobInfinity => Path.Combine(DIR_JobsLog, "infinity_job_log.txt");
             public string DIR_BackgroundProcess => FullPath("../upload/_background");
         }

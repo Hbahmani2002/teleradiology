@@ -84,29 +84,53 @@ namespace GT.BAL.Test
         {
             var js = new JobBussinessService();
 
-
             while (true)
             {
 
-                var id = js.Create((o, t) =>
-                {
-                    Debug.WriteLine("JOb is working..............");
-                    int i = 0;
-                    while (i < 100)
-                    {
-                        var rnd = new Random();
-                        if (o.IsCancellationRequested)
-                        {
-                            Debug.WriteLine("JOb is cancelled");
-                            return;
-                        }
+                var item = js.Create((o, t) =>
+                 {
 
-                        t(new JobBussinessServiceProgressItem(rnd.Next(1000), rnd.Next(1000)));
-                    }
-                });
-                Thread.Sleep(1100);
-                js.Stop(id);
+                     int i = 0;
+                     while (true)
+                     {
+                         Debug.WriteLine($"ThreadID:{Thread.CurrentThread.ManagedThreadId}\t{i++}");
+                         Thread.Sleep(100);
+                         var rnd = new Random();
+                         if (o.IsCancellationRequested)
+                         {
+                             Debug.WriteLine("JOb is cancelled");
+                             return;
+                         }
+
+                         t(new JobBussinessServiceProgressItem(rnd.Next(1000), rnd.Next(1000)));
+                     }
+                 });
+                item.Start();
+                Thread.Sleep(600);
+                item.Stop();
+                item.Start();
             }
+        }
+
+        [Test]
+        public void UC8_Main()
+        {
+            BussinessJobs.StartAutomaticJobs();
+            while (true)
+            {
+                Thread.Sleep(100);
+                var item = BussinessJobs.MakeKosJob.ProgressItem;
+                if(item==null)
+                {
+                    Debug.WriteLine($"Success:{item.Success} Error:{item.Error}");
+                }
+                else
+                {
+                    Debug.WriteLine("NO data");
+                }
+                
+            }
+
         }
     }
 }
