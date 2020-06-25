@@ -12,8 +12,8 @@ namespace GT.Repository.Models.View
         public string EmailAdress { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string RolName { get; set; }
-        public long RolID { get; set; }
+        public string[] RolNameList { get; set; }
+        public long[] RolIDList { get; set; }
         public string UserName { get; set; }
     }
 }

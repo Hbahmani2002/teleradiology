@@ -23,7 +23,7 @@ namespace GT.Test.GT
             var gri = new Gridable<UserViewFilter>();
             var filter = new UserViewFilter();
             gri.Filter = filter;
-            //var list = service.GetUserList(gri);
+            var list = service.GetUserList(gri);
         }
 
         [Test]

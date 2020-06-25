@@ -61,7 +61,23 @@ namespace GT.DataService.Implementation
                 RoleName=parms.Filter.RolName,
                 ID=parms.Filter.RolID
             };
-            return userCompositeRepository.Query(u,r).GetGridQuery(parms);
+            var roleList = userCompositeRepository.RoleList().ToList();
+            var userList = userCompositeRepository.Query(u, r).Select(o => new UserViewModel { 
+                RolIDList= roleList.Where(x => x.UserID==o.ID).Select(x=>x.RoleID).ToArray(),
+                RolNameList = roleList.Where(x => x.UserID == o.ID).Select(x => x.RoleName).ToArray(),
+                EmailAdress=o.EmailAdress,
+                ID=o.ID,
+                Name=o.Name,
+                RecordStatus=o.RecordStatus,
+                Surname=o.Surname,
+                TimeCreated=o.TimeCreated,
+                TimeModified=o.TimeModified,
+                UserIDCreated=o.UserIDCreated,
+                UserIDModified=o.UserIDModified,
+                UserName=o.UserName
+            });
+            
+            return userList.GetGridQuery(parms);
         }
 
         public int Save(UserView model)
@@ -116,12 +132,13 @@ namespace GT.DataService.Implementation
         {
             var user = userLoginRepository.GetByID(userID);
             var userRol = userRoleRepository.GetByUserID(userID);
-            if (user == null && userRol == null)
+            if (user == null)
             {
                 throw new Exception("Kullanıcı veya kullanıcı Rolü bulunamadı");
             }
             userLoginRepository.Delete(user);
-            userRoleRepository.Delete(userRol);
+            if(userRol != null)
+                userRoleRepository.Delete(userRol);
             _Workspace.CommitChanges();
             return 0;
         }

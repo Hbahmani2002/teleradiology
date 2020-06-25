@@ -56,6 +56,7 @@ namespace GT.Job.Model.AutoJobs
                         var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
                         var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogMakeKos, fileName);
                         Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                        File.WriteAllText(filePath, ex.ToString());
                         log.Save(AppLogDataService.LogType.OtomatikMakeKos, "Log File Path:" + filePath);
                         Thread.Sleep(500);
                     }
