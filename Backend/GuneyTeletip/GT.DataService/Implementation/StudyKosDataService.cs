@@ -323,27 +323,21 @@ namespace GT.DataService.Implementation
         {
             return kosDurumIstCompositeRepository.Query().ToList();
         }
-        public IEnumerable<KosDeleteViewModel> GetKosDeleteList(Gridable<InfStudyFilter> parms)
+        public IEnumerable<KosDeleteViewModel> GetKosDeleteList(InfStudyFilter filter)
         {
-            if (parms == null)
-            {
-                parms = new Gridable<InfStudyFilter>();
-            }
-            if (parms.Filter == null)
-            {
-                parms.Filter = new InfStudyFilter();
-            }
+            if (filter == null)
+                filter = new InfStudyFilter();
             var s = new InfStudyConditionFilter
             {
-                HastaneIDList = parms.Filter.HastaneIDList,
-                AccessionNumberList = parms.Filter.AccessionNumberList,
-                BasTarih = parms.Filter.BasTarih,
-                BitTarih = parms.Filter.BitTarih,
-                Modality = parms.Filter.Modalite,
-                TcList = parms.Filter.TCList,
-                KosEnum = parms.Filter.KosEnum,
-                StudyInstanceUID = parms.Filter.StudyInstanceUID,
-                PatientID = parms.Filter.PatientID
+                HastaneIDList = filter.HastaneIDList,
+                AccessionNumberList = filter.AccessionNumberList,
+                BasTarih = filter.BasTarih,
+                BitTarih = filter.BitTarih,
+                Modality = filter.Modalite,
+                TcList = filter.TCList,
+                KosEnum = filter.KosEnum,
+                StudyInstanceUID = filter.StudyInstanceUID,
+                PatientID = filter.PatientID
             };
             return kosDeleteCompositeRepository.Query(s).ToArray();
         }
