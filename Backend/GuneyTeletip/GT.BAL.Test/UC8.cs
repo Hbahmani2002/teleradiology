@@ -5,12 +5,18 @@ using GT.DataService.infinity.Model;
 using GT.Job.Implementation;
 using GT.Job.Model.AutoJobs;
 using GT.SERVICE;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using Util.Logger;
+using System.Text;
+using GT.UI.WebApi.Models;
 
 namespace GT.BAL.Test
 {
@@ -150,14 +156,39 @@ namespace GT.BAL.Test
         public void UC8_6()
         {
 
+            var gelen_app_setting = File.ReadAllText("appsettings.json");
 
-
+            var y=JsonConvert.DeserializeObject<string>(gelen_app_setting);
 
 
 
 
         }
 
+        public class TypeJson
+        {
+            public string patientId { get; set; }
+            public string KOS { get; set; }
+            public string RepositoryUr { get; set; }
+            public string Result { get; set; }
+
+            public TypeJson()
+            {
+            }
+
+
+        }
+
+
+
+
+        public class HighLowTemps
+        {
+            public string isSuccess { get; set; }
+            public string message { get; set; }
+
+            public string arguments { get; set; }
+        }
 
 
     }
