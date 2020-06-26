@@ -182,14 +182,29 @@ namespace GT.BAL.TeletipKos
             throw new NotImplementedException();
         }
 
-        public void ReprocessKosBackground(InfStudyFilter filter)
+        public JobBussinessService.JobServiceItem ReprocessKosBackground(InfStudyFilter filter)
         {
-            var list = GetStudyKos(filter);
-            foreach (var item in list)
+            var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
 
-            }
-            throw new NotImplementedException();
+                try
+                {
+                    var globalSettings = AppSettings.GetCurrent();
+                   
+                   
+                }
+                catch (Exception ex)
+                {
+                    var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
+                    var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogManuel, fileName);
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                    File.WriteAllText(filePath, ex.ToString());
+                    throw new Exception("Delete Kos" + "Log File Path:" + filePath);
+                }
+
+            });
+            job.Start();
+            return job;
         }
 
         public void UpdateReadKos(InfStudyFilter filter)

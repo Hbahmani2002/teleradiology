@@ -50,7 +50,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Kos/CreateKosBackground")]
-        public ServiceResult<long> CreateKossBackground(InfStudyFilter parms)
+        public ServiceResult<long> CreateKosBackground(InfStudyFilter parms)
         {
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.CreateKosBackground(parms);
@@ -68,6 +68,12 @@ namespace GT.UI.WebApi.Controllers
             return HttpMessageService.Ok(job.JobID);
         }
 
+        [HttpPost]
+        [Route("/Kos/DeleteKos")]
+        public ServiceResult<long> DeleteKos(Gridable<InfStudyFilter> parms)
+        {
+            return HttpMessageService.Ok(999L);
+        }
 
         [HttpPost]
         [Route("/Kos/DeleteKosBackground")]
@@ -76,14 +82,6 @@ namespace GT.UI.WebApi.Controllers
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.DeleteKosBackground(parms);
             return HttpMessageService.Ok(job.JobID);
-        }
-
-
-        [HttpPost]
-        [Route("/Kos/DeleteKos")]
-        public ServiceResult<long> DeleteKos(Gridable<InfStudyFilter> parms)
-        {
-            return HttpMessageService.Ok(999L);
         }
 
         [HttpPost]
@@ -113,10 +111,20 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Kos/ReprocessKos")]
-        public ServiceResult<int> ReprocessKos(Gridable<InfStudyFilter> parms)
+        public ServiceResult<long> ReprocessKos(Gridable<InfStudyFilter> parms)
         {
-            return HttpMessageService.Ok(40);
+            return HttpMessageService.Ok(999L);
         }
+        [HttpPost]
+        [Route("/Kos/ReprocessKosBackground")]
+        public ServiceResult<long> ReprocessKosBackground(Gridable<InfStudyFilter> parms)
+        {
+            var cx = GetBussinesContext();
+            var service = new StudyKosService(cx);
+            var job=service.ReprocessKosBackground(parms.Filter);
+            return HttpMessageService.Ok(job.JobID);
+        }
+
 
         [HttpPost]
         [Route("/Kos/UpdateReadKos")]
