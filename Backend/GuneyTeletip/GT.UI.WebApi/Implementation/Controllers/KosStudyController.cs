@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using GT.BAL.TeletipKos;
 using GT.DataService.Implementation;
 using GT.DataService.Model;
 using GT.Repository.Models.Filter;
 using GT.Repository.Models.View;
+using GT.SERVICE;
 using GT.UI.WebApi.Implementation;
 using GT.UI.WebApi.Models;
 using GT.UI.WebApi.Models.Data.Kos;
@@ -24,7 +26,7 @@ namespace GT.UI.WebApi.Controllers
     [ApiController]
 
     [Route("[controller]")]
-    public class KosController : AuthenticatedBaseController
+    public class KosStudyController : AuthenticatedBaseController
     {
         [HttpPost]
         [Route("/Kos/CreateKos")]
@@ -34,10 +36,19 @@ namespace GT.UI.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("/Kos/DeleteKos")]
-        public ServiceResult<int> DeleteKos(Gridable<InfStudyFilter> parms)
+        [Route("/Kos/DeleteKosBackground")]
+        public ServiceResult<long> DeleteKosBackground(InfStudyFilter parms)
         {
-            return HttpMessageService.Ok(999);
+            var sd = new StudyKosService(GetBussinesContext());
+            var job = sd.DeleteKosBackground(parms);
+            return HttpMessageService.Ok(job.JobID);
+        }
+
+        [HttpPost]
+        [Route("/Kos/DeleteKos")]
+        public ServiceResult<long> DeleteKos(Gridable<InfStudyFilter> parms)
+        {
+            return HttpMessageService.Ok(999L);
         }
 
         [HttpPost]
@@ -120,7 +131,7 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<long> UpdateKosDurum(UpdateKosDurumModel model)
         {
             var cx = GetBussinesContext();
-            throw new NotImplementedException();            
+            throw new NotImplementedException();
         }
 
     }

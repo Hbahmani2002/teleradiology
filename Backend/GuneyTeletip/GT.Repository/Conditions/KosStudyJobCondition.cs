@@ -14,8 +14,6 @@ namespace GT.Repository.Conditions
         public long[] IDList { get; set; }
         public DateTime? TimeStart { get; set; }
         public DateTime? TimeStop { get; set; }
-        public long? SuccessfulCount { get; set; }
-        public long? ErrorCount { get; set; }
     }
     public class KosStudyJobCondition
     {
@@ -33,20 +31,12 @@ namespace GT.Repository.Conditions
             }
             if (filter.TimeStart.HasValue)
             {
-                exp = exp.And(o => o.TimeStart == filter.TimeStart.Value);
+                exp = exp.And(o => o.TimeStart >= filter.TimeStart.Value);
             }
             if (filter.TimeStop.HasValue)
             {
-                exp = exp.And(o => o.TimeStop == filter.TimeStop.Value);
-            }
-            if (filter.SuccessfulCount.HasValue)
-            {
-                exp = exp.And(o => o.SuccessfulCount == filter.SuccessfulCount.Value);
-            }
-            if (filter.ErrorCount.HasValue)
-            {
-                exp = exp.And(o => o.ErrorCount == filter.ErrorCount.Value);
-            }
+                exp = exp.And(o => o.TimeStop <= filter.TimeStop.Value);
+            }           
             return exp;
         }
     }

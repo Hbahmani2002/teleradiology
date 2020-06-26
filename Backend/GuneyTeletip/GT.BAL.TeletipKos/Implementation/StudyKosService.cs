@@ -71,40 +71,37 @@ namespace GT.BAL.TeletipKos
 
         public JobBussinessService.JobServiceItem DeleteKos(Gridable<InfStudyFilter> filter)
         {
-            var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
-              {
-
-                  var log = new AppLogDataService(null);
-
-                  try
-                  {
-                      var globalSettings = AppSettings.GetCurrent();
-                      var studyDataService = new StudyKosDataService();
-                      var items = studyDataService.GetKosDeleteList(filter);
-                      var mc = new STMKosDeleteOperation();
-                      mc.DoSingleBatch(items, o, ac);
-                  }
-                  catch (Exception ex)
-                  {
-                      var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
-                      var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogMakeKos, fileName);
-                      Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                      File.WriteAllText(filePath, ex.ToString());
-                      log.Save(AppLogDataService.LogType.OtomatikMakeKos, "Log File Path:" + filePath);
-                  }
-
-              });
-            return job;
+            return null;
         }
 
-        public MultipleOperationResultModel DeleteKosBackground(InfStudyFilter filter)
+        public JobBussinessService.JobServiceItem DeleteKosBackground(InfStudyFilter filter)
         {
-            var list = GetStudyKos(filter);
-            foreach (var item in list)
+            var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
 
-            }
-            return RandomDataGenerator.CreateRandom<MultipleOperationResultModel>(1).FirstOrDefault();
+                var log = new AppLogDataService(null);
+
+                try
+                {
+                    var globalSettings = AppSettings.GetCurrent();
+                    var studyDataService = new StudyKosDataService();
+                    var items = studyDataService.GetKosDeleteList(filter);
+                    var mc = new STMKosDeleteOperation();
+                    mc.DoSingleBatch(items, o, ac);
+                }
+                catch (Exception ex)
+                {
+                    
+                    var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
+                    var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogManuel, fileName);
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                    File.WriteAllText(filePath, ex.ToString());
+                    log.Save(AppLogDataService.LogType.BackGroundJobs, "Log File Path:" + filePath);
+                }
+
+            });
+            job.Start();
+            return job;
         }
 
         public void ReprocessKos(InfStudyFilter filter)

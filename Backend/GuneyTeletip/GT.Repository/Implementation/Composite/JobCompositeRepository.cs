@@ -18,26 +18,28 @@ namespace GT.Repository.Implementation.Composite
 
         }
 
-        public IQueryable<JobViewmodel> Query(EnumTypeJobConditionFilter e, KosStudyJobConditionFilter k)
+        public IQueryable<JobViewModel> Query(EnumTypeJobConditionFilter e, KosStudyJobConditionFilter k)
         {
             var exp1 = EnumTypeJobCondition.Get(e);
             var exp2 = KosStudyJobCondition.Get(k);
             return Query(exp1, exp2);
         }
 
-        public IQueryable<JobViewmodel> Query(Expression<Func<JobEnumtype, bool>> exp1, Expression<Func<KosStudyJob, bool>> exp2)
+        public IQueryable<JobViewModel> Query(Expression<Func<JobEnumtype, bool>> exp1, Expression<Func<KosStudyJob, bool>> exp2)
         {
             var jobEnum = _AbstractWorkspace.Query<JobEnumtype>(exp1);
             var job= _AbstractWorkspace.Query<KosStudyJob>(exp2);
             var list = from j in job
                        join je in jobEnum on j.FkJobEnumType equals je.Pk
-                       select new JobViewmodel
+                       select new JobViewModel
                        {
+                           ID = j.Pk,
                            BasariliSayisi=j.SuccessfulCount.Value,
                            BasarisizSayisi=j.ErrorCount.Value,
                            BasTarih=j.TimeCreated.Value,
                            BitTarih=j.TimeStop.Value,
-                           Tip=je.Name
+                           Tip=je.Name,
+                           JobTypeID=j.FkJobEnumType
                        };
             return list;
         }

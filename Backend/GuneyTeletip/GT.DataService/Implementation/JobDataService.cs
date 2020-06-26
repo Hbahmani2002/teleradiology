@@ -27,7 +27,7 @@ namespace GT.DataService.Implementation
             kosStudyJobRepository = new KosStudyJobRepository(_Workspace);
         }
 
-        public PagingResult<JobViewmodel> GetJobList(Gridable<JobViewFilter> parms)
+        public PagingResult<JobViewModel> GetJobList(Gridable<JobViewFilter> parms)
         {
             if (parms == null)
             {

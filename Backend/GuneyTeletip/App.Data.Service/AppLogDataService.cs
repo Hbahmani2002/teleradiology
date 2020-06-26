@@ -22,6 +22,7 @@ namespace App.Data.Service
             OtomatikMakeKos = 1,
             OtomatikSentKos = 2,
             OtomatikStm = 3,
+            BackGroundJobs = 10,
         }
         public long Save(LogType type, string desc)
         {
