@@ -42,7 +42,7 @@ namespace GT.BAL.TeletipKos
 
         //}
 
-    
+
 
         public MultipleOperationResultModel MakeKos(InfStudyFilter filter)
         {
@@ -150,8 +150,6 @@ namespace GT.BAL.TeletipKos
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
 
-                var log = new AppLogDataService(null);
-
                 try
                 {
                     var globalSettings = AppSettings.GetCurrent();
@@ -162,12 +160,11 @@ namespace GT.BAL.TeletipKos
                 }
                 catch (Exception ex)
                 {
-
                     var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
                     var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogManuel, fileName);
                     Directory.CreateDirectory(Path.GetDirectoryName(filePath));
                     File.WriteAllText(filePath, ex.ToString());
-                    log.Save(AppLogDataService.LogType.BackGroundJobs, "Log File Path:" + filePath);
+                    throw new Exception("Delete Kos" + "Log File Path:" + filePath);
                 }
 
             });

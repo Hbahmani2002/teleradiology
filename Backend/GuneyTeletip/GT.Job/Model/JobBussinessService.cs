@@ -1,4 +1,5 @@
-﻿using GT.BAL.Infinity.DataSynronizer;
+﻿using App.Data.Service;
+using GT.BAL.Infinity.DataSynronizer;
 using GT.Core.Settings;
 using GT.DataService.Implementation;
 using GT.DataService.infinity.Implementation;
@@ -33,30 +34,17 @@ namespace GT.Job.Implementation
             public long JobID { get; set; }
             CancellationTokenSource _cancelTokenSource;
             internal Task Task { get; set; }
-            ThrottleTimer ThrottleTimer;
-            internal int maxMiliSecond => 2000;
-            public JobBussinessServiceProgressItem ProgressItem
-            {
-                get => progressItem;
-                set
-                {
-                    if (ThrottleTimer != null)
-                    {
-                        ThrottleTimer.Trigger();
-                    }
-                    progressItem = value;
-                }
-            }
+
+            public JobBussinessServiceProgressItem ProgressItem { get; private set; }
 
             private JobBussinessServiceProgressItem progressItem;
             private JobBussinessService _jobBussinessService;
-            private Action<CancellationTokenSource, Action<JobBussinessServiceProgressItem>> _ac;
+            private Action<CancellationTokenSource, JobBussinessServiceProgressItem> _ac;
 
-            public JobServiceItem(JobBussinessService jobBussinessService, Action<CancellationTokenSource, Action<JobBussinessServiceProgressItem>> ac)
+            public JobServiceItem(JobBussinessService jobBussinessService, Action<CancellationTokenSource, JobBussinessServiceProgressItem> ac)
             {
                 _jobBussinessService = jobBussinessService;
                 _ac = ac;
-
             }
             public void Stop()
             {
@@ -66,29 +54,26 @@ namespace GT.Job.Implementation
             {
                 Stop();
                 JobID = _jobBussinessService.DataCreate();
+                ProgressItem = new JobBussinessServiceProgressItem(JobID, 0, 0);
                 _cancelTokenSource = new CancellationTokenSource();
-                ThrottleTimer = new ThrottleTimer(o =>
-                {
-                    if (this.ProgressItem == null)
-                        return;
-                    _jobBussinessService.DataProgress(JobID, this.ProgressItem);
-                }, maxMiliSecond);
 
 
-                ProgressItem = new JobBussinessServiceProgressItem(0, 0);
 
 
                 this.Task = Task.Factory.StartNew(() =>
                 {
                     Debug.WriteLine($"JobID:{this.JobID} started");
-                    _ac(this._cancelTokenSource, o =>
-                    {
-                        this.ProgressItem = o;
-                    });
+                    _ac(this._cancelTokenSource, this.ProgressItem);
                     _jobBussinessService.DataEnd(this.JobID);
                     Debug.WriteLine($"JobID:{this.JobID} end");
                     Debug.WriteLine($"JobID:{this.JobID} removed");
                 }, this._cancelTokenSource.Token);
+                this.Task.ContinueWith(t =>
+                {
+                    var ds = new AppLogDataService();
+                    ds.Save(AppLogDataService.LogType.BackGroundJobs, t.Exception.ToString());
+                },
+                        TaskContinuationOptions.OnlyOnFaulted);
                 this.Task.ContinueWith(o =>
                 {
                     Debug.WriteLine("Task End and trying to stop");
@@ -102,6 +87,9 @@ namespace GT.Job.Implementation
             }
 
 
+
+
+
             public void Dispose()
             {
                 if (_jobBussinessService.Remove(this))
@@ -112,11 +100,8 @@ namespace GT.Job.Implementation
                         this._cancelTokenSource.Cancel();
                         this._cancelTokenSource.Dispose();
                     }
-                    if (ThrottleTimer.timer != null)
-                    {
-                        ThrottleTimer.timer.Dispose();
-                        ThrottleTimer = null;
-                    }
+                    this.ProgressItem.Dispose();
+
                 }
 
                 Debug.WriteLine("Dsiposed");
@@ -131,7 +116,7 @@ namespace GT.Job.Implementation
         }
 
 
-        public JobServiceItem Create(Action<CancellationTokenSource, Action<JobBussinessServiceProgressItem>> jobAction)
+        public JobServiceItem Create(Action<CancellationTokenSource, JobBussinessServiceProgressItem> jobAction)
         {
             return new JobServiceItem(this, jobAction);
         }
@@ -154,18 +139,6 @@ namespace GT.Job.Implementation
             var dataService = new JobDataService(null);
             return dataService.Save(DateTime.Now, JobDataService.JopEnumType.StatusCheck);
         }
-        private void DataProgress(long jobID, JobBussinessServiceProgressItem d)
-        {
-            if (d == null)
-            {
-                return;
-            }
-            var res = TaskList.TryGetValue(jobID, out JobServiceItem item);
-            if (!res)
-                return;
-            Debug.WriteLine($"Tasklist Progress JobId:{jobID}");
-            var dataService = new JobDataService(null);
-            dataService.SaveProgress(jobID, DateTime.Now, d.Success, d.Error);
-        }
+
     }
 }

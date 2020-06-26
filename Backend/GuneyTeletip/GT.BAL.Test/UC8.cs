@@ -92,7 +92,7 @@ namespace GT.BAL.Test
             {
                 t2.Trigger();
             }
-            t2.timer.Dispose();
+            t2.Dispose();
             Console.Read();
         }
         [Test]
@@ -104,27 +104,37 @@ namespace GT.BAL.Test
             {
 
                 var item = js.Create((o, t) =>
-                 {
+                {
+                    int i = 0;
+                    while (true)
+                    {
+                        Debug.WriteLine($"ThreadID:{Thread.CurrentThread.ManagedThreadId}\t{i++}");
+                        Thread.Sleep(20);
 
-                     int i = 0;
-                     while (true)
-                     {
-                         Debug.WriteLine($"ThreadID:{Thread.CurrentThread.ManagedThreadId}\t{i++}");
-                         Thread.Sleep(100);
-                         var rnd = new Random();
-                         if (o.IsCancellationRequested)
-                         {
-                             Debug.WriteLine("JOb is cancelled");
-                             return;
-                         }
+                        var rnd = new Random();
+                        if (rnd.Next(1000) == 1)
+                        {
+                            // throw new Exception("GÖRÜNDÜN MÜ HATAYI");
+                        }
 
-                         t(new JobBussinessServiceProgressItem(rnd.Next(1000), rnd.Next(1000)));
-                     }
-                 });
+                        if (o.IsCancellationRequested)
+                        {
+                            Debug.WriteLine("JOb is cancelled");
+                            return;
+                        }
+                        if (rnd.Next(2) == 1)
+                        {
+                            t.IncreaseProgressSuccess();
+                        }
+                        else
+                        {
+                            t.IncreaseProgressError();
+                        }
+                    }
+                });
                 item.Start();
-                Thread.Sleep(600);
+                Thread.Sleep(2000);
                 item.Stop();
-                item.Start();
             }
         }
         [Test]
