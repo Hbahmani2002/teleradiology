@@ -45,7 +45,7 @@ namespace GT.Job.Implementation
             TeletipMakeKosService = new TeletipMakeKosService(makeKosSetting);
         }
 
-        public void DoSingleBatch(IEnumerable<MakeKosViewModel> items, System.Threading.CancellationTokenSource cancelToken, Action<JobBussinessServiceProgressItem> progressAction)
+        public void DoSingleBatch(IEnumerable<MakeKosViewModel> items, System.Threading.CancellationTokenSource cancelToken, JobBussinessServiceProgressItem progressAction)
         {
             var resultCollection = new ConcurrentBag<int>();
             Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, item =>
@@ -63,7 +63,7 @@ namespace GT.Job.Implementation
                 sb.AppendLine("");
                 sb.Append(res.Arguments);
                 studyDataService.Save_UpdateMakeKosDurum(item.StudyID, res.IsSuccess, outputPath, res.Message + res.Arguments);
-                progressAction(new JobBussinessServiceProgressItem(0, 0));
+                progressAction.IncreaseProgressSuccess();
             });
         }
 

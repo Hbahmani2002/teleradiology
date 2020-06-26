@@ -49,7 +49,7 @@ namespace GT.Job.Implementation
             STMService = new STMService(token, stmSettings.BASEADDRESS);
         }
 
-        public void DoSingleBatch(IEnumerable<KosDeleteViewModel> items, System.Threading.CancellationTokenSource cancelToken, Action<JobBussinessServiceProgressItem> progressAction)
+        public void DoSingleBatch(IEnumerable<KosDeleteViewModel> items, System.Threading.CancellationTokenSource cancelToken, JobBussinessServiceProgressItem progressAction)
         {
 
             Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, item =>
@@ -62,7 +62,7 @@ namespace GT.Job.Implementation
                 //var res = STMService.GetRemoveKos(int.Parse(item.KurumSkrsKodu), item.AccessionNumber, item.StudyInstanceID);
 
                 var studyDataService = new StudyKosDataService();
-               
+
                 //throw new NotImplementedException();
                 //if (res != null)
                 //{
@@ -70,7 +70,8 @@ namespace GT.Job.Implementation
 
                 //}
                 //studyDataService.Save_UpdateDeleteKos(item.StudyID, "");
-                progressAction(new JobBussinessServiceProgressItem(new Random().Next(1000), new Random().Next(1000)));
+                progressAction.IncreaseProgressError();
+                progressAction.IncreaseProgressSuccess();
             });
         }
 

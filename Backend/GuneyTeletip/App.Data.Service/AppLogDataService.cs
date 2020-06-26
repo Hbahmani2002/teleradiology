@@ -10,8 +10,10 @@ namespace App.Data.Service
 {
     public class AppLogDataService : BaseService
     {
-        AbstractWorkspace _Workspace;
         AppLogRepository appLog;
+        public AppLogDataService() : this(null)
+        {
+        }
         public AppLogDataService(IBussinessContext context) : base(context)
         {
             _Workspace = GTWorkspaceFactory.Create(true);
