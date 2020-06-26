@@ -34,20 +34,15 @@ namespace GT.BAL.TeletipKos
             }
             return RandomDataGenerator.CreateRandom<MultipleOperationResultModel>(1).FirstOrDefault();
         }
-        public void CreateKosBackground(InfStudyFilter filter)
-        {
+        //public MultipleOperationResultModel CreateKosBackground1(InfStudyFilter filter)
+        //{
 
-            var list = GetStudyKos(filter);
-            CreateKos(list);
-        }
+        //    var list = GetStudyKos(filter);
+        //    CreateKos(list);
 
-        private static void CreateKos(IEnumerable<InfStudyViewModel> list)
-        {
-            foreach (var item in list)
-            {
+        //}
 
-            }
-        }
+    
 
         public MultipleOperationResultModel MakeKos(InfStudyFilter filter)
         {
@@ -58,15 +53,91 @@ namespace GT.BAL.TeletipKos
             }
             return RandomDataGenerator.CreateRandom<MultipleOperationResultModel>(1).FirstOrDefault();
         }
-        public MultipleOperationResultModel MakeKosBackground(InfStudyFilter filter)
+        public JobBussinessService.JobServiceItem CreateKosBackground(InfStudyFilter filter)
         {
-            var list = GetStudyKos(filter);
-            foreach (var item in list)
+
+            var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
 
-            }
-            return RandomDataGenerator.CreateRandom<MultipleOperationResultModel>(1).FirstOrDefault();
+                var log = new AppLogDataService(null);
+                try
+                {
+                    var globalSettings = AppSettings.GetCurrent();
+                    var studyDataService = new StudyKosDataService();
+                    while (true)
+                    {
+                        var items = studyDataService.GetMakeKosList(50);
+                        if (items.Count == 0)
+                            return;
+
+                        var mc = new MakeKosOperation();
+                        mc.DoSingleBatch(items, o, ac);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
+                    var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogManuel, fileName);
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                    File.WriteAllText(filePath, ex.ToString());
+                    log.Save(AppLogDataService.LogType.BackGroundJobs, "Log File Path:" + filePath);
+                }
+
+
+
+
+            });
+
+            job.Start();
+            return job;
         }
+
+
+
+        public JobBussinessService.JobServiceItem SendKosBackground(InfStudyFilter filter)
+        {
+
+            var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
+            {
+
+                var log = new AppLogDataService(null);
+                try
+                {
+                    var globalSettings = AppSettings.GetCurrent();
+                    var studyDataService = new StudyKosDataService();
+                    while (true)
+                    {
+                        var items = studyDataService.GetSentKosList(50);
+                        if (items.Count == 0)
+                            return;
+
+                        var mc = new SendKosOperation();
+                        mc.DoSingleBatch(items, o, ac);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
+                    var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogManuel, fileName);
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                    File.WriteAllText(filePath, ex.ToString());
+                    log.Save(AppLogDataService.LogType.BackGroundJobs, "Log File Path:" + filePath);
+                }
+
+
+
+
+            });
+
+            job.Start();
+            return job;
+        }
+
+
 
 
         public JobBussinessService.JobServiceItem DeleteKos(Gridable<InfStudyFilter> filter)
@@ -91,7 +162,7 @@ namespace GT.BAL.TeletipKos
                 }
                 catch (Exception ex)
                 {
-                    
+
                     var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
                     var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogManuel, fileName);
                     Directory.CreateDirectory(Path.GetDirectoryName(filePath));

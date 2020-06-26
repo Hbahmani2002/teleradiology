@@ -1,4 +1,5 @@
-﻿using GT.Core.Settings;
+﻿using GT.BAL.TeletipKos;
+using GT.Core.Settings;
 using GT.DataService.infinity.Implementation;
 using GT.DataService.infinity.Model;
 using GT.Job.Implementation;
@@ -120,6 +121,34 @@ namespace GT.BAL.Test
                 item.Start();
             }
         }
+        [Test]
+        public void UC8_5()
+        {
+            var sd = new StudyKosService(null);
+            var job = sd.DeleteKosBackground(new DataService.Model.InfStudyFilter());
+            while (true)
+            {
+                Thread.Sleep(100);
+                Debug.WriteLine($"Success:{job.ProgressItem.Success} Error:{ job.ProgressItem.Error}");
+            }
+        }
+
+
+
+
+        [Test]
+        public void UC8_6()
+        {
+
+
+
+
+
+
+
+        }
+
+
 
     }
 }

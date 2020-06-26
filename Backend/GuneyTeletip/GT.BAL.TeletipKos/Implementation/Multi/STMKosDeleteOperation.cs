@@ -59,17 +59,18 @@ namespace GT.Job.Implementation
                     return;
                 }
 
-                var res = STMService.GetRemoveKos(0, item.AccessionNumber, item.StudyInstanceID);
+                //var res = STMService.GetRemoveKos(int.Parse(item.KurumSkrsKodu), item.AccessionNumber, item.StudyInstanceID);
 
                 var studyDataService = new StudyKosDataService();
                
-                throw new NotImplementedException();
+                //throw new NotImplementedException();
                 //if (res != null)
                 //{
 
+
                 //}
-                studyDataService.Save_UpdateDeleteKos(item.StudyID, "");
-                progressAction(new JobBussinessServiceProgressItem(0, 0));
+                //studyDataService.Save_UpdateDeleteKos(item.StudyID, "");
+                progressAction(new JobBussinessServiceProgressItem(new Random().Next(1000), new Random().Next(1000)));
             });
         }
 

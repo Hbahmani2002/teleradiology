@@ -32,8 +32,42 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Kos/CreateKos")]
         public ServiceResult<int> CreateKos(Gridable<InfStudyFilter> parms)
         {
-            return HttpMessageService.Ok(999);
+
+
+            return HttpMessageService.Ok(9989);
+
+
+
         }
+
+        [HttpPost]
+        [Route("/Kos/SendKos")]
+        public ServiceResult<int> SendKos(Gridable<InfStudyFilter> parms)
+        {
+            return HttpMessageService.Ok(9901);
+        }
+
+
+        [HttpPost]
+        [Route("/Kos/CreateKosBackground")]
+        public ServiceResult<long> CreateKossBackground(InfStudyFilter parms)
+        {
+            var sd = new StudyKosService(GetBussinesContext());
+            var job = sd.CreateKosBackground(parms);
+            return HttpMessageService.Ok(job.JobID); 
+        }
+
+
+
+        [HttpPost]
+        [Route("/Kos/SendKosBackground")]
+        public ServiceResult<long> SendKosBackground(InfStudyFilter parms)
+        {
+            var sd = new StudyKosService(GetBussinesContext());
+            var job = sd.SendKosBackground(parms);
+            return HttpMessageService.Ok(job.JobID);
+        }
+
 
         [HttpPost]
         [Route("/Kos/DeleteKosBackground")]
@@ -43,6 +77,7 @@ namespace GT.UI.WebApi.Controllers
             var job = sd.DeleteKosBackground(parms);
             return HttpMessageService.Ok(job.JobID);
         }
+
 
         [HttpPost]
         [Route("/Kos/DeleteKos")]
