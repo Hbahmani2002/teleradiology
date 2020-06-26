@@ -4,9 +4,9 @@ using System.Threading;
 
 namespace GT.Job.Implementation
 {
-    public class ThrottleTimer
+    public class ThrottleTimer : IDisposable
     {
-        public Timer timer;
+        Timer timer;
         int Max;
         DateTime dt;
         object _sync;
@@ -16,16 +16,24 @@ namespace GT.Job.Implementation
             Max = max;
             timer = new Timer(action);
         }
+
+        public void Dispose()
+        {
+            if (timer == null)
+                return;
+            Update();
+            //timer.Dispose();
+        }
+
         public void Trigger()
         {
             lock (_sync)
             {
-
                 if (dt == default)
                 {
                     Debug.WriteLine("Timer tick");
                     dt = DateTime.Now;
-                    timer.Change(0, int.MaxValue);
+                    Update();
                     return;
                 }
                 else
@@ -34,7 +42,7 @@ namespace GT.Job.Implementation
                     var sec = (dt2 - dt).TotalMilliseconds;
                     if (sec > Max)
                     {
-                        timer.Change(0, int.MaxValue);
+                        Update();
                         dt = DateTime.Now;
                     }
                     else
@@ -44,6 +52,11 @@ namespace GT.Job.Implementation
                 }
             }
 
+        }
+
+        private void Update()
+        {
+            timer.Change(0, int.MaxValue);
         }
     }
 }
