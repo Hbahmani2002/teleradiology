@@ -24,10 +24,12 @@ namespace GT.Persistance.Domain.Models
         public virtual DbSet<JobEnumtype> JobEnumtype { get; set; }
         public virtual DbSet<KosBatch> KosBatch { get; set; }
         public virtual DbSet<KosEnumtype> KosEnumtype { get; set; }
+        public virtual DbSet<KosOperationEnumType> KosOperationEnumType { get; set; }
         public virtual DbSet<KosStudy> KosStudy { get; set; }
         public virtual DbSet<KosStudyHistory> KosStudyHistory { get; set; }
         public virtual DbSet<KosStudyJob> KosStudyJob { get; set; }
         public virtual DbSet<KosStudyParameter> KosStudyParameter { get; set; }
+        public virtual DbSet<StudyOperationCount> StudyOperationCount { get; set; }
         public virtual DbSet<UsrRole> UsrRole { get; set; }
         public virtual DbSet<UsrTenant> UsrTenant { get; set; }
         public virtual DbSet<UsrTenantSkrs> UsrTenantSkrs { get; set; }
@@ -307,6 +309,30 @@ namespace GT.Persistance.Domain.Models
                 entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
+            modelBuilder.Entity<KosOperationEnumType>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("kos_operation_enum_type_pkey");
+
+                entity.ToTable("kos_operation_enum_type");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasColumnType("character varying");
+
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
+
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
+            });
+
             modelBuilder.Entity<KosStudy>(entity =>
             {
                 entity.HasKey(e => e.Pk)
@@ -551,6 +577,32 @@ namespace GT.Persistance.Domain.Models
                 entity.Property(e => e.TimeStart).HasColumnName("time_start");
 
                 entity.Property(e => e.TimeStop).HasColumnName("time_stop");
+            });
+
+            modelBuilder.Entity<StudyOperationCount>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("study_operation_count _pkey");
+
+                entity.ToTable("study_operation_count ");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.ErrorTryCount).HasColumnName("error_try_Count");
+
+                entity.Property(e => e.FkOperationEnumType).HasColumnName("fk_operation_enum_type");
+
+                entity.Property(e => e.FkStudy).HasColumnName("fk_study");
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
+
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
             modelBuilder.Entity<UsrRole>(entity =>
