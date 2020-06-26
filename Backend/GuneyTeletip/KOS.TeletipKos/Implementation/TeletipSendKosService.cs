@@ -1,4 +1,5 @@
 ﻿using GT.TeletipKos.Model;
+using KOS.TeletipKos;
 using System;
 using Util.ProcessUtil;
 
@@ -22,13 +23,14 @@ namespace GT.TeletipKos
             return null;
         }
 
-        public ProcessResult SendKos(string patientId, string kosFilePath)
+        public SendKosProcessResult SendKos(string patientId, string kosFilePath)
         {
             var settings = Settings;
 
             var processParameter = $"-jar \"{settings.AppFilePath}\" \"{patientId}\" \"{kosFilePath}\" \"{settings.ServiceURL}\" \"{settings.AxisRepoDirectoryPath}\" \"{settings.AxisXmlFilePath}\" ";
             var processResult = ProcessUtil.Start("java", processParameter);
-            return processResult;
+            var sc = new SendKosProcessResult(processResult);            
+            return sc;
         }
 
     }
