@@ -95,7 +95,7 @@ namespace GT.BAL.Infinity.DataSynronizer
                 }
 
 
-                string OrcleZeroImages = AppSettings.GetCurrent().InfinityOracleSettings.ZeroImageGeneratorName.ToString();
+                string OrcleZeroImages = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.ZeroImageGeneratorName.ToString();
              
 
 
