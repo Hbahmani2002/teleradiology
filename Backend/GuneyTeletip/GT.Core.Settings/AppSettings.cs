@@ -18,8 +18,7 @@ namespace GT.Core.Settings
         {
             Log = new Logging();
             STM = new STMService();
-            Kos = new KosService();
-            DatabaseConnection = new Database();
+            Kos = new KosService();            
             InfinityOracleSettings = new InfinityOracleIntegration();
             DataServiceSettings = new DataServiceSetting();
             InfinityOracleTakeTopSettings = new InfinityOracleTakeIntegration();
@@ -29,8 +28,7 @@ namespace GT.Core.Settings
         public STMService STM { get; }
         public KosService Kos { get; }
         public InfinityOracleIntegration InfinityOracleSettings { get; }
-        public DataServiceSetting DataServiceSettings { get; }
-        public Database DatabaseConnection { get; }
+        public DataServiceSetting DataServiceSettings { get; }        
         public InfinityOracleTakeIntegration InfinityOracleTakeTopSettings { get; }
 
 
@@ -49,13 +47,7 @@ namespace GT.Core.Settings
         {
             public int MakeKosServiceItemPerBatch => 50;
             public int KosWaitHour => 2;
-        }
-        public class Database
-        {
-            public string StudyPostgreConnectionString => "Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002";
-            // "Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002"
-            public string InfinityOracleConnectionString => "User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;";
-        }
+        }        
         public class Logging
         {
             private string FullPath(string relativePath)
