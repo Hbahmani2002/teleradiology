@@ -10,5 +10,6 @@ namespace GT.Repository.Models.View
         public long StudyID { get; set; }
         public string StudyInstanceID { get; set; }
         public string AccessionNumber { get; set; }
+        public string KurumMedulaTesisKodu { get; set; }
     }
 }

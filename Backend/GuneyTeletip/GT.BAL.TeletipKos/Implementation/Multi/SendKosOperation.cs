@@ -71,6 +71,7 @@ namespace GT.Job.Implementation
                 }
                 studyDataService.Save_UpdateSentKosDurum(item.StudyID,StudyKosDataService.SentKosResult.Success , res.Message + res.Arguments);
                 progressAction.IncreaseProgressError();
+                progressAction.IncreaseProgressSuccess();
             });
         }
 

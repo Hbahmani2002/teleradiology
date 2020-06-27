@@ -17,6 +17,7 @@ using System.Threading;
 using Util.Logger;
 using System.Text;
 using GT.UI.WebApi.Models;
+using GT.UI.WebApi.Controllers;
 
 namespace GT.BAL.Test
 {
@@ -32,6 +33,16 @@ namespace GT.BAL.Test
         [Test]
         public void UC8_8()
         {
+
+
+            KosServiceTestController koSend = new KosServiceTestController();
+            var gelen1 = koSend.SendKosTest("123", "100430642.dcm");
+
+
+            KosServiceTestController kos = new KosServiceTestController();
+
+            var gelen =  kos.MakeKosTest();
+         
 
             var gelen_app_setting = File.ReadAllText("appsettings.json");
 

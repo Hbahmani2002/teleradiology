@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Teletip.SorgulamaServis;
 using Util.Extensions;
 
 namespace GT.BAL.TeletipKos
@@ -171,6 +172,37 @@ namespace GT.BAL.TeletipKos
             job.Start();
             return job;
         }
+
+
+
+        public JobBussinessService.JobServiceItem StmGetOrderStatusForAccessionNumberlistBackground(InfStudyFilter filter)
+        {
+            var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
+            {
+
+                try
+                {
+                    var globalSettings = AppSettings.GetCurrent();
+                    var studyDataService = new StudyKosDataService();
+                    var items = studyDataService.GetKosDeleteList(filter);
+                    var mc = new STMKosDeleteOperation();
+                    mc.DoSingleBatch(items, o, ac);
+                }
+                catch (Exception ex)
+                {
+                    var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
+                    var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogManuel, fileName);
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                    File.WriteAllText(filePath, ex.ToString());
+                    throw new Exception("Delete Kos" + "Log File Path:" + filePath);
+                }
+
+            });
+            job.Start();
+            return job;
+        }
+
+
 
         public void ReprocessKos(InfStudyFilter filter)
         {
