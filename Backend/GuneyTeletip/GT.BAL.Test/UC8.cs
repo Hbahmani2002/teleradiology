@@ -16,7 +16,6 @@ using System.IO;
 using System.Threading;
 using Util.Logger;
 using System.Text;
-using GT.UI.WebApi.Models;
 
 namespace GT.BAL.Test
 {
@@ -158,7 +157,7 @@ namespace GT.BAL.Test
 
             var gelen_app_setting = File.ReadAllText("appsettings.json");
 
-            var y=JsonConvert.DeserializeObject<string>(gelen_app_setting);
+            var y = JsonConvert.DeserializeObject<string>(gelen_app_setting);
 
 
 
