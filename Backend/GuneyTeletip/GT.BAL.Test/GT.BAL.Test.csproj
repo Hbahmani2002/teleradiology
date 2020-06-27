@@ -26,9 +26,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GT.BAL.TeletipKos\GT.BAL.TeletipKos.csproj" />
+    <ProjectReference Include="..\GT.Core.Settings.Global\GT.Core.Settings.Global.csproj" />
     <ProjectReference Include="..\GT.Core.Settings\GT.Core.Settings.csproj" />
     <ProjectReference Include="..\GT.Job\GT.Job.csproj" />
-    <ProjectReference Include="..\GT.UI.WebApi\GT.UI.WebApi.csproj" />
     <ProjectReference Include="..\Util.Logger\Util.Logger.csproj" />
   </ItemGroup>
 
