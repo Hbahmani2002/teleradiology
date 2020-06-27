@@ -33,7 +33,8 @@ namespace GT.DataService.Implementation
         MakeKosCompositeRepository makeKosCompositeRepository;
         KosStudyJobRepository kosStudyJobRepository;
         KosDeleteCompositeRepository kosDeleteCompositeRepository;
-
+        GetorderStatusCompositeRepository getorderStatusCompositeRepository;
+        GetorderStatusRepository getorderStatusRepository;
         public StudyKosDataService() : this(null, false)
         {
 
@@ -55,6 +56,8 @@ namespace GT.DataService.Implementation
             makeKosCompositeRepository = new MakeKosCompositeRepository(_Workspace);
             kosStudyJobRepository = new KosStudyJobRepository(_Workspace);
             kosDeleteCompositeRepository = new KosDeleteCompositeRepository(_Workspace);
+            getorderStatusCompositeRepository = new GetorderStatusCompositeRepository(_Workspace);
+            getorderStatusRepository = new GetorderStatusRepository(_Workspace);
         }
 
         public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items)
@@ -218,6 +221,14 @@ namespace GT.DataService.Implementation
                 KosWaitHour = true
             };
             return kosStudyJobRepository.Query(s).OrderBy(o => o.StudyID).Take(count).ToList();
+        }
+        public List<GetorderStatusViewModel> GetSTMInfoList(int count, string[] accessionNumberList)
+        {
+            var g = new GetorderStatusConditionFilter
+            {
+                AccessionNumberList= accessionNumberList
+            };
+            return getorderStatusCompositeRepository.Query(g).OrderBy(o => o.ID).Take(count).ToList();
         }
 
         public void Save(IEnumerable<KosStudy> studies)
@@ -394,6 +405,58 @@ namespace GT.DataService.Implementation
                 throw new Exception("kosStudy bulunmadı. kosStudyID" + kosStudyID);
             }
             kosStudy.FkKosEnumType = newKosState;
+            _InfStudyRepository.Update(kosStudy);
+
+            _Workspace.CommitChanges();
+            return kosStudy.Pk;
+        }
+
+        public long Save_UpdateSTMInfo(long kosStudyID, GetorderStatusViewModel model)
+        {
+            var accessionNumberList = new StmGetorderStatusforAccessionnumberlist();
+            accessionNumberList.Medulainstitutionid = model.Medulainstitutionid;
+            accessionNumberList.Accessionnumber = model.Accessionnumber;
+            accessionNumberList.Citizenid = model.Citizenid;
+            accessionNumberList.Dosestatus = model.Dosestatus;
+            accessionNumberList.Dosestatusid = model.Dosestatusid;
+            accessionNumberList.Error = model.Error;
+            accessionNumberList.FkInfBatch = model.FkInfBatch;
+            accessionNumberList.FkKosStudy = model.FkKosStudy;
+            accessionNumberList.FkTenant = model.FkTenant;
+            accessionNumberList.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
+            accessionNumberList.Lastmedulasenddate = model.Lastmedulasenddate;
+            accessionNumberList.Medulainstitutionid = model.Medulainstitutionid;
+            accessionNumberList.Medularesponsecode = model.Medularesponsecode;
+            accessionNumberList.Medularesponsemessage = model.Medularesponsemessage;
+            accessionNumberList.Medulastatus = model.Medulastatus;
+            accessionNumberList.Medulastatusid = model.Medulastatusid;
+            accessionNumberList.Patienthistorysearchstatus = model.Patienthistorysearchstatus;
+            accessionNumberList.Patienthistorysearchstatusid = model.Patienthistorysearchstatusid;
+            accessionNumberList.Performeddate = model.Performeddate;
+            accessionNumberList.Reportstatus = model.Reportstatus;
+            accessionNumberList.Reportstatusid = model.Reportstatusid;
+            accessionNumberList.Scheduledate = model.Scheduledate;
+            accessionNumberList.Sutcode = model.Sutcode;
+            accessionNumberList.Teletipstatus = model.Teletipstatus;
+            accessionNumberList.Teletipstatusid = model.Teletipstatusid;
+            accessionNumberList.TimeCreated = DateTime.Now;
+            accessionNumberList.Wadostatus = model.Wadostatus;
+            accessionNumberList.Wadostatusid = model.Wadostatusid;
+            getorderStatusRepository.Add(accessionNumberList);
+
+             var kosStudyHistory = new KosStudyHistory();
+            kosStudyHistory.EnumType = (int)KosEnumType.KosGonderilipEslesenler;
+            kosStudyHistory.FkKosStudy = kosStudyID;
+            kosStudyHistory.FkUserCreated = Context.UserInfo.UserIDCurrent;
+            kosStudyHistory.TimeCreated = DateTime.Now;
+            kosStudyHistory.Result = "";
+
+            var kosStudy = _InfStudyRepository.GetByID(kosStudyID);
+            if (kosStudy == null)
+            {
+                throw new Exception("kosStudy bulunmadı. kosStudyID" + kosStudyID);
+            }
+            kosStudy.FkKosEnumType = (int)KosEnumType.KosGonderilipEslesenler;
             _InfStudyRepository.Update(kosStudy);
 
             _Workspace.CommitChanges();

@@ -10,8 +10,6 @@ namespace GT.Repository.Models.View
         public long FkTenant { get; set; }
         public long FkInfBatch { get; set; }
         public long FkKosStudy { get; set; }
-        public long? FkUserCreated { get; set; }
-        public long? FkUserModified { get; set; }
         public string Accessionnumber { get; set; }
         public string Citizenid { get; set; }
         public string Teletipstatus { get; set; }
@@ -34,8 +32,6 @@ namespace GT.Repository.Models.View
         public string Error { get; set; }
         public string Patienthistorysearchstatus { get; set; }
         public int? Patienthistorysearchstatusid { get; set; }
-        public DateTime? TimeCreated { get; set; }
-        public DateTime? TimeModified { get; set; }
         public string SkrsKod { get; set; }
     }
 }

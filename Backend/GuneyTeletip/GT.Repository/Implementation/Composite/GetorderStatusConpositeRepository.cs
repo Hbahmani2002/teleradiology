@@ -17,13 +17,13 @@ namespace GT.Repository.Implementation.Composite
         {
 
         }
-        public IQueryable<GetorderStatusViewModel> Query(GetorderStatusConditionFilter g)
+        public IEnumerable<GetorderStatusViewModel> Query(GetorderStatusConditionFilter g)
         {
             var exp1 = GetorderStatusCondition.Get(g);
             return Query(exp1);
         }
 
-        public IQueryable<GetorderStatusViewModel> Query(Expression<Func<StmGetorderStatusforAccessionnumberlist, bool>> exp)
+        public IEnumerable<GetorderStatusViewModel> Query(Expression<Func<StmGetorderStatusforAccessionnumberlist, bool>> exp)
         {
             var getorderStatus = _AbstractWorkspace.Query<StmGetorderStatusforAccessionnumberlist>(exp);
             var skrs = _AbstractWorkspace.Query<ConstSkrs>();
@@ -41,8 +41,6 @@ namespace GT.Repository.Implementation.Composite
                           FkInfBatch=gs.FkInfBatch,
                           FkKosStudy=gs.FkKosStudy,
                           FkTenant=gs.FkTenant,
-                          FkUserCreated=gs.FkUserCreated,
-                          FkUserModified=gs.FkUserModified,
                           Lastmedulasenddate=gs.Lastmedulasenddate,
                           Medulainstitutionid=gs.Medulainstitutionid,
                           Medularesponsecode=gs.Medularesponsecode,
@@ -58,8 +56,6 @@ namespace GT.Repository.Implementation.Composite
                           Teletipstatus=gs.Teletipstatus,
                           Teletipstatusid=gs.Teletipstatusid,
                           Sutcode=gs.Sutcode,
-                          TimeCreated=gs.TimeCreated,
-                          TimeModified=gs.TimeModified,
                           Wadostatus=gs.Wadostatus,
                           Wadostatusid=gs.Wadostatusid,
                           ID=gs.Pk,
