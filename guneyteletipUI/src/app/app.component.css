@@ -4,4 +4,5 @@
   margin: 0px !important; /*removes default style*/
   display: flex !important; /*enables flex content for its children*/
   box-sizing: border-box !important;
+  font-family: 'dsLight' !important;
 }

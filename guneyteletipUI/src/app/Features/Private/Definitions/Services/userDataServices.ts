@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { userViewFilter } from '../Models/UserViewFilter';
 import { userViewModel } from '../Models/UserViewModel';
-import { userSaveModel } from '../Models/UserSaveModel';
+import { UserSaveModel } from '../Models/UserSaveModel';
 
 import { userUIModel } from '../Models/UserUIModel';
 import { roleViewModel } from '../Models/RoleViewModel';
@@ -21,10 +21,10 @@ export class userDataServices {
   public getUserList(model: Grid.GridInputModel<userViewFilter>): Observable<Grid.GridOutputModel<userViewModel>> {
     return this.apiDataService.callDataService('User/GetUserList', model);
   }
-  public save(model: userSaveModel): Observable<number> {
+  public save(model: UserSaveModel): Observable<number> {
     return this.apiDataService.callDataService('User/Save', model);
   }
-  public getByID(model: userUIModel): Observable<userSaveModel> {
+  public getByID(model: userUIModel): Observable<UserSaveModel> {
     return this.apiDataService.callDataService('User/GetByID', model);
   }
   public delete(model: userUIModel): Observable<number> {
@@ -37,6 +37,7 @@ export class userDataServices {
     return this.apiDataService.callDataService('User/GetRoleByID', model);
   }
   public saveRol(model: saveRolUIModel): Observable<number> {
+    debugger;
     return this.apiDataService.callDataService('User/SaveRol', model);
   }
   public getTenantList(): Observable<Array<tenantViewModel>> {

@@ -61,6 +61,7 @@ import { JobsfilterComponent } from './Features/Private/Operations/Pages/jobs/jo
 import { JobsgridComponent } from './Features/Private/Operations/Pages/jobs/jobsgrid/jobsgrid.component';
 import { jobDataServices } from './Features/Private/Operations/Services/jobDataServices';
 import { GlobalErrorHandler } from './Shared/Services/ErrorHandling/GlobalErrorHandler';
+import { SidetestComponent } from './Shared/Pages/sidetest/sidetest.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { GlobalErrorHandler } from './Shared/Services/ErrorHandling/GlobalErrorH
     JobsComponent,
     JobsfilterComponent,
     JobsgridComponent,
+    SidetestComponent,
 
     
   ],

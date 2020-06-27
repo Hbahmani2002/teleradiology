@@ -1,5 +1,5 @@
 
 export class saveRolUIModel {
-  userID: any;
-  roleID: any;
+  UserID: any;
+  RolID: any;
 }

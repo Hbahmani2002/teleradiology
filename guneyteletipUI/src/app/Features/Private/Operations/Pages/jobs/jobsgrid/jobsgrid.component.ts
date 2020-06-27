@@ -72,7 +72,6 @@ namespace JobListComponent_Models {
       var filter = item.filter;
       console.log(item);
       this.jobService.getJobList(item).subscribe(o => {
-        debugger;
         this.data.list = o["list"];
         this.data.totalCount = o["totalCount"];
         console.log(this.data.list)

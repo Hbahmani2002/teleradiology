@@ -18,12 +18,12 @@
       <thead>
         <tr>
           <th scope="col" class="p-0"><input type="checkbox" (click)="gridUser.onSelectAll($event)"></th>
-          <th scope="col" class="p-0" (click)="gridUser.onSorting('pk')">Id<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('id')">Id<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
           <th scope="col" class="p-0" (click)="gridUser.onSorting('userName')">Kullanıcı Adı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
           <th scope="col" class="p-0" (click)="gridUser.onSorting('name')">Adı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
           <th scope="col" class="p-0" (click)="gridUser.onSorting('surname')">Soyadı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
           <th scope="col" class="p-0" (click)="gridUser.onSorting('emailAdress')">E-mail<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridUser.onSorting('password')">Şifre<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('rolName')">Rol<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
         </tr>
       </thead>
       <tbody>
@@ -32,12 +32,12 @@
             <input type="checkbox" class="" [checked]="gridUser.isSelected(item)"
                    (change)="gridUser.onSelectItem(item)">
           </td>
-          <td class="p-0">{{item.pk}}</td>
+          <td class="p-0">{{item.id}}</td>
           <td class="p-0">{{item.userName}}</td>
           <td class="p-0">{{item.name}}</td>
           <td class="p-0">{{item.surname}}</td>
           <td class="p-0">{{item.emailAdress}}</td>
-          <td class="p-0">{{item.password}}</td>
+          <td class="p-0">{{item.rolNameList}}</td>
         </tr>
       </tbody>
     </table>

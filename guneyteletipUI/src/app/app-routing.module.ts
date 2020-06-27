@@ -10,6 +10,7 @@ import { LoginComponent } from './Features/Public/Login/Pages/login/login.compon
 import { LoginCheckActivate } from './Shared/Services/Guards/authorizationGuard';
 import { TestpageComponent } from './Features/Public/testpage/testpage.component';
 import { JobsComponent } from './Features/Private/Operations/Pages/jobs/jobs.component';
+import { SidetestComponent } from './Shared/Pages/sidetest/sidetest.component';
 const routes: Routes = [
   {
     path: '',
@@ -28,6 +29,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+
+  },
+  {
+    path: 'side',
+    component: SidetestComponent
 
   }
 ];

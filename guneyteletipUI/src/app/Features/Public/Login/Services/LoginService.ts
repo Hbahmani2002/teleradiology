@@ -29,19 +29,21 @@ export class LoginServices {
       userName: userName,
       password: password
     }
+ 
     //TODO error handling--Internet connection check
     return this.httpService.callPostService_Low(url, params, undefined).pipe(
       switchMap(res => {
         var data = apiResponseModel.parse(res);
 
         if (res) {
+        
           let token = data.data;
           this.tokenService.saveToken(token);
         }
         return of(LoginEnumResult.ok);
       }),
       catchError(err => {
-        debugger;
+     
         throw err;
       })
       //result is success
