@@ -21,13 +21,13 @@ namespace GT.DataService.Implementation
         KosStudyJobRepository kosStudyJobRepository;
         public JobDataService(IBussinessContext context) : base(context)
         {
-            _Workspace = GTWorkspaceFactory.Create(true);
+            _Workspace = GTWorkspaceFactory.Create(false);
             jobCompositeRepository = new JobCompositeRepository(_Workspace);
             enumTypeJobRepository = new EnumTypeJobRepository(_Workspace);
             kosStudyJobRepository = new KosStudyJobRepository(_Workspace);
         }
-      
-        public PagingResult<JobViewmodel> GetJobList(Gridable<JobViewFilter> parms)
+
+        public PagingResult<JobViewModel> GetJobList(Gridable<JobViewFilter> parms)
         {
             if (parms == null)
             {
@@ -37,17 +37,20 @@ namespace GT.DataService.Implementation
             {
                 parms.Filter = new JobViewFilter();
             }
-            var e = new EnumTypeJobConditionFilter { Name=parms.Filter.EnumType};
-            var k = new KosStudyJobConditionFilter { IDList=parms.Filter.JobIDList,
-                TimeStart=parms.Filter.BasTarih,
-                TimeStop=parms.Filter.BitTarih };
-            return jobCompositeRepository.Query(e,k).GetGridQuery(parms);
+            var e = new EnumTypeJobConditionFilter { Name = parms.Filter.EnumType };
+            var k = new KosStudyJobConditionFilter
+            {
+                IDList = parms.Filter.JobIDList,
+                TimeStart = parms.Filter.BasTarih,
+                TimeStop = parms.Filter.BitTarih
+            };
+            return jobCompositeRepository.Query(e, k).GetGridQuery(parms);
         }
         public enum JopEnumType
         {
-            MakeKos=1,
-            SendKos=2,
-            StatusCheck=3
+            MakeKos = 1,
+            SendKos = 2,
+            StatusCheck = 3
         }
         public long Save(DateTime basTar, JopEnumType tip)
         {
@@ -55,7 +58,7 @@ namespace GT.DataService.Implementation
             kosStudyJob.TimeStart = basTar;
             kosStudyJob.TimeCreated = DateTime.Now;
             kosStudyJob.FkJobEnumType = (int)tip;
-            kosStudyJob.FkUserCreated = Context.UserInfo.UserIDCurrent;
+            kosStudyJob.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
             kosStudyJobRepository.Add(kosStudyJob);
             _Workspace.CommitChanges();
             return kosStudyJob.Pk;
@@ -67,17 +70,17 @@ namespace GT.DataService.Implementation
             kosStudyJob.TimeStop = progressTarih;
             kosStudyJob.TimeModified = DateTime.Now;
             kosStudyJob.SuccessfulCount = basariliSayisi;
-            kosStudyJob.FkUserModified = Context.UserInfo.UserIDCurrent;
+            kosStudyJob.FkUserModified = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
             kosStudyJobRepository.Update(kosStudyJob);
             _Workspace.CommitChanges();
             return kosStudyJob.Pk;
         }
-        public long UpdateAndClose(long id,DateTime? bitTar)
+        public long UpdateAndClose(long id, DateTime? bitTar)
         {
             var kosStudyJob = kosStudyJobRepository.GetByID(id);
             kosStudyJob.TimeStop = bitTar;
             kosStudyJob.TimeModified = DateTime.Now;
-            kosStudyJob.FkUserModified = Context.UserInfo.UserIDCurrent;
+            kosStudyJob.FkUserModified = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
             kosStudyJobRepository.Update(kosStudyJob);
             _Workspace.CommitChanges();
             return kosStudyJob.Pk;

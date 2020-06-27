@@ -5,17 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\App.Data.Service\App.Data.Service.csproj" />
     <ProjectReference Include="..\GT.BAL.Infinity.DataSynronizer\GT.BAL.Infinity.DataSynronizer.csproj" />
-    <ProjectReference Include="..\GT.BAL.TeletipKos\GT.BAL.TeletipKos.csproj" />
     <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
     <ProjectReference Include="..\GT.Repository\GT.Repository.csproj" />
     <ProjectReference Include="..\KOS.TeletipKos\KOS.TeletipKos.csproj" />
+    <ProjectReference Include="..\STM.Service\STM.Service.csproj" />
     <ProjectReference Include="..\Util.Job\Util.Job.csproj" />
     <ProjectReference Include="..\Util.Logger\Util.Logger.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Implementation\Private\" />
+    <Folder Include="Implementation\Public\" />
     <Folder Include="Interface\Private\" />
     <Folder Include="Interface\Public\" />
   </ItemGroup>

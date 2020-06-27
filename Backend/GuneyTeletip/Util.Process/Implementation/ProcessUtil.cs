@@ -21,17 +21,28 @@ namespace Util.ProcessUtil
                     CreateNoWindow = true,
                 }
             };
-            process.Start();
+            var res = new ProcessResult();
+            try
+            {
+                process.Start();
+            }
+            catch (Exception ex)
+            {
+
+                res.Message = ex.ToString();
+                return res;
+            }
+
             string output = process.StandardOutput.ReadToEnd();
             string error = process.StandardError.ReadToEnd();
             process.WaitForExit();
 
-            var res = new ProcessResult();
+
             res.Arguments = args;
             if (string.IsNullOrEmpty(error))
             {
                 res.IsSuccess = true;
-                res.Message = output;                
+                res.Message = output;
             }
             else
             {

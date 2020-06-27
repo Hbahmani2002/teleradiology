@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GT.Core.Settings.Global;
 using GT.UI.WebApi.Implementation;
 using GT.UI.WebApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -33,13 +34,12 @@ namespace GT.UI.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            TOkenAuthenticaation(services);
+            TokenAuthentication(services);
         }
 
-        private void TOkenAuthenticaation(IServiceCollection services)
+        private void TokenAuthentication(IServiceCollection services)
         {
-            services.Configure<WebAppSettings>(WebAppSettings.Init(Configuration));
-            var key = Encoding.ASCII.GetBytes(WebAppSettings.JWT.Secret);
+            var key = Encoding.ASCII.GetBytes(GlobalAppSettings.GetCurrent().WebAppSettings.TokenMasterKey);
 
             services.AddAuthentication(x =>
             {

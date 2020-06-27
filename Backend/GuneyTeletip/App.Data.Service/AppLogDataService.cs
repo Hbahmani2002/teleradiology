@@ -10,8 +10,10 @@ namespace App.Data.Service
 {
     public class AppLogDataService : BaseService
     {
-        AbstractWorkspace _Workspace;
         AppLogRepository appLog;
+        public AppLogDataService() : this(null)
+        {
+        }
         public AppLogDataService(IBussinessContext context) : base(context)
         {
             _Workspace = GTWorkspaceFactory.Create(true);
@@ -20,15 +22,16 @@ namespace App.Data.Service
         public enum LogType
         {
             OtomatikMakeKos = 1,
-            OtomatikSentKos=2,
-            OtomatikStm= 3,
+            OtomatikSentKos = 2,
+            OtomatikStm = 3,
+            BackGroundJobs = 10,
         }
         public long Save(LogType type, string desc)
         {
             var log = new AppLog();
             log.LogType = (int)type;
             log.TimeCreated = DateTime.Now;
-            log.FkUserCreated = Context.UserInfo.UserIDCurrent;
+            log.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
             log.Desc1 = desc;
             appLog.Add(log);
             _Workspace.CommitChanges();

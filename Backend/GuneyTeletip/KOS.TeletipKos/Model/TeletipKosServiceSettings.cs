@@ -18,8 +18,8 @@ namespace GT.TeletipKos
                 var sendKosSettings = settings.Kos.Send;
 
                 var var = new TeletipKosServiceSetting(
-                   new TeletipKosServiceSetting.MakeKosServiceSettings(makeKosSettings.AppFilePath, makeKosSettings.LocationUID, makeKosSettings.Title, makeKosSettings.TempDirectoryPath + "/", makeKosSettings.DCM4CheeDirectoryPath),
-                   new TeletipKosServiceSetting.SendKosServiceSettings(sendKosSettings.AppFilePath, sendKosSettings.ServiceAddress_BETA_URL, sendKosSettings.AxisRepoDirectoryPath, sendKosSettings.AxisXmlFilePath)
+                   new TeletipKosServiceSetting.MakeKosServiceSettings(makeKosSettings.AppFilePath, makeKosSettings.LocationUID, makeKosSettings.Title, makeKosSettings.TempDirectoryPath + "/", makeKosSettings.DCM4CheeDirectoryPath,makeKosSettings.InstitutionFirmaKodu),
+                   new TeletipKosServiceSetting.SendKosServiceSettings(sendKosSettings.AppFilePath, sendKosSettings.ServiceAddressURL, sendKosSettings.AxisRepoDirectoryPath, sendKosSettings.AxisXmlFilePath)
                );
                 _TeletipKosServiceSetting = var;
             }
@@ -35,13 +35,14 @@ namespace GT.TeletipKos
         public SendKosServiceSettings SendKosSettings { get; }
         public class MakeKosServiceSettings
         {
-            public MakeKosServiceSettings(string appFilePath, string locationUID, string title, string tempDirectory, string dCM4CheeDirectory)
+            public MakeKosServiceSettings(string appFilePath, string locationUID, string title, string tempDirectory, string dCM4CheeDirectory,string institutionFirmaKodu)
             {
                 AppFilePath = appFilePath;
                 LocationUID = locationUID;
                 Title = title;
                 TempDirectory = tempDirectory;
                 DCM4CheeDirectory = dCM4CheeDirectory;
+                InstitutionFirmaKodu = institutionFirmaKodu;
             }
 
             public string AppFilePath { get; }
@@ -49,6 +50,7 @@ namespace GT.TeletipKos
             public string Title { get; }
             public string TempDirectory { get; }
             public string DCM4CheeDirectory { get; }
+            public object InstitutionFirmaKodu { get; set; }
         }
 
         public class SendKosServiceSettings
@@ -72,4 +74,8 @@ namespace GT.TeletipKos
 
 
     }
+
+
+
+
 }

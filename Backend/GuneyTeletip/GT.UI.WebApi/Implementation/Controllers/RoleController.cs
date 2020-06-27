@@ -36,11 +36,11 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Role/Save")]
-        public ServiceResult<int> Save(SaveRoleModel model)
+        public ServiceResult<long> Save(SaveRoleModel model)
         {
             var cx = GetBussinesContext();
             var service = new RolDataService(cx);
-            return HttpMessageService.Ok(service.Save(model.ID,model.RolAdi,model.GorunenAd,model.Aciklama));
+            return HttpMessageService.Ok(service.Save(model.ID,model.RolAdi,model.Aciklama));
         }
 
         [HttpPost]
@@ -63,7 +63,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Role/GetPermissionListByRoleID")]
-        public ServiceResult<List<int>> GetPermissionListByRoleID(RoleModel model)
+        public ServiceResult<List<PermissionViewModel>> GetPermissionListByRoleID(RoleModel model)
         {
             var cx = GetBussinesContext();
             var service = new RolDataService(cx);

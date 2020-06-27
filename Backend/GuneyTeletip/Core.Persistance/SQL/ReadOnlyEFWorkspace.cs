@@ -58,5 +58,10 @@ namespace GT.PERSISTANCE.Data.SQL
         {
             throw new NotImplementedException();
         }
+
+        public override void Dispose()
+        {
+            _context.Dispose();
+        }
     }
 }

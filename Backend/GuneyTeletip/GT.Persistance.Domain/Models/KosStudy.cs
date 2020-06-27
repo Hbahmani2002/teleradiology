@@ -44,6 +44,9 @@ namespace GT.Persistance.Domain.Models
         public decimal? OracleStudyKey { get; set; }
         public long? FkKosEnumType { get; set; }
         public string DicomDirPath { get; set; }
+        public string DicomKosPath { get; set; }
+        public long? FailtMakeKosCount { get; set; }
+        public long? FailtSentKosCount { get; set; }
 
         public virtual KosBatch FkInfBatchNavigation { get; set; }
         public virtual UsrTenant FkTenantNavigation { get; set; }

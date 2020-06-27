@@ -14,8 +14,13 @@ namespace GT.Repository.Conditions
     {
         public enum KosEnumType
         {
-            KosOlusmamis = 10,
-            KosOlusmus = 30,
+            KosOlusturulamamisOlanlar = 10,
+            KosOlusumuHataliOlanlar=20,
+            KosOlusmusOlanlar = 30,
+            KosHataliGonderileneler=40,
+            KosGonderilipEslesmeyenler=50,
+            KosGonderilipEslesenler = 60,
+            KosSilinenler=70
         }
         public string Modality { get; set; }
         public long? Pk { get; set; }
@@ -27,6 +32,8 @@ namespace GT.Repository.Conditions
         public string[] TcList { get; set; }
         public KosEnumType? KosEnum { get; set; }
         public bool KosWaitHour { get; set; }
+        public string StudyInstanceUID { get; set; }
+        public string PatientID { get; set; }
     }
     public class InfStudyCondition
     {
@@ -36,7 +43,15 @@ namespace GT.Repository.Conditions
             if (!string.IsNullOrEmpty(filter.Modality))
             {
                 exp = exp.And(o => o.Modality.Contains(filter.Modality));
-            }     
+            }
+            if (!string.IsNullOrEmpty(filter.StudyInstanceUID))
+            {
+                exp = exp.And(o => o.StudyInstanceuid.Contains(filter.StudyInstanceUID));
+            }
+            if (!string.IsNullOrEmpty(filter.PatientID))
+            {
+                exp = exp.And(o => o.PatientId.Contains(filter.PatientID));
+            }
             if (filter.HastaneIDList!=null && filter.HastaneIDList.Length > 0)
             {
                 var arr = filter.HastaneIDList.ToList();

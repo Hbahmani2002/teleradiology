@@ -9,7 +9,6 @@ namespace GT.UI.WebApi.Models.RoleModel
     {
         public long? ID { get; set; }
         public string RolAdi{ get; set; }
-        public string GorunenAd { get; set; }
         public string Aciklama { get; set; }
     }
 }

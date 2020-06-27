@@ -14,10 +14,6 @@ namespace Gt.PERSISTANCE
         public abstract void Add<T>(T item) where T : class;
         public abstract void Update<T>(T item) where T : class;
         public abstract void Delete<T>(T item) where T : class;
-
-        public virtual void Dispose()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void Dispose();        
     }
 }

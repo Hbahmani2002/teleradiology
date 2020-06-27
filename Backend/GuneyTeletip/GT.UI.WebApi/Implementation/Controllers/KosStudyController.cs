@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using GT.BAL.TeletipKos;
 using GT.DataService.Implementation;
 using GT.DataService.Model;
 using GT.Repository.Models.Filter;
 using GT.Repository.Models.View;
+using GT.SERVICE;
 using GT.UI.WebApi.Implementation;
 using GT.UI.WebApi.Models;
 using GT.UI.WebApi.Models.Data.Kos;
@@ -24,20 +26,62 @@ namespace GT.UI.WebApi.Controllers
     [ApiController]
 
     [Route("[controller]")]
-    public class KosController : AuthenticatedBaseController
+    public class KosStudyController : AuthenticatedBaseController
     {
         [HttpPost]
         [Route("/Kos/CreateKos")]
         public ServiceResult<int> CreateKos(Gridable<InfStudyFilter> parms)
         {
-            return HttpMessageService.Ok(999);
+
+
+            return HttpMessageService.Ok(9989);
+
+
+
+        }
+
+        [HttpPost]
+        [Route("/Kos/SendKos")]
+        public ServiceResult<int> SendKos(Gridable<InfStudyFilter> parms)
+        {
+            return HttpMessageService.Ok(9901);
+        }
+
+
+        [HttpPost]
+        [Route("/Kos/CreateKosBackground")]
+        public ServiceResult<long> CreateKosBackground(InfStudyFilter parms)
+        {
+            var sd = new StudyKosService(GetBussinesContext());
+            var job = sd.CreateKosBackground(parms);
+            return HttpMessageService.Ok(job.JobID); 
+        }
+
+
+
+        [HttpPost]
+        [Route("/Kos/SendKosBackground")]
+        public ServiceResult<long> SendKosBackground(InfStudyFilter parms)
+        {
+            var sd = new StudyKosService(GetBussinesContext());
+            var job = sd.SendKosBackground(parms);
+            return HttpMessageService.Ok(job.JobID);
         }
 
         [HttpPost]
         [Route("/Kos/DeleteKos")]
-        public ServiceResult<int> DeleteKos(Gridable<InfStudyFilter> parms)
+        public ServiceResult<long> DeleteKos(Gridable<InfStudyFilter> parms)
         {
-            return HttpMessageService.Ok(999);
+            return HttpMessageService.Ok(999L);
+        }
+
+        [HttpPost]
+        [Route("/Kos/DeleteKosBackground")]
+        public ServiceResult<long> DeleteKosBackground(InfStudyFilter parms)
+        {
+            var sd = new StudyKosService(GetBussinesContext());
+            var job = sd.DeleteKosBackground(parms);
+            return HttpMessageService.Ok(job.JobID);
         }
 
         [HttpPost]
@@ -52,7 +96,7 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<PagingResult<InfStudyViewModel>> GetKosList(Gridable<InfStudyFilter> parms)
         {
             var cx = GetBussinesContext();
-            var service = new InfStudyDataService(cx);
+            var service = new StudyKosDataService(cx);
             return HttpMessageService.Ok(service.GetInfStudyList(parms));
         }
 
@@ -61,16 +105,26 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<List<KosEnumTypeViewModel>> GetModalityList()
         {
             var cx = GetBussinesContext();
-            var service = new InfStudyDataService(cx);
+            var service = new StudyKosDataService(cx);
             return HttpMessageService.Ok(service.GetModalityList());
         }
 
         [HttpPost]
         [Route("/Kos/ReprocessKos")]
-        public ServiceResult<int> ReprocessKos(Gridable<InfStudyFilter> parms)
+        public ServiceResult<long> ReprocessKos(Gridable<InfStudyFilter> parms)
         {
-            return HttpMessageService.Ok(40);
+            return HttpMessageService.Ok(999L);
         }
+        [HttpPost]
+        [Route("/Kos/ReprocessKosBackground")]
+        public ServiceResult<long> ReprocessKosBackground(Gridable<InfStudyFilter> parms)
+        {
+            var cx = GetBussinesContext();
+            var service = new StudyKosService(cx);
+            var job=service.ReprocessKosBackground(parms.Filter);
+            return HttpMessageService.Ok(job.JobID);
+        }
+
 
         [HttpPost]
         [Route("/Kos/UpdateReadKos")]
@@ -84,7 +138,7 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<InfStudyViewModel> GetByID(KosModel model)
         {
             var cx = GetBussinesContext();
-            var service = new InfStudyDataService(cx);
+            var service = new StudyKosDataService(cx);
             return HttpMessageService.Ok(service.GetByID(model.ID));
         }
 
@@ -93,7 +147,7 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<PagingResult<KosHistoryModel>> GetKosHistoryByStudyID(Gridable<KosHistoryFilter> parms)
         {
             var cx = GetBussinesContext();
-            var service = new InfStudyDataService(cx);
+            var service = new StudyKosDataService(cx);
             return HttpMessageService.Ok(service.GetKosHistoryByStudyID(parms));
         }
 
@@ -102,7 +156,7 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<List<KosEnumTypeViewModel>> GetEnumTypeList()
         {
             var cx = GetBussinesContext();
-            var service = new InfStudyDataService(cx);
+            var service = new StudyKosDataService(cx);
             return HttpMessageService.Ok(service.GetEnumTypeList());
         }
 
@@ -111,7 +165,7 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<List<KosDurumIstModel>> GetKosDurumIst()
         {
             var cx = GetBussinesContext();
-            var service = new InfStudyDataService(cx);
+            var service = new StudyKosDataService(cx);
             return HttpMessageService.Ok(service.GetKosDurumIst());
         }
 
@@ -120,7 +174,7 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<long> UpdateKosDurum(UpdateKosDurumModel model)
         {
             var cx = GetBussinesContext();
-            throw new NotImplementedException();            
+            throw new NotImplementedException();
         }
 
     }

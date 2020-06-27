@@ -6,7 +6,7 @@ namespace GT.DataService.Model
 {
     public class RoleViewFilter
     {
-        public long ID { get; set; }
+        public long? ID { get; set; }
         public string RoleName { get; set; }
     }
 }

@@ -23,5 +23,9 @@ namespace GT.Repository.Implementation
         {
             return Single(o => o.FkUser == id);
         }
+        public IEnumerable<UsrUserRole> GetRolListByUserID(long id)
+        {
+            return Query(o => o.FkUser == id);
+        }
     }
 }

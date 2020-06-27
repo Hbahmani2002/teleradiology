@@ -19,7 +19,7 @@ namespace GT.DataService.Implementation
 {
 
 
-    public class InfStudyDataService : BaseService
+    public class StudyKosDataService : BaseService
     {
 
         InfStudyRepository _InfStudyRepository;
@@ -31,16 +31,19 @@ namespace GT.DataService.Implementation
         ModalityRepository modalityRepository;
         KosDurumIstCompositeRepository kosDurumIstCompositeRepository;
         MakeKosCompositeRepository makeKosCompositeRepository;
-
-        public InfStudyDataService() : this(null, false)
+        KosStudyJobRepository kosStudyJobRepository;
+        KosDeleteCompositeRepository kosDeleteCompositeRepository;
+        GetorderStatusCompositeRepository getorderStatusCompositeRepository;
+        GetorderStatusRepository getorderStatusRepository;
+        public StudyKosDataService() : this(null, false)
         {
 
         }
-        public InfStudyDataService(IBussinessContext context, bool sqlLogging = false) : this(context, GTWorkspaceFactory.Create(sqlLogging))
+        public StudyKosDataService(IBussinessContext context, bool sqlLogging = false) : this(context, GTWorkspaceFactory.Create(sqlLogging))
         {
 
         }
-        public InfStudyDataService(IBussinessContext context, AbstractWorkspace Workspace) : base(context, Workspace)
+        public StudyKosDataService(IBussinessContext context, AbstractWorkspace Workspace) : base(context, Workspace)
         {
             _InfStudyRepository = new InfStudyRepository(_Workspace);
             tenatCompositeRepository = new TenantCompositeRepository(_Workspace);
@@ -51,6 +54,10 @@ namespace GT.DataService.Implementation
             modalityRepository = new ModalityRepository(_Workspace);
             kosDurumIstCompositeRepository = new KosDurumIstCompositeRepository(_Workspace);
             makeKosCompositeRepository = new MakeKosCompositeRepository(_Workspace);
+            kosStudyJobRepository = new KosStudyJobRepository(_Workspace);
+            kosDeleteCompositeRepository = new KosDeleteCompositeRepository(_Workspace);
+            getorderStatusCompositeRepository = new GetorderStatusCompositeRepository(_Workspace);
+            getorderStatusRepository = new GetorderStatusRepository(_Workspace);
         }
 
         public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items)
@@ -107,29 +114,34 @@ namespace GT.DataService.Implementation
                 KosStudy.VolumePathname = item.ValumePathname;
                 KosStudy.CreationDttm = DateTime.Now;
                 KosStudy.OracleStudyKey = item.OracleStudyKey.Value;
+                KosStudy.FkKosEnumType = 10;
                 KosStudy.DicomDirPath = item.DicomPhat;
                 Last_OracleStudyKey = item.OracleStudyKey.Value;
                 _InfStudyRepository.Add(KosStudy);
 
                 _Workspace.CommitChanges();
 
+
+                var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(tenatID);
+
+                if (ParamterTimertenatID == null)
+                {
+                    throw new Exception("User bulunamadı. tenatID:" + tenatID);
+
+                }
+                else
+                {
+                    ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(Last_OracleStudyKey);
+                    _InfStudyParameterRepository.Update(ParamterTimertenatID);
+                }
+                _Workspace.CommitChanges();
+
             }
 
 
-            var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(tenatID);
 
-            if (ParamterTimertenatID == null)
-            {
-                throw new Exception("User bulunamadı. tenatID:" + tenatID);
 
-            }
-            else
-            {
-                ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(Last_OracleStudyKey);
-                _InfStudyParameterRepository.Update(ParamterTimertenatID);
-            }
 
-            _Workspace.CommitChanges();
 
         }
 
@@ -196,10 +208,27 @@ namespace GT.DataService.Implementation
         {
             var s = new InfStudyConditionFilter
             {
-                KosEnum = KosEnumType.KosOlusmus,
+                KosEnum = KosEnumType.KosOlusturulamamisOlanlar,
                 KosWaitHour = true
             };
             return makeKosCompositeRepository.Query(s).OrderBy(o => o.StudyID).Take(count).ToList();
+        }
+        public List<SentKosViewModel> GetSentKosList(int count)
+        {
+            var s = new InfStudyConditionFilter
+            {
+                KosEnum = KosEnumType.KosOlusmusOlanlar,
+                KosWaitHour = true
+            };
+            return kosStudyJobRepository.Query(s).OrderBy(o => o.StudyID).Take(count).ToList();
+        }
+        public List<GetorderStatusViewModel> GetSTMInfoList(int count, string[] accessionNumberList)
+        {
+            var g = new GetorderStatusConditionFilter
+            {
+                AccessionNumberList= accessionNumberList
+            };
+            return getorderStatusCompositeRepository.Query(g).OrderBy(o => o.ID).Take(count).ToList();
         }
 
         public void Save(IEnumerable<KosStudy> studies)
@@ -305,22 +334,149 @@ namespace GT.DataService.Implementation
         {
             return kosDurumIstCompositeRepository.Query().ToList();
         }
-
-        public long UpdateKosDurum(long kosStudyID, int kosEnumID)
+        public IEnumerable<KosDeleteViewModel> GetKosDeleteList(InfStudyFilter filter)
         {
+            if (filter == null)
+                filter = new InfStudyFilter();
+            var s = new InfStudyConditionFilter
+            {
+                HastaneIDList = filter.HastaneIDList,
+                AccessionNumberList = filter.AccessionNumberList,
+                BasTarih = filter.BasTarih,
+                BitTarih = filter.BitTarih,
+                Modality = filter.Modalite,
+                TcList = filter.TCList,
+                KosEnum = filter.KosEnum,
+                StudyInstanceUID = filter.StudyInstanceUID,
+                PatientID = filter.PatientID
+            };
+            return kosDeleteCompositeRepository.Query(s).ToArray();
+        }
+        public long Save_UpdateMakeKosDurum(long kosStudyID, bool isSuccess, string kosPath, string statusMessage)
+        {
+            var newKosState = (int)(isSuccess ? KosEnumType.KosOlusmusOlanlar : KosEnumType.KosOlusturulamamisOlanlar);
             var kosStudyHistory = new KosStudyHistory();
-            kosStudyHistory.EnumType = kosEnumID;
+            kosStudyHistory.EnumType = newKosState;
             kosStudyHistory.FkKosStudy = kosStudyID;
             kosStudyHistory.FkUserCreated = Context.UserInfo.UserIDCurrent;
             kosStudyHistory.TimeCreated = DateTime.Now;
-            //result ?
+            kosStudyHistory.Result = statusMessage;
 
             var kosStudy = _InfStudyRepository.GetByID(kosStudyID);
             if (kosStudy == null)
             {
                 throw new Exception("kosStudy bulunmadı. kosStudyID" + kosStudyID);
             }
-            kosStudy.FkKosEnumType = kosEnumID;
+            kosStudy.FkKosEnumType = newKosState;
+            if (isSuccess)
+                kosStudy.DicomKosPath = kosPath;
+            _InfStudyRepository.Update(kosStudy);
+
+            _Workspace.CommitChanges();
+            return kosStudy.Pk;
+        }
+
+        public enum SentKosResult
+        {
+            Success = 1,
+            Fail = 2,
+            PartialSuccess
+        }
+        public long Save_UpdateSentKosDurum(long kosStudyID, SentKosResult result, string statusMessage)
+        {
+            var newKosState = 0;
+            if (result == SentKosResult.Success)
+                newKosState = (int)KosEnumType.KosGonderilipEslesenler;
+            else if (result == SentKosResult.Fail)
+                newKosState = (int)KosEnumType.KosHataliGonderileneler;
+            else if (result == SentKosResult.PartialSuccess)
+                newKosState = (int)KosEnumType.KosGonderilipEslesmeyenler;
+
+            var kosStudyHistory = new KosStudyHistory();
+            kosStudyHistory.EnumType = newKosState;
+            kosStudyHistory.FkKosStudy = kosStudyID;
+            kosStudyHistory.FkUserCreated = Context.UserInfo.UserIDCurrent;
+            kosStudyHistory.TimeCreated = DateTime.Now;
+            kosStudyHistory.Result = statusMessage;
+
+            var kosStudy = _InfStudyRepository.GetByID(kosStudyID);
+            if (kosStudy == null)
+            {
+                throw new Exception("kosStudy bulunmadı. kosStudyID" + kosStudyID);
+            }
+            kosStudy.FkKosEnumType = newKosState;
+            _InfStudyRepository.Update(kosStudy);
+
+            _Workspace.CommitChanges();
+            return kosStudy.Pk;
+        }
+
+        public long Save_UpdateSTMInfo(long kosStudyID, GetorderStatusViewModel model)
+        {
+            var accessionNumberList = new StmGetorderStatusforAccessionnumberlist();
+            accessionNumberList.Medulainstitutionid = model.Medulainstitutionid;
+            accessionNumberList.Accessionnumber = model.Accessionnumber;
+            accessionNumberList.Citizenid = model.Citizenid;
+            accessionNumberList.Dosestatus = model.Dosestatus;
+            accessionNumberList.Dosestatusid = model.Dosestatusid;
+            accessionNumberList.Error = model.Error;
+            accessionNumberList.FkInfBatch = model.FkInfBatch;
+            accessionNumberList.FkKosStudy = model.FkKosStudy;
+            accessionNumberList.FkTenant = model.FkTenant;
+            accessionNumberList.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
+            accessionNumberList.Lastmedulasenddate = model.Lastmedulasenddate;
+            accessionNumberList.Medulainstitutionid = model.Medulainstitutionid;
+            accessionNumberList.Medularesponsecode = model.Medularesponsecode;
+            accessionNumberList.Medularesponsemessage = model.Medularesponsemessage;
+            accessionNumberList.Medulastatus = model.Medulastatus;
+            accessionNumberList.Medulastatusid = model.Medulastatusid;
+            accessionNumberList.Patienthistorysearchstatus = model.Patienthistorysearchstatus;
+            accessionNumberList.Patienthistorysearchstatusid = model.Patienthistorysearchstatusid;
+            accessionNumberList.Performeddate = model.Performeddate;
+            accessionNumberList.Reportstatus = model.Reportstatus;
+            accessionNumberList.Reportstatusid = model.Reportstatusid;
+            accessionNumberList.Scheduledate = model.Scheduledate;
+            accessionNumberList.Sutcode = model.Sutcode;
+            accessionNumberList.Teletipstatus = model.Teletipstatus;
+            accessionNumberList.Teletipstatusid = model.Teletipstatusid;
+            accessionNumberList.TimeCreated = DateTime.Now;
+            accessionNumberList.Wadostatus = model.Wadostatus;
+            accessionNumberList.Wadostatusid = model.Wadostatusid;
+            getorderStatusRepository.Add(accessionNumberList);
+
+             var kosStudyHistory = new KosStudyHistory();
+            kosStudyHistory.EnumType = (int)KosEnumType.KosGonderilipEslesenler;
+            kosStudyHistory.FkKosStudy = kosStudyID;
+            kosStudyHistory.FkUserCreated = Context.UserInfo.UserIDCurrent;
+            kosStudyHistory.TimeCreated = DateTime.Now;
+            kosStudyHistory.Result = "";
+
+            var kosStudy = _InfStudyRepository.GetByID(kosStudyID);
+            if (kosStudy == null)
+            {
+                throw new Exception("kosStudy bulunmadı. kosStudyID" + kosStudyID);
+            }
+            kosStudy.FkKosEnumType = (int)KosEnumType.KosGonderilipEslesenler;
+            _InfStudyRepository.Update(kosStudy);
+
+            _Workspace.CommitChanges();
+            return kosStudy.Pk;
+        }
+        public long Save_UpdateDeleteKos(long studyID, string message)
+        {
+            var kosStudyHistory = new KosStudyHistory();
+            kosStudyHistory.EnumType = (int)KosEnumType.KosSilinenler;
+            kosStudyHistory.FkKosStudy = studyID;
+            kosStudyHistory.FkUserCreated = Context.UserInfo.UserIDCurrent;
+            kosStudyHistory.TimeCreated = DateTime.Now;
+            kosStudyHistory.Result = message;
+
+            var kosStudy = _InfStudyRepository.GetByID(studyID);
+            if (kosStudy == null)
+            {
+                throw new Exception("kosStudy bulunmadı. kosStudyID" + studyID);
+            }
+            kosStudy.FkKosEnumType = (int)KosEnumType.KosSilinenler;
             _InfStudyRepository.Update(kosStudy);
 
             _Workspace.CommitChanges();

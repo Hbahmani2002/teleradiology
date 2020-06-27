@@ -17,15 +17,20 @@ namespace GT.Persistance.Domain.Models
 
         public virtual DbSet<AppLog> AppLog { get; set; }
         public virtual DbSet<AppParameter> AppParameter { get; set; }
+        public virtual DbSet<AppPermissionName> AppPermissionName { get; set; }
+        public virtual DbSet<AppRolePermission> AppRolePermission { get; set; }
         public virtual DbSet<ConstModality> ConstModality { get; set; }
         public virtual DbSet<ConstSkrs> ConstSkrs { get; set; }
         public virtual DbSet<JobEnumtype> JobEnumtype { get; set; }
         public virtual DbSet<KosBatch> KosBatch { get; set; }
         public virtual DbSet<KosEnumtype> KosEnumtype { get; set; }
+        public virtual DbSet<KosOperationEnumType> KosOperationEnumType { get; set; }
         public virtual DbSet<KosStudy> KosStudy { get; set; }
         public virtual DbSet<KosStudyHistory> KosStudyHistory { get; set; }
         public virtual DbSet<KosStudyJob> KosStudyJob { get; set; }
         public virtual DbSet<KosStudyParameter> KosStudyParameter { get; set; }
+        public virtual DbSet<StmGetorderStatusforAccessionnumberlist> StmGetorderStatusforAccessionnumberlist { get; set; }
+        public virtual DbSet<StudyOperationCount> StudyOperationCount { get; set; }
         public virtual DbSet<UsrRole> UsrRole { get; set; }
         public virtual DbSet<UsrTenant> UsrTenant { get; set; }
         public virtual DbSet<UsrTenantSkrs> UsrTenantSkrs { get; set; }
@@ -121,6 +126,48 @@ namespace GT.Persistance.Domain.Models
                     .HasMaxLength(1024);
             });
 
+            modelBuilder.Entity<AppPermissionName>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("app_user_permissions_pkey");
+
+                entity.ToTable("app_permission_name");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .HasDefaultValueSql("nextval('app_user_permissions_pk_seq'::regclass)");
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.RecordStatus).HasColumnName("record_status");
+
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
+
+                entity.Property(e => e.TimeModifiel).HasColumnName("time_modifiel");
+            });
+
+            modelBuilder.Entity<AppRolePermission>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("app_user_permissions_authority_pkey");
+
+                entity.ToTable("app_role_permission");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .HasDefaultValueSql("nextval('app_user_permissions_authority_pk_seq'::regclass)");
+
+                entity.Property(e => e.FkPermissionId).HasColumnName("fk_permission_id");
+
+                entity.Property(e => e.FkRoleId).HasColumnName("fk_role_id");
+            });
+
             modelBuilder.Entity<ConstModality>(entity =>
             {
                 entity.HasKey(e => e.Pk)
@@ -214,13 +261,9 @@ namespace GT.Persistance.Domain.Models
                     .HasColumnName("name")
                     .HasColumnType("character varying");
 
-                entity.Property(e => e.TimeCreated)
-                    .HasColumnName("time_created")
-                    .HasColumnType("date");
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
-                entity.Property(e => e.TimeModified)
-                    .HasColumnName("time_modified")
-                    .HasColumnType("date");
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
             modelBuilder.Entity<KosBatch>(entity =>
@@ -267,6 +310,30 @@ namespace GT.Persistance.Domain.Models
                 entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
+            modelBuilder.Entity<KosOperationEnumType>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("kos_operation_enum_type_pkey");
+
+                entity.ToTable("kos_operation_enum_type");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasColumnType("character varying");
+
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
+
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
+            });
+
             modelBuilder.Entity<KosStudy>(entity =>
             {
                 entity.HasKey(e => e.Pk)
@@ -303,6 +370,14 @@ namespace GT.Persistance.Domain.Models
                 entity.Property(e => e.DicomDirPath)
                     .HasColumnName("dicom_dir_path")
                     .HasMaxLength(2048);
+
+                entity.Property(e => e.DicomKosPath)
+                    .HasColumnName("dicom_kos_path")
+                    .HasColumnType("character varying");
+
+                entity.Property(e => e.FailtMakeKosCount).HasColumnName("failt_make_kos_count");
+
+                entity.Property(e => e.FailtSentKosCount).HasColumnName("failt_sent_kos_count");
 
                 entity.Property(e => e.FileName)
                     .HasColumnName("file_name")
@@ -500,13 +575,131 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.TimeModified).HasColumnName("time_modified");
 
-                entity.Property(e => e.TimeStart)
-                    .HasColumnName("time_start")
-                    .HasColumnType("date");
+                entity.Property(e => e.TimeStart).HasColumnName("time_start");
 
-                entity.Property(e => e.TimeStop)
-                    .HasColumnName("time_stop")
-                    .HasColumnType("date");
+                entity.Property(e => e.TimeStop).HasColumnName("time_stop");
+            });
+
+            modelBuilder.Entity<StmGetorderStatusforAccessionnumberlist>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("getorder_statusfor_accessionnumberlist_pkey");
+
+                entity.ToTable("stm_getorder_statusfor_accessionnumberlist");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .HasDefaultValueSql("nextval('getorder_statusfor_accessionnumberlist_pk_seq'::regclass)");
+
+                entity.Property(e => e.Accessionnumber)
+                    .HasColumnName("accessionnumber")
+                    .HasMaxLength(32);
+
+                entity.Property(e => e.Citizenid)
+                    .HasColumnName("citizenid")
+                    .HasMaxLength(16);
+
+                entity.Property(e => e.Dosestatus)
+                    .HasColumnName("dosestatus")
+                    .HasMaxLength(32);
+
+                entity.Property(e => e.Dosestatusid).HasColumnName("dosestatusid");
+
+                entity.Property(e => e.Error)
+                    .HasColumnName("error")
+                    .HasMaxLength(512);
+
+                entity.Property(e => e.FkInfBatch).HasColumnName("fk_inf_batch");
+
+                entity.Property(e => e.FkKosStudy).HasColumnName("fk_kos_study");
+
+                entity.Property(e => e.FkTenant).HasColumnName("fk_tenant");
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.Lastmedulasenddate).HasColumnName("lastmedulasenddate");
+
+                entity.Property(e => e.Medulainstitutionid)
+                    .HasColumnName("medulainstitutionid")
+                    .HasMaxLength(32);
+
+                entity.Property(e => e.Medularesponsecode)
+                    .HasColumnName("medularesponsecode")
+                    .HasMaxLength(16);
+
+                entity.Property(e => e.Medularesponsemessage)
+                    .HasColumnName("medularesponsemessage")
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Medulastatus)
+                    .HasColumnName("medulastatus")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.Medulastatusid).HasColumnName("medulastatusid");
+
+                entity.Property(e => e.Patienthistorysearchstatus)
+                    .HasColumnName("patienthistorysearchstatus")
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Patienthistorysearchstatusid).HasColumnName("patienthistorysearchstatusid");
+
+                entity.Property(e => e.Performeddate).HasColumnName("performeddate");
+
+                entity.Property(e => e.Reportstatus)
+                    .HasColumnName("reportstatus")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.Reportstatusid).HasColumnName("reportstatusid");
+
+                entity.Property(e => e.Scheduledate).HasColumnName("scheduledate");
+
+                entity.Property(e => e.Sutcode)
+                    .HasColumnName("sutcode")
+                    .HasMaxLength(16);
+
+                entity.Property(e => e.Teletipstatus)
+                    .HasColumnName("teletipstatus")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.Teletipstatusid).HasColumnName("teletipstatusid");
+
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
+
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
+
+                entity.Property(e => e.Wadostatus)
+                    .HasColumnName("wadostatus")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.Wadostatusid).HasColumnName("wadostatusid");
+            });
+
+            modelBuilder.Entity<StudyOperationCount>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("study_operation_count _pkey");
+
+                entity.ToTable("study_operation_count ");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.ErrorTryCount).HasColumnName("error_try_Count");
+
+                entity.Property(e => e.FkOperationEnumType).HasColumnName("fk_operation_enum_type");
+
+                entity.Property(e => e.FkStudy).HasColumnName("fk_study");
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
+
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
             modelBuilder.Entity<UsrRole>(entity =>
@@ -518,9 +711,23 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.Pk).HasColumnName("pk");
 
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasColumnType("character varying");
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
                     .HasMaxLength(64);
+
+                entity.Property(e => e.RecordStatus).HasColumnName("record_status");
+
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
+
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
             modelBuilder.Entity<UsrTenant>(entity =>

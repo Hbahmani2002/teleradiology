@@ -44,35 +44,32 @@ namespace GT.UI.WebApi.Controllers
 
             var item = GetMakeKosList(settings).First();
             var manager = GetMakeKosManager(filePath);
-            manager.MakeKos(item.InputStudyDirectoryPath, item.OutputKosFilePath);
+
+            var res = manager.MakeKos(item.InputStudyDirectoryPath, item.OutputKosFilePath, "yakacik", "177302");
 
             return HttpMessageService.Ok((object)new
             {
-                JobID = jobID,
-                JobLogFilePath = filePath
+                res
+                //    JobID = jobID,
+                //JobLogFilePath = filePath
+
             });
 
         }
 
 
         [Route("/KosServiceTest/SendKosTest")]
-        public ServiceResult<object> SendKosTest()
+        public ServiceResult<object> SendKosTest([FromQuery(Name = "PatientId")] string PatientId, [FromQuery(Name = "kosPath")] string kosPath)
         {
+            var manager = GetSendKosManager();
             var settings = AppSettings.GetCurrent();
-            var id = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 6);
-            var jobID = DateTime.Now.ToString("yyyyMMddHHmmssffff") + "_" + id;
-            var filePath = Path.Combine(settings.Log.DIR_JobsLog, $"{jobID}.txt");
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-
-
-            var item = GetSendKosList(settings).First();
-            var manager = GetSendKosManager(filePath);
-            manager.SendKos(item.PatientId, item.KosFilePath);
+            var basePath = settings.Kos.Make.DIR_KosPath;
+            kosPath = Path.Combine(basePath, kosPath);
+            var res = manager.SendKos(PatientId, kosPath);
 
             return HttpMessageService.Ok((object)new
             {
-                JobID = jobID,
-                JobLogFilePath = filePath
+                res
             });
 
         }
@@ -98,9 +95,9 @@ namespace GT.UI.WebApi.Controllers
             var basePath = settings.Kos.Make.DIR_KosPath;
             var koses =
 @"
-kos_00401bdc7f4940c6894163a17af32fbd.dcm
-kos_01e57fecc588499d80f165d17960dc6d.dcm
-kos_22a8b125be6a4b15849e5f073f95346f.dcm
+100430642.dcm
+100430642.dcm
+100430642.dcm
 ";
             var list = new List<SendKosParameter>();
             foreach (var kos in koses.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
@@ -117,7 +114,7 @@ kos_22a8b125be6a4b15849e5f073f95346f.dcm
             var manager = new TeletipMakeKosService(kSettings.MakeKosSettings);
             return manager;
         }
-        public TeletipSendKosService GetSendKosManager(string logFilePath)
+        public TeletipSendKosService GetSendKosManager()
         {
             var kSettings = TeletipKosServiceSetting.GetCurrent();
             var manager = new TeletipSendKosService(kSettings.SendKosSettings);

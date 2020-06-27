@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using static GT.Repository.Conditions.RoleCondition;
 
 namespace GT.Repository.Implementation.Composite
 {
@@ -19,10 +18,10 @@ namespace GT.Repository.Implementation.Composite
 
         }
 
-        public IQueryable<UserViewModel> Query(UserConditionFilter u, RoleConditionFilter r)
+        public IQueryable<UserViewModel> Query(UserConditionFilter u, RolConditionFilter r)
         {
             var exp1 = UserLoginCondition.Get(u);
-            var exp2 = RoleCondition.Get(r);
+            var exp2 = RolCondition.Get(r);
             return Query(exp1, exp2);
         }
 
@@ -32,22 +31,36 @@ namespace GT.Repository.Implementation.Composite
             var role = _AbstractWorkspace.Query<UsrRole>(exp2);
             var userRol = _AbstractWorkspace.Query<UsrUserRole>();
             var list = from u in user
-                       join ur in userRol on u.Pk equals ur.FkUser
+                       //join ur in userRol on u.Pk equals ur.FkUser
+                       //into ps from ur in ps.DefaultIfEmpty()
+                       //join r in role on ur.FkRole equals r.Pk
+                        select new UserViewModel
+                        {
+                            EmailAdress = u.EmailAdress,
+                            Name = u.Name,
+                            ID = u.Pk,
+                            RecordStatus = u.RecordStatus,
+                            Surname = u.Surname,
+                            TimeCreated = u.TimeCreated,
+                            TimeModified = u.TimeModified,
+                            UserIDCreated = u.FkUserCreated,
+                            UserName = u.UserName,
+                            UserIDModified = u.FkUserModified,
+                        };
+            return list;
+        }
+
+        public IEnumerable<UserRoleViewModel> RoleList()
+        {
+            var role = _AbstractWorkspace.Query<UsrRole>();
+            var userRol = _AbstractWorkspace.Query<UsrUserRole>();
+            var list = from ur in userRol
                        join r in role on ur.FkRole equals r.Pk
-                       select new UserViewModel
+                       select new UserRoleViewModel
                        {
-                           EmailAdress = u.EmailAdress,
-                           Name = u.Name,
-                           ID = u.Pk,
-                           RecordStatus = u.RecordStatus,
-                           Surname = u.Surname,
-                           TimeCreated = u.TimeCreated,
-                           TimeModified = u.TimeModified,
-                           UserIDCreated = u.FkUserCreated,
-                           UserName = u.UserName,
-                           UserIDModified = u.FkUserModified,
-                           RolID=r.Pk,
-                           RolName=r.Name
+                           RoleID = r.Pk,
+                           RoleName = r.Name,
+                           UserID = ur.FkUser
                        };
             return list;
         }

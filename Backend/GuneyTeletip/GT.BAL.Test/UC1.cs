@@ -1,3 +1,4 @@
+using GT.BAL.Infinity.DataSynronizer;
 using GT.Core.Settings;
 using GT.DataService.infinity.Implementation;
 using GT.DataService.infinity.Model;
@@ -32,7 +33,8 @@ namespace GT.BAL.Test
         [Test]
         public void UC1()
         {
-
+            var settings = AppSettings.GetCurrent();
+            var ks=settings.DataServiceSettings;
             var filePath = AppSettings.GetCurrent().Log.PATH_JobInfinity;
             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
@@ -41,14 +43,18 @@ namespace GT.BAL.Test
             jobManager.Start();
             Thread.Sleep(100000000);
 
+        }
+
+        [Test]
+        public void UC11()
+        {
+
+            var dc = new InfinityDataSyncronizer(null);
+            dc.SyncronizeInfinityStudyList(15, 71500, new DateTime(2019, 01, 01), new DateTime(2020, 01, 05));
 
 
 
-
-
-
-
-        }        
+        }
 
     }
 }

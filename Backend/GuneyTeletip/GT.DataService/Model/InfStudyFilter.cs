@@ -14,7 +14,9 @@ namespace GT.DataService.Model
         public string EslesmeDurumu { get; set; }
         public string[] TCList { get; set; }
         public string[] AccessionNumberList { get; set; }
-        public KosEnumType KosEnum { get; set; }
-        public bool KosWaitHour { get; set; }
+        public KosEnumType? KosEnum { get; set; }
+        public bool? KosWaitHour { get; set; }
+        public string StudyInstanceUID { get; set; }
+        public string PatientID { get; set; }
     }
 }

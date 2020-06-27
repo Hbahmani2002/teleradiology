@@ -16,7 +16,7 @@ namespace Gt.Data.Test
         public void Setup()
         {
         }
-        InfStudyDataService service = new InfStudyDataService(new BussinessContext(new UserContextModel(1)));
+        StudyKosDataService service = new StudyKosDataService(new BussinessContext(new UserContextModel(1)));
         [Test]
         public void GetInfStudy()
         {
