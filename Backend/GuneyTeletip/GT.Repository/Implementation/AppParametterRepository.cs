@@ -18,5 +18,10 @@ namespace GT.Repository.Implementation
         {
             throw new NotImplementedException();
         }
+
+        public AppParameter GetByKey(string key)
+        {
+            return Single(o => o.Key==key);
+        }
     }
 }

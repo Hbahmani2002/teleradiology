@@ -18,5 +18,10 @@ namespace App.Data.Service
             _Workspace = GTWorkspaceFactory.Create(true);
             appParameterRepository = new AppParameterRepository(_Workspace);
         }
+
+        public string GetValue(string key)
+        {
+            return appParameterRepository.GetByKey(key).Value;
+        }
     }
 }
