@@ -50,6 +50,7 @@
         public virtual DbSet<KosStudyHistory> KosStudyHistory { get; set; }
         public virtual DbSet<KosStudyJob> KosStudyJob { get; set; }
         public virtual DbSet<KosStudyParameter> KosStudyParameter { get; set; }
+        public virtual DbSet<StmGetorderStatusforAccessionnumberlist> StmGetorderStatusforAccessionnumberlist { get; set; }
         public virtual DbSet<StudyOperationCount> StudyOperationCount { get; set; }
         public virtual DbSet<UsrRole> UsrRole { get; set; }
         public virtual DbSet<UsrTenant> UsrTenant { get; set; }
@@ -68,6 +69,7 @@
         public virtual DbSet<XxxQueryRetrieveSettings> XxxQueryRetrieveSettings { get; set; }
         public virtual DbSet<XxxSkrsKurumKodlari> XxxSkrsKurumKodlari { get; set; }
         public virtual DbSet<YyyInfPaht> YyyInfPaht { get; set; }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -602,6 +604,102 @@
                 entity.Property(e => e.TimeStart).HasColumnName("time_start");
 
                 entity.Property(e => e.TimeStop).HasColumnName("time_stop");
+            });
+
+            modelBuilder.Entity<StmGetorderStatusforAccessionnumberlist>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("getorder_statusfor_accessionnumberlist_pkey");
+
+                entity.ToTable("stm_getorder_statusfor_accessionnumberlist");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .HasDefaultValueSql("nextval('getorder_statusfor_accessionnumberlist_pk_seq'::regclass)");
+
+                entity.Property(e => e.Accessionnumber)
+                    .HasColumnName("accessionnumber")
+                    .HasMaxLength(32);
+
+                entity.Property(e => e.Citizenid)
+                    .HasColumnName("citizenid")
+                    .HasMaxLength(16);
+
+                entity.Property(e => e.Dosestatus)
+                    .HasColumnName("dosestatus")
+                    .HasMaxLength(32);
+
+                entity.Property(e => e.Dosestatusid).HasColumnName("dosestatusid");
+
+                entity.Property(e => e.Error)
+                    .HasColumnName("error")
+                    .HasMaxLength(512);
+
+                entity.Property(e => e.FkInfBatch).HasColumnName("fk_inf_batch");
+
+                entity.Property(e => e.FkKosStudy).HasColumnName("fk_kos_study");
+
+                entity.Property(e => e.FkTenant).HasColumnName("fk_tenant");
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.Lastmedulasenddate).HasColumnName("lastmedulasenddate");
+
+                entity.Property(e => e.Medulainstitutionid)
+                    .HasColumnName("medulainstitutionid")
+                    .HasMaxLength(32);
+
+                entity.Property(e => e.Medularesponsecode)
+                    .HasColumnName("medularesponsecode")
+                    .HasMaxLength(16);
+
+                entity.Property(e => e.Medularesponsemessage)
+                    .HasColumnName("medularesponsemessage")
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Medulastatus)
+                    .HasColumnName("medulastatus")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.Medulastatusid).HasColumnName("medulastatusid");
+
+                entity.Property(e => e.Patienthistorysearchstatus)
+                    .HasColumnName("patienthistorysearchstatus")
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Patienthistorysearchstatusid).HasColumnName("patienthistorysearchstatusid");
+
+                entity.Property(e => e.Performeddate).HasColumnName("performeddate");
+
+                entity.Property(e => e.Reportstatus)
+                    .HasColumnName("reportstatus")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.Reportstatusid).HasColumnName("reportstatusid");
+
+                entity.Property(e => e.Scheduledate).HasColumnName("scheduledate");
+
+                entity.Property(e => e.Sutcode)
+                    .HasColumnName("sutcode")
+                    .HasMaxLength(16);
+
+                entity.Property(e => e.Teletipstatus)
+                    .HasColumnName("teletipstatus")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.Teletipstatusid).HasColumnName("teletipstatusid");
+
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
+
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
+
+                entity.Property(e => e.Wadostatus)
+                    .HasColumnName("wadostatus")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.Wadostatusid).HasColumnName("wadostatusid");
             });
 
             modelBuilder.Entity<StudyOperationCount>(entity =>
@@ -1552,7 +1650,7 @@
                     .HasColumnName("username");
             });
 
-          //  OnModelCreatingPartial(modelBuilder);
+            //OnModelCreatingPartial(modelBuilder);
         }
     }
 }
