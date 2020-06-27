@@ -44,7 +44,7 @@ namespace GT.UI.WebApi.Controllers
 
             var item = GetMakeKosList(settings).First();
             var manager = GetMakeKosManager(filePath);
-            manager.MakeKos(item.InputStudyDirectoryPath, item.OutputKosFilePath,"","");
+            manager.MakeKos(item.InputStudyDirectoryPath, item.OutputKosFilePath, "", "");
 
             return HttpMessageService.Ok((object)new
             {
@@ -67,12 +67,11 @@ namespace GT.UI.WebApi.Controllers
 
             var item = GetSendKosList(settings).First();
             var manager = GetSendKosManager(filePath);
-            manager.SendKos(item.PatientId, item.KosFilePath);
+            var res = manager.SendKos(item.PatientId, item.KosFilePath);
 
             return HttpMessageService.Ok((object)new
             {
-                JobID = jobID,
-                JobLogFilePath = filePath
+                res
             });
 
         }

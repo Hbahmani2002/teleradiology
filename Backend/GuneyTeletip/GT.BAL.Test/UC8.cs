@@ -1,15 +1,22 @@
-﻿using GT.Core.Settings;
+﻿using GT.BAL.TeletipKos;
+using GT.Core.Settings;
 using GT.DataService.infinity.Implementation;
 using GT.DataService.infinity.Model;
 using GT.Job.Implementation;
 using GT.Job.Model.AutoJobs;
 using GT.SERVICE;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using Util.Logger;
+using System.Text;
+using GT.UI.WebApi.Models;
 
 namespace GT.BAL.Test
 {
@@ -85,7 +92,7 @@ namespace GT.BAL.Test
             {
                 t2.Trigger();
             }
-            t2.timer.Dispose();
+            t2.Dispose();
             Console.Read();
         }
         [Test]
@@ -97,29 +104,92 @@ namespace GT.BAL.Test
             {
 
                 var item = js.Create((o, t) =>
-                 {
+                {
+                    int i = 0;
+                    while (true)
+                    {
+                        Debug.WriteLine($"ThreadID:{Thread.CurrentThread.ManagedThreadId}\t{i++}");
+                        Thread.Sleep(20);
 
-                     int i = 0;
-                     while (true)
-                     {
-                         Debug.WriteLine($"ThreadID:{Thread.CurrentThread.ManagedThreadId}\t{i++}");
-                         Thread.Sleep(100);
-                         var rnd = new Random();
-                         if (o.IsCancellationRequested)
-                         {
-                             Debug.WriteLine("JOb is cancelled");
-                             return;
-                         }
+                        var rnd = new Random();
+                        if (rnd.Next(1000) == 1)
+                        {
+                            // throw new Exception("GÖRÜNDÜN MÜ HATAYI");
+                        }
 
-                         t(new JobBussinessServiceProgressItem(rnd.Next(1000), rnd.Next(1000)));
-                     }
-                 });
+                        if (o.IsCancellationRequested)
+                        {
+                            Debug.WriteLine("JOb is cancelled");
+                            return;
+                        }
+                        if (rnd.Next(2) == 1)
+                        {
+                            t.IncreaseProgressSuccess();
+                        }
+                        else
+                        {
+                            t.IncreaseProgressError();
+                        }
+                    }
+                });
                 item.Start();
-                Thread.Sleep(600);
+                Thread.Sleep(2000);
                 item.Stop();
-                item.Start();
             }
         }
+        [Test]
+        public void UC8_5()
+        {
+            var sd = new StudyKosService(null);
+            var job = sd.DeleteKosBackground(new DataService.Model.InfStudyFilter());
+            while (true)
+            {
+                Thread.Sleep(100);
+                Debug.WriteLine($"Success:{job.ProgressItem.Success} Error:{ job.ProgressItem.Error}");
+            }
+        }
+
+
+
+
+        [Test]
+        public void UC8_6()
+        {
+
+            var gelen_app_setting = File.ReadAllText("appsettings.json");
+
+            var y=JsonConvert.DeserializeObject<string>(gelen_app_setting);
+
+
+
+
+        }
+
+        public class TypeJson
+        {
+            public string patientId { get; set; }
+            public string KOS { get; set; }
+            public string RepositoryUr { get; set; }
+            public string Result { get; set; }
+
+            public TypeJson()
+            {
+            }
+
+
+        }
+
+
+
+
+        public class HighLowTemps
+        {
+            public string isSuccess { get; set; }
+            public string message { get; set; }
+
+            public string arguments { get; set; }
+        }
+
 
     }
 }

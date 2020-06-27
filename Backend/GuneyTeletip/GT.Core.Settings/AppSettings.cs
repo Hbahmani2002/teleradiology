@@ -40,6 +40,7 @@ namespace GT.Core.Settings
         }
 
 
+
         public class InfinityOracleIntegration
         {
             public string ZeroImageGeneratorName => "INFINITT::DCMCREATOR::::::";
@@ -108,7 +109,7 @@ namespace GT.Core.Settings
                 public string ServiceAddressURL => "https://xdarep.teletip.saglik.gov.tr/axis2/services/xdsrepositoryb";
                 public string ServiceAddress_BETA_URL => "http://betaxdsrepository.teletip.saglik.gov.tr/axis2/services/xdsrepositoryb";
 
-                public string AxisRepoDirectoryPath => "/gt/app/teletip_kos/axis2Repo";
+                public string AxisRepoDirectoryPath => "/gt/app/teletip_kos/axis2Repo/axis2repository";
                 public string AxisXmlFilePath => "/gt/app/teletip_kos/axis2Repo/axis2_test.xml";
 
             }

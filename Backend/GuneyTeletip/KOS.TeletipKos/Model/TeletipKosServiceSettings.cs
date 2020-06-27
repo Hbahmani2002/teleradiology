@@ -19,7 +19,7 @@ namespace GT.TeletipKos
 
                 var var = new TeletipKosServiceSetting(
                    new TeletipKosServiceSetting.MakeKosServiceSettings(makeKosSettings.AppFilePath, makeKosSettings.LocationUID, makeKosSettings.Title, makeKosSettings.TempDirectoryPath + "/", makeKosSettings.DCM4CheeDirectoryPath,makeKosSettings.InstitutionFirmaKodu),
-                   new TeletipKosServiceSetting.SendKosServiceSettings(sendKosSettings.AppFilePath, sendKosSettings.ServiceAddress_BETA_URL, sendKosSettings.AxisRepoDirectoryPath, sendKosSettings.AxisXmlFilePath)
+                   new TeletipKosServiceSetting.SendKosServiceSettings(sendKosSettings.AppFilePath, sendKosSettings.ServiceAddressURL, sendKosSettings.AxisRepoDirectoryPath, sendKosSettings.AxisXmlFilePath)
                );
                 _TeletipKosServiceSetting = var;
             }
