@@ -1,23 +1,6 @@
-﻿using GT.BAL.TeletipKos;
-using GT.Core.Settings;
-using GT.DataService.infinity.Implementation;
-using GT.DataService.infinity.Model;
-using GT.Job.Implementation;
-using GT.Job.Model.AutoJobs;
-using GT.SERVICE;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
 using NUnit.Framework;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Threading;
-using Util.Logger;
-using System.Text;
-using GT.UI.WebApi.Models;
-using GT.UI.WebApi.Controllers;
 
 namespace GT.BAL.Test
 {
@@ -33,16 +16,6 @@ namespace GT.BAL.Test
         [Test]
         public void UC8_8()
         {
-
-
-            KosServiceTestController koSend = new KosServiceTestController();
-            var gelen1 = koSend.SendKosTest("123", "100430642.dcm");
-
-
-            KosServiceTestController kos = new KosServiceTestController();
-
-            var gelen =  kos.MakeKosTest();
-         
 
             var gelen_app_setting = File.ReadAllText("appsettings.json");
 

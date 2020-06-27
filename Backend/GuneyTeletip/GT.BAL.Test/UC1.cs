@@ -33,7 +33,8 @@ namespace GT.BAL.Test
         [Test]
         public void UC1()
         {
-
+            var settings = AppSettings.GetCurrent();
+            var ks=settings.DataServiceSettings;
             var filePath = AppSettings.GetCurrent().Log.PATH_JobInfinity;
             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 

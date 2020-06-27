@@ -2,6 +2,7 @@
 {
     using Gt.PERSISTANCE;
     using GT.Core.Settings;
+    using GT.Core.Settings.Global;
     using GT.Persistance.Domain.Models;
     using GT.PERSISTANCE.Data.SQL;
     using Microsoft.EntityFrameworkCore;
@@ -78,7 +79,7 @@
             {
                 if (IsLogging)
                     optionsBuilder.UseLoggerFactory(consoleLoggerFactory);
-                var connectionString=AppSettings.GetCurrent().DatabaseConnection.StudyPostgreConnectionString;
+                var connectionString = AppSettings.GetCurrent().DatabaseSetting.StudyPostgre;
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseNpgsql(connectionString);
             }

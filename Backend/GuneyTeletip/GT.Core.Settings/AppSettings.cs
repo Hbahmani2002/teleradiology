@@ -1,128 +1,86 @@
-﻿using System;
+﻿using GT.Core.Settings.Global;
+using Newtonsoft.Json;
+using System;
+using System.Diagnostics;
 using System.IO;
+using System.Text;
 
 namespace GT.Core.Settings
 {
-    public class AppSettings
+    public partial class AppSettings
     {
+        private const string SettingsFilePath = "appsettings.json";
+
         private static AppSettings _AppSettings;
         public static AppSettings GetCurrent()
         {
             if (_AppSettings == null)
             {
-                _AppSettings = new AppSettings();
+                lock (SettingsFilePath)
+                {
+                    if (_AppSettings == null)
+                    {
+                        var file = File.ReadAllText(SettingsFilePath, Encoding.UTF8);
+                        try
+                        {
+                            var model = new
+                            {
+                                ConnectionStrings = new
+                                {
+                                    StudyPostgre = "",
+                                    InfinityOracle = "",
+                                }
+                            };
+                            model = JsonConvert.DeserializeAnonymousType(file, model);
+                            if (model == null || model.ConnectionStrings == null)
+                            {
+                                throw new Exception("model boş");
+                            }
+                            _AppSettings = new AppSettings(new DatabaseSettings(model.ConnectionStrings.StudyPostgre, model.ConnectionStrings.InfinityOracle));
+                            //LoadSettings_Alpha()
+                            //LoadSettings_Beta()
+                        }
+                        catch (Exception ex)
+                        {
+                            _AppSettings = new AppSettings();
+                            var msg = $"{SettingsFilePath} dosaysından global ayarlar çekilmedi";
+                            Debug.WriteLine(msg);
+
+                            Debug.WriteLine(ex);
+
+                        }
+                    }
+                }
             }
             return _AppSettings;
+
+
         }
+        public DatabaseSettings DatabaseSetting { get; }
+        public bool IsFromConfigFile { get; set; }
         private AppSettings()
         {
-            Log = new Logging();
-            STM = new STMService();
-            Kos = new KosService();
-            DatabaseConnection = new Database();
-            InfinityOracleSettings = new InfinityOracleIntegration();
-            DataServiceSettings = new DataServiceSetting();
-            InfinityOracleTakeTopSettings = new InfinityOracleTakeIntegration();
+            DatabaseSetting = new DatabaseSettings(
+               "Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002",
+               "User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;"
+               );
         }
-
-        public Logging Log { get; }
-        public STMService STM { get; }
-        public KosService Kos { get; }
-        public InfinityOracleIntegration InfinityOracleSettings { get; }
-        public DataServiceSetting DataServiceSettings { get; }
-        public Database DatabaseConnection { get; }
-        public InfinityOracleTakeIntegration InfinityOracleTakeTopSettings { get; }
-
-
-        public class InfinityOracleTakeIntegration
+        private AppSettings(DatabaseSettings set)
         {
-            public int InfinityOracleTakeTop => 200;
+            IsFromConfigFile = true;
+            DatabaseSetting = set;
         }
 
+        public GlobalAppSettings.DataServiceSettings DataServiceSettings => GlobalAppSettings.GetCurrent().DataService;
+
+        public GlobalAppSettings.STMServiceSetting STM => GlobalAppSettings.GetCurrent().STMSettings;
+
+        public GlobalAppSettings.LoggingSetting Log => GlobalAppSettings.GetCurrent().LogSettings;
+        public GlobalAppSettings.KosServiceSetting Kos => GlobalAppSettings.GetCurrent().KosServiceSettings;
 
 
-        public class InfinityOracleIntegration
-        {
-            public string ZeroImageGeneratorName => "INFINITT::DCMCREATOR::::::";
-        }
-        public class DataServiceSetting
-        {
-            public int MakeKosServiceItemPerBatch => 50;
-            public int OrderStatusForAccessionNumberListServiceItemPerBatch => 50;
-            public int KosWaitHour => 2;
-        }
-        public class Database
-        {
-            public string StudyPostgreConnectionString => "Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002";
-            // "Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002"
-            public string InfinityOracleConnectionString => "User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;";
-        }
-        public class Logging
-        {
-            private string FullPath(string relativePath)
-            {
-                var path = Path.GetFullPath(relativePath, Environment.CurrentDirectory);
-                return path;
-            }
-            public string DIR_JobsLog => FullPath("/upload/_jobs");
 
-            public string DIR_JobsLogMakeKos => Path.Combine(DIR_JobsLog, "MakeKos");
-            public string DIR_JobsLogManuel => Path.Combine(DIR_JobsLog, "ManuelJobs");
-            public string DIR_JobsLogSendKos => Path.Combine(DIR_JobsLog, "SendKos");
-            public string DIR_JobsLogSTM => Path.Combine(DIR_JobsLog, "STM");
-            public string PATH_JobInfinity => Path.Combine(DIR_JobsLog, "infinity_job_log.txt");
-            public string DIR_BackgroundProcess => FullPath("../upload/_background");
-        }
-        public class STMService
-        {
-            public string HBYS_PACS_ResourceOwnerClient => "HbPatT!180430";
-            public string userTokenName => "infinitt_pacs@teletip.saglik.gov.tr";
-            public string userTokenPassword => "TGeSNkz7!!7!HpU";
-            public string identityServerBaseUri => "https://sec.teletip.saglik.gov.tr";
-            public string BASEADDRESS => "https://api.teletip.saglik.gov.tr/Common.WebApi/api/Integration/";
-        }
 
-        public class KosService
-        {
-            public MakeKos Make { get; }
-            public SendKos Send { get; }
 
-            public KosService()
-            {
-                Make = new MakeKos();
-                Send = new SendKos();
-            }
-            public class MakeKos
-            {
-                public int JOB_MaxParallelTask => 10;
-                public string DIR_StudyPath => "/gt/dicom/study";
-                public string DIR_KosPath => "/gt/dicom/kos";
-                public string AppFilePath => "/gt/app/teletip_kos/MakeKOS_v21.jar";
-                public string LocationUID => "1.3.6.1.4.1.21367.2017.10.26.111";
-                public string Title => "DCM-113030";
-                public string TempDirectoryPath => "/gt/dicom/temp_kos";
-                public string DCM4CheeDirectoryPath => "/gt/app/teletip_kos/dcm4che-5.22.2/bin";
-                public string InstitutionFirmaKodu => "FKad6e6d67-7607-473f-83eb-6dbe516f91b3";
-            }
-            public class SendKos
-            {
-                public string AppFilePath => "/gt/app/teletip_kos/SendKOS_vProtek.jar";
-                public string ServiceAddressURL => "https://xdarep.teletip.saglik.gov.tr/axis2/services/xdsrepositoryb";
-                public string ServiceAddress_BETA_URL => "http://betaxdsrepository.teletip.saglik.gov.tr/axis2/services/xdsrepositoryb";
-
-                public string AxisRepoDirectoryPath => "/gt/app/teletip_kos/axis2Repo/axis2repository";
-                public string AxisXmlFilePath => "/gt/app/teletip_kos/axis2Repo/axis2_test.xml";
-
-            }
-
-        }
-        private void GetCredentials()
-        {
-
-            var gelen_app_setting = File.ReadAllText("appsettings.json");
-
-            //var item = JsonConvert.DeserializeObject<GlobalCls>(gelen_app_setting);
-            //return item;
-        }
     }
 }

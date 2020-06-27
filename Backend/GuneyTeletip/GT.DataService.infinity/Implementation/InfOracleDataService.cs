@@ -47,7 +47,7 @@ namespace GT.DataService.infinity.Implementation
             };
 
 
-            int TakeTop = AppSettings.GetCurrent().InfinityOracleTakeTopSettings.InfinityOracleTakeTop;
+            int TakeTop = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.InfinityOracleTakeTop;
 
 
 
