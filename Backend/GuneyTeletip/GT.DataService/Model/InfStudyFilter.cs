@@ -5,13 +5,14 @@ using static GT.Repository.Conditions.InfStudyConditionFilter;
 
 namespace GT.DataService.Model
 {
-    public class InfStudyFilter
+    public class KosStudyFilter
     {
         public long[] HastaneIDList { get; set; }
         public DateTime? BasTarih { get; set; }
         public DateTime? BitTarih { get; set; }
+        public string[] ModaliteList { get; set; }
         public string Modalite { get; set; }
-        public string EslesmeDurumu { get; set; }
+        public long[] EslesmeDurumuList { get; set; }
         public string[] TCList { get; set; }
         public string[] AccessionNumberList { get; set; }
         public KosEnumType? KosEnum { get; set; }

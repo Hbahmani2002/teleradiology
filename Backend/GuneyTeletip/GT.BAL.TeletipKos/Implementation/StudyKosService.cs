@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Teletip.SorgulamaServis;
 using Util.Extensions;
 
 namespace GT.BAL.TeletipKos
@@ -25,7 +24,7 @@ namespace GT.BAL.TeletipKos
             _InfStudyDataService = new StudyKosDataService(context);
         }
 
-        public MultipleOperationResultModel CreateKos(InfStudyFilter filter)
+        public MultipleOperationResultModel CreateKos(KosStudyFilter filter)
         {
 
             var list = GetStudyKos(filter);
@@ -45,7 +44,7 @@ namespace GT.BAL.TeletipKos
 
 
 
-        public MultipleOperationResultModel MakeKos(InfStudyFilter filter)
+        public MultipleOperationResultModel MakeKos(KosStudyFilter filter)
         {
             var list = GetStudyKos(filter);
             foreach (var item in list)
@@ -54,7 +53,7 @@ namespace GT.BAL.TeletipKos
             }
             return RandomDataGenerator.CreateRandom<MultipleOperationResultModel>(1).FirstOrDefault();
         }
-        public JobBussinessService.JobServiceItem CreateKosBackground(InfStudyFilter filter)
+        public JobBussinessService.JobServiceItem CreateKosBackground(KosStudyFilter filter)
         {
 
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
@@ -65,16 +64,15 @@ namespace GT.BAL.TeletipKos
                 {
                     var globalSettings = AppSettings.GetCurrent();
                     var studyDataService = new StudyKosDataService();
-                    //ToDO
-                    //while (true)
-                    //{
-                        var items = studyDataService.GetMakeKosList(int.MaxValue);
+                    while (true)
+                    {
+                        var items = studyDataService.GetMakeKosList(50);
                         if (items.Count == 0)
                             return;
 
                         var mc = new MakeKosOperation();
                         mc.DoSingleBatch(items, o, ac);
-                    //}
+                    }
 
                 }
                 catch (Exception ex)
@@ -98,7 +96,7 @@ namespace GT.BAL.TeletipKos
 
 
 
-        public JobBussinessService.JobServiceItem SendKosBackground(InfStudyFilter filter)
+        public JobBussinessService.JobServiceItem SendKosBackground(KosStudyFilter filter)
         {
 
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
@@ -142,12 +140,12 @@ namespace GT.BAL.TeletipKos
 
 
 
-        public JobBussinessService.JobServiceItem DeleteKos(Gridable<InfStudyFilter> filter)
+        public JobBussinessService.JobServiceItem DeleteKos(Gridable<KosStudyFilter> filter)
         {
             return null;
         }
 
-        public JobBussinessService.JobServiceItem DeleteKosBackground(InfStudyFilter filter)
+        public JobBussinessService.JobServiceItem DeleteKosBackground(KosStudyFilter filter)
         {
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
@@ -174,40 +172,7 @@ namespace GT.BAL.TeletipKos
             return job;
         }
 
-
-
-        public JobBussinessService.JobServiceItem StmGetOrderStatusForAccessionNumberlistBackground(InfStudyFilter filter)
-        {
-            var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
-            {
-
-                try
-                {
-                    var globalSettings = AppSettings.GetCurrent();
-                    var studyDataService = new StudyKosDataService();
-                    //var items7 = studyDataService.GetSTMInfoList(10,filter.AccessionNumberList);
-
-                    var items = studyDataService.GetKosDeleteList(filter);
-                    var mc = new STMOrderStatusForAccessionNumberListOperation();
-                    mc.DoSingleBatch(items, o, ac);
-                }
-                catch (Exception ex)
-                {
-                    var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
-                    var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogManuel, fileName);
-                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                    File.WriteAllText(filePath, ex.ToString());
-                    throw new Exception("Delete Kos" + "Log File Path:" + filePath);
-                }
-
-            });
-            job.Start();
-            return job;
-        }
-
-
-
-        public void ReprocessKos(InfStudyFilter filter)
+        public void ReprocessKos(KosStudyFilter filter)
         {
             var list = GetStudyKos(filter);
             foreach (var item in list)
@@ -217,7 +182,7 @@ namespace GT.BAL.TeletipKos
             throw new NotImplementedException();
         }
 
-        public JobBussinessService.JobServiceItem ReprocessKosBackground(InfStudyFilter filter)
+        public JobBussinessService.JobServiceItem ReprocessKosBackground(KosStudyFilter filter)
         {
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
@@ -242,7 +207,7 @@ namespace GT.BAL.TeletipKos
             return job;
         }
 
-        public void UpdateReadKos(InfStudyFilter filter)
+        public void UpdateReadKos(KosStudyFilter filter)
         {
             var list = GetStudyKos(filter);
             foreach (var item in list)
@@ -252,7 +217,7 @@ namespace GT.BAL.TeletipKos
             throw new NotImplementedException();
         }
 
-        public void UpdateReadKosBackground(InfStudyFilter filter)
+        public void UpdateReadKosBackground(KosStudyFilter filter)
         {
             var list = GetStudyKos(filter);
             foreach (var item in list)
@@ -262,7 +227,7 @@ namespace GT.BAL.TeletipKos
             throw new NotImplementedException();
         }
 
-        public void ExportExcel(InfStudyFilter filter, string filePath)
+        public void ExportExcel(KosStudyFilter filter, string filePath)
         {
             var list = GetStudyKos(filter);
             foreach (var item in list)
@@ -271,9 +236,9 @@ namespace GT.BAL.TeletipKos
             }
         }
 
-        private IEnumerable<InfStudyViewModel> GetStudyKos(InfStudyFilter filter)
+        private IEnumerable<InfStudyViewModel> GetStudyKos(KosStudyFilter filter)
         {
-            var grid = new Gridable<InfStudyFilter>();
+            var grid = new Gridable<KosStudyFilter>();
             grid.Paging.Count = 1000;
             grid.Filter = filter;
 
