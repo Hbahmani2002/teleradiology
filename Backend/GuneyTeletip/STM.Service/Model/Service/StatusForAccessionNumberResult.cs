@@ -18,7 +18,7 @@ namespace Teletip.SorgulamaServis
         /// <summary>
         ///  TeletipStatusId, // 1 (Eşleşti), 2 (Eşleşmedi), 3 (Kayıt Bulunamadı)
         /// </summary>
-        public int TeletipStatusId { get; set; }
+        public int? TeletipStatusId { get; set; }
         public string WadoStatus { get; set; }
         public int WadoStatusId { get; set; }
         public string MedulaStatus { get; set; }

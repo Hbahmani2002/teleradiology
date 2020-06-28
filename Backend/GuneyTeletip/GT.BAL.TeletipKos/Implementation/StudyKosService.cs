@@ -65,15 +65,16 @@ namespace GT.BAL.TeletipKos
                 {
                     var globalSettings = AppSettings.GetCurrent();
                     var studyDataService = new StudyKosDataService();
-                    while (true)
-                    {
-                        var items = studyDataService.GetMakeKosList(50);
+                    //ToDO
+                    //while (true)
+                    //{
+                        var items = studyDataService.GetMakeKosList(int.MaxValue);
                         if (items.Count == 0)
                             return;
 
                         var mc = new MakeKosOperation();
                         mc.DoSingleBatch(items, o, ac);
-                    }
+                    //}
 
                 }
                 catch (Exception ex)
@@ -184,8 +185,10 @@ namespace GT.BAL.TeletipKos
                 {
                     var globalSettings = AppSettings.GetCurrent();
                     var studyDataService = new StudyKosDataService();
+                    //var items7 = studyDataService.GetSTMInfoList(10,filter.AccessionNumberList);
+
                     var items = studyDataService.GetKosDeleteList(filter);
-                    var mc = new STMKosDeleteOperation();
+                    var mc = new STMOrderStatusForAccessionNumberListOperation();
                     mc.DoSingleBatch(items, o, ac);
                 }
                 catch (Exception ex)
