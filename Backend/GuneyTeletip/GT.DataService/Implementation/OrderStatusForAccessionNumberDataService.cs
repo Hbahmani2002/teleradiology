@@ -182,15 +182,15 @@ namespace GT.DataService.Implementation
                 .Query(filter)
                 .ToArray();
         }
-        public PagingResult<InfStudyViewModel> GetInfStudyList(Gridable<InfStudyFilter> parms)
+        public PagingResult<InfStudyViewModel> GetInfStudyList(Gridable<KosStudyFilter> parms)
         {
             if (parms == null)
             {
-                parms = new Gridable<InfStudyFilter>();
+                parms = new Gridable<KosStudyFilter>();
             }
             if (parms.Filter == null)
             {
-                parms.Filter = new InfStudyFilter();
+                parms.Filter = new KosStudyFilter();
             }
 
             var s = new InfStudyConditionFilter
@@ -336,10 +336,10 @@ namespace GT.DataService.Implementation
         {
             return kosDurumIstCompositeRepository.Query().ToList();
         }
-        public IEnumerable<KosDeleteViewModel> GetKosDeleteList(InfStudyFilter filter)
+        public IEnumerable<KosDeleteViewModel> GetKosDeleteList(KosStudyFilter filter)
         {
             if (filter == null)
-                filter = new InfStudyFilter();
+                filter = new KosStudyFilter();
             var s = new InfStudyConditionFilter
             {
                 HastaneIDList = filter.HastaneIDList,

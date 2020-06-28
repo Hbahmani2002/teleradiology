@@ -157,7 +157,7 @@ namespace GT.BAL.Test
         public void UC8_7()
         {
             var sd = new StudyKosService(null);
-            var job = sd.StmGetOrderStatusForAccessionNumberlistBackground(new DataService.Model.InfStudyFilter());
+            var job = sd.StmGetOrderStatusForAccessionNumberlistBackground(new DataService.Model.KosStudyFilter());
             while (true)
             {
                 Thread.Sleep(100);

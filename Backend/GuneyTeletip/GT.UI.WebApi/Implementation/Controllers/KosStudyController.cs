@@ -88,7 +88,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Kos/StmGetOrderStatusForAccessionNumberlistBackground")]
-        public ServiceResult<long> OrderStatusForAccessionnumberList(InfStudyFilter parms)
+        public ServiceResult<long> OrderStatusForAccessionnumberList(KosStudyFilter parms)
         {
 
             

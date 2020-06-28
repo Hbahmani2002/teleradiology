@@ -64,7 +64,7 @@ namespace GT.UI.WebApi.Controllers
      
         [HttpPost]
         [Route("/Kos/CreateKosBackground")]
-        public ServiceResult<long> CreateKosBackground(InfStudyFilter parms)
+        public ServiceResult<long> CreateKosBackground(KosStudyFilter parms)
         {
 
 
