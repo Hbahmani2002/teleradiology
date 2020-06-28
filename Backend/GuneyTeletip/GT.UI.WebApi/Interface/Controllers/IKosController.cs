@@ -9,15 +9,15 @@ namespace GT.UI.WebApi.Controllers
 {
     public interface IKosController
     {
-        ServiceResult<int> CreateKos(Gridable<InfStudyFilter> parms);
-        ServiceResult<int> DeleteKos(Gridable<InfStudyFilter> parms);
-        ServiceResult<string> ExportExcel(Gridable<InfStudyFilter> parms);
+        ServiceResult<int> CreateKos(Gridable<KosStudyFilter> parms);
+        ServiceResult<int> DeleteKos(Gridable<KosStudyFilter> parms);
+        ServiceResult<string> ExportExcel(Gridable<KosStudyFilter> parms);
         ServiceResult<InfStudyViewModel> GetByID(KosModel model);
         ServiceResult<List<KosEnumTypeViewModel>> GetEnumTypeList();
         ServiceResult<List<KosHistoryModel>> GetKosHistoryByStudyID(KosHistoryModel model);
-        ServiceResult<PagingResult<InfStudyViewModel>> GetKosList(Gridable<InfStudyFilter> parms);
+        ServiceResult<PagingResult<InfStudyViewModel>> GetKosList(Gridable<KosStudyFilter> parms);
         ServiceResult<List<KosEnumTypeViewModel>> GetModalityList();
-        ServiceResult<int> ReprocessKos(Gridable<InfStudyFilter> parms);
-        ServiceResult<int> UpdateReadKos(Gridable<InfStudyFilter> parms);
+        ServiceResult<int> ReprocessKos(Gridable<KosStudyFilter> parms);
+        ServiceResult<int> UpdateReadKos(Gridable<KosStudyFilter> parms);
     }
 }

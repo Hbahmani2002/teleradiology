@@ -23,11 +23,12 @@ namespace GT.Repository.Conditions
             KosSilinenler=70
         }
         public string Modality { get; set; }
+        public string[] ModalityList { get; set; }
         public long? Pk { get; set; }
         public long[] HastaneIDList { get; set; }
         public DateTime? BasTarih { get; set; }
         public DateTime? BitTarih { get; set; }
-        public string EslesmeDurumu { get; set; }
+        public long[] EslesmeDurumuList { get; set; }
         public string[] AccessionNumberList { get; set; }
         public string[] TcList { get; set; }
         public KosEnumType? KosEnum { get; set; }
@@ -56,6 +57,16 @@ namespace GT.Repository.Conditions
             {
                 var arr = filter.HastaneIDList.ToList();
                 exp = exp.And(o => arr.Contains(o.FkTenant));
+            }
+            if (filter.ModalityList != null && filter.ModalityList.Length > 0)
+            {
+                var arr = filter.ModalityList.ToList();
+                exp = exp.And(o => arr.Contains(o.Modality));
+            }
+            if (filter.EslesmeDurumuList != null && filter.EslesmeDurumuList.Length > 0)
+            {
+                var arr = filter.EslesmeDurumuList.ToList();
+                exp = exp.And(o => arr.Contains((long)o.FkKosEnumType));
             }
             if (filter.KosWaitHour==true)
             {

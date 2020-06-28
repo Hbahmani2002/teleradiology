@@ -140,7 +140,7 @@ namespace GT.BAL.Test
         public void UC8_5()
         {
             var sd = new StudyKosService(null);
-            var job = sd.DeleteKosBackground(new DataService.Model.InfStudyFilter());
+            var job = sd.DeleteKosBackground(new DataService.Model.KosStudyFilter());
             while (true)
             {
                 Thread.Sleep(100);

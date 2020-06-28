@@ -30,7 +30,7 @@ namespace GT.UI.WebApi.Controllers
     {
         [HttpPost]
         [Route("/Kos/CreateKos")]
-        public ServiceResult<int> CreateKos(Gridable<InfStudyFilter> parms)
+        public ServiceResult<int> CreateKos(Gridable<KosStudyFilter> parms)
         {
 
 
@@ -42,7 +42,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Kos/SendKos")]
-        public ServiceResult<int> SendKos(Gridable<InfStudyFilter> parms)
+        public ServiceResult<int> SendKos(Gridable<KosStudyFilter> parms)
         {
             return HttpMessageService.Ok(9901);
         }
@@ -50,7 +50,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Kos/CreateKosBackground")]
-        public ServiceResult<long> CreateKosBackground(InfStudyFilter parms)
+        public ServiceResult<long> CreateKosBackground(KosStudyFilter parms)
         {
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.CreateKosBackground(parms);
@@ -61,7 +61,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Kos/SendKosBackground")]
-        public ServiceResult<long> SendKosBackground(InfStudyFilter parms)
+        public ServiceResult<long> SendKosBackground(KosStudyFilter parms)
         {
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.SendKosBackground(parms);
@@ -70,14 +70,14 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Kos/DeleteKos")]
-        public ServiceResult<long> DeleteKos(Gridable<InfStudyFilter> parms)
+        public ServiceResult<long> DeleteKos(Gridable<KosStudyFilter> parms)
         {
             return HttpMessageService.Ok(999L);
         }
 
         [HttpPost]
         [Route("/Kos/DeleteKosBackground")]
-        public ServiceResult<long> DeleteKosBackground(InfStudyFilter parms)
+        public ServiceResult<long> DeleteKosBackground(KosStudyFilter parms)
         {
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.DeleteKosBackground(parms);
@@ -86,14 +86,14 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Kos/ExportExcel")]
-        public ServiceResult<string> ExportExcel(Gridable<InfStudyFilter> parms)
+        public ServiceResult<string> ExportExcel(Gridable<KosStudyFilter> parms)
         {
             return HttpMessageService.Ok("Export_GEN_2020.xlsx");
         }
 
         [HttpPost]
         [Route("/Kos/GetKosList")]
-        public ServiceResult<PagingResult<InfStudyViewModel>> GetKosList(Gridable<InfStudyFilter> parms)
+        public ServiceResult<PagingResult<InfStudyViewModel>> GetKosList(Gridable<KosStudyFilter> parms)
         {
             var cx = GetBussinesContext();
             var service = new StudyKosDataService(cx);
@@ -111,13 +111,13 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Kos/ReprocessKos")]
-        public ServiceResult<long> ReprocessKos(Gridable<InfStudyFilter> parms)
+        public ServiceResult<long> ReprocessKos(Gridable<KosStudyFilter> parms)
         {
             return HttpMessageService.Ok(999L);
         }
         [HttpPost]
         [Route("/Kos/ReprocessKosBackground")]
-        public ServiceResult<long> ReprocessKosBackground(Gridable<InfStudyFilter> parms)
+        public ServiceResult<long> ReprocessKosBackground(Gridable<KosStudyFilter> parms)
         {
             var cx = GetBussinesContext();
             var service = new StudyKosService(cx);
@@ -128,7 +128,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Kos/UpdateReadKos")]
-        public ServiceResult<int> UpdateReadKos(Gridable<InfStudyFilter> parms)
+        public ServiceResult<int> UpdateReadKos(Gridable<KosStudyFilter> parms)
         {
             return HttpMessageService.Ok(66);
         }
