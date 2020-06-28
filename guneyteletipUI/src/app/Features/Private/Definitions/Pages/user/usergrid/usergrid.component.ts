@@ -7,7 +7,7 @@ import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 import { userDataServices } from '../../../Services/userDataServices';
 import { userViewFilter } from '../../../Models/UserViewFilter';
 import { userUIModel } from '../../../Models/userUIModel';
-import { userSaveModel } from '../../../Models/userSaveModel';
+import { UserSaveModel } from '../../../Models/userSaveModel';
 
 @Component({
   selector: 'app-usergrid',
@@ -34,14 +34,14 @@ export class UsergridComponent implements OnInit {
 
   userFilter: userFilter = new userFilter();
   gridUser: UserListComponent_Models.GridUser = new UserListComponent_Models.GridUser(this.userService, this.userFilter);
-  selectedUserModel: userSaveModel = new userSaveModel();
+  selectedUserModel: UserSaveModel = new UserSaveModel();
 
   openEditUserModal(type: string) {
 
     if (type == 'ekle') {
       const initialState = {
         modalTitle: "Kullanıcı Ekle",
-        userId: undefined
+        userId: undefined,
       };
       this.modal.openModal(EdituserComponent, initialState).subscribe((data) => {
         console.log(data.reason);
@@ -54,7 +54,7 @@ export class UsergridComponent implements OnInit {
     else if ('düzenle') {
       const initialState = {
         modalTitle: "Kullanıcı Düzenle",
-        userId: 2 //this.gridUser.clickedItem.pk
+        userId: this.gridUser.clickedItem.id
       };
       this.modal.openModal(EdituserComponent, initialState).subscribe((data) => {
         console.log(data.reason);
@@ -130,8 +130,10 @@ namespace UserListComponent_Models {
       var filter = item.filter;
 
       this.userService.getUserList(item).subscribe(o => {
+       
         this.data.list = o["list"];
         this.data.totalCount = o["totalCount"];
+        console.log(this.data.list)
       })
     }
   }

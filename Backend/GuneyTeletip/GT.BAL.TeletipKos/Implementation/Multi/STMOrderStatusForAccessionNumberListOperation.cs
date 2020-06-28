@@ -22,14 +22,14 @@ using Util.Logger;
 
 namespace GT.Job.Implementation
 {
-    public class STMKosDeleteOperation
+    public class STMOrderStatusForAccessionNumberListOperation
     {
-        public class STMKosDeleteSetting
+        public class STMOrderStatusForAccessionNumberListSetting
         {
             public int ItemPerJob { get; set; }
             public int ParallelTask { get; set; }
 
-            public STMKosDeleteSetting(int itemPerJob, int parallelTask)
+            public STMOrderStatusForAccessionNumberListSetting(int itemPerJob, int parallelTask)
             {
                 ItemPerJob = itemPerJob;
                 ParallelTask = parallelTask;
@@ -37,12 +37,12 @@ namespace GT.Job.Implementation
             }
         }
         STMService STMService { get; set; }
-        public STMKosDeleteSetting Settings { get; set; }
+        public STMOrderStatusForAccessionNumberListSetting Settings { get; set; }
 
-        public STMKosDeleteOperation()
+        public STMOrderStatusForAccessionNumberListOperation()
         {
             var globalSettings = AppSettings.GetCurrent();
-            Settings = new STMKosDeleteSetting(globalSettings.DataServiceSettings.MakeKosServiceItemPerBatch, globalSettings.Kos.Make.JOB_MaxParallelTask);
+            Settings = new STMOrderStatusForAccessionNumberListSetting(globalSettings.DataServiceSettings.OrderStatusForAccessionNumberListServiceItemPerBatch, globalSettings.Kos.Make.JOB_MaxParallelTask);
 
             var stmSettings = globalSettings.STM;
             var token = new STMTokenProvider(stmSettings.BASEADDRESS, stmSettings.userTokenName, stmSettings.userTokenPassword, stmSettings.HBYS_PACS_ResourceOwnerClient, stmSettings.identityServerBaseUri).GetToken();
@@ -59,7 +59,10 @@ namespace GT.Job.Implementation
                     return;
                 }
 
-                var res = STMService.GetRemoveKos(int.Parse(item.KurumSkrsKodu), item.AccessionNumber, item.StudyInstanceID);
+
+                List<string> AccessionNumber = new List<string>();
+                AccessionNumber.Add(item.AccessionNumber);
+                var res = STMService.GetOrderStatusForAccessionNumberList(int.Parse(item.KurumMedulaTesisKodu), AccessionNumber);
 
                 var studyDataService = new StudyKosDataService();
 

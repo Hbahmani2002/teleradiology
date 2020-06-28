@@ -1,10 +1,10 @@
 <div class="m-0">
-  <button [disabled]="gridKos.clickedItem == undefined" (click)="gridKos.onClickCreateKos()" class="btn btn-info smalbutton" tooltip="Koş Oluştur"><fa name="plus-circle"></fa></button>
-  <button [disabled]="gridKos.clickedItem == undefined" (click)="gridKos.onClickSendKos()" class="btn btn-info smalbutton" tooltip="Seçilenlerin KOS'larını Gönder"><fa name="share-square"></fa></button>
-  <button [disabled]="gridKos.clickedItem == undefined" (click)="gridKos.onClickDeleteKos()" class="btn btn-danger smalbutton" tooltip="Seçilenlerin KOS'larını Teletıp'tan sil"><fa name="trash"></fa></button>
-  <button [disabled]="gridKos.clickedItem == undefined" (click)="gridKos.onClickUpdateReadKos()" class="btn btn-primary smalbutton" tooltip="Seçilenlerin KOS Durumlarını Teletıp'tan oku"><fa name="get-pocket"></fa></button>
-  <button [disabled]="gridKos.clickedItem == undefined" (click)="gridKos.onClickReprocessKos()" class="btn btn-secondary smalbutton" tooltip="Reprocess Kos"><fa name="reply"></fa></button>
-  <button [disabled]="gridKos.clickedItem == undefined" (click)="gridKos.onClickExportExcel()" class="btn btn-primary smalbutton" tooltip="Excel'e çevir"><fa name="table"></fa></button>
+  <button [disabled]="!gridKos.selectAll && gridKos.clickedItem == undefined" (click)="gridKos.onClickCreateKos()" class="btn btn-info smalbutton" tooltip="Koş Oluştur"><fa name="plus-circle"></fa></button>
+  <button [disabled]="!gridKos.selectAll && gridKos.clickedItem == undefined" (click)="gridKos.onClickSendKos()" class="btn btn-info smalbutton" tooltip="Seçilenlerin KOS'larını Gönder"><fa name="share-square"></fa></button>
+  <button [disabled]="!gridKos.selectAll && gridKos.clickedItem == undefined" (click)="gridKos.onClickDeleteKos()" class="btn btn-danger smalbutton" tooltip="Seçilenlerin KOS'larını Teletıp'tan sil"><fa name="trash"></fa></button>
+  <button [disabled]="!gridKos.selectAll && gridKos.clickedItem == undefined" (click)="gridKos.onClickUpdateReadKos()" class="btn btn-primary smalbutton" tooltip="Seçilenlerin KOS Durumlarını Teletıp'tan oku"><fa name="get-pocket"></fa></button>
+  <button [disabled]="!gridKos.selectAll && gridKos.clickedItem == undefined" (click)="gridKos.onClickReprocessKos()" class="btn btn-secondary smalbutton" tooltip="Reprocess Kos"><fa name="reply"></fa></button>
+  <button [disabled]="!gridKos.selectAll && gridKos.clickedItem == undefined" (click)="gridKos.onClickExportExcel()" class="btn btn-primary smalbutton" tooltip="Excel'e çevir"><fa name="table"></fa></button>
 </div>
 
 <div class="card mt-2">
@@ -22,13 +22,14 @@
       <thead>
         <tr>
           <th scope="col" class="p-0">
-            <input type="checkbox" (click)="gridKos.gridSelect($event,'selectPage')" [(ngModel)]="gridKos.selectPage">
-            <input type="checkbox" class="m-1" (click)="gridKos.gridSelect($event,'selectAll')" [(ngModel)]="gridKos.selectAll" >
+            <input type="checkbox" (click)="gridKos.gridSelect($event,'selectPage')" [(ngModel)]="gridKos.selectPage" title="Sayfayı Seç">
+            <input type="checkbox" class="m-1" (click)="gridKos.gridSelect($event,'selectAll')" [(ngModel)]="gridKos.selectAll" title="Tümünü Seç">
           </th>
-          <th scope="col" class="p-0">Hasta No<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0">Hasta İsmi<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0">Accession No<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0">Modalite<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridKos.onSorting('id')">ID<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridKos.onSorting('hastaNo')">Hasta No<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridKos.onSorting('patientName')">Hasta İsmi<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridKos.onSorting('accessionNumber')">Accession No<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridKos.onSorting('modality')">Modalite<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
         </tr>
       </thead>
       <tbody>
@@ -37,6 +38,7 @@
             <input type="checkbox" class="" [checked]="gridKos.isSelected(item)"
                    (change)="gridKos.onSelectItem(item)">
           </td>
+          <td class="p-0">{{item.id}}</td>
           <td class="p-0">{{item.hastaNo}}</td>
           <td class="p-0">{{item.patientName}}</td>
           <td class="p-0">{{item.accessionNumber}}</td>

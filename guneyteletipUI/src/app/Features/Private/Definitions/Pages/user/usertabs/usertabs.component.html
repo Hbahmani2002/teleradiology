@@ -14,7 +14,7 @@
             </ng-multiselect-dropdown>
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-sm" [ngClass]="{'btn-success': !ddlRoleDisabled, 'btn-warning' : ddlRoleDisabled}" (click)="ddlRoleDisabled = !ddlRoleDisabled;onSaveRole()">
+            <button class="btn btn-sm" [ngClass]="{'btn-success': !ddlRoleDisabled, 'btn-warning' : ddlRoleDisabled}" (click)="ddlRoleDisabled = !ddlRoleDisabled; onSaveRole()">
               <fa name="pencil" *ngIf="ddlRoleDisabled"></fa>
               <fa name="check" *ngIf="!ddlRoleDisabled"></fa>
             </button>
@@ -37,7 +37,7 @@
             </ng-multiselect-dropdown>
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-sm" [ngClass]="{'btn-success': !ddlTenantDisabled, 'btn-warning' : ddlTenantDisabled}" (click)="ddlTenantDisabled = !ddlTenantDisabled;">
+            <button class="btn btn-sm" [ngClass]="{'btn-success': !ddlTenantDisabled, 'btn-warning' : ddlTenantDisabled}" (click)="ddlTenantDisabled = !ddlTenantDisabled; onSaveTenant()">
               <fa name="pencil" *ngIf="ddlTenantDisabled"></fa>
               <fa name="check" *ngIf="!ddlTenantDisabled" ></fa>
             </button>

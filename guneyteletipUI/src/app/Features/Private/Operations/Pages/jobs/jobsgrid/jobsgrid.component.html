@@ -15,6 +15,8 @@
           <th scope="col" class="p-0">
             <input type="checkbox" (click)="gridJobs.onSelectAll($event)">
           </th>
+          <th scope="col" class="p-0">ID<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0">Type ID<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
           <th scope="col" class="p-0">Tip<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
           <th scope="col" class="p-0">Başlangıç Tarihi<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
           <th scope="col" class="p-0">Bitiş Tarihi<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
@@ -28,9 +30,11 @@
             <input type="checkbox" class="" [checked]="gridJobs.isSelected(item)"
                    (change)="gridJobs.onSelectItem(item)">
           </td>
+          <td class="p-0">{{item.id}}</td>
+          <td class="p-0">{{item.jobTypeID}}</td>
           <td class="p-0">{{item.tip}}</td>
-          <td class="p-0">{{item.basTarih}}</td>
-          <td class="p-0">{{item.bitTarih}}</td>
+          <td class="p-0">{{item.basTarih | date : 'dd.MM.yyyy-hh:mm:ss'}}</td>
+          <td class="p-0">{{item.bitTarih | date : 'dd.MM.yyyy-hh:mm:ss'}}</td>
           <td class="p-0">{{item.basariliSayisi}}</td>
           <td class="p-0">{{item.basarisizSayisi}}</td>
         </tr>

@@ -3,6 +3,7 @@ import { userDataServices } from '../../../Services/userDataServices';
 import { userUIModel } from '../../../Models/UserUIModel';
 import { ddlSettings } from 'src/app/Features/Private/Operations/Pages/kosoperations/kosfilter/ddlSettings';
 import { saveRolUIModel } from '../../../Models/SaveRolUIModel';
+import { saveTenantUIModel } from '../../../Models/SaveTenantUIModel';
 
 @Component({
   selector: 'app-usertabs',
@@ -15,8 +16,9 @@ export class UsertabsComponent implements OnInit {
     if (value == undefined)
       return;
     console.log(value)
-    this.saveRole.userID = value;
+    this.saveRole.UserID = value;
     this.userModel.userID = value;
+    this.saveTenat.userID = value
     this.getDdlRoleSelectedItems();
     this.getDdlTenantSelectedItems();
   }
@@ -24,6 +26,7 @@ export class UsertabsComponent implements OnInit {
   ddlSettings: ddlSettings = new ddlSettings();
   userModel: userUIModel = new userUIModel();
   saveRole: saveRolUIModel = new saveRolUIModel();
+  saveTenat: saveTenantUIModel = new saveTenantUIModel();
 
   ddlTenantData = [];
   ddlTenantSelectedItem = [];
@@ -62,13 +65,16 @@ export class UsertabsComponent implements OnInit {
     });
   }
   getDdlRoleSelectedItems() {
+    debugger;
     this.userService.getRoleByID(this.userModel).subscribe(data => {
+      debugger;
       this.ddlRoleSelectedItem.push(data);
     });
   }
   onSaveRole() {
     if (this.ddlRoleDisabled) {
-      this.saveRole.roleID = this.ddlRoleSelectedItem[0].roleID;
+      this.saveRole.RolID = this.ddlRoleSelectedItem[0].roleID;
+      debugger;
       console.log(this.saveRole);
       this.userService.saveRol(this.saveRole).subscribe(o => {
         console.log(o);
@@ -78,7 +84,14 @@ export class UsertabsComponent implements OnInit {
   }
   onSaveTenant() {
     if (this.ddlRoleDisabled) {
-      //this.user
+      this.saveTenat.tenantIDList = [];
+      this.ddlTenantSelectedItem.forEach(item => {
+        this.saveTenat.tenantIDList.push(item.id);
+      })
+      console.log(this.saveTenat)
+      this.userService.saveTenant(this.saveTenat).subscribe(o => {
+        console.log(o);
+      });
 
     }
   }

@@ -55,7 +55,7 @@ namespace GT.Job.Implementation
                     return;
                 }
                 var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
-                var res = TeletipMakeKosService.MakeKos(item.InputStudyDirectoryPath, outputPath,item.InstitutionName,item.InstitutionName);
+                var res = TeletipMakeKosService.MakeKos(item.InputStudyDirectoryPath, outputPath,item.InstitutionName,item.InstitutionSKRS);
                 var studyDataService = new StudyKosDataService();
                 var sb = new StringBuilder();
                 sb.AppendLine(res.Message);
@@ -63,6 +63,7 @@ namespace GT.Job.Implementation
                 sb.AppendLine("");
                 sb.Append(res.Arguments);
                 studyDataService.Save_UpdateMakeKosDurum(item.StudyID, res.IsSuccess, outputPath, res.Message + res.Arguments);
+                progressAction.IncreaseProgressError();
                 progressAction.IncreaseProgressSuccess();
             });
         }

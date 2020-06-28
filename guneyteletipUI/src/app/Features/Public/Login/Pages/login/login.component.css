@@ -1,3 +1,7 @@
+.textClass {
+  font-family: 'dsLight' !important;
+}
+
 :root {
   --input-padding-x: 1.5rem;
   --input-padding-y: .75rem;

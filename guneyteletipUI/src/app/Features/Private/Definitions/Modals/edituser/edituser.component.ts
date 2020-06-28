@@ -1,10 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
-import { ModalDirective, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { OpenModal } from 'src/app/Shared/Models/openModal';
-import { userViewModel } from '../../Models/UserViewModel';
 import { userDataServices } from '../../Services/userDataServices';
 import { userUIModel } from '../../Models/userUIModel';
-import { userSaveModel } from '../../Models/UserSaveModel';
+import { UserSaveModel } from '../../Models/UserSaveModel';
 
 @Component({
   selector: 'edituser',
@@ -16,12 +15,12 @@ export class EdituserComponent implements OnInit {
   public modalTitle: string;
   modal: OpenModal = new OpenModal(this.modalService, this.changeDetection);
 
-  userSaveModel: userSaveModel = new userSaveModel();
+  userModel: UserSaveModel = new UserSaveModel();
 
   public idDisabled = true;
   public userId;
 
-  userUIModel: userUIModel = new userUIModel();
+  userUI: userUIModel = new userUIModel();
   constructor(public bsModalRef: BsModalRef, private modalService: BsModalService, private changeDetection: ChangeDetectorRef, private userService: userDataServices) { }
 
   ngOnInit() {
@@ -29,15 +28,23 @@ export class EdituserComponent implements OnInit {
       this.idDisabled = false;
     }
     else {
-      this.userUIModel.userID = this.userId;
-      this.userService.getByID(this.userUIModel).subscribe(userData => {
-        this.userSaveModel = userData;
+      this.userUI.userID = this.userId;
+      this.userService.getByID(this.userUI).subscribe(userData => {
+        this.userModel = userData;
       });
     }
   }
   onSave() {
-    console.log(this.userSaveModel)
-    this.userService.save(this.userSaveModel).subscribe(data => {
+    
+    if (this.userModel.recordState) {
+      this.userModel.recordState = 1;
+    }
+    else {
+      this.userModel.recordState = 0;
+    }
+    console.log(this.userModel);
+    debugger;
+    this.userService.save(this.userModel).subscribe(data => {
       console.log(data);
       this.modal.onClose("save");
     });

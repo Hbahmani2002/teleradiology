@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-userfilter',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./userfilter.component.css']
 })
 export class UserfilterComponent implements OnInit {
+
+  //@Output() filterChanged = new Emitter
 
   isCollapsed = false;
   public userNameOutput;
@@ -15,6 +17,7 @@ export class UserfilterComponent implements OnInit {
   ngOnInit() {
   }
   onFilter() {
+    
     this.userNameOutput = this.userName;
   }
 }

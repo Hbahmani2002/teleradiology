@@ -1,7 +1,10 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 import { kosDataServices } from '../../../Services/kosDataServices';
 import { infStudyFilter } from '../../../Models/infStudyFilter';
+import { ConfirmationdialogComponent } from 'src/app/Shared/Modals/confirmationdialog/confirmationdialog.component';
+import { OpenModal } from 'src/app/Shared/Models/openModal';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 
 @Component({
@@ -17,13 +20,13 @@ export class KosgridComponent implements OnInit {
     this.gridKos.kosFilter = value;
     this.gridKos.onRefresh();
   }
-  constructor(private kosService: kosDataServices) { }
+  constructor(private kosService: kosDataServices, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) { }
 
   ngOnInit() {
   
   }
   kosFilter: kosFilter = new kosFilter();
-  gridKos: KosListComponent_Models.GridUser = new KosListComponent_Models.GridUser(this.kosService, this.kosFilter);
+  gridKos: KosListComponent_Models.GridUser = new KosListComponent_Models.GridUser(this.kosService, this.kosFilter,this.modalService,this.changeDetection);
 
 }
 export class kosFilter {
@@ -39,14 +42,24 @@ namespace KosListComponent_Models {
 
   export class GridUser extends Grid.GridControl<any> {
 
+    modal: OpenModal = new OpenModal(this.modalService, this.changeDetection);
     public direction: number = 0;
     selectAll: boolean = false;
     selectPage: boolean = false;
 
-    constructor(private kosService: kosDataServices, public kosFilter: kosFilter) {
+    constructor(private kosService: kosDataServices, public kosFilter: kosFilter, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) {
       super();
     }
-
+    openConfirmationDialog(message) {
+      const initialState = {
+        modalTitle: "Bilgilendirme",
+        message: message
+      };
+      this.modal.openModal(ConfirmationdialogComponent, initialState).subscribe((result) => {
+        console.log(result.reason);
+        console.log(result.outputData);
+      });
+    }
     filter = new Grid.GridInputModel(new infStudyFilter());
     getFilter() {
 
@@ -68,30 +81,98 @@ namespace KosListComponent_Models {
     };
 
     onClickCreateKos() {
-      this.kosService.createKos(this.getFilter()).subscribe(o => {
-        console.log(o);
-      });
+      if (this.selectAll) {
+        let filter = this.getFilter().filter;
+        filter = new infStudyFilter();
+        this.kosService.createKosBg(filter).subscribe(o => {
+          console.log(o);
+          this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o)
+        });
+      }
+      else {
+        this.kosService.createKos(this.getFilter()).subscribe(o => {
+          console.log(o);
+          this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o)
+        });
+      }
     }
+
+
     onClickSendKos() {
-      this.kosService.sendKos(this.getFilter()).subscribe(o => {
-        console.log(o);
-      });;
+      if (this.selectAll) {
+        let filter = this.getFilter().filter;
+        filter = new infStudyFilter();
+        this.kosService.sendKosBg(filter).subscribe(o => {
+          console.log(o);
+          this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o)
+        });
+      }
+      else {
+        this.kosService.sendKos(this.getFilter()).subscribe(o => {
+          console.log(o);
+          this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o)
+        });
+      }
     }
+
+
     onClickDeleteKos() {
-      this.kosService.deleteKos(this.getFilter()).subscribe(o => {
-        console.log(o);
-      });;
+      if (this.selectAll) {
+        let filter = this.getFilter().filter;
+        filter = new infStudyFilter();
+        this.kosService.deleteKosBg(filter).subscribe(o => {
+          console.log(o);
+          this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o)
+        });
+      }
+      else {
+        this.kosService.deleteKos(this.getFilter()).subscribe(o => {
+          console.log(o);
+          this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o)
+        });
+      }
     }
+
+
     onClickUpdateReadKos() {
-      this.kosService.updateReadKos(this.getFilter()).subscribe(o => {
-        console.log(o);
-      });;
+      if (this.selectAll) {
+        let filter = this.getFilter().filter;
+        filter = new infStudyFilter();
+        this.kosService.updateReadKosBg(filter).subscribe(o => {
+          console.log(o);
+          this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o)
+        });
+      }
+      else {
+        this.kosService.updateReadKos(this.getFilter()).subscribe(o => {
+          console.log(o);
+          this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o)
+        });
+      }
     }
+
+
     onClickReprocessKos() {
-      this.kosService.reprocessKos(this.getFilter()).subscribe(o => {
-        console.log(o);
-      });;
+      if (this.selectAll) {
+        let filter = this.getFilter().filter;
+        filter = new infStudyFilter();
+        this.kosService.reprocessKosBg(filter).subscribe(o => {
+          console.log(o);
+          this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o)
+        });
+      }
+      else {
+        this.kosService.reprocessKos(this.getFilter()).subscribe(o => {
+          console.log(o);
+          this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o)
+        });
+      }
     }
+
+
+
+
+
     onClickExportExcel() {
       this.kosService.exportExcel(this.getFilter()).subscribe(o => {
         console.log(o);
