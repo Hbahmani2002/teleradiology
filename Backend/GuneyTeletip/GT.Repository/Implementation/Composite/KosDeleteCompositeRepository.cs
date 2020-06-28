@@ -35,7 +35,9 @@ namespace GT.Repository.Implementation.Composite
                            AccessionNumber=s.AccessionNo,
                            KurumSkrsKodu=sk.KurumSkrsKodu,
                            StudyID=s.Pk,
-                           StudyInstanceID=s.StudyInstanceuid
+                           StudyInstanceID=s.StudyInstanceuid,
+                           KurumMedulaTesisKodu = sk.KurumMedulaTesisKodu
+                           
                        };
             return list;
         }

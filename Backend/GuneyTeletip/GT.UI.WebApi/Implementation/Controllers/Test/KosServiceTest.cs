@@ -4,12 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using GT.BAL.TeletipKos;
 using GT.BAL.TeletipKos.Model;
 using GT.Core.Settings;
 using GT.DataService.Implementation;
 using GT.DataService.Model;
 using GT.Repository.Models.Filter;
 using GT.Repository.Models.View;
+using GT.SERVICE;
 using GT.TeletipKos;
 using GT.TeletipKos.Model;
 using GT.UI.WebApi.Implementation;
@@ -58,6 +60,40 @@ namespace GT.UI.WebApi.Controllers
         }
 
 
+   
+     
+        [HttpPost]
+        [Route("/Kos/CreateKosBackground")]
+        public ServiceResult<long> CreateKosBackground(InfStudyFilter parms)
+        {
+
+
+
+          
+            var sd = new StudyKosService(null);
+            var job = sd.CreateKosBackground(parms);
+            var res = HttpMessageService.Ok(job.JobID);
+
+            return res;
+       
+
+            //return HttpMessageService.Ok((object)new
+            //{
+            //    res
+            //    //    JobID = jobID,
+            //    //JobLogFilePath = filePath
+
+            //});
+
+
+        }
+
+        private IBussinessContext IBussinessContext()
+        {
+            throw new NotImplementedException();
+        }
+
+     
         [Route("/KosServiceTest/SendKosTest")]
         public ServiceResult<object> SendKosTest([FromQuery(Name = "PatientId")] string PatientId, [FromQuery(Name = "kosPath")] string kosPath)
         {

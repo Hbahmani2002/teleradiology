@@ -146,9 +146,29 @@ namespace GT.BAL.Test
                 Thread.Sleep(100);
                 Debug.WriteLine($"Success:{job.ProgressItem.Success} Error:{ job.ProgressItem.Error}");
             }
+
+
+
+       
+
         }
 
+        [Test]
+        public void UC8_7()
+        {
+            var sd = new StudyKosService(null);
+            var job = sd.StmGetOrderStatusForAccessionNumberlistBackground(new DataService.Model.InfStudyFilter());
+            while (true)
+            {
+                Thread.Sleep(100);
+                Debug.WriteLine($"Success:{job.ProgressItem.Success} Error:{ job.ProgressItem.Error}");
+            }
 
+
+
+
+
+        }
 
 
         [Test]

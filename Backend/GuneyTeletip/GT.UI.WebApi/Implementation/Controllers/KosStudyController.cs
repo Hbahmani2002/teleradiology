@@ -84,6 +84,22 @@ namespace GT.UI.WebApi.Controllers
             return HttpMessageService.Ok(job.JobID);
         }
 
+
+
+        [HttpPost]
+        [Route("/Kos/StmGetOrderStatusForAccessionNumberlistBackground")]
+        public ServiceResult<long> OrderStatusForAccessionnumberList(InfStudyFilter parms)
+        {
+
+            
+
+            var sd = new StudyKosService(GetBussinesContext());
+            var job = sd.StmGetOrderStatusForAccessionNumberlistBackground(parms);
+            return HttpMessageService.Ok(job.JobID);
+        }
+
+
+
         [HttpPost]
         [Route("/Kos/ExportExcel")]
         public ServiceResult<string> ExportExcel(Gridable<KosStudyFilter> parms)

@@ -7,6 +7,10 @@ namespace GT.Core.Settings.Global
     {
         public class LoggingSetting
         {
+            public LoggingSetting()
+            {
+                Directory.CreateDirectory(DIR_JobsLog);
+            }
             private string FullPath(string relativePath)
             {
                 var path = Path.GetFullPath(relativePath, Environment.CurrentDirectory);
