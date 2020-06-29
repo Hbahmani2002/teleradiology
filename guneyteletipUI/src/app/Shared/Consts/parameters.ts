@@ -4,7 +4,7 @@ export const parameters = {
   cookieDay: 2,
   homePageAdress: '',
   loginPageAdress: '',
-  serverAddress: "https://api_gt_test.proteksaglik.com/",
+  serverAddress: "http://10.202.108.127:8080/",
   //serverAddress: "http://localhost:54387/",
   loginServiceName: 'Authentication/GetPermission',
   loginStatusServiceName: 'Authentication/Token'
