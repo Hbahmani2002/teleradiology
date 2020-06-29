@@ -38,12 +38,12 @@ export class kosDataServices {
   public reprocessKosBg(model: infStudyFilter): Observable<number> {
     return this.apiDataService.callDataService('Kos/ReprocessKosBackground', model);
   }
-  //-----------------------
+  //----------------------- //UpdateReadKos servisi kaldırıldı ve yerine  StmGetOrderStatusForAccessionNumberlist servisi eklendi.
   public updateReadKos(model: Grid.GridInputModel<infStudyFilter>): Observable<number> {
     return this.apiDataService.callDataService('Kos/UpdateReadKos', model);
   }
-  public updateReadKosBg(model: infStudyFilter): Observable<number> {
-    return this.apiDataService.callDataService('Kos/UpdateReadKosBackground', model);
+  public updateReadKosBg(model: infStudyFilter): Observable<number> { 
+    return this.apiDataService.callDataService('Kos/StmGetOrderStatusForAccessionNumberlistBackground', model);
   }
   //-----------------------
   public sendKos(model: Grid.GridInputModel<infStudyFilter>): Observable<number> {

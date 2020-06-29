@@ -33,7 +33,7 @@ export class userDataServices {
   public getRolList(): Observable<Array<roleViewModel>> {
     return this.apiDataService.callDataService('User/GetRolList', undefined);
   }
-  public getRoleByID(model: userUIModel): Observable<roleViewModel> {
+  public getRoleByID(model: userUIModel): Observable<Array<roleViewModel>> {
     return this.apiDataService.callDataService('User/GetRoleByID', model);
   }
   public saveRol(model: saveRolUIModel): Observable<number> {

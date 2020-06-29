@@ -65,10 +65,9 @@ export class UsertabsComponent implements OnInit {
     });
   }
   getDdlRoleSelectedItems() {
-    debugger;
     this.userService.getRoleByID(this.userModel).subscribe(data => {
       debugger;
-      this.ddlRoleSelectedItem.push(data);
+      this.ddlRoleSelectedItem = data;
     });
   }
   onSaveRole() {

@@ -15,7 +15,7 @@ export class KosdetailComponent implements OnInit {
     if (value == null || value == undefined)
       return;
     console.log(value);
-    this.kosModel.id = 2 // value;
+    this.kosModel.id = value;
     this.kosService.GetByID(this.kosModel).subscribe(data => {
       console.log(data);
       this.kosDetailModel = data;
