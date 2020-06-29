@@ -5,7 +5,6 @@ using GT.DataService.Implementation;
 using GT.Job.Implementation;
 using GT.Persistance.Domain.Models;
 using GT.TeletipKos;
-using GT.UTILS.GRID;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -14,7 +13,6 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Util.Job;
 
 namespace GT.Job.Model.AutoJobs
 {

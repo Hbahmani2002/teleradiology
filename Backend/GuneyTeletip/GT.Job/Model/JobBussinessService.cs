@@ -16,9 +16,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Util.Job;
-using Util.Job.Interface;
-using Util.Logger;
 
 namespace GT.Job.Implementation
 {
