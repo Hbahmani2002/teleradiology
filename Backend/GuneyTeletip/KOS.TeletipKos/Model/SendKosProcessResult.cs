@@ -30,7 +30,7 @@ namespace KOS.TeletipKos
         }
         public static SendKosDataResult Process(string data)
         {
-            var result = new SendKosDataResult();
+
             var lines = data.Split(new[] { "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < lines.Length; i++)
             {
@@ -41,7 +41,21 @@ namespace KOS.TeletipKos
 
             //var ns = XNamespace.Get("rs");
 
+            try
+            {
+                return ParseXML(xmlString);
+            }
+            catch (Exception ex)
+            {
 
+                throw new Exception("Send KOs xml parse edilemedi " + xmlString, ex);
+            }
+
+        }
+
+        private static SendKosDataResult ParseXML(string xmlString)
+        {
+            var result = new SendKosDataResult();
             var registryResponse = XElement.Parse(xmlString);
             var status = registryResponse.Attributes("status").SingleOrDefault();
             if (status == null || string.IsNullOrEmpty(status.Value))
