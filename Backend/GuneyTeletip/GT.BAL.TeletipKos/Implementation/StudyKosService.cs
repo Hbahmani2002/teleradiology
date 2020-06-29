@@ -58,35 +58,17 @@ namespace GT.BAL.TeletipKos
 
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
-
-                var log = new AppLogDataService(null);
-                try
+                var globalSettings = AppSettings.GetCurrent();
+                var studyDataService = new StudyKosDataService();
+                while (true)
                 {
-                    var globalSettings = AppSettings.GetCurrent();
-                    var studyDataService = new StudyKosDataService();
-                    while (true)
-                    {
-                        var items = studyDataService.GetMakeKosList(50);
-                        if (items.Count == 0)
-                            return;
+                    var items = studyDataService.GetMakeKosList(50);
+                    if (items.Count == 0)
+                        return;
 
-                        var mc = new MakeKosOperation();
-                        mc.DoSingleBatch(items, o, ac);
-                    }
-
+                    var mc = new MakeKosOperation();
+                    mc.DoSingleBatch(items, o, ac);
                 }
-                catch (Exception ex)
-                {
-
-                    var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
-                    var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogManuel, fileName);
-                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                    File.WriteAllText(filePath, ex.ToString());
-                    log.Save(AppLogDataService.LogType.BackGroundJobs, "Log File Path:" + filePath);
-                }
-
-
-
 
             });
 
@@ -101,36 +83,17 @@ namespace GT.BAL.TeletipKos
 
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
-
-                var log = new AppLogDataService(null);
-                try
+                var globalSettings = AppSettings.GetCurrent();
+                var studyDataService = new StudyKosDataService();
+                while (true)
                 {
-                    var globalSettings = AppSettings.GetCurrent();
-                    var studyDataService = new StudyKosDataService();
-                    while (true)
-                    {
-                        var items = studyDataService.GetSentKosList(50);
-                        if (items.Count == 0)
-                            return;
+                    var items = studyDataService.GetSentKosList(50);
+                    if (items.Count == 0)
+                        return;
 
-                        var mc = new SendKosOperation();
-                        mc.DoSingleBatch(items, o, ac);
-                    }
-
+                    var mc = new SendKosOperation();
+                    mc.DoSingleBatch(items, o, ac);
                 }
-                catch (Exception ex)
-                {
-
-                    var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
-                    var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogManuel, fileName);
-                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                    File.WriteAllText(filePath, ex.ToString());
-                    log.Save(AppLogDataService.LogType.BackGroundJobs, "Log File Path:" + filePath);
-                }
-
-
-
-
             });
 
             job.Start();
@@ -149,24 +112,11 @@ namespace GT.BAL.TeletipKos
         {
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
-
-                try
-                {
-                    var globalSettings = AppSettings.GetCurrent();
-                    var studyDataService = new StudyKosDataService();
-                    var items = studyDataService.GetKosDeleteList(filter);
-                    var mc = new STMKosDeleteOperation();
-                    mc.DoSingleBatch(items, o, ac);
-                }
-                catch (Exception ex)
-                {
-                    var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
-                    var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogManuel, fileName);
-                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                    File.WriteAllText(filePath, ex.ToString());
-                    throw new Exception("Delete Kos" + "Log File Path:" + filePath);
-                }
-
+                var globalSettings = AppSettings.GetCurrent();
+                var studyDataService = new StudyKosDataService();
+                var items = studyDataService.GetKosDeleteList(filter);
+                var mc = new STMKosDeleteOperation();
+                mc.DoSingleBatch(items, o, ac);
             });
             job.Start();
             return job;
@@ -177,24 +127,11 @@ namespace GT.BAL.TeletipKos
         {
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
-
-                try
-                {
-                    var globalSettings = AppSettings.GetCurrent();
-                    var studyDataService = new StudyKosDataService();
-                    var items = studyDataService.GetKosDeleteList(filter);
-                    var mc = new STMOrderStatusForAccessionNumberListOperation();
-                    mc.DoSingleBatch(items, o, ac);
-                }
-                catch (Exception ex)
-                {
-                    var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
-                    var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogManuel, fileName);
-                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                    File.WriteAllText(filePath, ex.ToString());
-                    throw new Exception("Delete Kos" + "Log File Path:" + filePath);
-                }
-
+                var globalSettings = AppSettings.GetCurrent();
+                var studyDataService = new StudyKosDataService();
+                var items = studyDataService.GetKosDeleteList(filter);
+                var mc = new STMOrderStatusForAccessionNumberListOperation();
+                mc.DoSingleBatch(items, o, ac);
             });
             job.Start();
             return job;
@@ -216,22 +153,7 @@ namespace GT.BAL.TeletipKos
         {
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
-
-                try
-                {
-                    var globalSettings = AppSettings.GetCurrent();
-                   
-                   
-                }
-                catch (Exception ex)
-                {
-                    var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
-                    var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogManuel, fileName);
-                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                    File.WriteAllText(filePath, ex.ToString());
-                    throw new Exception("Delete Kos" + "Log File Path:" + filePath);
-                }
-
+                var globalSettings = AppSettings.GetCurrent();
             });
             job.Start();
             return job;
