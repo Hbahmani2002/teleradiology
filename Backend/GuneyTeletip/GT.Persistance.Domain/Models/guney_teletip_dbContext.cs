@@ -687,8 +687,6 @@ namespace GT.Persistance.Domain.Models
                     .HasColumnName("pk")
                     .UseIdentityAlwaysColumn();
 
-                entity.Property(e => e.ErrorTryCount).HasColumnName("error_try_Count");
-
                 entity.Property(e => e.FkOperationEnumType).HasColumnName("fk_operation_enum_type");
 
                 entity.Property(e => e.FkStudy).HasColumnName("fk_study");
@@ -696,6 +694,10 @@ namespace GT.Persistance.Domain.Models
                 entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
 
                 entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.MakekosErrorTryCount).HasColumnName("makekos_error_try_count");
+
+                entity.Property(e => e.SentkosErrorTryCount).HasColumnName("sentkos_error_try_count");
 
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 

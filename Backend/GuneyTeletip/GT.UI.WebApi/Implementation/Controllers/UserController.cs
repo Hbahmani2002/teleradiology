@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Util.Excel;
 using Util.Extensions;
 
 namespace GT.UI.WebApi.Controllers
@@ -68,6 +69,18 @@ namespace GT.UI.WebApi.Controllers
             var cx = GetBussinesContext();
             var service = new UserDataService(cx);
             return HttpMessageService.Ok(service.GetRolList());
+        }
+
+        [HttpPost]
+        [Route("/User/ExcelExport")]
+        public ServiceResult<string> ExcelExport()
+        {
+            var cx = GetBussinesContext();
+            var service = new UserDataService(cx);
+            var filePath = @"C:\Users\muratnet\Desktop\ExportImportTest\GTExcelDeneme.xlsx";
+            var list = service.GetRolList();
+            ExcelFile.Write(list, filePath);
+            return HttpMessageService.Ok(filePath);
         }
 
         [HttpPost]

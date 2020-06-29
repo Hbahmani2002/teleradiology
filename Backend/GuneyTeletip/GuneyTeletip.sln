@@ -91,7 +91,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GT.Core.Settings", "GT.Core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KOS.TeletipKos.Test", "KOS.TeletipKos.Test\KOS.TeletipKos.Test.csproj", "{95E300C5-1EC4-44CC-A3D3-B8251C2491DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GT.Core.Settings.Global", "GT.Core.Settings.Global\GT.Core.Settings.Global.csproj", "{17E8C33D-C56F-452B-89CF-53890CB63D0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GT.Core.Settings.Global", "GT.Core.Settings.Global\GT.Core.Settings.Global.csproj", "{17E8C33D-C56F-452B-89CF-53890CB63D0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Excel", "Util.Excel\Util.Excel.csproj", "{8B90B136-4AD1-4358-A541-D8CE7E387A18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -235,6 +237,10 @@ Global
 		{17E8C33D-C56F-452B-89CF-53890CB63D0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17E8C33D-C56F-452B-89CF-53890CB63D0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17E8C33D-C56F-452B-89CF-53890CB63D0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B90B136-4AD1-4358-A541-D8CE7E387A18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B90B136-4AD1-4358-A541-D8CE7E387A18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B90B136-4AD1-4358-A541-D8CE7E387A18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B90B136-4AD1-4358-A541-D8CE7E387A18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -278,6 +284,7 @@ Global
 		{BBC68B2D-BCFB-427F-B64D-A5C41BFD5FD6} = {4FC91B8C-1699-42BE-BFB2-51CEFF55C54D}
 		{95E300C5-1EC4-44CC-A3D3-B8251C2491DB} = {5ED5C342-BCDA-428B-993B-4DC3A19E6A7C}
 		{17E8C33D-C56F-452B-89CF-53890CB63D0A} = {4FC91B8C-1699-42BE-BFB2-51CEFF55C54D}
+		{8B90B136-4AD1-4358-A541-D8CE7E387A18} = {044E0022-87BC-4706-A6EE-D02AA0EC7831}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D25DACF-AFD1-40DA-B0A7-784A05C1D65D}

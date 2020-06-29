@@ -18,6 +18,7 @@
     <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
     <ProjectReference Include="..\GT.Repository\GT.Repository.csproj" />
     <ProjectReference Include="..\KOS.TeletipKos\KOS.TeletipKos.csproj" />
+    <ProjectReference Include="..\Util.Excel\Util.Excel.csproj" />
     <ProjectReference Include="..\Util.Process\Util.Process.csproj" />
   </ItemGroup>
 

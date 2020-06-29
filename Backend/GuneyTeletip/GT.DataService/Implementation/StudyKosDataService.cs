@@ -35,6 +35,7 @@ namespace GT.DataService.Implementation
         KosDeleteCompositeRepository kosDeleteCompositeRepository;
         GetorderStatusCompositeRepository getorderStatusCompositeRepository;
         GetorderStatusRepository getorderStatusRepository;
+        StudyOperationCountRepository studyOperationCount;
         public StudyKosDataService() : this(null, false)
         {
 
@@ -58,6 +59,7 @@ namespace GT.DataService.Implementation
             kosDeleteCompositeRepository = new KosDeleteCompositeRepository(_Workspace);
             getorderStatusCompositeRepository = new GetorderStatusCompositeRepository(_Workspace);
             getorderStatusRepository = new GetorderStatusRepository(_Workspace);
+            studyOperationCount = new StudyOperationCountRepository(_Workspace);
         }
 
         public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items)
@@ -373,6 +375,22 @@ namespace GT.DataService.Implementation
                 kosStudy.DicomKosPath = kosPath;
             _InfStudyRepository.Update(kosStudy);
 
+            //var failCount = studyOperationCount.GetByStudyID(kosStudyID);
+            //if (failCount == null)
+            //{
+            //    failCount.ErrorTryCount = 1;
+            //    failCount.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
+            //    failCount.TimeCreated = DateTime.Now;
+            //    studyOperationCount.Add(failCount);
+            //}
+            //else
+            //{
+            //    failCount.ErrorTryCount = failCount.ErrorTryCount+1;
+            //    failCount.FkUserModified = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
+            //    failCount.TimeModified = DateTime.Now;
+            //    studyOperationCount.Update(failCount);
+            //}
+
             _Workspace.CommitChanges();
             return kosStudy.Pk;
         }
@@ -407,6 +425,22 @@ namespace GT.DataService.Implementation
             }
             kosStudy.FkKosEnumType = newKosState;
             _InfStudyRepository.Update(kosStudy);
+
+            //var failCount = studyOperationCount.GetByStudyID(kosStudyID);
+            //if (failCount == null)
+            //{
+            //    failCount.ErrorTryCount = 1;
+            //    failCount.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
+            //    failCount.TimeCreated = DateTime.Now;
+            //    studyOperationCount.Add(failCount);
+            //}
+            //else
+            //{
+            //    failCount.ErrorTryCount = failCount.ErrorTryCount + 1;
+            //    failCount.FkUserModified = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
+            //    failCount.TimeModified = DateTime.Now;
+            //    studyOperationCount.Update(failCount);
+            //}
 
             _Workspace.CommitChanges();
             return kosStudy.Pk;
