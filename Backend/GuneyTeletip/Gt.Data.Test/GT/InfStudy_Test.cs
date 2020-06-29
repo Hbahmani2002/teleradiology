@@ -20,9 +20,9 @@ namespace Gt.Data.Test
         [Test]
         public void GetInfStudy()
         {
-            var grid = new Gridable<InfStudyFilter>();
+            var grid = new Gridable<KosStudyFilter>();
 
-            var filter = new InfStudyFilter();
+            var filter = new KosStudyFilter();
             grid.Filter = filter;
             var tcList = new string[2];
             tcList[0] = "61840519756";

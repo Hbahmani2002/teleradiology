@@ -22,8 +22,13 @@ using Util.Logger;
 
 namespace GT.Job.Implementation
 {
+    
+
     public class STMOrderStatusForAccessionNumberListOperation
     {
+
+        OrderStatusForAccessionNumberDataService _OrderStatusForAccessionNumberDataService;
+
         public class STMOrderStatusForAccessionNumberListSetting
         {
             public int ItemPerJob { get; set; }
@@ -42,7 +47,7 @@ namespace GT.Job.Implementation
         public STMOrderStatusForAccessionNumberListOperation()
         {
             var globalSettings = AppSettings.GetCurrent();
-            Settings = new STMOrderStatusForAccessionNumberListSetting(globalSettings.DataServiceSettings.OrderStatusForAccessionNumberListServiceItemPerBatch, globalSettings.Kos.Make.JOB_MaxParallelTask);
+            Settings = new STMOrderStatusForAccessionNumberListSetting(globalSettings.DataServiceSettings.OrderServiceItemPerBatch, globalSettings.Kos.Make.JOB_MaxParallelTask);
 
             var stmSettings = globalSettings.STM;
             var token = new STMTokenProvider(stmSettings.BASEADDRESS, stmSettings.userTokenName, stmSettings.userTokenPassword, stmSettings.HBYS_PACS_ResourceOwnerClient, stmSettings.identityServerBaseUri).GetToken();
@@ -62,9 +67,65 @@ namespace GT.Job.Implementation
 
                 List<string> AccessionNumber = new List<string>();
                 AccessionNumber.Add(item.AccessionNumber);
-                var res = STMService.GetOrderStatusForAccessionNumberList(int.Parse(item.KurumMedulaTesisKodu), AccessionNumber);
 
                 var studyDataService = new StudyKosDataService();
+              
+
+
+
+                var res = STMService.GetOrderStatusForAccessionNumberList(int.Parse(item.AccessionNumber), AccessionNumber);
+                var list = new List<OrderStatusForAccessionNumberViewModel>();
+                var items = studyDataService.GetByID(Convert.ToInt32(item.StudyID));
+                _OrderStatusForAccessionNumberDataService = new OrderStatusForAccessionNumberDataService(null);
+
+                if (res != null)
+                {
+                    foreach (var Gelenitem in res)
+                    {
+                       
+                        var model = new OrderStatusForAccessionNumberViewModel();
+
+                        model.FkTenant = items.TenantID;
+                        model.FkInfBatch = items.InfBatchID;
+                        model.FkKosStudy = items.ID;
+                        model.FkUserCreated = 0;
+                        model.FkUserModified = 0;
+                        model.Accessionnumber = item.AccessionNumber;
+                        model.Citizenid = Gelenitem.CitizenId;
+                        model.Teletipstatus = Gelenitem.TeletipStatus;
+                        model.Teletipstatusid = Gelenitem.TeletipStatusId;
+                        model.Medulastatus = Gelenitem.MedulaStatus;
+                        model.Medulastatusid = Gelenitem.MedulaStatusId;
+                        model.Wadostatus = Gelenitem.WadoStatus;
+                        model.Wadostatusid = Gelenitem.WadoStatusId;
+                        model.Reportstatus = Gelenitem.ReportStatus;
+                        model.Reportstatusid = Gelenitem.ReportStatusId;
+                        model.Dosestatus = "";
+                        model.Dosestatusid = 0;
+                        model.Medulainstitutionid = Gelenitem.MedulaInstitutionId;
+                        model.Sutcode = Gelenitem.SutCode;
+                        model.Lastmedulasenddate = DateTime.Now;
+                        model.Medularesponsecode = Gelenitem.MedulaResponseCode;
+                        model.Medularesponsemessage = Gelenitem.MedulaResponseMessage;
+                        model.Scheduledate = Gelenitem.ScheduleDate;
+                        model.Performeddate = Gelenitem.PerformedDate;
+                        model.Error = Gelenitem.Error;
+                        model.Patienthistorysearchstatus = "";
+                        model.Patienthistorysearchstatusid = 0;
+                        model.TimeCreated = DateTime.Now;
+                        model.TimeModified = null;
+
+                        list.Add(model);
+                    }
+
+                   
+
+                    _OrderStatusForAccessionNumberDataService.Save(list);
+
+
+                }
+
+
 
                 //throw new NotImplementedException();
                 //if (res != null)
@@ -73,6 +134,9 @@ namespace GT.Job.Implementation
 
                 //}
                 //studyDataService.Save_UpdateDeleteKos(item.StudyID, "");
+
+
+
                 progressAction.IncreaseProgressError();
                 progressAction.IncreaseProgressSuccess();
             });

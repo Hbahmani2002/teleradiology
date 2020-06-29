@@ -30,7 +30,7 @@ namespace GT.Core.Settings.Global
             STMSettings = new STMServiceSetting();
             LogSettings = new LoggingSetting();
             KosServiceSettings = new KosServiceSetting();
-
+            WebAppSettings = new WebAppSetting();
         }
     }
 }

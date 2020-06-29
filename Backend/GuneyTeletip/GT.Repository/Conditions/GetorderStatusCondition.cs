@@ -10,7 +10,7 @@ namespace GT.Repository.Conditions
 {
     public class GetorderStatusConditionFilter
     {
-        public string[] AccessionNumberList { get; set; }
+        public string AccessionNumber { get; set; }
         public string Medulainstitutionid { get; set; }
     }
     public class GetorderStatusCondition
@@ -22,10 +22,9 @@ namespace GT.Repository.Conditions
             {
                 exp = exp.And(o => o.Medulainstitutionid.Contains(filter.Medulainstitutionid));
             }
-            if (filter.AccessionNumberList != null && filter.AccessionNumberList.Length > 0)
+            if (!string.IsNullOrEmpty(filter.AccessionNumber))
             {
-                var arr = filter.AccessionNumberList.ToList();
-                exp = exp.And(o => arr.Contains(o.Accessionnumber));
+                exp = exp.And(o => o.Accessionnumber.Contains(filter.AccessionNumber));
             }
             return exp;
         }

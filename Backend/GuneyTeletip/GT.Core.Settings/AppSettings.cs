@@ -20,9 +20,9 @@ namespace GT.Core.Settings
                 {
                     if (_AppSettings == null)
                     {
-                        var file = File.ReadAllText(SettingsFilePath, Encoding.UTF8);
                         try
                         {
+                            var file = File.ReadAllText(SettingsFilePath, Encoding.UTF8);
                             var model = new
                             {
                                 ConnectionStrings = new

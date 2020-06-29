@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Teletip.SorgulamaServis;
 using Util.Extensions;
 
 namespace GT.BAL.TeletipKos
@@ -25,7 +24,7 @@ namespace GT.BAL.TeletipKos
             _InfStudyDataService = new StudyKosDataService(context);
         }
 
-        public MultipleOperationResultModel CreateKos(InfStudyFilter filter)
+        public MultipleOperationResultModel CreateKos(KosStudyFilter filter)
         {
 
             var list = GetStudyKos(filter);
@@ -35,7 +34,7 @@ namespace GT.BAL.TeletipKos
             }
             return RandomDataGenerator.CreateRandom<MultipleOperationResultModel>(1).FirstOrDefault();
         }
-        //public MultipleOperationResultModel CreateKosBackground1(InfStudyFilter filter)
+        //public MultipleOperationResultModel CreateKosBackground1(KosStudyFilter filter)
         //{
 
         //    var list = GetStudyKos(filter);
@@ -45,7 +44,7 @@ namespace GT.BAL.TeletipKos
 
 
 
-        public MultipleOperationResultModel MakeKos(InfStudyFilter filter)
+        public MultipleOperationResultModel MakeKos(KosStudyFilter filter)
         {
             var list = GetStudyKos(filter);
             foreach (var item in list)
@@ -54,7 +53,7 @@ namespace GT.BAL.TeletipKos
             }
             return RandomDataGenerator.CreateRandom<MultipleOperationResultModel>(1).FirstOrDefault();
         }
-        public JobBussinessService.JobServiceItem CreateKosBackground(InfStudyFilter filter)
+        public JobBussinessService.JobServiceItem CreateKosBackground(KosStudyFilter filter)
         {
 
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
@@ -97,7 +96,7 @@ namespace GT.BAL.TeletipKos
 
 
 
-        public JobBussinessService.JobServiceItem SendKosBackground(InfStudyFilter filter)
+        public JobBussinessService.JobServiceItem SendKosBackground(KosStudyFilter filter)
         {
 
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
@@ -141,12 +140,12 @@ namespace GT.BAL.TeletipKos
 
 
 
-        public JobBussinessService.JobServiceItem DeleteKos(Gridable<InfStudyFilter> filter)
+        public JobBussinessService.JobServiceItem DeleteKos(Gridable<KosStudyFilter> filter)
         {
             return null;
         }
 
-        public JobBussinessService.JobServiceItem DeleteKosBackground(InfStudyFilter filter)
+        public JobBussinessService.JobServiceItem DeleteKosBackground(KosStudyFilter filter)
         {
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
@@ -174,8 +173,7 @@ namespace GT.BAL.TeletipKos
         }
 
 
-
-        public JobBussinessService.JobServiceItem StmGetOrderStatusForAccessionNumberlistBackground(InfStudyFilter filter)
+        public JobBussinessService.JobServiceItem StmGetOrderStatusForAccessionNumberlistBackground(KosStudyFilter filter)
         {
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
@@ -185,7 +183,7 @@ namespace GT.BAL.TeletipKos
                     var globalSettings = AppSettings.GetCurrent();
                     var studyDataService = new StudyKosDataService();
                     var items = studyDataService.GetKosDeleteList(filter);
-                    var mc = new STMKosDeleteOperation();
+                    var mc = new STMOrderStatusForAccessionNumberListOperation();
                     mc.DoSingleBatch(items, o, ac);
                 }
                 catch (Exception ex)
@@ -204,7 +202,7 @@ namespace GT.BAL.TeletipKos
 
 
 
-        public void ReprocessKos(InfStudyFilter filter)
+        public void ReprocessKos(KosStudyFilter filter)
         {
             var list = GetStudyKos(filter);
             foreach (var item in list)
@@ -214,7 +212,7 @@ namespace GT.BAL.TeletipKos
             throw new NotImplementedException();
         }
 
-        public JobBussinessService.JobServiceItem ReprocessKosBackground(InfStudyFilter filter)
+        public JobBussinessService.JobServiceItem ReprocessKosBackground(KosStudyFilter filter)
         {
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
@@ -239,7 +237,7 @@ namespace GT.BAL.TeletipKos
             return job;
         }
 
-        public void UpdateReadKos(InfStudyFilter filter)
+        public void UpdateReadKos(KosStudyFilter filter)
         {
             var list = GetStudyKos(filter);
             foreach (var item in list)
@@ -249,7 +247,7 @@ namespace GT.BAL.TeletipKos
             throw new NotImplementedException();
         }
 
-        public void UpdateReadKosBackground(InfStudyFilter filter)
+        public void UpdateReadKosBackground(KosStudyFilter filter)
         {
             var list = GetStudyKos(filter);
             foreach (var item in list)
@@ -259,7 +257,7 @@ namespace GT.BAL.TeletipKos
             throw new NotImplementedException();
         }
 
-        public void ExportExcel(InfStudyFilter filter, string filePath)
+        public void ExportExcel(KosStudyFilter filter, string filePath)
         {
             var list = GetStudyKos(filter);
             foreach (var item in list)
@@ -268,9 +266,9 @@ namespace GT.BAL.TeletipKos
             }
         }
 
-        private IEnumerable<InfStudyViewModel> GetStudyKos(InfStudyFilter filter)
+        private IEnumerable<InfStudyViewModel> GetStudyKos(KosStudyFilter filter)
         {
-            var grid = new Gridable<InfStudyFilter>();
+            var grid = new Gridable<KosStudyFilter>();
             grid.Paging.Count = 1000;
             grid.Filter = filter;
 
