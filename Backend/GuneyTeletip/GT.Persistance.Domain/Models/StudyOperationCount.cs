@@ -6,7 +6,7 @@ namespace GT.Persistance.Domain.Models
     public partial class StudyOperationCount
     {
         public long Pk { get; set; }
-        public long? FkStudy { get; set; }
+        public long FkStudy { get; set; }
         public long? FkOperationEnumType { get; set; }
         public long? MakekosErrorTryCount { get; set; }
         public DateTime? TimeCreated { get; set; }

@@ -61,7 +61,6 @@ namespace GT.Job.Implementation
                 {
                     Debug.WriteLine($"JobID:{this.JobID} started");
                     _ac(this._cancelTokenSource, this.ProgressItem);
-                    _jobBussinessService.DataEnd(this.JobID);
                     Debug.WriteLine($"JobID:{this.JobID} end");
                     Debug.WriteLine($"JobID:{this.JobID} removed");
                 }, this._cancelTokenSource.Token);
@@ -73,6 +72,7 @@ namespace GT.Job.Implementation
                         TaskContinuationOptions.OnlyOnFaulted);
                 this.Task.ContinueWith(o =>
                 {
+                    _jobBussinessService.DataEnd(this.JobID);
                     Debug.WriteLine("Task End and trying to stop");
                     o.Dispose();
                     this.Task = null;
