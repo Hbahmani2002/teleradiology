@@ -37,8 +37,12 @@ namespace KOS.TeletipKos
                 var line = lines[i];
                 Debug.WriteLine("Line:" + line);
             }
-            var xmlString = string.Join("\r\n", lines.Skip(4));
-
+            const int n = 4;
+            var xmlString = string.Join("\r\n", lines.Skip(n));
+            if (string.IsNullOrEmpty(xmlString))
+            {
+                throw new Exception($"Send Kos sonucu {n}.satırda xml verisi bulunamadı Sonuç:{data}");
+            }
             //var ns = XNamespace.Get("rs");
 
             try
@@ -48,7 +52,7 @@ namespace KOS.TeletipKos
             catch (Exception ex)
             {
 
-                throw new Exception("Send KOs xml parse edilemedi " + xmlString, ex);
+                throw new Exception($"Send Kos xml parse edilemedi XML:{xmlString}", ex);
             }
 
         }
