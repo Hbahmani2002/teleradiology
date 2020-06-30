@@ -16,11 +16,10 @@ namespace Gt.Data.Test
         public void Setup()
         {
         }
-        
+        JobDataService service = new JobDataService(null);
         [Test]
         public void GetJobList()
         {
-            JobDataService service = new JobDataService(null);
             var grid = new Gridable<JobViewFilter>();
 
             var filter = new JobViewFilter()
@@ -31,5 +30,11 @@ namespace Gt.Data.Test
             grid.Filter = filter;
             var list = service.GetJobList(grid);
        }
+
+        [Test]
+        public void SaveException()
+        {
+            var list = service.SaveException(1968,"DenemeLog");
+        }
     }
 }

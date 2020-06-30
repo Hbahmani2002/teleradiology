@@ -89,10 +89,14 @@ namespace GT.DataService.Implementation
         public long SaveException(long id, string log)
         {
             var kosStudyJob = kosStudyJobRepository.GetByID(id);
+            if (kosStudyJob == null)
+            {
+                throw new Exception("kosStudyJob null olmamalı. id:"+ id);
+            }
             kosStudyJob.Log = log;
-            kosStudyJobRepository.Add(kosStudyJob);
+            kosStudyJobRepository.Update(kosStudyJob);
             _Workspace.CommitChanges();
-            return 0;
+            return id;
         }
     }
 }
