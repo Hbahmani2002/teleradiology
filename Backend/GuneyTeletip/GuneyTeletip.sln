@@ -75,19 +75,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KOS.TeletipKos.Test", "KOS.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GT.Core.Settings.Global", "GT.Core.Settings.Global\GT.Core.Settings.Global.csproj", "{17E8C33D-C56F-452B-89CF-53890CB63D0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Grid", "Util.Grid\Util.Grid.csproj", "{AC42524E-6EE1-4D83-A007-8A69EB0F3E16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Grid", "Util.Grid\Util.Grid.csproj", "{AC42524E-6EE1-4D83-A007-8A69EB0F3E16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Extensions", "Util.Extensions\Util.Extensions.csproj", "{75A2945D-2B53-46B5-9E05-8F5D7357D5CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Extensions", "Util.Extensions\Util.Extensions.csproj", "{75A2945D-2B53-46B5-9E05-8F5D7357D5CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Logger", "Util.Logger\Util.Logger.csproj", "{BD4878CF-4064-4486-85E9-F8B830A9432F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Logger", "Util.Logger\Util.Logger.csproj", "{BD4878CF-4064-4486-85E9-F8B830A9432F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.ProcessUtil", "Util.ProcessUtil\Util.ProcessUtil.csproj", "{4D48A201-3EC0-40C0-A0DE-0AFB5695E600}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.ProcessUtil", "Util.ProcessUtil\Util.ProcessUtil.csproj", "{4D48A201-3EC0-40C0-A0DE-0AFB5695E600}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Job", "Util.Job\Util.Job.csproj", "{FE4E105C-83B9-4A84-B70A-AC99D71736C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Job", "Util.Job\Util.Job.csproj", "{FE4E105C-83B9-4A84-B70A-AC99D71736C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Reflection", "Util.Reflection\Util.Reflection.csproj", "{720918D6-9491-4157-9EC6-EAB0513C8C3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Reflection", "Util.Reflection\Util.Reflection.csproj", "{720918D6-9491-4157-9EC6-EAB0513C8C3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Expression", "Util.Expression\Util.Expression.csproj", "{C3390EE5-D80A-47DB-A06E-137394BABD9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Expression", "Util.Expression\Util.Expression.csproj", "{C3390EE5-D80A-47DB-A06E-137394BABD9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Excel", "Util.Excel\Util.Excel.csproj", "{1BC70412-CB01-4163-946A-2C6710C4CA7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -223,6 +225,10 @@ Global
 		{C3390EE5-D80A-47DB-A06E-137394BABD9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3390EE5-D80A-47DB-A06E-137394BABD9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3390EE5-D80A-47DB-A06E-137394BABD9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BC70412-CB01-4163-946A-2C6710C4CA7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BC70412-CB01-4163-946A-2C6710C4CA7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BC70412-CB01-4163-946A-2C6710C4CA7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BC70412-CB01-4163-946A-2C6710C4CA7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -264,6 +270,7 @@ Global
 		{FE4E105C-83B9-4A84-B70A-AC99D71736C1} = {044E0022-87BC-4706-A6EE-D02AA0EC7831}
 		{720918D6-9491-4157-9EC6-EAB0513C8C3C} = {044E0022-87BC-4706-A6EE-D02AA0EC7831}
 		{C3390EE5-D80A-47DB-A06E-137394BABD9B} = {044E0022-87BC-4706-A6EE-D02AA0EC7831}
+		{1BC70412-CB01-4163-946A-2C6710C4CA7E} = {044E0022-87BC-4706-A6EE-D02AA0EC7831}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D25DACF-AFD1-40DA-B0A7-784A05C1D65D}
