@@ -81,7 +81,7 @@ export class KosfilterComponent implements OnInit {
     if (this.accessionNo == "" || this.accessionNo == undefined)
       return;
     this.accessionNo.split(" ").forEach(item => {
-      if (item.length == 11) {
+      if (item.length == 10) {
        accessionNoList.push(item);
       }
     });
@@ -96,20 +96,21 @@ export class KosfilterComponent implements OnInit {
       });
     }
     if (this.ddlModalitySelectedItems.length != 0) {
-      filter.modalite = [];
+      filter.modaliteList = [];
       this.ddlModalitySelectedItems.forEach(item => {
-        filter.modalite.push(item.name);
+        filter.modaliteList.push(item.name);
       });
     }
     if (this.ddlEnumSelectedItems.length != 0) {
       filter.eslesmeDurumu = [];
       this.ddlEnumSelectedItems.forEach(item => {
-        filter.eslesmeDurumu.push(item.name);
+        filter.eslesmeDurumu.push(item.id);
       });
     }
     if (this.dateRange != undefined) {
       filter.basTarih = undefined;
       filter.bitTarih = undefined;
+      debugger;
       filter.basTarih = this.dateRange[0];
       filter.bitTarih = this.dateRange[1];
     }

@@ -55,8 +55,6 @@ export class kosDataServices {
   //-----------------------
 
 
-
-
   public exportExcel(model: Grid.GridInputModel<infStudyFilter>): Observable<string> {
     return this.apiDataService.callDataService('Kos/ExportExcel', model);
   }
