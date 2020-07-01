@@ -2,7 +2,7 @@ export class infStudyFilter {
   hastaneIDList;
   basTarih;
   bitTarih;
-  modalite;
+  modaliteList;
   eslesmeDurumu;
   tcList;
   accessionNumberList;

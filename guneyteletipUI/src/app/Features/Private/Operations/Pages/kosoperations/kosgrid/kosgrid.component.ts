@@ -33,7 +33,7 @@ export class kosFilter {
   hastaneIDList;
   basTarih;
   bitTarih;
-  modalite;
+  modaliteList;
   eslesmeDurumu;
   tcList;
   accessionNumberList;
@@ -71,8 +71,9 @@ namespace KosListComponent_Models {
       var o = this.kosFilter;
 
       item.hastaneIDList = o.hastaneIDList;
-      item.basTarih = o.bitTarih;
-      item.modalite = o.modalite;
+      item.basTarih = o.basTarih;
+      item.bitTarih = o.bitTarih;
+      item.modaliteList = o.modaliteList;
       item.eslesmeDurumu = o.eslesmeDurumu;
       item.tcList = o.tcList;
       item.accessionNumberList = o.accessionNumberList;

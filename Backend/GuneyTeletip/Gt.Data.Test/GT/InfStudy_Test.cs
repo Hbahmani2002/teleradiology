@@ -3,6 +3,7 @@ using GT.DataService.Model;
 using GT.Repository.Models.Filter;
 using GT.SERVICE;
 using GT.UTILS.GRID;
+using Microsoft.VisualBasic;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -24,10 +25,7 @@ namespace Gt.Data.Test
 
             var filter = new KosStudyFilter();
             grid.Filter = filter;
-            var tcList = new string[2];
-            tcList[0] = "61840519756";
-            tcList[1] = "44528074396";
-            filter.TCList = tcList;
+            filter.BasTarih = new DateTime(2020,07,01);
             var list = service.GetInfStudyList(grid);
         }
 

@@ -207,6 +207,28 @@ namespace GT.DataService.Implementation
             return _InfStudyRepository.Query(s)
                 .GetGridQuery(parms);
         }
+        public List<MakeKosViewModel> GetMakeKosList(Gridable<KosStudyFilter> parms,int count)
+        {
+            var s = new InfStudyConditionFilter
+            {
+                KosEnum = KosEnumType.KosOlusturulamamisOlanlar,
+                KosWaitHour = true,
+                AccessionNumberList=parms.Filter.AccessionNumberList,
+                EslesmeDurumuList=parms.Filter.EslesmeDurumuList,
+                HastaneIDList=parms.Filter.HastaneIDList,
+                ModalityList=parms.Filter.ModaliteList,
+                BasTarih=parms.Filter.BasTarih,
+                BitTarih=parms.Filter.BitTarih,
+                Modality=parms.Filter.Modalite,
+                PatientID=parms.Filter.PatientID,
+                StudyInstanceUID=parms.Filter.StudyInstanceUID
+            };
+            var sc = new StudyOperationCountConditionFilter
+            {
+                MakeKosCount = true,
+            };
+            return makeKosCompositeRepository.Query(s,sc).OrderBy(o => o.StudyID).Take(count).ToList();
+        }
         public List<MakeKosViewModel> GetMakeKosList(int count)
         {
             var s = new InfStudyConditionFilter
@@ -216,9 +238,9 @@ namespace GT.DataService.Implementation
             };
             var sc = new StudyOperationCountConditionFilter
             {
-                MakeKosCount = true
+                MakeKosCount = true,
             };
-            return makeKosCompositeRepository.Query(s,sc).OrderBy(o => o.StudyID).Take(count).ToList();
+            return makeKosCompositeRepository.Query(s, sc).OrderBy(o => o.StudyID).Take(count).ToList();
         }
 
         public List<SentKosViewModel> GetSentKosList(int count)
