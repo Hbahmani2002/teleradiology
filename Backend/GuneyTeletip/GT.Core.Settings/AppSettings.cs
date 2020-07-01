@@ -60,6 +60,7 @@ namespace GT.Core.Settings
         public bool IsFromConfigFile { get; set; }
         private AppSettings()
         {
+            //vvvvvv
             DatabaseSetting = new DatabaseSettings(
                "Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002",
                "User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;"
@@ -77,10 +78,6 @@ namespace GT.Core.Settings
 
         public GlobalAppSettings.LoggingSetting Log => GlobalAppSettings.GetCurrent().LogSettings;
         public GlobalAppSettings.KosServiceSetting Kos => GlobalAppSettings.GetCurrent().KosServiceSettings;
-
-
-
-
 
     }
 }

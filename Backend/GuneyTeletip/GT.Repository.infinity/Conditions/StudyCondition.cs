@@ -13,6 +13,8 @@ namespace GT.DataService.infinity.Conditions
     {
         public string AccessionNo { get; set; }
         public DateTime? CreationStartDate { get; set; }
+
+        public DateTime? CreationEndDate { get; set; }
         public long? InfStudyPkLast { get; set; }
 
         public DateTime? StudyStartDate { get; set; }
@@ -36,16 +38,21 @@ namespace GT.DataService.infinity.Conditions
             if (filter.CreationStartDate.HasValue)
             {
                 exp = exp.And(o => o.CreationDttm >= filter.CreationStartDate.Value);
+            }
+
+            if (filter.CreationEndDate.HasValue)
+            {
+                exp = exp.And(o => o.CreationDttm <= filter.CreationEndDate.Value);
 
 
             }
+
             if (filter.StudyStartDate.HasValue)
             {
                 exp = exp.And(o => o.StudyDttm >= filter.StudyStartDate.Value);
             }
-      
 
-
+          
 
             return exp;
         }

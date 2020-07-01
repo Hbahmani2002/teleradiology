@@ -43,6 +43,7 @@ namespace GT.DataService.infinity.Implementation
                 AccessionNo = filter.Accession_no,
                 InfStudyPkLast = filter.Infstudypklast,
                 CreationStartDate = filter.Infcreationstartdate,
+                CreationEndDate =filter.Infcreationenddate
 
             };
 
@@ -50,14 +51,25 @@ namespace GT.DataService.infinity.Implementation
             int TakeTop = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.InfinityOracleTakeTop;
 
 
-
-            var list1 = _InfOracleCompositeRepository.Query(f)
-               .OrderBy(o=>o.StudyKey).Skip(0).Take(TakeTop).ToList();
-
-            return list1;
+            var gelenInf = _InfOracleCompositeRepository.Query(f);
+                
 
 
-           
+            var gelenList= gelenInf
+                .Where(o=>( o.CreationDttm >= filter.Infcreationstartdate ) && (o.CreationDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no)) ) 
+                .OrderBy(o => o.StudyKey)
+                .Skip(0)
+                .Take(50000)
+                .ToList(); 
+
+
+       
+
+            return gelenList;
+
+
+
+
         }
 
     }

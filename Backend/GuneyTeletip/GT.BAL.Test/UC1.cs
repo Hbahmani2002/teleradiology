@@ -50,7 +50,7 @@ namespace GT.BAL.Test
         {
 
             var dc = new InfinityDataSyncronizer(null);
-            dc.SyncronizeInfinityStudyList(15, 0, new DateTime(2019, 01, 01), new DateTime(2020, 01, 05));
+            dc.SyncronizeInfinityStudyList(9, 0, new DateTime(2020, 07, 01), new DateTime(2020, 07, 02));
 
 
 

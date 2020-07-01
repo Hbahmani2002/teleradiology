@@ -25,12 +25,13 @@ namespace GT.BAL.Infinity.DataSynronizer
         {
             var filter = new DataService.infinity.Model.InfOracleFilter();
             filter.Infcreationstartdate = startTime;
-
+            filter.Infcreationenddate = endTime;
 
             filter.Infcreationstartdate = new DateTime(startTime.Value.Year, startTime.Value.Month, startTime.Value.Day);
 
 
             filter.Infstudypklast = lastID;
+
             filter.Accession_no = _InfStudyDataService.GetAccessionOnekNoByTenantID(tenantID);
             var items=_InfOracleDataService.GetInfOracleList(filter);
             var list = new List<InfOraclePostgreStudyViewModel>();
@@ -58,7 +59,7 @@ namespace GT.BAL.Infinity.DataSynronizer
                 model.StudyInstanceuid = item.StudyInstanceUid;
                 model.InstanceCount = 0;
                 model.DateBirth = item.PatientBirthDttm.HasValue? item.PatientBirthDttm.Value:DateTime.Now;
-                model.StudyDate = DateTime.Now;
+                model.StudyDate = item.StudyDttm.HasValue? item.StudyDttm.Value:DateTime.Now;
                 model.StoragePath = item.Pathname;
                 model.PatinetNameSurname = item.PatientName;
                 model.CihazDeviceSerialNumber = null;

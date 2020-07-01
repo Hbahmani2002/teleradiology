@@ -50,15 +50,22 @@ namespace GT.PERSISTANCE.DOMAIN.Models
             {
                 //test deneme               
                 optionsBuilder.UseLoggerFactory(consoleLoggerFactory);
-                var connectionString = AppSettings.GetCurrent().DatabaseSetting.InfinityOracle;
+               
+                //var connectionString = AppSettings.GetCurrent().DatabaseSetting.InfinityOracle;
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-               // optionsBuilder.UseOracle("User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;",o=>o.UseOracleSQLCompatibility("11"));
+                //optionsBuilder.UseOracle("User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;",o=>o.UseOracleSQLCompatibility("11"));
+                optionsBuilder.UseOracle("User Id=Protek;Password=Pro_2020_tek;Data Source=10.202.108.53:1521/SPECTRA;", o => o.UseOracleSQLCompatibility("11"));
+                
+
+
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:DefaultSchema", "TEST_USER");
+
+            modelBuilder.HasDefaultSchema ("SPECTRA");
+           //// modelBuilder.HasAnnotation("Relational:DefaultSchema", "SPECTRA");
 
             modelBuilder.Entity<Image>(entity =>
             {

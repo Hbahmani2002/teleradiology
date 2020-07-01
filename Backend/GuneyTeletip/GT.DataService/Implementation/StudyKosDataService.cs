@@ -96,8 +96,8 @@ namespace GT.DataService.Implementation
                 KosStudy.AccessionNo = item.AccessionNo;
                 KosStudy.StudyInstanceuid = item.StudyInstanceuid;
                 KosStudy.InstanceCount = 0;
-                KosStudy.DateBirth = DateTime.Now;
-                KosStudy.StudyDate = DateTime.Now;
+                KosStudy.DateBirth = item.DateBirth;
+                KosStudy.StudyDate = item.StudyDate;
                 KosStudy.StoragePath = item.StoragePath;
                 KosStudy.PatinetNameSurname = item.PatinetNameSurname;
                 KosStudy.CihazDeviceSerialNumber = "0";
