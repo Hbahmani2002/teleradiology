@@ -55,7 +55,7 @@ namespace GT.Job.Implementation
         {
             Debug.WriteLine($"Tasklist Progress JobId:{JobID}");
             var dataService = new JobDataService(null);
-            dataService.SaveProgress(JobID, DateTime.Now, Success, Error);
+            dataService.Save_UpdateProgress(JobID, DateTime.Now, Success, Error);
         }
         object _syn = new object();
         public void Dispose()

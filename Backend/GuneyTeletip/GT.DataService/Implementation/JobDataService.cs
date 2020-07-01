@@ -63,13 +63,13 @@ namespace GT.DataService.Implementation
             _Workspace.CommitChanges();
             return kosStudyJob.Pk;
         }
-        public long SaveProgress(long id, DateTime progressTarih, long? basariliSayisi, long? basarisizSayisi)
+        public long Save_UpdateProgress(long id, DateTime progressTarih, long? basariliSayisi, long? basarisizSayisi)
         {
             var kosStudyJob = kosStudyJobRepository.GetByID(id);
             kosStudyJob.ErrorCount = basarisizSayisi;
-            kosStudyJob.TimeStop = progressTarih;
-            kosStudyJob.TimeModified = DateTime.Now;
             kosStudyJob.SuccessfulCount = basariliSayisi;
+
+            kosStudyJob.TimeModified = progressTarih;            
             kosStudyJob.FkUserModified = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
             kosStudyJobRepository.Update(kosStudyJob);
             _Workspace.CommitChanges();
@@ -84,6 +84,19 @@ namespace GT.DataService.Implementation
             kosStudyJobRepository.Update(kosStudyJob);
             _Workspace.CommitChanges();
             return kosStudyJob.Pk;
+        }
+
+        public long SaveException(long id, string log)
+        {
+            var kosStudyJob = kosStudyJobRepository.GetByID(id);
+            if (kosStudyJob == null)
+            {
+                throw new Exception("kosStudyJob null olmamalı. id:"+ id);
+            }
+            kosStudyJob.Log = log;
+            kosStudyJobRepository.Update(kosStudyJob);
+            _Workspace.CommitChanges();
+            return id;
         }
     }
 }

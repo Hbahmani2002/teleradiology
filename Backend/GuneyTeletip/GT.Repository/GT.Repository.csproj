@@ -15,8 +15,6 @@
     <ProjectReference Include="..\GT.Core.Settings\GT.Core.Settings.csproj" />
     <ProjectReference Include="..\GT.Data.Models\GT.Data.Models.csproj" />
     <ProjectReference Include="..\GT.Persistance.Domain\GT.Persistance.Domain.csproj" />
-    <ProjectReference Include="..\Util.Expression\Util.Expression.csproj" />
-    <ProjectReference Include="..\Util.Extensions\Util.Extensions.csproj" />
     <ProjectReference Include="..\Util.Grid\Util.Grid.csproj" />
   </ItemGroup>
 

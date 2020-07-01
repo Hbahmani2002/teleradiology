@@ -25,7 +25,6 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Util.Extensions;
-using Util.Logger;
 using Util.ProcessUtil;
 
 namespace GT.UI.WebApi.Controllers
@@ -62,8 +61,8 @@ namespace GT.UI.WebApi.Controllers
 
    
      
-        [HttpPost]
-        [Route("/Kos/CreateKosBackground")]
+        //[HttpPost]
+        [Route("/Kos/CreateKosBackgroundTest")]
         public ServiceResult<long> CreateKosBackground(KosStudyFilter parms)
         {
 

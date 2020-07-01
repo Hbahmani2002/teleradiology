@@ -94,96 +94,97 @@ namespace STM.Service.Test
             KosServiceTestController KosTest = new KosServiceTestController();
          var g = KosTest.CreateKosBackground(null);
 
+            var es = g;
 
-            int startGun = 0;
-            int startAy = 0;
-            int startYıl = 0;
-            int finGun = 0;
-            int finAy = 0;
-            int finYıl = 0;
+            //int startGun = 0;
+            //int startAy = 0;
+            //int startYıl = 0;
+            //int finGun = 0;
+            //int finAy = 0;
+            //int finYıl = 0;
 
-            startGun = 10;
-            startAy = 05;
-            startYıl = DateTime.Now.Year;
+            //startGun = 10;
+            //startAy = 05;
+            //startYıl = DateTime.Now.Year;
 
-            finGun = DateTime.Now.Day;
-            finAy = DateTime.Now.Month;
-            finYıl = DateTime.Now.Year;
+            //finGun = DateTime.Now.Day;
+            //finAy = DateTime.Now.Month;
+            //finYıl = DateTime.Now.Year;
 
-            DateTime StartDateTime;
-            DateTime EndDateTime;
-
-
-            StartDateTime = new DateTime(startYıl, startAy, startGun, 0, 0, 0);
-            EndDateTime = new DateTime(finYıl, finAy, finGun, 0, 0, 0);
+            //DateTime StartDateTime;
+            //DateTime EndDateTime;
 
 
-            var stmSettings = AppSettings.GetCurrent().STM;
-            ISTMTokenProvider tk = new STMTokenProvider(stmSettings.BASEADDRESS, stmSettings.userTokenName, stmSettings.userTokenPassword, stmSettings.HBYS_PACS_ResourceOwnerClient, stmSettings.identityServerBaseUri);
-            var stm_token = tk.GetToken();
-            var service = new STMService(stm_token, stmSettings.BASEADDRESS);
+            //StartDateTime = new DateTime(startYıl, startAy, startGun, 0, 0, 0);
+            //EndDateTime = new DateTime(finYıl, finAy, finGun, 0, 0, 0);
 
 
-
-            List<string> AccessionNumber = new List<string>();
-            AccessionNumber.Add("C325532974");
-            var studyDataService = new StudyKosDataService();
-            var items = studyDataService.GetByID(Convert.ToInt32(58546));
-
-            var OrderStatusForAccessionNumberList = service.GetOrderStatusForAccessionNumberList(11340073, AccessionNumber);
-
-            var list = new List<OrderStatusForAccessionNumberViewModel>();
-
-            _OrderStatusForAccessionNumberDataService = new OrderStatusForAccessionNumberDataService(null);
-            foreach (var item in OrderStatusForAccessionNumberList)
-            {
-                var model = new OrderStatusForAccessionNumberViewModel();
-               
-
-                model.FkTenant = items.TenantID;
-                model.FkInfBatch = items.InfBatchID;
-                model.FkKosStudy = items.ID;
-                model.FkUserCreated = 0;
-                model.FkUserModified = 0;
-                model.Accessionnumber = item.AccessionNumber;
-                model.Citizenid = item.CitizenId;
-                model.Teletipstatus = item.TeletipStatus;
-                model.Teletipstatusid = item.TeletipStatusId;
-                model.Medulastatus = item.MedulaStatus;
-                model.Medulastatusid = item.MedulaStatusId;
-                model.Wadostatus = item.WadoStatus;
-                model.Wadostatusid = item.WadoStatusId;
-                model.Reportstatus = item.ReportStatus;
-                model.Reportstatusid = item.ReportStatusId;
-                model.Dosestatus = "";
-                model.Dosestatusid = 0;
-                model.Medulainstitutionid = item.MedulaInstitutionId;
-                model.Sutcode = item.SutCode;
-                model.Lastmedulasenddate = DateTime.Now;
-                model.Medularesponsecode = item.MedulaResponseCode;
-                model.Medularesponsemessage = item.MedulaResponseMessage;
-                model.Scheduledate = item.ScheduleDate;
-                model.Performeddate = item.PerformedDate;
-                model.Error = item.Error;
-                model.Patienthistorysearchstatus = "";
-                model.Patienthistorysearchstatusid = 0;
-                model.TimeCreated = DateTime.Now;
-                model.TimeModified = null;
+            //var stmSettings = AppSettings.GetCurrent().STM;
+            //ISTMTokenProvider tk = new STMTokenProvider(stmSettings.BASEADDRESS, stmSettings.userTokenName, stmSettings.userTokenPassword, stmSettings.HBYS_PACS_ResourceOwnerClient, stmSettings.identityServerBaseUri);
+            //var stm_token = tk.GetToken();
+            //var service = new STMService(stm_token, stmSettings.BASEADDRESS);
 
 
 
+            //List<string> AccessionNumber = new List<string>();
+            //AccessionNumber.Add("C325532974");
+            //var studyDataService = new StudyKosDataService();
+            //var items = studyDataService.GetByID(Convert.ToInt32(58546));
 
-                list.Add(model);
-            }
+            //var OrderStatusForAccessionNumberList = service.GetOrderStatusForAccessionNumberList(11340073, AccessionNumber);
+
+            //var list = new List<OrderStatusForAccessionNumberViewModel>();
+
+            //_OrderStatusForAccessionNumberDataService = new OrderStatusForAccessionNumberDataService(null);
+            //foreach (var item in OrderStatusForAccessionNumberList)
+            //{
+            //    var model = new OrderStatusForAccessionNumberViewModel();
+
+
+            //    model.FkTenant = items.TenantID;
+            //    model.FkInfBatch = items.InfBatchID;
+            //    model.FkKosStudy = items.ID;
+            //    model.FkUserCreated = 0;
+            //    model.FkUserModified = 0;
+            //    model.Accessionnumber = item.AccessionNumber;
+            //    model.Citizenid = item.CitizenId;
+            //    model.Teletipstatus = item.TeletipStatus;
+            //    model.Teletipstatusid = item.TeletipStatusId;
+            //    model.Medulastatus = item.MedulaStatus;
+            //    model.Medulastatusid = item.MedulaStatusId;
+            //    model.Wadostatus = item.WadoStatus;
+            //    model.Wadostatusid = item.WadoStatusId;
+            //    model.Reportstatus = item.ReportStatus;
+            //    model.Reportstatusid = item.ReportStatusId;
+            //    model.Dosestatus = "";
+            //    model.Dosestatusid = 0;
+            //    model.Medulainstitutionid = item.MedulaInstitutionId;
+            //    model.Sutcode = item.SutCode;
+            //    model.Lastmedulasenddate = DateTime.Now;
+            //    model.Medularesponsecode = item.MedulaResponseCode;
+            //    model.Medularesponsemessage = item.MedulaResponseMessage;
+            //    model.Scheduledate = item.ScheduleDate;
+            //    model.Performeddate = item.PerformedDate;
+            //    model.Error = item.Error;
+            //    model.Patienthistorysearchstatus = "";
+            //    model.Patienthistorysearchstatusid = 0;
+            //    model.TimeCreated = DateTime.Now;
+            //    model.TimeModified = null;
 
 
 
-            _OrderStatusForAccessionNumberDataService.Save(list);
 
-           
-            var s = OrderStatusForAccessionNumberList[0].AccessionNumber;
+            //    list.Add(model);
+            //}
 
-            
+
+
+            //_OrderStatusForAccessionNumberDataService.Save(list);
+
+
+            //var s = OrderStatusForAccessionNumberList[0].AccessionNumber;
+
+
 
             //var items = _OrderStatusForAccessionNumberDataService.GetInfOracleList(filter);
             //var list = new List<InfOraclePostgreStudyViewModel>();

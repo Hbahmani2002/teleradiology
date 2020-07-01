@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using static GT.Repository.Conditions.StudyOperationCountCondition;
 
 namespace GT.Repository.Implementation.Composite
 {
@@ -17,20 +18,24 @@ namespace GT.Repository.Implementation.Composite
         {
 
         }
-        public IEnumerable<MakeKosViewModel> Query(InfStudyConditionFilter filter)
+        public IEnumerable<MakeKosViewModel> Query(InfStudyConditionFilter i, StudyOperationCountConditionFilter s)
         {
-            var exp = InfStudyCondition.Get(filter);
-            return Query(exp);
+            var exp1 = InfStudyCondition.Get(i);
+            var exp2 = StudyOperationCountCondition.Get(s);
+            return Query(exp1,exp2);
         }
 
-        public IEnumerable<MakeKosViewModel> Query(Expression<Func<KosStudy, bool>> exp)
+        public IEnumerable<MakeKosViewModel> Query(Expression<Func<KosStudy, bool>> exp1, Expression<Func<StudyOperationCount, bool>> exp2)
         {
-            var kosStudy = _AbstractWorkspace.Query<KosStudy>(exp);
+            var kosStudy = _AbstractWorkspace.Query<KosStudy>(exp1);
             var skrs = _AbstractWorkspace.Query<ConstSkrs>();
             var userSkrs = _AbstractWorkspace.Query<UsrTenantSkrs>();
+            var failCount = _AbstractWorkspace.Query<StudyOperationCount>(exp2);
             var list = from k in kosStudy
                        join us in userSkrs on k.FkTenant equals us.FkTenant
                        join s in skrs on us.FkSkrs equals s.Pk
+                       join fc in failCount on k.Pk equals fc.FkStudy
+                        into ps3 from fc in ps3.DefaultIfEmpty()
                        select new MakeKosViewModel
                        {
                           AccessionNumber=k.AccessionNo,

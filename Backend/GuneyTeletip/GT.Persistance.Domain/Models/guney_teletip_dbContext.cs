@@ -529,6 +529,10 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
 
+                entity.Property(e => e.Log)
+                    .HasColumnName("log")
+                    .HasColumnType("character varying");
+
                 entity.Property(e => e.RecordStatus).HasColumnName("record_status");
 
                 entity.Property(e => e.SuccessfulCount).HasColumnName("successful_count");
@@ -678,24 +682,29 @@ namespace GT.Persistance.Domain.Models
 
             modelBuilder.Entity<StudyOperationCount>(entity =>
             {
-                entity.HasKey(e => e.Pk)
-                    .HasName("study_operation_count _pkey");
+                entity.HasKey(e => e.FkStudy)
+                    .HasName("fk_study");
 
                 entity.ToTable("study_operation_count ");
 
-                entity.Property(e => e.Pk)
-                    .HasColumnName("pk")
-                    .UseIdentityAlwaysColumn();
-
-                entity.Property(e => e.ErrorTryCount).HasColumnName("error_try_Count");
+                entity.Property(e => e.FkStudy)
+                    .HasColumnName("fk_study")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.FkOperationEnumType).HasColumnName("fk_operation_enum_type");
-
-                entity.Property(e => e.FkStudy).HasColumnName("fk_study");
 
                 entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
 
                 entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.MakekosErrorTryCount).HasColumnName("makekos_error_try_count");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .ValueGeneratedOnAdd()
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.SentkosErrorTryCount).HasColumnName("sentkos_error_try_count");
 
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 

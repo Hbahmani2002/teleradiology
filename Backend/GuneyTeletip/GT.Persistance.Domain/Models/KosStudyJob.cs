@@ -16,5 +16,6 @@ namespace GT.Persistance.Domain.Models
         public long? FkUserCreated { get; set; }
         public long? FkUserModified { get; set; }
         public long? RecordStatus { get; set; }
+        public string Log { get; set; }
     }
 }

@@ -16,9 +16,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Util.Job;
-using Util.Job.Interface;
-using Util.Logger;
 
 namespace GT.Job.Implementation
 {
@@ -50,50 +47,66 @@ namespace GT.Job.Implementation
             {
                 Dispose();
             }
+            private void StopTask(Task o)
+            {                
+                o.Dispose();
+                this.Task = null;
+                this.Stop();
+            }
             public void Start()
             {
                 Stop();
-                JobID = _jobBussinessService.DataCreate();
+                JobID = GetSavedTaskID();
                 ProgressItem = new JobBussinessServiceProgressItem(JobID, 0, 0);
                 _cancelTokenSource = new CancellationTokenSource();
-
-
-
 
                 this.Task = Task.Factory.StartNew(() =>
                 {
                     Debug.WriteLine($"JobID:{this.JobID} started");
                     _ac(this._cancelTokenSource, this.ProgressItem);
-                    _jobBussinessService.DataEnd(this.JobID);
-                    Debug.WriteLine($"JobID:{this.JobID} end");
-                    Debug.WriteLine($"JobID:{this.JobID} removed");
+                    Debug.WriteLine($"JobID:{this.JobID} end");                    
                 }, this._cancelTokenSource.Token);
                 this.Task.ContinueWith(t =>
                 {
-                    var ds = new AppLogDataService();
-                    ds.Save(AppLogDataService.LogType.BackGroundJobs, t.Exception.ToString());
-                },
-                        TaskContinuationOptions.OnlyOnFaulted);
+                    Debug.WriteLine($"JobID:{this.JobID} exception occured");
+                    SaveException(t.Exception);
+                    Debug.WriteLine($"JobID:{this.JobID} exception saved to database");
+                }, TaskContinuationOptions.OnlyOnFaulted);
                 this.Task.ContinueWith(o =>
                 {
-                    Debug.WriteLine("Task End and trying to stop");
-                    o.Dispose();
-                    this.Task = null;
-                    this.Stop();
+                    Debug.WriteLine($"JobID:{this.JobID} is stopping");
+                    SaveCloseTask(JobID);
+                    StopTask(o);
+                    Debug.WriteLine($"JobID:{this.JobID} is stoppped");
                 });
-
                 this._jobBussinessService.TaskList.TryAdd(this.JobID, this);
-
             }
 
-
-
-
+            private void SaveCloseTask(long jobID)
+            {
+                var dataService = new JobDataService(null);
+                dataService.UpdateAndClose(jobID, DateTime.Now);
+            }
+            private long GetSavedTaskID()
+            {
+                var dataService = new JobDataService(null);
+                return dataService.Save(DateTime.Now, JobDataService.JopEnumType.StatusCheck);
+            }
+            private void SaveException(Exception t)
+            {
+                if (t == null)
+                {
+                    return;
+                }
+                var ds = new JobDataService(null);
+                ds.SaveException(this.JobID, t.ToString());
+            }
 
             public void Dispose()
             {
                 if (_jobBussinessService.Remove(this))
                 {
+                    Debug.WriteLine($"JobID:{this.JobID} removed");
                     this.Task = null;
                     if (this._cancelTokenSource != null)
                     {
@@ -103,8 +116,7 @@ namespace GT.Job.Implementation
                     this.ProgressItem.Dispose();
 
                 }
-
-                Debug.WriteLine("Dsiposed");
+                Debug.WriteLine($"JobID:{this.JobID} disposed");
             }
         }
 
@@ -128,17 +140,5 @@ namespace GT.Job.Implementation
             Debug.WriteLine($"Tasklist Stop Result:{res} JobId:{job.JobID}");
             return res;
         }
-        private void DataEnd(long jobID)
-        {
-            var dataService = new JobDataService(null);
-            dataService.UpdateAndClose(jobID, DateTime.Now);
-        }
-
-        private long DataCreate()
-        {
-            var dataService = new JobDataService(null);
-            return dataService.Save(DateTime.Now, JobDataService.JopEnumType.StatusCheck);
-        }
-
     }
 }

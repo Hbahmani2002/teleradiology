@@ -8,7 +8,7 @@
     <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
     <ProjectReference Include="..\GT.Job\GT.Job.csproj" />
     <ProjectReference Include="..\KOS.TeletipKos\KOS.TeletipKos.csproj" />
-    <ProjectReference Include="..\Util.Logger\Util.Logger.csproj" />
+    <ProjectReference Include="..\Util.Extensions\Util.Extensions.csproj" />
   </ItemGroup>
 
   <ItemGroup>
