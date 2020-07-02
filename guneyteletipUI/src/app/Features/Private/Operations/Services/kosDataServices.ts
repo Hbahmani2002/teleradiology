@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ApiDataService } from 'src/app/Shared/Services/Api/apiDataService';
 import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 
@@ -18,35 +18,36 @@ export class kosDataServices {
     return this.apiDataService.callDataService('Kos/GetKosList', model);
   }
 //------------------------
-  public createKos(model: Grid.GridInputModel<infStudyFilter>): Observable<number> {
+  public createKos(model: Grid.GridInputModel<infStudyFilter>): Observable<any> {
+    console.log(model);
     return this.apiDataService.callDataService('Kos/CreateKos', model);
   }
   public createKosBg(model: infStudyFilter): Observable<number> {
     return this.apiDataService.callDataService('Kos/CreateKosBackground', model);
   }
 //-------------------------
-  public deleteKos(model: Grid.GridInputModel<infStudyFilter>): Observable<number> {
+  public deleteKos(model: Grid.GridInputModel<infStudyFilter>): Observable<any> {
     return this.apiDataService.callDataService('Kos/DeleteKos', model);
   }
   public deleteKosBg(model:infStudyFilter): Observable<number> {
     return this.apiDataService.callDataService('Kos/DeleteKosBackground', model);
   }
 //--------------------------
-  public reprocessKos(model: Grid.GridInputModel<infStudyFilter>): Observable<number> {
+  public reprocessKos(model: Grid.GridInputModel<infStudyFilter>): Observable<any> {
     return this.apiDataService.callDataService('Kos/ReprocessKos', model);
   }
   public reprocessKosBg(model: infStudyFilter): Observable<number> {
     return this.apiDataService.callDataService('Kos/ReprocessKosBackground', model);
   }
   //----------------------- //UpdateReadKos servisi kaldırıldı ve yerine  StmGetOrderStatusForAccessionNumberlist servisi eklendi.
-  public updateReadKos(model: Grid.GridInputModel<infStudyFilter>): Observable<number> {
+  public updateReadKos(model: Grid.GridInputModel<infStudyFilter>): Observable<any> {
     return this.apiDataService.callDataService('Kos/UpdateReadKos', model);
   }
   public updateReadKosBg(model: infStudyFilter): Observable<number> { 
     return this.apiDataService.callDataService('Kos/StmGetOrderStatusForAccessionNumberlistBackground', model);
   }
   //-----------------------
-  public sendKos(model: Grid.GridInputModel<infStudyFilter>): Observable<number> {
+  public sendKos(model: Grid.GridInputModel<infStudyFilter>): Observable<any> {
     return this.apiDataService.callDataService('Kos/SendKos', model);
   }
   public sendKosBg(model: infStudyFilter): Observable<number> {

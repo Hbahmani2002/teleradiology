@@ -9,6 +9,6 @@
   <p>{{message}}</p>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" (click)="onCancel()">İptal</button>
-  <button type="button" class="btn btn-danger" (click)="onConfirm()">Sil</button>
+  <button type="button" class="btn btn-primary" (click)="onCancel()">{{button1Text}}</button>
+  <button *ngIf="dangerButtonEnable" type="button" class="btn btn-danger" (click)="onConfirm()">{{button2Text}}</button>
 </div>

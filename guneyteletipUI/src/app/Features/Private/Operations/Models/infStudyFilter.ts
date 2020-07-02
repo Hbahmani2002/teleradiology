@@ -1,10 +1,12 @@
 export class infStudyFilter {
+  studyIdList;
   hastaneIDList;
   basTarih;
   bitTarih;
   modaliteList;
-  eslesmeDurumu;
+  EslesmeDurumuList;
   tcList;
   accessionNumberList;
+
 }
 

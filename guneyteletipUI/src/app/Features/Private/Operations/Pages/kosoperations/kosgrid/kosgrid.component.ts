@@ -23,25 +23,25 @@ export class KosgridComponent implements OnInit {
   constructor(private kosService: kosDataServices, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) { }
 
   ngOnInit() {
-  
+    console.log(this.gridKos.hasSelectedItem);
   }
   kosFilter: kosFilter = new kosFilter();
   gridKos: KosListComponent_Models.GridUser = new KosListComponent_Models.GridUser(this.kosService, this.kosFilter,this.modalService,this.changeDetection);
-
+  
 }
 export class kosFilter {
   hastaneIDList;
   basTarih;
   bitTarih;
   modaliteList;
-  eslesmeDurumu;
+  EslesmeDurumuList;
   tcList;
   accessionNumberList;
 }
 namespace KosListComponent_Models {
 
   export class GridUser extends Grid.GridControl<any> {
-
+      
     modal: OpenModal = new OpenModal(this.modalService, this.changeDetection);
     public direction: number = 0;
     selectAll: boolean = false;
@@ -50,10 +50,13 @@ namespace KosListComponent_Models {
     constructor(private kosService: kosDataServices, public kosFilter: kosFilter, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) {
       super();
     }
+
     openConfirmationDialog(message) {
       const initialState = {
         modalTitle: "Bilgilendirme",
-        message: message
+        message: message,
+        button1Text: "Tamam",
+        dangerButtonEnable: false
       };
       this.modal.openModal(ConfirmationdialogComponent, initialState).subscribe((result) => {
         console.log(result.reason);
@@ -62,19 +65,22 @@ namespace KosListComponent_Models {
     }
     filter = new Grid.GridInputModel(new infStudyFilter());
     getFilter() {
-
+      let list = [];
       this.filter.paging.pageNumber = this.model.paging.pageNumber;
       this.filter.paging.count = this.model.paging.count;
       this.filter.sorting = this.model.sorting;
 
       let item = this.filter.filter;
       var o = this.kosFilter;
-
+      this.selectedItems.forEach(item => {
+        list.push(item.accessionNumber);
+      });
+      item.studyIdList = list;
       item.hastaneIDList = o.hastaneIDList;
       item.basTarih = o.basTarih;
       item.bitTarih = o.bitTarih;
       item.modaliteList = o.modaliteList;
-      item.eslesmeDurumu = o.eslesmeDurumu;
+      item.EslesmeDurumuList = o.EslesmeDurumuList;
       item.tcList = o.tcList;
       item.accessionNumberList = o.accessionNumberList;
 
@@ -91,9 +97,10 @@ namespace KosListComponent_Models {
         });
       }
       else {
+        this.getFilter();
         this.kosService.createKos(this.getFilter()).subscribe(o => {
           console.log(o);
-          this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o)
+          this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
         });
       }
     }
@@ -111,7 +118,7 @@ namespace KosListComponent_Models {
       else {
         this.kosService.sendKos(this.getFilter()).subscribe(o => {
           console.log(o);
-          this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o)
+          this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
         });
       }
     }
@@ -129,13 +136,14 @@ namespace KosListComponent_Models {
       else {
         this.kosService.deleteKos(this.getFilter()).subscribe(o => {
           console.log(o);
-          this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o)
+          this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
         });
       }
     }
 
 
     onClickUpdateReadKos() {
+      
       if (this.selectAll) {
         let filter = this.getFilter().filter;
         filter = new infStudyFilter();
@@ -147,7 +155,7 @@ namespace KosListComponent_Models {
       else {
         this.kosService.updateReadKos(this.getFilter()).subscribe(o => {
           console.log(o);
-          this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o)
+          this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
         });
       }
     }
@@ -165,7 +173,7 @@ namespace KosListComponent_Models {
       else {
         this.kosService.reprocessKos(this.getFilter()).subscribe(o => {
           console.log(o);
-          this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o)
+          this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
         });
       }
     }
@@ -210,8 +218,13 @@ namespace KosListComponent_Models {
       else if (type == 'selectAll') {
         if (event.srcElement.checked) {
           this.selectPage = false;
+
+          this.selectedItems.length = this.data.totalCount;
         }
-        this.onSelectAllItems();
+        else {
+          this.selectedItems.length = 0;
+        }
+        
       }
       else { }
     }
