@@ -529,6 +529,7 @@ namespace GT.DataService.Implementation
             var failCount = studyOperationCount.GetByStudyID(kosStudyID);
             if (failCount == null)
             {
+                failCount = new StudyOperationCount();
                 failCount.SentkosErrorTryCount = 1;
                 failCount.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
                 failCount.TimeCreated = DateTime.Now;
