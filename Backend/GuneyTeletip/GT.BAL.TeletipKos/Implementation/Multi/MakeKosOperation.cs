@@ -71,7 +71,7 @@ namespace GT.Job.Implementation
             sb.AppendLine("");
             sb.AppendLine("");
             sb.Append(res.Arguments);
-            studyDataService.Save_UpdateMakeKosDurum(item.StudyID, true, outputPath, res.Message + res.Arguments);
+            studyDataService.Save_UpdateMakeKosDurum(item.StudyID, res.IsSuccess, outputPath, res.Message + res.Arguments);
             return res;
         }
 

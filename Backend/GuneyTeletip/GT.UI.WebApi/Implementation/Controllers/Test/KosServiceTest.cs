@@ -161,7 +161,9 @@ namespace GT.UI.WebApi.Controllers
         {
             var basePath = Environment.CurrentDirectory;
             var kosPath = Path.GetFullPath("../teletip_kos/", basePath);
-            var makeKosPath = Path.Combine(kosPath, "MakeKOS_v21.jar");
+            var makeKosPath = Path.Combine(kosPath, "MakeKOS_protekV1.jar");
+            
+
 
             var WorkingDirectory = "/dicom";
             var processParameter = GetInfo();

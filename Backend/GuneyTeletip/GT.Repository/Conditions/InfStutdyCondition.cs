@@ -99,6 +99,9 @@ namespace GT.Repository.Conditions
             {
                 exp = exp.And(o => o.Pk == filter.Pk.Value);
             }
+
+            exp = exp.And(o => o.ZeroImg != 1);
+
             return exp;
         }
     }

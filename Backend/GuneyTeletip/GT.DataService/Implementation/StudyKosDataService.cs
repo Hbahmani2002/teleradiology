@@ -228,7 +228,7 @@ namespace GT.DataService.Implementation
             {
                 MakeKosCount = true,
             };
-            return makeKosCompositeRepository.Query(s,sc)
+            return makeKosCompositeRepository.Query(s,sc)             
                 .OrderBy(o => o.StudyID).Take(parms.Paging.Count).ToArray();
         }
         public List<MakeKosViewModel> GetMakeKosList(int count)
