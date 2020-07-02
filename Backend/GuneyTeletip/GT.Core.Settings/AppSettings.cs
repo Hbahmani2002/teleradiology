@@ -43,6 +43,7 @@ namespace GT.Core.Settings
                         catch (Exception ex)
                         {
                             _AppSettings = new AppSettings();
+                            _AppSettings.ConfigFileException = ex;
                             var msg = $"{SettingsFilePath} dosaysından global ayarlar çekilmedi";
                             Debug.WriteLine(msg);
 
@@ -66,6 +67,7 @@ namespace GT.Core.Settings
                "User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;"
                );
         }
+        public Exception ConfigFileException { get; set; }
         private AppSettings(DatabaseSettings set)
         {
             IsFromConfigFile = true;

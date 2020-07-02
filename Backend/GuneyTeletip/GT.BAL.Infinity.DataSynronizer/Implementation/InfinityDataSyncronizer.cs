@@ -15,10 +15,12 @@ namespace GT.BAL.Infinity.DataSynronizer
     {
         InfOracleDataService _InfOracleDataService;
         StudyKosDataService _InfStudyDataService;
+        KosPahtDataService KosPahtDataService;
         public InfinityDataSyncronizer(IBussinessContext context) : base(context)
         {            
             _InfOracleDataService = new InfOracleDataService(null);
             _InfStudyDataService = new StudyKosDataService(null);
+            KosPahtDataService = new KosPahtDataService(null);
 
         }
         public void SyncronizeInfinityStudyList(long tenantID, long lastID, System.DateTime? startTime, System.DateTime? endTime)
@@ -36,7 +38,7 @@ namespace GT.BAL.Infinity.DataSynronizer
             var items=_InfOracleDataService.GetInfOracleList(filter);
             var list = new List<InfOraclePostgreStudyViewModel>();
 
-        
+            var volumMap = "";
 
             foreach (var item in items)
             {
@@ -72,22 +74,43 @@ namespace GT.BAL.Infinity.DataSynronizer
                 model.SeriesCount = 0;
                 model.SeriesKey = 0;
                 model.InstanceKey = "";
-                model.FileName = item.Filename;
+                model.FileName = item.Filename;                          
                 model.ValumeCode = item.VolumeCode;
                 model.ValumeType = item.VolumeType;
                 model.ValumeStat = item.VolumeStat;
                 model.ValumePathname = item.VolumePathname;
-                model.CreationDttm = DateTime.Now;
+                model.CreationDttm = item.CreationDttm.HasValue ? item.CreationDttm : DateTime.Now;
                 model.OracleStudyKey =item.StudyKey;
                 model.FkKosEnumType = 2;
                 model.InfMergeKey = item.InfMergeKey;
                 model.SeriesInfo = item.SeriesInfo;
 
 
+
+                
+
+
                 if (item.VolumePathname!=null)
                 {
-                   
-                    model.DicomPhat = item.VolumePathname + "\\" + item.Pathname.Replace("/", "\\");
+
+
+                        if (item.VolumeCode != null)
+                        {
+
+
+                            volumMap = KosPahtDataService.GetTenantKosPaht(item.VolumeCode);
+                            model.DicomPhat = item.VolumePathname.Replace(item.VolumePathname, volumMap) + "/" + item.Pathname;
+
+                        }
+                        else
+                        {
+                            model.DicomPhat = item.VolumePathname + "\\" + item.Pathname.Replace("/", "\\");
+
+                        }
+
+
+
+                        
                 }
                 else
                 {
@@ -100,7 +123,7 @@ namespace GT.BAL.Infinity.DataSynronizer
              
 
 
-                if ( item.SeriesInfo == OrcleZeroImages)
+                if ( item.SeriesInfo.Contains(OrcleZeroImages))
                 {
                     
                     model.ZeroImg = 1;

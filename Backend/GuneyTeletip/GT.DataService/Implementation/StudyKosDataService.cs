@@ -99,6 +99,7 @@ namespace GT.DataService.Implementation
                 KosStudy.DateBirth = item.DateBirth;
                 KosStudy.StudyDate = item.StudyDate;
                 KosStudy.StoragePath = item.StoragePath;
+                KosStudy.ZeroImg = item.ZeroImg;
                 KosStudy.PatinetNameSurname = item.PatinetNameSurname;
                 KosStudy.CihazDeviceSerialNumber = "0";
                 KosStudy.Desc1 = "";
@@ -115,7 +116,7 @@ namespace GT.DataService.Implementation
                 KosStudy.VolumeType = item.ValumeType;
                 KosStudy.VolumeStat = item.ValumeStat;
                 KosStudy.VolumePathname = item.ValumePathname;
-                KosStudy.CreationDttm = DateTime.Now;
+                KosStudy.CreationDttm = item.CreationDttm; ;
                 KosStudy.OracleStudyKey = item.OracleStudyKey.Value;
                 KosStudy.FkKosEnumType = 10;
                 KosStudy.DicomDirPath = item.DicomPhat;
@@ -258,6 +259,32 @@ namespace GT.DataService.Implementation
             return kosStudyJobRepository.Query(s,sc).OrderBy(o => o.StudyID).Take(count).ToList();
         }
 
+
+        public IEnumerable<SentKosViewModel> GetSentKosList(Gridable<KosStudyFilter> parms)
+        {
+            var s = new InfStudyConditionFilter
+            {
+                KosEnum = KosEnumType.KosOlusturulamamisOlanlar,
+                KosWaitHour = true,
+                AccessionNumberList = parms.Filter.AccessionNumberList,
+                EslesmeDurumuList = parms.Filter.EslesmeDurumuList,
+                HastaneIDList = parms.Filter.HastaneIDList,
+                ModalityList = parms.Filter.ModaliteList,
+                BasTarih = parms.Filter.BasTarih,
+                BitTarih = parms.Filter.BitTarih,
+                Modality = parms.Filter.Modalite,
+                PatientID = parms.Filter.PatientID,
+                StudyInstanceUID = parms.Filter.StudyInstanceUID
+            };
+            var sc = new StudyOperationCountConditionFilter
+            {
+                MakeKosCount = true,
+            };
+            return kosStudyJobRepository.Query(s, sc)
+                .OrderBy(o => o.StudyID).Take(parms.Paging.Count).ToArray();
+        }
+
+
         //public List<Repository.Models.View.OrderStatusForAccessionNumberViewModel> GetSTMInfoList(int count, string accessionNumberList)
         //{
         //    var g = new GetorderStatusConditionFilter
@@ -370,6 +397,36 @@ namespace GT.DataService.Implementation
         {
             return kosDurumIstCompositeRepository.Query().ToList();
         }
+
+        public IEnumerable<MakeKosViewModel> GetKosDurum(Gridable<KosStudyFilter> parms)
+        {
+            
+
+
+            var s = new InfStudyConditionFilter
+            {
+                KosEnum = KosEnumType.KosOlusturulamamisOlanlar,
+                KosWaitHour = true,
+                AccessionNumberList = parms.Filter.AccessionNumberList,
+                EslesmeDurumuList = parms.Filter.EslesmeDurumuList,
+                HastaneIDList = parms.Filter.HastaneIDList,
+                ModalityList = parms.Filter.ModaliteList,
+                BasTarih = parms.Filter.BasTarih,
+                BitTarih = parms.Filter.BitTarih,
+                Modality = parms.Filter.Modalite,
+                PatientID = parms.Filter.PatientID,
+                StudyInstanceUID = parms.Filter.StudyInstanceUID
+            };
+            var sc = new StudyOperationCountConditionFilter
+            {
+                MakeKosCount = true,
+            };
+            return makeKosCompositeRepository.Query(s, sc)
+                .OrderBy(o => o.StudyID).Take(parms.Paging.Count).ToArray();
+
+
+        }
+
         public IEnumerable<KosDeleteViewModel> GetKosDeleteList(KosStudyFilter filter)
         {
             if (filter == null)
@@ -390,7 +447,7 @@ namespace GT.DataService.Implementation
         }
         public long Save_UpdateMakeKosDurum(long kosStudyID, bool isSuccess, string kosPath, string statusMessage)
         {
-            var newKosState = (int)(isSuccess ? KosEnumType.KosOlusmusOlanlar : KosEnumType.KosOlusturulamamisOlanlar);
+            var newKosState = (int)(isSuccess ? KosEnumType.KosOlusmusOlanlar : KosEnumType.KosOlusumuHataliOlanlar);
             var kosStudyHistory = new KosStudyHistory();
             kosStudyHistory.EnumType = newKosState;
             kosStudyHistory.FkKosStudy = kosStudyID;
@@ -404,9 +461,17 @@ namespace GT.DataService.Implementation
             {
                 throw new Exception("kosStudy bulunmadı. kosStudyID" + kosStudyID);
             }
-            kosStudy.FkKosEnumType = newKosState;
+          
             if (isSuccess)
+            {
+                kosStudy.FkKosEnumType = newKosState;
                 kosStudy.DicomKosPath = kosPath;
+            }
+            else
+            {
+                kosStudy.FkKosEnumType = newKosState;
+                kosStudy.DicomKosPath = null;
+            }
             _InfStudyRepository.Update(kosStudy);
 
             var failCount = studyOperationCount.GetByStudyID(kosStudyID);

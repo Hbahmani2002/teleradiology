@@ -37,9 +37,24 @@ namespace GT.UI.WebApi.Controllers
             return HttpMessageService.Ok(job);
         }
 
+
         [HttpPost]
         [Route("/Kos/SendKos")]
-        public ServiceResult<int> SendKos(Gridable<KosStudyFilter> parms)
+        public ServiceResult<MultipleOperationResultModel> SendKos(Gridable<KosStudyFilter> parms)
+        {
+            var sd = new StudyKosService(GetBussinesContext());
+            var job = sd.SendKos(parms);
+            return HttpMessageService.Ok(job);
+
+         
+
+
+        }
+
+
+        [HttpPost]
+        [Route("/Kos/SendKos1")]
+        public ServiceResult<int> SendKos1(Gridable<KosStudyFilter> parms)
         {
             return HttpMessageService.Ok(9901);
         }
@@ -141,9 +156,20 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Kos/UpdateReadKos")]
-        public ServiceResult<int> UpdateReadKos(Gridable<KosStudyFilter> parms)
+        //public ServiceResult<int> UpdateReadKos(Gridable<KosStudyFilter> parms)
+        public ServiceResult<MultipleOperationResultModel> UpdateReadKos(Gridable<KosStudyFilter> parms)
         {
-            return HttpMessageService.Ok(66);
+
+
+            //var sd = new StudyKosService(GetBussinesContext());
+            //var job = sd.UpdateReadKos(parms);
+            //return HttpMessageService.Ok(job.JobID);
+
+
+            var sd = new StudyKosService(GetBussinesContext());
+            var job = sd.UpdateReadKos(parms);
+            return HttpMessageService.Ok(job);
+
         }
 
         [HttpPost]
