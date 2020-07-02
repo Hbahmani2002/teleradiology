@@ -21,6 +21,10 @@ namespace GT.Repository.Implementation
         public override UsrUserLogin GetByID(long id)
         {
             return Single(o => o.Pk == id);
-        }       
+        }
+        public  UsrUserLogin GetByUserNameAndPassword(string kullaniciAdi, string sifre)
+        {
+            return Single(o => o.UserName== kullaniciAdi && o.Password==sifre);
+        }
     }
 }

@@ -23,9 +23,11 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Authentication/Token")]
         public ServiceResult<string> Token(LoginUIModel model)
         {
-            //var service = new AuthenticationDataService(null);
-            //return service.Login();
-            var token = LoginJWTService.GenerateJwtToken(10, model.UserName);
+            var service = new AuthenticationDataService();
+            var user=service.Login(model.UserName,model.Password);
+            if (user == null)
+                throw new Exception("Böyle bir kullanıcı bulunamadı");
+            var token = LoginJWTService.GenerateJwtToken(user.UserID, user.UserName);
             return HttpMessageService.Ok(token);
         }
 

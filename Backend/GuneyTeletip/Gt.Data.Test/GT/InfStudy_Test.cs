@@ -25,7 +25,9 @@ namespace Gt.Data.Test
 
             var filter = new KosStudyFilter();
             grid.Filter = filter;
-            filter.BasTarih = new DateTime(2020,07,01);
+            var eslesmeDurumuList = new long[1];
+            eslesmeDurumuList[0] = 20;
+            filter.EslesmeDurumuList = eslesmeDurumuList;
             var list = service.GetInfStudyList(grid);
         }
 
