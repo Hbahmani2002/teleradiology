@@ -453,7 +453,7 @@ namespace GT.DataService.Implementation
             kosStudyHistory.EnumType = newKosState;
             kosStudyHistory.FkKosStudy = kosStudyID;
             kosStudyHistory.FkUserCreated = 0;
-            //kosStudyHistory.FkUserCreated = Context.UserInfo.UserIDCurrent;
+            //kosStudyHistory.FkUserCreated = Context==null?(long?):Context.UserInfo.UserIDCurrent;
             kosStudyHistory.TimeCreated = DateTime.Now;
             kosStudyHistory.Result = statusMessage;
 
@@ -514,7 +514,7 @@ namespace GT.DataService.Implementation
             var kosStudyHistory = new KosStudyHistory();
             kosStudyHistory.EnumType = newKosState;
             kosStudyHistory.FkKosStudy = kosStudyID;
-            kosStudyHistory.FkUserCreated = Context.UserInfo.UserIDCurrent;
+            kosStudyHistory.FkUserCreated = Context==null?(long?)null:Context.UserInfo.UserIDCurrent;
             kosStudyHistory.TimeCreated = DateTime.Now;
             kosStudyHistory.Result = statusMessage;
 
@@ -582,7 +582,7 @@ namespace GT.DataService.Implementation
              var kosStudyHistory = new KosStudyHistory();
             kosStudyHistory.EnumType = (int)KosEnumType.KosGonderilipEslesenler;
             kosStudyHistory.FkKosStudy = kosStudyID;
-            kosStudyHistory.FkUserCreated = Context.UserInfo.UserIDCurrent;
+            kosStudyHistory.FkUserCreated = Context == null ? (long?)null: Context.UserInfo.UserIDCurrent;
             kosStudyHistory.TimeCreated = DateTime.Now;
             kosStudyHistory.Result = "";
 
@@ -602,7 +602,7 @@ namespace GT.DataService.Implementation
             var kosStudyHistory = new KosStudyHistory();
             kosStudyHistory.EnumType = (int)KosEnumType.KosSilinenler;
             kosStudyHistory.FkKosStudy = studyID;
-            kosStudyHistory.FkUserCreated = Context.UserInfo.UserIDCurrent;
+            kosStudyHistory.FkUserCreated = Context == null ? (long?)null: Context.UserInfo.UserIDCurrent;
             kosStudyHistory.TimeCreated = DateTime.Now;
             kosStudyHistory.Result = message;
 
