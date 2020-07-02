@@ -25,6 +25,7 @@ namespace GT.Persistance.Domain.Models
         public virtual DbSet<KosBatch> KosBatch { get; set; }
         public virtual DbSet<KosEnumtype> KosEnumtype { get; set; }
         public virtual DbSet<KosOperationEnumType> KosOperationEnumType { get; set; }
+        public virtual DbSet<KosPaht> KosPaht { get; set; }
         public virtual DbSet<KosStudy> KosStudy { get; set; }
         public virtual DbSet<KosStudyHistory> KosStudyHistory { get; set; }
         public virtual DbSet<KosStudyJob> KosStudyJob { get; set; }
@@ -88,6 +89,8 @@ namespace GT.Persistance.Domain.Models
                 entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
 
                 entity.Property(e => e.LogType).HasColumnName("log_type");
+
+                entity.Property(e => e.TestPkFk).HasColumnName("test_pk_fk");
 
                 entity.Property(e => e.TimeCreated).HasColumnName("time_created");
 
@@ -176,7 +179,7 @@ namespace GT.Persistance.Domain.Models
                 entity.ToTable("const_modality");
 
                 entity.HasIndex(e => e.Name)
-                    .HasName("name_uni")
+                    .HasName("constraint_name_unique")
                     .IsUnique();
 
                 entity.Property(e => e.Pk)
@@ -334,6 +337,62 @@ namespace GT.Persistance.Domain.Models
                 entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
+            modelBuilder.Entity<KosPaht>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("kos_paht_pkey");
+
+                entity.ToTable("kos_paht");
+
+                entity.Property(e => e.Pk).HasColumnName("pk");
+
+                entity.Property(e => e.FilePath).HasColumnName("file_path");
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.Hostname)
+                    .IsRequired()
+                    .HasColumnName("hostname");
+
+                entity.Property(e => e.KurumKodu).HasColumnName("kurum_kodu");
+
+                entity.Property(e => e.Modality).HasColumnName("modality");
+
+                entity.Property(e => e.PahtCode)
+                    .IsRequired()
+                    .HasColumnName("paht_code");
+
+                entity.Property(e => e.PahtStat).HasColumnName("paht_stat");
+
+                entity.Property(e => e.PahtType).HasColumnName("paht_type");
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasColumnName("password");
+
+                entity.Property(e => e.Pathname)
+                    .IsRequired()
+                    .HasColumnName("pathname");
+
+                entity.Property(e => e.RecordType).HasColumnName("record_type");
+
+                entity.Property(e => e.ReplacePath).HasColumnName("replace_path");
+
+                entity.Property(e => e.Sharename)
+                    .IsRequired()
+                    .HasColumnName("sharename");
+
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
+
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
+
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasColumnName("username");
+            });
+
             modelBuilder.Entity<KosStudy>(entity =>
             {
                 entity.HasKey(e => e.Pk)
@@ -415,7 +474,9 @@ namespace GT.Persistance.Domain.Models
                     .HasColumnName("modality")
                     .HasMaxLength(6);
 
-                entity.Property(e => e.OracleStudyKey).HasColumnName("oracle_study_key");
+                entity.Property(e => e.OracleStudyKey)
+                    .HasColumnName("oracle_study_key")
+                    .HasColumnType("numeric");
 
                 entity.Property(e => e.PatientId)
                     .HasColumnName("patient_id")

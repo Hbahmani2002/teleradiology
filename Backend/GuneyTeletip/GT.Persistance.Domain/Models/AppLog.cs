@@ -14,5 +14,6 @@ namespace GT.Persistance.Domain.Models
         public DateTime? TimeModified { get; set; }
         public long? FkUserCreated { get; set; }
         public long? FkUserModified { get; set; }
+        public long? TestPkFk { get; set; }
     }
 }
