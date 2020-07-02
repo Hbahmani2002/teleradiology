@@ -264,7 +264,7 @@ namespace GT.DataService.Implementation
         {
             var s = new InfStudyConditionFilter
             {
-                KosEnum = KosEnumType.KosOlusturulamamisOlanlar,
+                KosEnum = KosEnumType.KosOlusmusOlanlar,
                 KosWaitHour = true,
                 AccessionNumberList = parms.Filter.AccessionNumberList,
                 EslesmeDurumuList = parms.Filter.EslesmeDurumuList,
@@ -448,6 +448,7 @@ namespace GT.DataService.Implementation
         public long Save_UpdateMakeKosDurum(long kosStudyID, bool isSuccess, string kosPath, string statusMessage)
         {
             var newKosState = (int)(isSuccess ? KosEnumType.KosOlusmusOlanlar : KosEnumType.KosOlusumuHataliOlanlar);
+            
             var kosStudyHistory = new KosStudyHistory();
             kosStudyHistory.EnumType = newKosState;
             kosStudyHistory.FkKosStudy = kosStudyID;
@@ -460,8 +461,7 @@ namespace GT.DataService.Implementation
             if (kosStudy == null)
             {
                 throw new Exception("kosStudy bulunmadı. kosStudyID" + kosStudyID);
-            }
-          
+            }   
             if (isSuccess)
             {
                 kosStudy.FkKosEnumType = newKosState;

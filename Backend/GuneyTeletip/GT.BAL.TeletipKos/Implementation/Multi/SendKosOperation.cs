@@ -84,7 +84,7 @@ namespace GT.Job.Implementation
             ParallelLoopResult result = Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, item =>
             {
                 var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
-                var res = TeletipSendKosService.SendKosCa(item.PatientId, item.DicomPath);
+                var res = TeletipSendKosService.SendKosCa(item.PatientId, item.SendDicomPath);
                 var studyDataService = new StudyKosDataService();
                 var sb = new StringBuilder();
 

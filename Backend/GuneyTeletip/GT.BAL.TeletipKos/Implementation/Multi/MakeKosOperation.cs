@@ -55,33 +55,33 @@ namespace GT.Job.Implementation
                 {
                     return;
                 }
-                var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
-                var res = TeletipMakeKosService.MakeKos(item.InputStudyDirectoryPath, outputPath,item.InstitutionName,item.InstitutionSKRS);
-                var studyDataService = new StudyKosDataService();
-                var sb = new StringBuilder();
-                sb.AppendLine(res.Message);
-                sb.AppendLine("");
-                sb.AppendLine("");
-                sb.Append(res.Arguments);
-                studyDataService.Save_UpdateMakeKosDurum(item.StudyID, res.IsSuccess, outputPath, res.Message + res.Arguments);
+                MakeKos(item);
                 progressAction.IncreaseProgressError();
                 progressAction.IncreaseProgressSuccess();
             });
         }
+
+        private ProcessResult MakeKos(MakeKosViewModel item)
+        {
+            var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
+            var res = TeletipMakeKosService.MakeKos(item.InputStudyDirectoryPath, outputPath, item.InstitutionName, item.InstitutionSKRS);
+            var studyDataService = new StudyKosDataService();
+            var sb = new StringBuilder();
+            sb.AppendLine(res.Message);
+            sb.AppendLine("");
+            sb.AppendLine("");
+            sb.Append(res.Arguments);
+            studyDataService.Save_UpdateMakeKosDurum(item.StudyID, true, outputPath, res.Message + res.Arguments);
+            return res;
+        }
+
         public IEnumerable<ProcessResult> DoSingleBatch(IEnumerable<MakeKosViewModel> items)
         {
             var resultCollection = new ConcurrentBag<ProcessResult>();
             ParallelLoopResult result = Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, item =>
-            {                
+            {
                 var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
-                var res = TeletipMakeKosService.MakeKos(item.InputStudyDirectoryPath, outputPath, item.InstitutionName, item.InstitutionSKRS);
-                var studyDataService = new StudyKosDataService();
-                var sb = new StringBuilder();
-                sb.AppendLine(res.Message);
-                sb.AppendLine("");
-                sb.AppendLine("");
-                sb.Append(res.Arguments);
-                var sonuc=studyDataService.Save_UpdateMakeKosDurum(item.StudyID, res.IsSuccess, outputPath, res.Message + res.Arguments);
+                var res = MakeKos(item);
                 resultCollection.Add(res);
             });
             return resultCollection.ToArray();

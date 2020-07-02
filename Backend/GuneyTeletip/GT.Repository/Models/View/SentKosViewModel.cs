@@ -8,6 +8,7 @@ namespace GT.Repository.Models.View
     {
         public string PatientId { get; set; }
         public string DicomPath { get; set; }
+        public string SendDicomPath { get; set; }
         public long StudyID { get; set; }
     }
 }
