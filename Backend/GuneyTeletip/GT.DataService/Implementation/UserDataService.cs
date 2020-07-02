@@ -86,7 +86,7 @@ namespace GT.DataService.Implementation
             var userLogin = new UsrUserLogin();
             if (model.ID == null)
             {
-                userLogin.FkUserModified = Context.UserInfo.UserIDCurrent;
+                userLogin.FkUserModified = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
                 userLogin.TimeCreated = DateTime.Now;
                 userLoginRepository.Add(userLogin);
             }
@@ -98,7 +98,7 @@ namespace GT.DataService.Implementation
                     throw new Exception("User bulunamadı. UserID:" + model.ID);
                 }
                 userLogin.TimeModified = DateTime.Now;
-                userLogin.FkUserModified = Context.UserInfo.UserIDCurrent;
+                userLogin.FkUserModified = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
                 userLoginRepository.Update(userLogin);
             }
             userLogin.EmailAdress = model.EmailAdress;
