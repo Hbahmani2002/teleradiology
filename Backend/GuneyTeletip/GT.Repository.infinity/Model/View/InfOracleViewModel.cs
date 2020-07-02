@@ -27,7 +27,7 @@ namespace GT.Repository.infinity.Model.View
         public string VolumeStat { get; set; }
         public string VolumePathname { get; set; }
         public DateTime? ModifyDttm { get; set; }
-        public DateTime CreationDttm { get; set; }
+        public DateTime? CreationDttm { get; set; }
         public string StudyDesc { get; set; }
         public decimal? InfMergeKey { get; set; }
         public string SeriesInfo { get; set; }
