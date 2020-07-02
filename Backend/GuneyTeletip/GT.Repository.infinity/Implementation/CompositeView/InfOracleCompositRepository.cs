@@ -85,8 +85,8 @@ namespace GT.Repository.infinity.Implementation.CompositeView
                             SeriesInfo = seri.SeriesInfo
 
                         };
-         
 
+     
 
             return query;
 

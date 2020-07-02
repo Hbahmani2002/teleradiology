@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using GT.BAL.TeletipKos;
+using GT.BAL.TeletipKos.Model;
 using GT.DataService.Implementation;
 using GT.DataService.Model;
 using GT.Repository.Models.Filter;
@@ -29,14 +30,11 @@ namespace GT.UI.WebApi.Controllers
     {
         [HttpPost]
         [Route("/Kos/CreateKos")]
-        public ServiceResult<int> CreateKos(Gridable<KosStudyFilter> parms)
+        public ServiceResult<MultipleOperationResultModel> CreateKos(Gridable<KosStudyFilter> parms)
         {
-
-
-            return HttpMessageService.Ok(9989);
-
-
-
+            var sd = new StudyKosService(GetBussinesContext());
+            var job = sd.CreateKos(parms);
+            return HttpMessageService.Ok(job);
         }
 
         [HttpPost]
@@ -53,7 +51,7 @@ namespace GT.UI.WebApi.Controllers
         {
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.CreateKosBackground(parms);
-            return HttpMessageService.Ok(job.JobID); 
+            return HttpMessageService.Ok(job.JobID);
         }
 
 
@@ -90,7 +88,7 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<long> OrderStatusForAccessionnumberList(KosStudyFilter parms)
         {
 
-            
+
 
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.StmGetOrderStatusForAccessionNumberlistBackground(parms);
@@ -136,7 +134,7 @@ namespace GT.UI.WebApi.Controllers
         {
             var cx = GetBussinesContext();
             var service = new StudyKosService(cx);
-            var job=service.ReprocessKosBackground(parms.Filter);
+            var job = service.ReprocessKosBackground(parms.Filter);
             return HttpMessageService.Ok(job.JobID);
         }
 
