@@ -101,6 +101,12 @@ namespace GT.Repository.Conditions
                 exp = exp.And(o => o.Pk == filter.Pk.Value);
             }
 
+            if (filter.PkList != null && filter.PkList.Length > 0)
+            {
+                var arrs = filter.PkList.ToList();
+                exp = exp.And(o => arrs.Contains(o.Pk));
+            }
+
             exp = exp.And(o => o.ZeroImg != 1);
 
             return exp;

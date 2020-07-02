@@ -73,9 +73,9 @@ namespace KosListComponent_Models {
       let item = this.filter.filter;
       var o = this.kosFilter;
       this.selectedItems.forEach(item => {
-        list.push(item.accessionNumber);
+        list.push(item.id);
       });
-      item.studyIdList = list;
+      item.StudyIDList = list;
       item.hastaneIDList = o.hastaneIDList;
       item.basTarih = o.basTarih;
       item.bitTarih = o.bitTarih;

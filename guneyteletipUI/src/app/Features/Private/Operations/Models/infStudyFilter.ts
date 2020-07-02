@@ -1,5 +1,5 @@
 export class infStudyFilter {
-  studyIdList;
+  StudyIDList;
   hastaneIDList;
   basTarih;
   bitTarih;
