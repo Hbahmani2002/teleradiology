@@ -31,19 +31,22 @@ namespace GT.Repository.Implementation.Composite
             var skrs = _AbstractWorkspace.Query<ConstSkrs>();
             var userSkrs = _AbstractWorkspace.Query<UsrTenantSkrs>();
             var failCount = _AbstractWorkspace.Query<StudyOperationCount>(exp2);
+            var kosTenat = _AbstractWorkspace.Query<UsrTenant>();
             var list = from k in kosStudy
                        join us in userSkrs on k.FkTenant equals us.FkTenant
+                       join t in kosTenat on us.FkTenant equals t.Pk
                        join s in skrs on us.FkSkrs equals s.Pk
                        join fc in failCount on k.Pk equals fc.FkStudy
-                        into ps3 from fc in ps3.DefaultIfEmpty()
+         
+                       into ps3 from fc in ps3.DefaultIfEmpty()
                        select new MakeKosViewModel
                        {
                           AccessionNumber=k.AccessionNo,
                           InputStudyDirectoryPath=k.DicomDirPath,
                           PatientId=k.PatientId,
                           PatientSex=k.Gender,
-                          InstitutionName=s.InstitutionName,
-                          InstitutionSKRS=s.KurumSkrsAdi,
+                          InstitutionName=t.TenantShortName,
+                          InstitutionSKRS=s.KurumSkrsKodu,
                           StudyID=k.Pk
                        };
 

@@ -207,7 +207,7 @@ namespace GT.DataService.Implementation
             return _InfStudyRepository.Query(s)
                 .GetGridQuery(parms);
         }
-        public List<MakeKosViewModel> GetMakeKosList(Gridable<KosStudyFilter> parms,int count)
+        public IEnumerable<MakeKosViewModel> GetMakeKosList(Gridable<KosStudyFilter> parms)
         {
             var s = new InfStudyConditionFilter
             {
@@ -227,7 +227,8 @@ namespace GT.DataService.Implementation
             {
                 MakeKosCount = true,
             };
-            return makeKosCompositeRepository.Query(s,sc).OrderBy(o => o.StudyID).Take(count).ToList();
+            return makeKosCompositeRepository.Query(s,sc)
+                .OrderBy(o => o.StudyID).Take(parms.Paging.Count).ToArray();
         }
         public List<MakeKosViewModel> GetMakeKosList(int count)
         {
@@ -411,6 +412,7 @@ namespace GT.DataService.Implementation
             var failCount = studyOperationCount.GetByStudyID(kosStudyID);
             if (failCount == null)
             {
+                failCount = new StudyOperationCount();
                 failCount.MakekosErrorTryCount = 1;
                 failCount.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
                 failCount.TimeCreated = DateTime.Now;

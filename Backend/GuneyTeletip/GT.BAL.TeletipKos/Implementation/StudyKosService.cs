@@ -24,15 +24,21 @@ namespace GT.BAL.TeletipKos
             _InfStudyDataService = new StudyKosDataService(context);
         }
 
-        public MultipleOperationResultModel CreateKos(KosStudyFilter filter)
+        public MultipleOperationResultModel CreateKos(Gridable<KosStudyFilter> filter)
         {
+            var op = new MakeKosOperation();
 
-            var list = GetStudyKos(filter);
-            foreach (var item in list)
-            {
-
-            }
-            return RandomDataGenerator.CreateRandom<MultipleOperationResultModel>(1).FirstOrDefault();
+            var studyDataService = new StudyKosDataService();
+            var list = studyDataService.GetMakeKosList(filter);
+            var resList = op.DoSingleBatch(list)
+                .Select(o => new OperationResultModel()
+                {
+                    Id = 0,
+                    Status = o.IsSuccess ? 1 : 0,
+                    Description = o.Arguments + o.IsSuccess + o.Message
+                }).ToArray();
+            var res = new MultipleOperationResultModel(resList);
+            return res;
         }
         //public MultipleOperationResultModel CreateKosBackground1(KosStudyFilter filter)
         //{
@@ -59,9 +65,11 @@ namespace GT.BAL.TeletipKos
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
                 var globalSettings = AppSettings.GetCurrent();
-                var studyDataService = new StudyKosDataService();
+                var studyDataService = new StudyKosDataService();     
                 while (true)
                 {
+
+   
                     var items = studyDataService.GetMakeKosList(50);
                     if (items.Count == 0)
                         return;
@@ -87,6 +95,7 @@ namespace GT.BAL.TeletipKos
                 var studyDataService = new StudyKosDataService();
                 while (true)
                 {
+                   
                     var items = studyDataService.GetSentKosList(50);
                     if (items.Count == 0)
                         return;

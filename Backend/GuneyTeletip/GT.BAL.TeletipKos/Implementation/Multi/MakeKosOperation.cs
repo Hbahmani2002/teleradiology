@@ -17,6 +17,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Util.Job.Interface;
 using Util.Logger;
+using Util.ProcessUtil;
 
 namespace GT.Job.Implementation
 {
@@ -66,6 +67,24 @@ namespace GT.Job.Implementation
                 progressAction.IncreaseProgressError();
                 progressAction.IncreaseProgressSuccess();
             });
+        }
+        public IEnumerable<ProcessResult> DoSingleBatch(IEnumerable<MakeKosViewModel> items)
+        {
+            var resultCollection = new ConcurrentBag<ProcessResult>();
+            ParallelLoopResult result = Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, item =>
+            {                
+                var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
+                var res = TeletipMakeKosService.MakeKos(item.InputStudyDirectoryPath, outputPath, item.InstitutionName, item.InstitutionSKRS);
+                var studyDataService = new StudyKosDataService();
+                var sb = new StringBuilder();
+                sb.AppendLine(res.Message);
+                sb.AppendLine("");
+                sb.AppendLine("");
+                sb.Append(res.Arguments);
+                var sonuc=studyDataService.Save_UpdateMakeKosDurum(item.StudyID, res.IsSuccess, outputPath, res.Message + res.Arguments);
+                resultCollection.Add(res);
+            });
+            return resultCollection.ToArray();
         }
 
     }
