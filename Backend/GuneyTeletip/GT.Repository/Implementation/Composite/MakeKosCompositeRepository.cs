@@ -22,7 +22,12 @@ namespace GT.Repository.Implementation.Composite
         {
             var exp1 = InfStudyCondition.Get(i);
             var exp2 = StudyOperationCountCondition.Get(s);
-            return Query(exp1,exp2);
+            return Query(exp1, exp2);
+
+         
+
+
+
         }
 
         public IEnumerable<MakeKosViewModel> Query(Expression<Func<KosStudy, bool>> exp1, Expression<Func<StudyOperationCount, bool>> exp2)
@@ -47,7 +52,8 @@ namespace GT.Repository.Implementation.Composite
                           PatientSex=k.Gender,
                           InstitutionName=t.TenantShortName,
                           InstitutionSKRS=s.KurumSkrsKodu,
-                          StudyID=k.Pk
+                          StudyID=k.Pk,
+                          
                        };
 
             return list;

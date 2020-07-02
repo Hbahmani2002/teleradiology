@@ -34,7 +34,7 @@ namespace GT.BAL.Test
         public void UC1()
         {
             var settings = AppSettings.GetCurrent();
-            var ks=settings.DataServiceSettings;
+            var ks = settings.DataServiceSettings;
             var filePath = AppSettings.GetCurrent().Log.PATH_JobInfinity;
             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
@@ -48,7 +48,7 @@ namespace GT.BAL.Test
         [Test]
         public void UC11()
         {
-
+            var ex = AppSettings.GetCurrent().ConfigFileException;
             var dc = new InfinityDataSyncronizer(null);
             dc.SyncronizeInfinityStudyList(9, 0, new DateTime(2020, 07, 01), new DateTime(2020, 07, 02));
 

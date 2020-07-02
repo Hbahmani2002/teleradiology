@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Teletip.SorgulamaServis;
 using Util.Job.Interface;
 using Util.Logger;
+using Util.ProcessUtil;
 
 namespace GT.Job.Implementation
 {
@@ -141,6 +142,85 @@ namespace GT.Job.Implementation
                 progressAction.IncreaseProgressSuccess();
             });
         }
+
+
+
+        public IEnumerable<ProcessResult> DoSingleBatch(IEnumerable<MakeKosViewModel> items)
+        {
+          
+            var resultCollection = new ConcurrentBag<ProcessResult>();
+            ParallelLoopResult result = Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, item =>
+            {
+               
+                List<string> AccessionNumber = new List<string>();
+                AccessionNumber.Add(item.AccessionNumber);
+
+                var studyDataService = new StudyKosDataService();
+
+                var res = STMService.GetOrderStatusForAccessionNumberList(int.Parse(item.InstitutionSKRS), AccessionNumber);
+                var list = new List<OrderStatusForAccessionNumberViewModel>();
+                var items = studyDataService.GetByID(Convert.ToInt32(item.StudyID));
+                _OrderStatusForAccessionNumberDataService = new OrderStatusForAccessionNumberDataService(null);
+
+                if (res != null)
+                {
+                    foreach (var Gelenitem in res)
+                    {
+
+                        var model = new OrderStatusForAccessionNumberViewModel();
+
+                        model.FkTenant = items.TenantID;
+                        model.FkInfBatch = items.InfBatchID;
+                        model.FkKosStudy = items.ID;
+                        model.FkUserCreated = 0;
+                        model.FkUserModified = 0;
+                        model.Accessionnumber = item.AccessionNumber;
+                        model.Citizenid = Gelenitem.CitizenId;
+                        model.Teletipstatus = Gelenitem.TeletipStatus;
+                        model.Teletipstatusid = Gelenitem.TeletipStatusId;
+                        model.Medulastatus = Gelenitem.MedulaStatus;
+                        model.Medulastatusid = Gelenitem.MedulaStatusId;
+                        model.Wadostatus = Gelenitem.WadoStatus;
+                        model.Wadostatusid = Gelenitem.WadoStatusId;
+                        model.Reportstatus = Gelenitem.ReportStatus;
+                        model.Reportstatusid = Gelenitem.ReportStatusId;
+                        model.Dosestatus = "";
+                        model.Dosestatusid = 0;
+                        model.Medulainstitutionid = Gelenitem.MedulaInstitutionId;
+                        model.Sutcode = Gelenitem.SutCode;
+                        model.Lastmedulasenddate = DateTime.Now;
+                        model.Medularesponsecode = Gelenitem.MedulaResponseCode;
+                        model.Medularesponsemessage = Gelenitem.MedulaResponseMessage;
+                        model.Scheduledate = Gelenitem.ScheduleDate;
+                        model.Performeddate = Gelenitem.PerformedDate;
+                        model.Error = Gelenitem.Error;
+                        model.Patienthistorysearchstatus = "";
+                        model.Patienthistorysearchstatusid = 0;
+                        model.TimeCreated = DateTime.Now;
+                        model.TimeModified = null;
+
+                        list.Add(model);
+                    }
+
+
+
+                    _OrderStatusForAccessionNumberDataService.Save(list);
+
+
+                }
+
+
+            });
+
+            return resultCollection.ToArray();
+
+
+
+
+
+        }
+
+
 
     }
 }

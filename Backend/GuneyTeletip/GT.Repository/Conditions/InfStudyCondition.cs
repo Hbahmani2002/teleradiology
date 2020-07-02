@@ -15,16 +15,17 @@ namespace GT.Repository.Conditions
         public enum KosEnumType
         {
             KosOlusturulamamisOlanlar = 10,
-            KosOlusumuHataliOlanlar=20,
+            KosOlusumuHataliOlanlar = 20,
             KosOlusmusOlanlar = 30,
-            KosHataliGonderileneler=40,
-            KosGonderilipEslesmeyenler=50,
+            KosHataliGonderileneler = 40,
+            KosGonderilipEslesmeyenler = 50,
             KosGonderilipEslesenler = 60,
-            KosSilinenler=70
+            KosSilinenler = 70
         }
         public string Modality { get; set; }
         public string[] ModalityList { get; set; }
         public long? Pk { get; set; }
+        public long[] PkList { get; set; }
         public long[] HastaneIDList { get; set; }
         public DateTime? BasTarih { get; set; }
         public DateTime? BitTarih { get; set; }
@@ -32,13 +33,13 @@ namespace GT.Repository.Conditions
         public string[] AccessionNumberList { get; set; }
         public string[] TcList { get; set; }
         public KosEnumType? KosEnum { get; set; }
-        public bool KosWaitHour { get; set; }
+        public bool? KosWaitHour { get; set; }
         public string StudyInstanceUID { get; set; }
         public string PatientID { get; set; }
     }
     public class InfStudyCondition
     {
-        public static Expression<Func<KosStudy , bool>> Get(InfStudyConditionFilter filter)
+        public static Expression<Func<KosStudy, bool>> Get(InfStudyConditionFilter filter)
         {
             var exp = PredicateBuilder.True<KosStudy>();
             if (!string.IsNullOrEmpty(filter.Modality))
@@ -53,7 +54,7 @@ namespace GT.Repository.Conditions
             {
                 exp = exp.And(o => o.PatientId.Contains(filter.PatientID));
             }
-            if (filter.HastaneIDList!=null && filter.HastaneIDList.Length > 0)
+            if (filter.HastaneIDList != null && filter.HastaneIDList.Length > 0)
             {
                 var arr = filter.HastaneIDList.ToList();
                 exp = exp.And(o => arr.Contains(o.FkTenant));
@@ -68,7 +69,7 @@ namespace GT.Repository.Conditions
                 var arr = filter.EslesmeDurumuList.ToList();
                 exp = exp.And(o => arr.Contains((long)o.FkKosEnumType));
             }
-            if (filter.KosWaitHour==true)
+            if (filter.KosWaitHour.GetValueOrDefault())
             {
                 var hour = AppSettings.GetCurrent().DataServiceSettings.KosWaitHour;
                 exp = exp.And(o => o.TimeCreated >= o.TimeCreated.Value.AddHours(-hour));
@@ -99,6 +100,9 @@ namespace GT.Repository.Conditions
             {
                 exp = exp.And(o => o.Pk == filter.Pk.Value);
             }
+
+            exp = exp.And(o => o.ZeroImg != 1);
+
             return exp;
         }
     }

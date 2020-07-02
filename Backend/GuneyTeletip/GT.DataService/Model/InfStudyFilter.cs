@@ -7,7 +7,7 @@ namespace GT.DataService.Model
 {
     public class KosStudyFilter
     {
-
+        public long[] StudyIDList { get; set; }
         public long[] HastaneIDList { get; set; }
         public DateTime? BasTarih { get; set; }
         public DateTime? BitTarih { get; set; }

@@ -26,12 +26,30 @@ namespace GT.TeletipKos
         public SendKosProcessResult SendKos(string patientId, string kosFilePath)
         {
             var settings = Settings;
-
             var processParameter = $"-jar \"{settings.AppFilePath}\" \"{patientId}\" \"{kosFilePath}\" \"{settings.ServiceURL}\" \"{settings.AxisRepoDirectoryPath}\" \"{settings.AxisXmlFilePath}\" ";
             var processResult = ProcessUtil.Start("java", processParameter);
             var sc = new SendKosProcessResult(processResult);            
             return sc;
         }
+
+        public ProcessResult SendKosCa(string patientId, string kosFilePath)
+        {
+          
+
+            var settings = Settings;
+            var processParameter = $"-jar \"{settings.AppFilePath}\" \"{patientId}\" \"{kosFilePath}\" \"{settings.ServiceURL}\" \"{settings.AxisRepoDirectoryPath}\" \"{settings.AxisXmlFilePath}\" ";
+            var processResult = ProcessUtil.Start("java", processParameter);
+            //var sc = new SendKosProcessResult(processResult);
+            return processResult;
+
+
+
+
+
+
+        }
+
+
 
     }
 }

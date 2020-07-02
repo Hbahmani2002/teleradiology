@@ -40,6 +40,26 @@ namespace GT.BAL.TeletipKos
             var res = new MultipleOperationResultModel(resList);
             return res;
         }
+
+
+        public MultipleOperationResultModel SendKos(Gridable<KosStudyFilter> filter)
+        {
+            var op = new SendKosOperation();
+
+            var studyDataService = new StudyKosDataService();
+            var list = studyDataService.GetSentKosList(filter);
+            var resList = op.DoSingleBatch(list)
+                .Select(o => new OperationResultModel()
+                {
+                    Id = 0,
+                    Status = o.IsSuccess ? 1 : 0,
+                    Description = o.Arguments + o.IsSuccess + o.Message
+                }).ToArray();
+            var res = new MultipleOperationResultModel(resList);
+            return res;
+        }
+
+
         //public MultipleOperationResultModel CreateKosBackground1(KosStudyFilter filter)
         //{
 
@@ -168,14 +188,43 @@ namespace GT.BAL.TeletipKos
             return job;
         }
 
-        public void UpdateReadKos(KosStudyFilter filter)
+        //public void UpdateReadKos(KosStudyFilter filter)
+        public MultipleOperationResultModel UpdateReadKos(Gridable<KosStudyFilter> filter)
         {
-            var list = GetStudyKos(filter);
-            foreach (var item in list)
-            {
 
-            }
-            throw new NotImplementedException();
+
+
+            //var globalSettings = AppSettings.GetCurrent();
+            //var studyDataService = new StudyKosDataService();
+            //var items = studyDataService.GetKosDurumIst(filter);
+            //var mc = new STMOrderStatusForAccessionNumberListOperation();
+            //mc.DoSingleBatch(items, o, ac);
+
+
+
+            var op = new STMOrderStatusForAccessionNumberListOperation();
+
+            var studyDataService = new StudyKosDataService();
+            var list = studyDataService.GetKosDurum(filter);
+            var resList = op.DoSingleBatch(list)
+                .Select(o => new OperationResultModel()
+                {
+                    Id = 0,
+                    Status = o.IsSuccess ? 1 : 0,
+                    Description = o.Arguments + o.IsSuccess + o.Message
+                }).ToArray();
+            var res = new MultipleOperationResultModel(resList);
+            return res;
+
+
+
+
+            //var list = GetStudyKos(filter);
+            //foreach (var item in list)
+            //{
+
+            //}
+            //throw new NotImplementedException();
         }
 
         public void UpdateReadKosBackground(KosStudyFilter filter)

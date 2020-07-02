@@ -41,7 +41,9 @@ namespace GT.Repository.Implementation
                        {
                            PatientId=k.PatientId,
                            DicomPath=k.DicomDirPath,
-                           StudyID=k.Pk
+                           StudyID=k.Pk,
+                           SendDicomPath =k.DicomKosPath
+
                        };
             return list;
         }
