@@ -56,7 +56,7 @@ namespace GT.Job.Implementation
                     return;
                 }
                
-                var res = TeletipSendKosService.SendKos(item.PatientId,item.DicomPath);
+                var res = TeletipSendKosService.SendKos(item.PatientId,item.SendDicomPath);
                 var studyDataService = new StudyKosDataService();
                 var sb = new StringBuilder();
                 sb.AppendLine(res.Message);

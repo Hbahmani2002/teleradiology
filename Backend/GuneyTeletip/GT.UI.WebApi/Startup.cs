@@ -91,9 +91,18 @@ namespace GT.UI.WebApi
             });
 
 
-            BussinessJobs.MakeKosJob.Start();
-            BussinessJobs.SendKosJob.Start();
-      
+           
+          
+
+           BussinessJobs.StartAutomaticJobs();
+            while (true)
+            {
+                
+                var item = BussinessJobs.SendKosJob.ProgressItem;
+              
+            }
+            //BussinessJobs.MakeKosJob.Start();
+            //BussinessJobs.SendKosJob.Start();
 
         }
 
