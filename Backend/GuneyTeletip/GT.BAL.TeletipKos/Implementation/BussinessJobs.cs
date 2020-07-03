@@ -85,6 +85,11 @@ namespace GT.Job.Model.AutoJobs
                 }
             });
             SendKosJob.Start();
+
+
+
+
+
         }
     }
 }

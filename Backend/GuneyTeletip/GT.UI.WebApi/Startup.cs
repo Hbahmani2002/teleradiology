@@ -20,6 +20,9 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using GT.Job.Model.AutoJobs;
 using GT.Job.Implementation;
+using GT.Core.Settings;
+using System.IO;
+using Util.Logger;
 
 namespace GT.UI.WebApi
 {
@@ -88,18 +91,24 @@ namespace GT.UI.WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
+
             });
 
+            var settings = AppSettings.GetCurrent();
+            var ks = settings.DataServiceSettings;
+            var filePath = AppSettings.GetCurrent().Log.PATH_JobInfinity;
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+            var logger = new TextFileLogger(filePath);
+            var jobManager = InfJobManager.Create(logger);
+            jobManager.Start();
 
-           
-          
-
-           BussinessJobs.StartAutomaticJobs();
+            BussinessJobs.StartAutomaticJobs();
             while (true)
             {
-                
+
                 var item = BussinessJobs.SendKosJob.ProgressItem;
-              
+
             }
             //BussinessJobs.MakeKosJob.Start();
             //BussinessJobs.SendKosJob.Start();
