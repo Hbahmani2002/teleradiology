@@ -91,11 +91,11 @@ namespace GT.Repository.Conditions
             }
             if (filter.BasTarih.HasValue)
             {
-                exp = exp.And(o => o.TimeCreated >= filter.BasTarih.Value);
+                exp = exp.And(o => o.CreationDttm >= filter.BasTarih.Value);
             }
             if (filter.BitTarih.HasValue)
             {
-                exp = exp.And(o => o.TimeCreated <= filter.BitTarih.Value);
+                exp = exp.And(o => o.CreationDttm <= filter.BitTarih.Value);
             }
             if (filter.Pk.HasValue)
             {
