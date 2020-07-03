@@ -20,7 +20,8 @@ namespace GT.Repository.Conditions
             KosHataliGonderileneler = 40,
             KosGonderilipEslesmeyenler = 50,
             KosGonderilipEslesenler = 60,
-            KosSilinenler = 70
+            KosSilinenler = 70,
+            ZeroImg = 999
         }
         public string Modality { get; set; }
         public string[] ModalityList { get; set; }

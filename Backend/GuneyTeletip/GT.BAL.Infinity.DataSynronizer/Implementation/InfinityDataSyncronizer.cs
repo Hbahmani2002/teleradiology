@@ -81,7 +81,7 @@ namespace GT.BAL.Infinity.DataSynronizer
                 model.ValumePathname = item.VolumePathname;
                 model.CreationDttm = item.CreationDttm.HasValue ? item.CreationDttm : DateTime.Now;
                 model.OracleStudyKey =item.StudyKey;
-                model.FkKosEnumType = 2;
+                //model.FkKosEnumType = 2;
                 model.InfMergeKey = item.InfMergeKey;
                 model.SeriesInfo = item.SeriesInfo;
 
@@ -127,10 +127,12 @@ namespace GT.BAL.Infinity.DataSynronizer
                 {
                     
                     model.ZeroImg = 1;
+                    model.FkKosEnumType = 999;
                 }
                 else
                 {
                     model.ZeroImg = 0;
+                    model.FkKosEnumType = 10;
                 }
 
           

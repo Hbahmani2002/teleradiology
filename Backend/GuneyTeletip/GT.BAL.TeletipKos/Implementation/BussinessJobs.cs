@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace GT.Job.Model.AutoJobs
 {
     public static class BussinessJobs
@@ -83,7 +84,7 @@ namespace GT.Job.Model.AutoJobs
                     }
                 }
             });
-
+            SendKosJob.Start();
         }
     }
 }

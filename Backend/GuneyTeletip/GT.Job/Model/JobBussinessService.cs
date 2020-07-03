@@ -29,6 +29,7 @@ namespace GT.Job.Implementation
         public class JobServiceItem : IDisposable
         {
             public long JobID { get; set; }
+            public bool IsStarted { get; private set; }
             CancellationTokenSource _cancelTokenSource;
             internal Task Task { get; set; }
 
@@ -48,7 +49,7 @@ namespace GT.Job.Implementation
                 Dispose();
             }
             private void StopTask(Task o)
-            {                
+            {
                 o.Dispose();
                 this.Task = null;
                 this.Stop();
@@ -64,7 +65,7 @@ namespace GT.Job.Implementation
                 {
                     Debug.WriteLine($"JobID:{this.JobID} started");
                     _ac(this._cancelTokenSource, this.ProgressItem);
-                    Debug.WriteLine($"JobID:{this.JobID} end");                    
+                    Debug.WriteLine($"JobID:{this.JobID} end");
                 }, this._cancelTokenSource.Token);
                 this.Task.ContinueWith(t =>
                 {
@@ -80,6 +81,7 @@ namespace GT.Job.Implementation
                     Debug.WriteLine($"JobID:{this.JobID} is stoppped");
                 });
                 this._jobBussinessService.TaskList.TryAdd(this.JobID, this);
+                this.IsStarted = true;
             }
 
             private void SaveCloseTask(long jobID)
@@ -117,6 +119,7 @@ namespace GT.Job.Implementation
 
                 }
                 Debug.WriteLine($"JobID:{this.JobID} disposed");
+                this.IsStarted = false;
             }
         }
 

@@ -18,6 +18,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using GT.Job.Model.AutoJobs;
+using GT.Job.Implementation;
 
 namespace GT.UI.WebApi
 {
@@ -88,7 +90,14 @@ namespace GT.UI.WebApi
                 endpoints.MapControllers();
             });
 
+
+            BussinessJobs.MakeKosJob.Start();
+            BussinessJobs.SendKosJob.Start();
+      
+
         }
+
+   
 
         private void Exception(IApplicationBuilder app)
         {
