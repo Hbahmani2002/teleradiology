@@ -102,14 +102,8 @@ namespace GT.UI.WebApi
             var logger = new TextFileLogger(filePath);
             var jobManager = InfJobManager.Create(logger);
             jobManager.Start();
-
             BussinessJobs.StartAutomaticJobs();
-            while (true)
-            {
-
-                var item = BussinessJobs.SendKosJob.ProgressItem;
-
-            }
+      
             //BussinessJobs.MakeKosJob.Start();
             //BussinessJobs.SendKosJob.Start();
 
