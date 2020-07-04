@@ -20,7 +20,8 @@ namespace GT.Repository.Conditions
             KosHataliGonderileneler = 40,
             KosGonderilipEslesmeyenler = 50,
             KosGonderilipEslesenler = 60,
-            KosSilinenler = 70
+            KosSilinenler = 70,
+            ZeroImg = 999
         }
         public string Modality { get; set; }
         public string[] ModalityList { get; set; }
@@ -90,11 +91,11 @@ namespace GT.Repository.Conditions
             }
             if (filter.BasTarih.HasValue)
             {
-                exp = exp.And(o => o.TimeCreated >= filter.BasTarih.Value);
+                exp = exp.And(o => o.CreationDttm >= filter.BasTarih.Value);
             }
             if (filter.BitTarih.HasValue)
             {
-                exp = exp.And(o => o.TimeCreated <= filter.BitTarih.Value);
+                exp = exp.And(o => o.CreationDttm <= filter.BitTarih.Value);
             }
             if (filter.Pk.HasValue)
             {

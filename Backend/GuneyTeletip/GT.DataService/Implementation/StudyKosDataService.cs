@@ -118,7 +118,7 @@ namespace GT.DataService.Implementation
                 KosStudy.VolumePathname = item.ValumePathname;
                 KosStudy.CreationDttm = item.CreationDttm; ;
                 KosStudy.OracleStudyKey = item.OracleStudyKey.Value;
-                KosStudy.FkKosEnumType = 10;
+                KosStudy.FkKosEnumType = item.FkKosEnumType;
                 KosStudy.DicomDirPath = item.DicomPhat;
                 Last_OracleStudyKey = item.OracleStudyKey.Value;
                 _InfStudyRepository.Add(KosStudy);
