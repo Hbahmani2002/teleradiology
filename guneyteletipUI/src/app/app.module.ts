@@ -62,6 +62,7 @@ import { JobsgridComponent } from './Features/Private/Operations/Pages/jobs/jobs
 import { jobDataServices } from './Features/Private/Operations/Services/jobDataServices';
 import { GlobalErrorHandler } from './Shared/Services/ErrorHandling/GlobalErrorHandler';
 import { SidetestComponent } from './Shared/Pages/sidetest/sidetest.component';
+import { LogoutService } from './Shared/Services/Util/logoutService';
 
 @NgModule({
   declarations: [
@@ -145,6 +146,7 @@ import { SidetestComponent } from './Shared/Pages/sidetest/sidetest.component';
       kosDataServices,
       roleDataServices,
       jobDataServices,
+      LogoutService,
     ],
   entryComponents:
     [

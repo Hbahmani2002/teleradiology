@@ -9,7 +9,7 @@ import { kosDurumIstModel } from '../../../Models/kosDurumIstModel';
 })
 export class KosstatisticComponent implements OnInit {
 
-  public isCollapsed: boolean = true;
+  public isCollapsed: boolean = false;
   public isCollapsed1: boolean = true;
   kosDurumModel= Array<kosDurumIstModel>();
   constructor(private kosService: kosDataServices) { }

@@ -20,4 +20,7 @@ export class UserfilterComponent implements OnInit {
     
     this.userNameOutput = this.userName;
   }
+  onClearFilter() {
+    this.userName = "";
+  }
 }

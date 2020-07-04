@@ -25,6 +25,7 @@ export class cookieService {
     return null;
   }
   public eraseCookie(name) {
+    console.log("eraseCookie"+ name);
     document.cookie = name + '=; Max-Age=-99999999;';
   }
 }
