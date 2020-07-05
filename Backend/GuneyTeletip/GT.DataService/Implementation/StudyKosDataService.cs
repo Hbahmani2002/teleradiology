@@ -436,6 +436,21 @@ namespace GT.DataService.Implementation
             };
             return kosDeleteCompositeRepository.Query(s).ToArray();
         }
+
+
+        public IEnumerable<KosDeleteViewModel> GetKosDeleteListGrid(Gridable<KosStudyFilter> parms)
+        {
+            InfStudyConditionFilter s = ConvertConditionFilter(parms);
+            s.KosEnum = KosEnumType.KosGonderilipEslesenler;
+            s.KosWaitHour = true;
+            var sc = new StudyOperationCountConditionFilter
+            {
+                MakeKosCount = true,
+            };
+            return kosDeleteCompositeRepository.Query(s).ToArray();
+        }
+
+
         public long Save_UpdateMakeKosDurum(long kosStudyID, bool isSuccess, string kosPath, string statusMessage)
         {
             var newKosState = (int)(isSuccess ? KosEnumType.KosOlusmusOlanlar : KosEnumType.KosOlusumuHataliOlanlar);
@@ -492,6 +507,7 @@ namespace GT.DataService.Implementation
             Fail = 2,
             PartialSuccess
         }
+     
         public long Save_UpdateSentKosDurum(long kosStudyID, SentKosResult result, string statusMessage)
         {
             var newKosState = 0;

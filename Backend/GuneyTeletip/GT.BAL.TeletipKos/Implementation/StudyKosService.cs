@@ -116,7 +116,7 @@ namespace GT.BAL.TeletipKos
                 while (true)
                 {
                    
-                    var items = studyDataService.GetSentKosList(50);
+                    var items = studyDataService.GetSentKosList(100);
                     if (items.Count == 0)
                         return;
 
@@ -132,10 +132,27 @@ namespace GT.BAL.TeletipKos
 
 
 
-        public JobBussinessService.JobServiceItem DeleteKos(Gridable<KosStudyFilter> filter)
+   
+
+        public MultipleOperationResultModel DeleteKos(Gridable<KosStudyFilter> filter)
         {
-            return null;
+            var op = new STMKosDeleteOperation();
+
+            var studyDataService = new StudyKosDataService();
+            var list = studyDataService.GetKosDeleteListGrid(filter);
+            var resList = op.DoSingleBatch(list)
+                .Select(o => new OperationResultModel()
+                {
+                    Id = 0,
+                    Status = o.IsSuccess ? 1 : 0,
+                    Description = o.Arguments + o.IsSuccess + o.Message
+                }).ToArray();
+            var res = new MultipleOperationResultModel(resList);
+            return res;
+           
         }
+
+
 
         public JobBussinessService.JobServiceItem DeleteKosBackground(KosStudyFilter filter)
         {

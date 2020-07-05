@@ -62,7 +62,7 @@ namespace GT.Job.Model.AutoJobs
                 }
             });
             MakeKosJob.Start();
-            
+
             SendKosJob = AutoJobService.Create((o, ac) =>
             {
 
@@ -73,7 +73,7 @@ namespace GT.Job.Model.AutoJobs
                     {
                         var globalSettings = AppSettings.GetCurrent();
                         var studyDataService = new StudyKosDataService(null);
-                        var items = studyDataService.GetSentKosList(globalSettings.DataServiceSettings.MakeKosServiceItemPerBatch);
+                        var items = studyDataService.GetSentKosList(globalSettings.DataServiceSettings.SendKosServiceItemPerBatch);
                         var mc = new SendKosOperation();
                         mc.DoSingleBatch(items, o, ac);
                     }

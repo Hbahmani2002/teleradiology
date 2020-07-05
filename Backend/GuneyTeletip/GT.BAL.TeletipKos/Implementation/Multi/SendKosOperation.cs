@@ -41,7 +41,7 @@ namespace GT.Job.Implementation
         public SendKosOperation()
         {
             var globalSettings = AppSettings.GetCurrent();
-            Settings = new SendKosJobSetting(globalSettings.DataServiceSettings.MakeKosServiceItemPerBatch, globalSettings.Kos.Make.JOB_MaxParallelTask);
+            Settings = new SendKosJobSetting(globalSettings.DataServiceSettings.SendKosServiceItemPerBatch, globalSettings.Kos.Make.JOB_MaxParallelTask);
             var makeKosSetting = TeletipKosServiceSetting.GetCurrent().SendKosSettings;
             TeletipSendKosService = new TeletipSendKosService(makeKosSetting);
         }
@@ -65,12 +65,15 @@ namespace GT.Job.Implementation
                 sb.Append(res.Arguments);
                 if(res.IsSuccess)
                 {
-                    //if(res.Message)
-                    {
-                        throw new NotImplementedException();
-                    }
+                    studyDataService.Save_UpdateSentKosDurum(item.StudyID, StudyKosDataService.SentKosResult.Success, res.Message + res.Arguments);
                 }
-                studyDataService.Save_UpdateSentKosDurum(item.StudyID,StudyKosDataService.SentKosResult.Success , res.Message + res.Arguments);
+                else
+                {
+                    studyDataService.Save_UpdateSentKosDurum(item.StudyID, StudyKosDataService.SentKosResult.Fail, res.Message + res.Arguments);
+                }
+
+
+               
                 progressAction.IncreaseProgressError();
                 progressAction.IncreaseProgressSuccess();
             });
