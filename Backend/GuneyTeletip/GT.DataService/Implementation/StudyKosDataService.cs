@@ -35,6 +35,7 @@ namespace GT.DataService.Implementation
         KosStudyJobRepository kosStudyJobRepository;
         KosDeleteCompositeRepository kosDeleteCompositeRepository;
         StudyOperationCountRepository studyOperationCount;
+        GetorderStatusRepository getorderStatusRepository;
         public StudyKosDataService() : this(null, false)
         {
 
@@ -57,6 +58,7 @@ namespace GT.DataService.Implementation
             kosStudyJobRepository = new KosStudyJobRepository(_Workspace);
             kosDeleteCompositeRepository = new KosDeleteCompositeRepository(_Workspace);
             studyOperationCount = new StudyOperationCountRepository(_Workspace);
+            getorderStatusRepository = new GetorderStatusRepository(_Workspace);
         }
 
         public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items)
