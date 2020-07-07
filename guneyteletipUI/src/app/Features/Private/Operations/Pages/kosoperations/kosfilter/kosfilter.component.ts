@@ -81,7 +81,6 @@ export class KosfilterComponent implements OnInit {
     if (this.accessionNo == "" || this.accessionNo == undefined)
       return;
     this.accessionNo.split(" ").forEach(item => {
-      debugger;
       if (item != "") {
        accessionNoList.push(item);
       }

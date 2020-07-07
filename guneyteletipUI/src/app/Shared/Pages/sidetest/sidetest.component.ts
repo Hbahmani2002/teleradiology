@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidetestComponent implements OnInit {
   public collapse: boolean = true;
+  public collapse1: boolean = true;
   constructor() { }
 
   ngOnInit() {

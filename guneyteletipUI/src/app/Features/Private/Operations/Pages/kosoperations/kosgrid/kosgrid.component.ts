@@ -64,7 +64,7 @@ namespace KosListComponent_Models {
       });
     }
     filter = new Grid.GridInputModel(new infStudyFilter());
-    getFilter() {
+    getFilter(type) {
       let list = [];
       this.filter.paging.pageNumber = this.model.paging.pageNumber;
       this.filter.paging.count = this.model.paging.count;
@@ -72,9 +72,12 @@ namespace KosListComponent_Models {
 
       let item = this.filter.filter;
       var o = this.kosFilter;
-      this.selectedItems.forEach(item => {
-        list.push(item.id);
-      });
+      if (type != 2) {
+        this.selectedItems.forEach(item => {
+          list.push(item.id);
+        });
+      }
+
       item.StudyIDList = list;
       item.hastaneIDList = o.hastaneIDList;
       item.basTarih = o.basTarih;
@@ -89,7 +92,7 @@ namespace KosListComponent_Models {
 
     onClickCreateKos() {
       if (this.selectAll) {
-        let filter = this.getFilter().filter;
+        let filter = this.getFilter(1).filter;
         filter = new infStudyFilter();
         this.kosService.createKosBg(filter).subscribe(o => {
           console.log(o);
@@ -97,8 +100,7 @@ namespace KosListComponent_Models {
         });
       }
       else {
-        this.getFilter();
-        this.kosService.createKos(this.getFilter()).subscribe(o => {
+        this.kosService.createKos(this.getFilter(1)).subscribe(o => {
           console.log(o);
           this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
         });
@@ -108,7 +110,7 @@ namespace KosListComponent_Models {
 
     onClickSendKos() {
       if (this.selectAll) {
-        let filter = this.getFilter().filter;
+        let filter = this.getFilter(1).filter;
         filter = new infStudyFilter();
         this.kosService.sendKosBg(filter).subscribe(o => {
           console.log(o);
@@ -116,7 +118,7 @@ namespace KosListComponent_Models {
         });
       }
       else {
-        this.kosService.sendKos(this.getFilter()).subscribe(o => {
+        this.kosService.sendKos(this.getFilter(1)).subscribe(o => {
           console.log(o);
           this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
         });
@@ -126,7 +128,7 @@ namespace KosListComponent_Models {
 
     onClickDeleteKos() {
       if (this.selectAll) {
-        let filter = this.getFilter().filter;
+        let filter = this.getFilter(1).filter;
         filter = new infStudyFilter();
         this.kosService.deleteKosBg(filter).subscribe(o => {
           console.log(o);
@@ -134,7 +136,7 @@ namespace KosListComponent_Models {
         });
       }
       else {
-        this.kosService.deleteKos(this.getFilter()).subscribe(o => {
+        this.kosService.deleteKos(this.getFilter(1)).subscribe(o => {
           console.log(o);
           this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
         });
@@ -145,7 +147,7 @@ namespace KosListComponent_Models {
     onClickUpdateReadKos() {
       
       if (this.selectAll) {
-        let filter = this.getFilter().filter;
+        let filter = this.getFilter(1).filter;
         filter = new infStudyFilter();
         this.kosService.updateReadKosBg(filter).subscribe(o => {
           console.log(o);
@@ -153,7 +155,7 @@ namespace KosListComponent_Models {
         });
       }
       else {
-        this.kosService.updateReadKos(this.getFilter()).subscribe(o => {
+        this.kosService.updateReadKos(this.getFilter(1)).subscribe(o => {
           console.log(o);
           this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
         });
@@ -163,7 +165,7 @@ namespace KosListComponent_Models {
 
     onClickReprocessKos() {
       if (this.selectAll) {
-        let filter = this.getFilter().filter;
+        let filter = this.getFilter(1).filter;
         filter = new infStudyFilter();
         this.kosService.reprocessKosBg(filter).subscribe(o => {
           console.log(o);
@@ -171,7 +173,7 @@ namespace KosListComponent_Models {
         });
       }
       else {
-        this.kosService.reprocessKos(this.getFilter()).subscribe(o => {
+        this.kosService.reprocessKos(this.getFilter(1)).subscribe(o => {
           console.log(o);
           this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
         });
@@ -183,7 +185,7 @@ namespace KosListComponent_Models {
 
 
     onClickExportExcel() {
-      this.kosService.exportExcel(this.getFilter()).subscribe(o => {
+      this.kosService.exportExcel(this.getFilter(1)).subscribe(o => {
         console.log(o);
       });;
     }
@@ -198,13 +200,15 @@ namespace KosListComponent_Models {
       this.onRefresh();
     }
     onRefresh() {
-      var item = this.getFilter()
+      var item = this.getFilter(2)
       var filter = item.filter;
+      
       console.log(item);
       this.kosService.getKosList(item).subscribe(o => {
         this.data.list = o["list"];
         this.data.totalCount = o["totalCount"];
-        console.log(this.data.list)
+        console.log(this.data.list);
+        filter.StudyIDList = [];
       })
     }
     gridSelect(event, type) {

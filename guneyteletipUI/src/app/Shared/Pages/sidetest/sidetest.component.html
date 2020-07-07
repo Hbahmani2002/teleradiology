@@ -4,17 +4,20 @@
 <!------ Include the above in your HEAD tag ---------->
 
 
-<nav class="navbar navbar-expand navbar-dark bg-primary shadow">
-  <a (click)="toggle()" id="menu-toggle" class="navbar-brand">
+<nav class="navbar navbar-expand navbar-light bg-default shadow" style="height: 40px!important">
+  <div style="width: 250px;">
+    <a routerLink=""><img src="./././assets/img/logo.png" /></a>
+  </div>
+  <button (click)="toggle()" id="menu-toggle" class="btn btn-light">
     <span class="navbar-toggler-icon"></span>
-  </a>
+  </button>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarsExample02">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active"> <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> </li>
-      <li class="nav-item"> <a class="nav-link" href="#">Link</a> </li>
+  <div class="collapse navbar-collapse textColor" id="navbarsExample02">
+    <ul class="navbar-nav mr-auto textColor">
+      <li class="nav-item active textColor"> <a class="nav-link textColor" href="#">Home <span class="sr-only">(current)</span></a> </li>
+      <li class="nav-item textColor"> <a class="nav-link textColor" href="#">Link</a> </li>
     </ul>
     <form class="form-inline my-2 my-md-0"> </form>
   </div>
@@ -22,69 +25,71 @@
 <div id="wrapper" [ngClass]="{'toggled' : collapse}">
   <!-- Sidebar -->
   <div id="sidebar-wrapper">
-    <div class="list-group list-group-flush">
-      <ul class="p-0 " style="list-style: none;">
-        <li>
-          <a class="list-group-item list-group-item-action" (click)="isfirstCollapsed1 = !isfirstCollapsed1"
-             [attr.aria-expanded]="!isfirstCollapsed1" aria-controls="collapseBasic1">
-            <div class="d-flex justify-content-between mb-2" style="color: inherit !important">
-              <p class="mb-1"><fa name="exchange"></fa>  İŞLEMLER</p>
-              <small class="pull-right"><fa name="chevron-down" *ngIf="isfirstCollapsed1"></fa> <fa name="chevron-up" *ngIf="!isfirstCollapsed1"></fa></small>
-
-            </div>
-            <div id="collapseBasic1" [collapse]="isfirstCollapsed1" [isAnimated]="true" class="list-group list-group-flush ">
-              <ul class="p-0 " style="list-style: none;">
-                <li><a routerLink="/operations/kos" class="list-group-item list-group-item-action bg-light " style="display: block !important; width: 200px"><fa name="angle-right"></fa> KOS İşlemleri</a></li>
-                <li><a routerLink="/definitions/jobs" class="list-group-item list-group-item-action bg-light " style="display: block !important; width: 200px"><fa name="angle-right"></fa> Arka Plan İşleri</a></li>
-              </ul>
-
-            </div>
-          </a>
-
-        </li>
-        <li>
-          <a class="list-group-item list-group-item-action" (click)="isfirstCollapsed3 = !isfirstCollapsed3"
-             [attr.aria-expanded]="!isfirstCollapsed3" aria-controls="collapseBasic3">
-            <div class="d-flex justify-content-between mb-2">
-              <p class="mb-1"><fa name="user"></fa>  TANIMLAMALAR</p>
-              <small class="pull-right"><fa name="chevron-down" *ngIf="isfirstCollapsed3"></fa> <fa name="chevron-up" *ngIf="!isfirstCollapsed3"></fa></small>
-
-            </div>
-            <div id="collapseBasic3" [collapse]="isfirstCollapsed3" [isAnimated]="true" class="list-group list-group-flush ">
-              <ul class="p-0 " style="list-style: none;">
-                <li><a routerLink="/definitions/user" class="list-group-item list-group-item-action bg-light " style="display: block !important; width: 200px"><fa name="angle-right"></fa> Kullanıcı Tanımlama</a></li>
-                <li><a routerLink="/definitions/role" class="list-group-item list-group-item-action bg-light " style="display: block !important; width: 200px"><fa name="angle-right"></fa> Rol Tanımlama</a></li>
-              </ul>
-
-            </div>
-          </a>
-        </li>
-        <li>
-          <a class="list-group-item list-group-item-action" (click)="isfirstCollapsed2 = !isfirstCollapsed2"
-             [attr.aria-expanded]="!isfirstCollapsed2" aria-controls="collapseBasic2">
-            <div class="d-flex justify-content-between mb-2">
-              <p class="mb-1"><fa name="cogs"></fa>  AYARLAR</p>
-              <small class="pull-right"><fa name="chevron-down" *ngIf="isfirstCollapsed2"></fa> <fa name="chevron-up" *ngIf="!isfirstCollapsed2"></fa></small>
-
-            </div>
-            <div id="collapseBasic2" [collapse]="isfirstCollapsed2" [isAnimated]="true" class="list-group list-group-flush ">
-              <ul class="p-0 " style="list-style: none;">
-                <li><a routerLink="#" class="list-group-item list-group-item-action bg-light " style="display: block !important; width: 200px"><fa name="angle-right"></fa> Kullanıcı Ayarları</a></li>
-                <li><a routerLink="#" class="list-group-item list-group-item-action bg-light " style="display: block !important; width: 200px"><fa name="angle-right"></fa> Kos Ayarları</a></li>
-                <li><a routerLink="#" class="list-group-item list-group-item-action bg-light " style="display: block !important; width: 200px"><fa name="angle-right"></fa> Sistem Ayarları</a></li>
+    <ul class="sidebar-nav">
+      <li>
+        <div>
+          <button class="btn bgColor btn-block text-left rounded-0 p-3" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
+            <fa name="exchange" class="textColor"></fa>
+            <span class="pl-3 textColor">
+              İşlemler
+            </span>
+          </button>
+          <div class="collapse bgColor " id="collapseExample1">
+            <div class="card card-body p-0 rounded-0 bgColor">
+              <ul class="list-group list-group-flush bgColor textColor">
+                <li class="list-group-item p-0 m-0 bgColor textColor">
+                  <a routerLink="/operations/kos"><fa name="angle-right"></fa> KOS İşlemleri</a>
+                </li>
+                <li class="list-group-item p-0 m-0 bgColor textColor">
+                  <a routerLink="/definitions/jobs"><fa name="angle-right"></fa> Arka Plan İşleri</a>
+                </li>
               </ul>
             </div>
-          </a>
-        </li>
-
-        <li>
-          <a routerLink="#" class="list-group-item list-group-item-action bg-light"></a>
-        </li>
-      </ul>
-
-
-
-    </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <button class="btn btn-block text-left rounded-0 bgColor p-3" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
+            <fa name="user" class="textColor"></fa>
+            <span class="pl-3 textColor">
+              Tanımlamalar
+            </span>
+          </button>
+          <div class="collapse bgColor" id="collapseExample2">
+            <div class="card card-body p-0 rounded-0 bgColor">
+              <ul class="list-group list-group-flush bgColor">
+                <li class="list-group-item p-0 m-0 bgColor v">
+                  <a routerLink="/definitions/user" class="m-0 p-0"><fa name="angle-right"></fa> Kullanıcı Tanımlama</a></li>
+                <li class="list-group-item p-0 m-0 bgColor textColor">
+                  <a routerLink="/definitions/role"><fa name="angle-right"></fa> Rol Tanımlama</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <button class="btn btn-block text-left rounded-0 bgColor p-3" data-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3">
+            <fa name="cogs" class="textColor"></fa>
+            <span class="pl-3 textColor">
+              Ayarlar
+            </span>
+          </button>
+          <div class="collapse bgColor" id="collapseExample3">
+            <div class="card card-body p-0 rounded-0 bgColor">
+              <ul class="list-group list-group-flush bgColor">
+                <li class="list-group-item p-0 m-0 bgColor textColor"><a routerLink=""><fa name="angle-right"></fa> Kos Ayarlar</a></li>
+                <li class="list-group-item p-0 m-0 bgColor textColor"><a routerLink=""><fa name="angle-right"></fa> Kullanıcı Ayarlar</a></li>
+                <li class="list-group-item p-0 m-0 bgColor textColor"><a routerLink=""><fa name="angle-right"></fa> Sistem Ayarlar</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li> 
+    </ul>
+   
   </div> <!-- /#sidebar-wrapper -->
   <!-- Page Content -->
   <div id="page-content-wrapper">
