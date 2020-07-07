@@ -17,20 +17,24 @@ namespace GT.Repository.Implementation.Composite
         {
 
         }
-        public IEnumerable<GetorderStatusViewModel> Query(GetorderStatusConditionFilter g)
+        public IEnumerable<GetorderStatusViewModel> Query(GetorderStatusConditionFilter g, InfStudyConditionFilter k)
         {
             var exp1 = GetorderStatusCondition.Get(g);
-            return Query(exp1);
+            var exp2 = InfStudyCondition.Get(k);
+            return Query(exp1,exp2);
         }
 
-        public IEnumerable<GetorderStatusViewModel> Query(Expression<Func<StmGetorderStatusforAccessionnumberlist, bool>> exp)
+        public IEnumerable<GetorderStatusViewModel> Query(Expression<Func<StmGetorderStatusforAccessionnumberlist, bool>> exp1,
+            Expression<Func<KosStudy, bool>> exp2)
         {
-            var getorderStatus = _AbstractWorkspace.Query<StmGetorderStatusforAccessionnumberlist>(exp);
-            var skrs = _AbstractWorkspace.Query<ConstSkrs>();
-            var userSkrs = _AbstractWorkspace.Query<UsrTenantSkrs>();
+            var getorderStatus = _AbstractWorkspace.Query<StmGetorderStatusforAccessionnumberlist>(exp1);
+            var tenant = _AbstractWorkspace.Query<UsrTenant>();
+            var batch = _AbstractWorkspace.Query<KosBatch>();
+            var kos = _AbstractWorkspace.Query<KosStudy>(exp2);
             var list = from gs in getorderStatus
-                       join us in userSkrs on gs.FkTenant equals us.FkTenant
-                       join s in skrs on us.FkSkrs equals s.Pk
+                       join t in tenant on gs.FkTenant equals t.Pk
+                       join b in batch on gs.FkInfBatch equals b.Pk
+                       join k in kos on gs.FkKosStudy equals k.Pk
                        select new GetorderStatusViewModel
                        {
                           Accessionnumber=gs.Accessionnumber,
@@ -59,7 +63,8 @@ namespace GT.Repository.Implementation.Composite
                           Wadostatus=gs.Wadostatus,
                           Wadostatusid=gs.Wadostatusid,
                           ID=gs.Pk,
-                          SkrsKod=s.KurumSkrsKodu
+                          TenantName=t.Name,
+                          CitizenID=gs.Citizenid
                        };
             return list;
         }
