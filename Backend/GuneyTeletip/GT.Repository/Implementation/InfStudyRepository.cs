@@ -32,6 +32,13 @@ namespace GT.Repository.Implementation
             return Query(exp);
         }
 
+
+        public KosStudy QueryOracleStudyKey(decimal key)
+        {
+            return Single(o => o.OracleStudyKey == key);
+        }
+
+
         public IQueryable<InfStudyViewModel> Query(Expression<Func<KosStudy, bool>> exp)
         {
             var userLogin = _AbstractWorkspace.Query<UsrUserLogin>();

@@ -66,10 +66,6 @@ namespace Teletip.SorgulamaServis
                 var obj = JsonConvert.DeserializeObject<T>(jsonResult);
                 return obj;
             }
-
-
-      
-
             catch (Exception ex)
             {
                 throw new Exception($"Servis Sonucu Hatalı ServiceName:{serviceName},Parameter:{paramObjJson},Return:{jsonResult}", ex);

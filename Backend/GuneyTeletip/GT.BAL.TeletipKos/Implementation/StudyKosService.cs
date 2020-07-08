@@ -8,7 +8,9 @@ using GT.Job.Model.AutoJobs;
 using GT.Repository.Models.View;
 using GT.SERVICE;
 using GT.UTILS.GRID;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -175,15 +177,31 @@ namespace GT.BAL.TeletipKos
             {
                 var globalSettings = AppSettings.GetCurrent();
                 var studyDataService = new StudyKosDataService();
-                var items = studyDataService.GetKosDeleteList(filter);
-                var mc = new STMOrderStatusForAccessionNumberListOperation();
-                mc.DoSingleBatch(items, o, ac);
+                var items = studyDataService.GetKosDurumOrderList(filter);
+
+
+
+                foreach (var item in items)
+                {
+                    var mc = new STMOrderStatusForAccessionNumberListOperation();
+                    var list = new List<KosDurumViewModel>();
+
+                    for (int i = 0; i < 1; i++)
+                    {
+                        list.Add(item);
+                    }
+
+                    mc.DoSingleBatch(list, o, ac);
+                }
+
+
+
             });
             job.Start();
             return job;
         }
 
-
+     
 
         public void ReprocessKos(KosStudyFilter filter)
         {
@@ -211,27 +229,27 @@ namespace GT.BAL.TeletipKos
 
 
 
-            //var globalSettings = AppSettings.GetCurrent();
+            ////var globalSettings = AppSettings.GetCurrent();
+            ////var studyDataService = new StudyKosDataService();
+            ////var items = studyDataService.GetKosDurumIst(filter);
+            ////var mc = new STMOrderStatusForAccessionNumberListOperation();
+            ////mc.DoSingleBatch(items, o, ac);
+
+
+
+            //var op = new STMOrderStatusForAccessionNumberListOperation();
+
             //var studyDataService = new StudyKosDataService();
-            //var items = studyDataService.GetKosDurumIst(filter);
-            //var mc = new STMOrderStatusForAccessionNumberListOperation();
-            //mc.DoSingleBatch(items, o, ac);
-
-
-
-            var op = new STMOrderStatusForAccessionNumberListOperation();
-
-            var studyDataService = new StudyKosDataService();
-            var list = studyDataService.GetKosDurum(filter);
-            var resList = op.DoSingleBatch(list)
-                .Select(o => new OperationResultModel()
-                {
-                    Id = 0,
-                    Status = o.IsSuccess ? 1 : 0,
-                    Description = o.Arguments + o.IsSuccess + o.Message
-                }).ToArray();
-            var res = new MultipleOperationResultModel(resList);
-            return res;
+            //var list = studyDataService.GetKosDurum(filter);
+            //var resList = op.DoSingleBatch(list)
+            //    .Select(o => new OperationResultModel()
+            //    {
+            //        Id = 0,
+            //        Status = o.IsSuccess ? 1 : 0,
+            //        Description = o.Arguments + o.IsSuccess + o.Message
+            //    }).ToArray();
+            //var res = new MultipleOperationResultModel(resList);
+            //return res;
 
 
 
@@ -241,7 +259,7 @@ namespace GT.BAL.TeletipKos
             //{
 
             //}
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void UpdateReadKosBackground(KosStudyFilter filter)

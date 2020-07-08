@@ -16,11 +16,15 @@ namespace GT.BAL.Infinity.DataSynronizer
         InfOracleDataService _InfOracleDataService;
         StudyKosDataService _InfStudyDataService;
         KosPahtDataService KosPahtDataService;
+     
+
         public InfinityDataSyncronizer(IBussinessContext context) : base(context)
         {            
             _InfOracleDataService = new InfOracleDataService(null);
             _InfStudyDataService = new StudyKosDataService(null);
             KosPahtDataService = new KosPahtDataService(null);
+
+  
 
         }
         public void SyncronizeInfinityStudyList(long tenantID, long lastID, System.DateTime? startTime, System.DateTime? endTime)
@@ -42,6 +46,9 @@ namespace GT.BAL.Infinity.DataSynronizer
 
             foreach (var item in items)
             {
+
+
+              
 
 
                 if (item.VolumePathname != null)
