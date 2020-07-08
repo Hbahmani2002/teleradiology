@@ -24,7 +24,6 @@ namespace GT.Repository.infinity.Implementation.CompositeView
 
 
             var infstudy = _AbstractWorkspace.Query<Study>(exp);
-
             var infseries = _AbstractWorkspace.Query<Series>();
             var infinstance = _AbstractWorkspace.Query<Instance>();
             var infinstanceLoc = _AbstractWorkspace.Query<Instanceloc>();
@@ -86,7 +85,7 @@ namespace GT.Repository.infinity.Implementation.CompositeView
 
                         };
 
-     
+            //var g = query.ToList();
 
             return query;
 

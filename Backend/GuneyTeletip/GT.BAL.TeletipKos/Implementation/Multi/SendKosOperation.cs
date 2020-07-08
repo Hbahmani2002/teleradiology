@@ -1,4 +1,5 @@
-﻿using GT.BAL.Infinity.DataSynronizer;
+﻿using App.Data.Service;
+using GT.BAL.Infinity.DataSynronizer;
 using GT.BAL.TeletipKos.Model;
 using GT.Core.Settings;
 using GT.DataService.Implementation;
@@ -41,39 +42,64 @@ namespace GT.Job.Implementation
         public SendKosOperation()
         {
             var globalSettings = AppSettings.GetCurrent();
-            Settings = new SendKosJobSetting(globalSettings.DataServiceSettings.MakeKosServiceItemPerBatch, globalSettings.Kos.Make.JOB_MaxParallelTask);
+            Settings = new SendKosJobSetting(globalSettings.DataServiceSettings.SendKosServiceItemPerBatch, globalSettings.Kos.Make.JOB_MaxParallelTask);
             var makeKosSetting = TeletipKosServiceSetting.GetCurrent().SendKosSettings;
             TeletipSendKosService = new TeletipSendKosService(makeKosSetting);
         }
 
         public void DoSingleBatch(IEnumerable<SentKosViewModel> items, System.Threading.CancellationTokenSource cancelToken, JobBussinessServiceProgressItem progressAction)
         {
-
-            Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, item =>
+            try
             {
-                if (cancelToken.IsCancellationRequested)
+                Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, item =>
                 {
-                    return;
-                }
-               
-                var res = TeletipSendKosService.SendKos(item.PatientId,item.SendDicomPath);
-                var studyDataService = new StudyKosDataService();
-                var sb = new StringBuilder();
-                sb.AppendLine(res.Message);
-                sb.AppendLine("");
-                sb.AppendLine("");
-                sb.Append(res.Arguments);
-                if(res.IsSuccess)
-                {
-                    //if(res.Message)
-                    {
-                        throw new NotImplementedException();
-                    }
-                }
-                studyDataService.Save_UpdateSentKosDurum(item.StudyID,StudyKosDataService.SentKosResult.Success , res.Message + res.Arguments);
-                progressAction.IncreaseProgressError();
-                progressAction.IncreaseProgressSuccess();
-            });
+                     var log = new AppLogDataService(null);
+                        try
+                        {
+                           
+                            if (cancelToken.IsCancellationRequested)
+                            {
+                                return;
+                            }
+
+                            var res = TeletipSendKosService.SendKos(item.PatientId, item.SendDicomPath);
+                            var studyDataService = new StudyKosDataService();
+                            var sb = new StringBuilder();
+                            sb.AppendLine(res.Message);
+                            sb.AppendLine("");
+                            sb.AppendLine("");
+                            sb.Append(res.Arguments);
+                            if (res.IsSuccess)
+                            {
+                                studyDataService.Save_UpdateSentKosDurum(item.StudyID, StudyKosDataService.SentKosResult.Success, res.Message + res.Arguments);
+                            }
+                            else
+                            {
+                                studyDataService.Save_UpdateSentKosDurum(item.StudyID, StudyKosDataService.SentKosResult.Fail, res.Message + res.Arguments);
+                            }
+
+
+
+                            progressAction.IncreaseProgressError();
+                            progressAction.IncreaseProgressSuccess();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Save(AppLogDataService.LogType.OtomatikMakeKos, "Log File Path DoSingleBatch :" + ex.Message.ToString().Substring(0, 500));                
+                        }
+
+
+
+                 });
+
+            }
+            catch 
+            {
+
+            }
+
+
         }
 
 
@@ -83,6 +109,7 @@ namespace GT.Job.Implementation
             var resultCollection = new ConcurrentBag<ProcessResult>();
             ParallelLoopResult result = Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, item =>
             {
+
                 var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
                 var res = TeletipSendKosService.SendKosCa(item.PatientId, item.SendDicomPath);
                 var studyDataService = new StudyKosDataService();
@@ -98,6 +125,10 @@ namespace GT.Job.Implementation
                 sb.Append(res.Arguments);
                 var sonuc =  studyDataService.Save_UpdateSentKosDurum(item.StudyID, StudyKosDataService.SentKosResult.Success, res.Message + res.Arguments);
                 resultCollection.Add(res);
+
+
+
+
             });
             return resultCollection.ToArray();
         }

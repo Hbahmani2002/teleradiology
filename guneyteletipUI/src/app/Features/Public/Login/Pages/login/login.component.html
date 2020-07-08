@@ -1,56 +1,54 @@
 <div class="body textClass">
   <div class="text-center pt-4">
-    <img src="./././././assets/img/loginlogo.png" style="width: 350px; height:175px;"/>
+    <img src="./././././assets/img/loginlogo.png"/>
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-        <div class="card card-signin my-5 shadow-lg" style="opacity:0.5; background-color:black;">
-          <div class="card-body">
-            <h5 class="card-title text-center labelText">GİRİŞ</h5>
-            <form class="form-signin">
-              <div class="form-group">
-                <label class="labelText">Kullanıcı Adı</label>
-                <input type="text" class="form-control" name="userName" [(ngModel)] ="userName">
-              </div>
-              <div class="form-group">
-                <label class="labelText">Şifre</label>
-                <input type="password" class="form-control" name="password" [(ngModel)]="password">
-              </div>
+    <div class="container mb-0">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="loginbox card card-signin my-5 shadow-lg" style="opacity:0.5; background-color:black;">
+            <div class="card-body ">
+              <h5 class="card-title text-center labelText">GİRİŞ</h5>
+              <form class="form-signin">
+                <div class="form-group">
+                  <label class="labelText">Kullanıcı Adı</label>
+                  <input type="text" class="form-control" name="userName" [(ngModel)]="userName">
+                </div>
+                <div class="form-group">
+                  <label class="labelText">Şifre</label>
+                  <input type="password" class="form-control" name="password" [(ngModel)]="password">
+                </div>
 
-              <div class="custom-control custom-checkbox mb-3">
-                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                <label class="custom-control-label labelText" for="customCheck1">Beni Hatırla</label>
-              </div>
-              <button class="btn btn-lg btn-primary btn-block" (click)="login()">
-                <span class="labelText"  style="font-size:13px;"> GİRİŞ </span>
-              </button>
-              <hr class="my-4">
-              <div class="text-center">
-                <a routerLink="#" class="labelText">Şifremi unuttum</a>
-              </div>
-
-            </form>
+                <div class="custom-control custom-checkbox mb-3">
+                  <input type="checkbox" class="custom-control-input" id="customCheck1">
+                  <label class="custom-control-label labelText" for="customCheck1">Beni Hatırla</label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" (click)="login()">
+                  <span class="labelText" style="font-size:13px;"> GİRİŞ </span>
+                </button>
+                <div class="text-center mt-2">
+                  <a routerLink="#" class="labelText">Şifremi unuttum</a>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   </div>
+
   <div>
-    <div class="text-center">
+    <div class="text-center mt-0">
       <a routerLink="#" class="infoText" style="color:black !important; opacity:0.7;">İletişim Bilgileri</a>
     </div>
     <div class="container-fluid m-0 p-0 footerClass ">
-      <footer class="page-footer font-small teal pt-4 bordered">
+      <footer class="page-footer font-small teal pt-2 bordered">
         <div class="container pb-4  shadow-lg">
           <div class="row">
             <!--<div class="col  text-center">
     <a routerLink="#" class="infoText">GİZLİLİK ŞÖZLEŞMESİ</a>
     <hr />
   </div>-->
-            <div class="col  text-center">
+            <div class="col text-center p-0">
               <a routerLink="#" class="infoText">AYDINLATMA VE ONAM FORMU</a>
-              <hr />
               <p class="m-0">By@Protek Sağlık Bilişim</p>
               <p class="m-0">Teknik İletisim  : <span class="text-primary">0(222) 444 11 33</span> </p>
               <p class="m-0">Radbil İletişim  : <span class="text-primary">0(333) 555 22 44</span></p>

@@ -1,13 +1,13 @@
 
 <div class="m-0">
-  <div class="card m-0 shadow  bg-white rounded">
-    <div class="card-header">
-      <label class="label"><fa name="filter"></fa> {{headertext}} </label>
+  <div class="card m-0 shadow  bg-white rounded-0">
+    <div class="card-header p-1">
+      <span class="align-middle"><fa name="filter"></fa> {{headertext}} </span>
       <div class="pull-left">
-        <button (click)="isCollapsed = !isCollapsed;" class="btn btn-sm btn-light" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">
+        <span (click)="isCollapsed = !isCollapsed;" class="buttonCollapse" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">
           <fa *ngIf="!isCollapsed" name="angle-down"></fa>
           <fa *ngIf="isCollapsed" name="angle-up"></fa>
-        </button>
+        </span>
       </div>
     </div>
     <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">

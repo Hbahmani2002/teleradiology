@@ -32,7 +32,7 @@ namespace GT.DataService.infinity.Conditions
             }
             if (filter.InfStudyPkLast.HasValue)
             {
-                exp = exp.And(o => o.StudyKey >= filter.InfStudyPkLast.Value);
+                exp = exp.And(o => o.StudyKey > filter.InfStudyPkLast.Value);
 
             }
             if (filter.CreationStartDate.HasValue)

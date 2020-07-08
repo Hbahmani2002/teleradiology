@@ -80,12 +80,26 @@ namespace GT.UI.WebApi.Controllers
             return HttpMessageService.Ok(job.JobID);
         }
 
+        //[HttpPost]
+        //[Route("/Kos/DeleteKos")]
+        //public ServiceResult<long> DeleteKos(Gridable<KosStudyFilter> parms)
+        //{
+        //    return HttpMessageService.Ok(999L);
+        //}
+
+
+
         [HttpPost]
         [Route("/Kos/DeleteKos")]
-        public ServiceResult<long> DeleteKos(Gridable<KosStudyFilter> parms)
+        public ServiceResult<MultipleOperationResultModel> DeleteKos(Gridable<KosStudyFilter> parms)
         {
-            return HttpMessageService.Ok(999L);
+            
+            var sd = new StudyKosService(GetBussinesContext());
+            var job = sd.DeleteKos(parms);
+            return HttpMessageService.Ok(job);
+
         }
+
 
         [HttpPost]
         [Route("/Kos/DeleteKosBackground")]
@@ -154,23 +168,23 @@ namespace GT.UI.WebApi.Controllers
         }
 
 
-        [HttpPost]
-        [Route("/Kos/UpdateReadKos")]
+        //[HttpPost]
+        //[Route("/Kos/UpdateReadKos")]
         //public ServiceResult<int> UpdateReadKos(Gridable<KosStudyFilter> parms)
-        public ServiceResult<MultipleOperationResultModel> UpdateReadKos(Gridable<KosStudyFilter> parms)
-        {
+        //public ServiceResult<MultipleOperationResultModel> UpdateReadKos(Gridable<KosStudyFilter> parms)
+        //{
 
 
-            //var sd = new StudyKosService(GetBussinesContext());
-            //var job = sd.UpdateReadKos(parms);
-            //return HttpMessageService.Ok(job.JobID);
+        //    var sd = new StudyKosService(GetBussinesContext());
+        //    var job = sd.UpdateReadKos(parms);
+        //    return HttpMessageService.Ok(job.JobID);
 
 
-            var sd = new StudyKosService(GetBussinesContext());
-            var job = sd.UpdateReadKos(parms);
-            return HttpMessageService.Ok(job);
+        //    //var sd = new StudyKosService(GetBussinesContext());
+        //    //var job = sd.UpdateReadKos(parms);
+        //    //return HttpMessageService.Ok(job);
 
-        }
+        //}
 
         [HttpPost]
         [Route("/Kos/GetByID")]

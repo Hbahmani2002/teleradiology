@@ -1,4 +1,13 @@
 
+.textClass {
+  font-family: 'dsLight' !important;
+}
+.avatar {
+ 
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
 @media (max-width: 543px) {
     .navbar-toggleable .navbar-nav .nav-item {
         margin-left: 0;
@@ -17,6 +26,7 @@
   }
 }
 #wrapper {
+  padding-left:50px;
   padding-right: 0;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
@@ -30,8 +40,25 @@
 .bgColor {
   background: #1E2648;
 }
-.textColor{
-  color: darkgray !important ;
+
+
+
+.dekorCard {
+  width: 100%;
+  height: 200px;
+  background-color: #BDBDBD;
+  clear: both;
+  position: relative;
+}
+.footerClass {
+  padding:0;
+  margin:0;
+  clear: both;
+  position: relative;
+  margin-top: 50px;
+}
+.textColor {
+  color: darkgray !important;
 }
 img {
   width: 110px;
@@ -58,15 +85,33 @@ img {
 
 #page-content-wrapper {
   width: 100%;
+  height:100%;
   position: absolute;
   padding: 15px;
 }
+/*#wrapper.toggled .routerField {
+  margin-top: -185px;
+  padding-left:0;
+}*/
+.routerField {
+  margin-top: -185px;
+  padding-left: 0px;
+  min-height: 100%;
+}
+
+
 
 #wrapper.toggled #page-content-wrapper {
   position: absolute;
   margin-left: 0px;
 }
+.toggleButton {
+  height:32px;
+  width:32px;
+  border:none;
+  background-color: white;
 
+}
 
 /* Sidebar Styles */
 

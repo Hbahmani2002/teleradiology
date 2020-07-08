@@ -1,9 +1,9 @@
 
-<button (click)="openEditUserModal('ekle')" class="btn btn-info smalbutton" tooltip="Ekle"><fa name="plus-circle"></fa></button>
-<button (click)="openEditUserModal('düzenle')" class="btn btn-primary smalbutton" tooltip="Güncelle"><fa name="pencil"></fa></button>
-<button (click)="openConfirmationDialog()"class="btn btn-danger smalbutton" tooltip="Sil"><fa name="trash"></fa></button>
+<button [disabled]="gridUser.clickedItem == undefined" (click)="openEditUserModal('ekle')" class="btn btn-info smalbutton" tooltip="Ekle"><fa name="plus-circle"></fa></button>
+<button [disabled]="gridUser.clickedItem == undefined" (click)="openEditUserModal('düzenle')" class="btn btn-primary smalbutton" tooltip="Güncelle"><fa name="pencil"></fa></button>
+<button [disabled]="gridUser.clickedItem == undefined" (click)="openConfirmationDialog()"class="btn btn-danger smalbutton" tooltip="Sil"><fa name="trash"></fa></button>
 
-<div class="card mt-2">
+<div class="card mt-2 shadow bg-white rounded-0">
   <div class="card-header">
     <fa name="list"></fa>
     Kullanıcı Listesi > [Toplam:{{gridUser.data.totalCount}}/Seçili:{{gridUser.selectedItems.length}}/Tıklanan:{{gridUser.clickedItem!=undefined?1:0}}]
@@ -14,16 +14,16 @@
     </div>
   </div>
   <div class="card-body p-0 table-responsive">
-    <table #filterSection class="table table-bordered m-0 medlifeGrid">
+    <table #filterSection class="table table-hover m-0 medlifeGrid">
       <thead>
         <tr>
           <th scope="col" class="p-0"><input type="checkbox" (click)="gridUser.onSelectAll($event)"></th>
-          <th scope="col" class="p-0" (click)="gridUser.onSorting('id')">Id<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridUser.onSorting('userName')">Kullanıcı Adı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridUser.onSorting('name')">Adı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridUser.onSorting('surname')">Soyadı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridUser.onSorting('emailAdress')">E-mail<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridUser.onSorting('rolName')">Rol<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('id')">Id<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('userName')">Kullanıcı Adı<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('name')">Adı<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('surname')">Soyadı<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('emailAdress')">E-mail<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridUser.onSorting('rolName')">Rol<fa name="sort" class="ml-1"></fa></th>
         </tr>
       </thead>
       <tbody>
@@ -42,9 +42,9 @@
       </tbody>
     </table>
   </div>
-  <div class="row justify-content-center  mb-3">
+  <div class="row justify-content-center mt-2">
     <div class="col-sm-7 pagination-sm  justify-content-center pageNumber">
-      <pagination class="justify-content-center" [boundaryLinks]="true" [totalItems]="gridUser.data.totalCount" [maxSize]="4" [(ngModel)]="gridUser.model.paging.pageNumber" [itemsPerPage]="gridUser.model.paging.count" (pageChanged)="gridUser.onPageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      <pagination class="justify-content-center mb-0" [boundaryLinks]="true" [totalItems]="gridUser.data.totalCount" [maxSize]="4" [(ngModel)]="gridUser.model.paging.pageNumber" [itemsPerPage]="gridUser.model.paging.count" (pageChanged)="gridUser.onPageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
       </pagination>
     </div>
   </div>

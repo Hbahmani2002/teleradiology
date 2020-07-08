@@ -29,6 +29,11 @@ namespace GT.Job.Implementation
         }
 
 
+
+
+
+      
+
         private InfJobManager(ILogger logger)
         {
             if (logger == null)
