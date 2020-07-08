@@ -11,29 +11,25 @@ import { LoginCheckActivate } from './Shared/Services/Guards/authorizationGuard'
 import { TestpageComponent } from './Features/Public/testpage/testpage.component';
 import { JobsComponent } from './Features/Private/Operations/Pages/jobs/jobs.component';
 import { SidetestComponent } from './Shared/Pages/sidetest/sidetest.component';
+import { TeletipstmComponent } from './Features/Private/Operations/Pages/teletipstm/teletipstm.component';
 const routes: Routes = [
   {
     path: '',
-    component: SidelayoutComponent,
+    component: SidetestComponent,
     canActivate: [LoginCheckActivate],
     children: [
       { path: '', component: DashboardComponent, pathMatch: 'full' },
       { path: 'operations/kos', component: KosoperationsComponent, pathMatch: 'full' },
       { path: 'definitions/user', component: UserComponent, pathMatch: 'full' },
       { path: 'definitions/role', component: RoleComponent, pathMatch: 'full' },
-      { path: 'definitions/jobs', component: JobsComponent, pathMatch: 'full' },
+      { path: 'operations/jobs', component: JobsComponent, pathMatch: 'full' },
       { path: 'gt_test', component: TestpageComponent, pathMatch: 'full' },
-      { path: 'gt_test', component: TestpageComponent, pathMatch: 'full' },
+      { path: 'operations/stm', component: TeletipstmComponent, pathMatch: 'full' },
     ]
   },
   {
     path: 'login',
     component: LoginComponent
-
-  },
-  {
-    path: 'side',
-    component: SidetestComponent
 
   }
 ];

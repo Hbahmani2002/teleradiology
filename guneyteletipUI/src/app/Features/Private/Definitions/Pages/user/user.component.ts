@@ -9,15 +9,16 @@ import { UsergridComponent } from './usergrid/usergrid.component';
 })
 export class UserComponent implements OnInit {
 
-  @ViewChild(UserfilterComponent, { static: false })
-  public userFilterComponent: UserfilterComponent;
 
   @ViewChild(UsergridComponent, { static: false })
   public userGridComponent: UsergridComponent;
-
+  filterValue;
   constructor() { }
 
   ngOnInit() {
   }
-
+  getFilter(event) {
+    debugger;
+    this.filterValue = event;
+  }
 }

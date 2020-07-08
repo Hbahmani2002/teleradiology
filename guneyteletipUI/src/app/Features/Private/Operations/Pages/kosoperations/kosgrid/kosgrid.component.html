@@ -7,31 +7,31 @@
   <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickExportExcel()" class="btn btn-primary smalbutton" tooltip="Excel'e çevir"><fa name="table"></fa></button>
 </div>
 
-<div class="card mt-2 shadow bg-white rounded">
-  <div class="card-header p-1">
-    <fa name="list"></fa>
+<div class="card mt-2 shadow bg-white rounded-0">
+  <div class="card-header pr-1 pt-1 pb-1 pl-2">
+    <fa name="list" class="align-middle"></fa>
     Kayıt Listesi > [Toplam:{{gridKos.data.totalCount}}/Seçili:{{gridKos.selectedItems.length}}/Tıklanan:{{gridKos.clickedItem!=undefined?1:0}}]
-    <div class="pull-right">
+    <div class="pull-right align-middle">
       <select [(ngModel)]="gridKos.model.paging.count" (change)="gridKos.onRefresh()">
         <option *ngFor="let c of gridKos.pager" [ngValue]="c">{{c}}</option>
       </select>
     </div>
   </div>
   <div class="card-body p-0 table-responsive">
-    <table #filterSection class="table table-bordered m-0 medlifeGrid">
+    <table #filterSection class="table table-hover m-0 medlifeGrid">
       <thead>
         <tr>
-          <th scope="col" class="p-0">
+          <th scope="col" class="p-0" style="width: 25px;">
             <input type="checkbox" class="m-1" (click)="gridKos.gridSelect($event,'selectPage')" [(ngModel)]="gridKos.selectPage" title="Sayfayı Seç">
             <input type="checkbox" class="m-1" (click)="gridKos.gridSelect($event,'selectAll')" [(ngModel)]="gridKos.selectAll" title="Tümünü Seç">
           </th>
-          <th scope="col" class="p-0" (click)="gridKos.onSorting('id')">ID<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridKos.onSorting('hastaNo')">Hasta No<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridKos.onSorting('patientName')">Hasta İsmi<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridKos.onSorting('accessionNumber')">Accession No<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridKos.onSorting('modality')">Modalite<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridKos.onSorting('creationDttm')">Oluşturma Tarihi<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
-          <th scope="col" class="p-0" (click)="gridKos.onSorting('studyDate')">Study Date<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0" (click)="gridKos.onSorting('id')">ID<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridKos.onSorting('hastaNo')">Hasta No<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridKos.onSorting('patientName')">Hasta İsmi<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridKos.onSorting('accessionNumber')">Accession No<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridKos.onSorting('modality')">Modalite<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridKos.onSorting('creationDttm')">Oluşturma Tarihi<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridKos.onSorting('studyDate')">Study Date<fa name="sort" class="ml-1"></fa></th>
         </tr>
       </thead>
       <tbody>
@@ -51,9 +51,9 @@
       </tbody>
     </table>
   </div>
-  <div class="row justify-content-center  mb-3">
+  <div class="row justify-content-center mt-2">
     <div class="col-sm-7 pagination-sm  justify-content-center pageNumber">
-      <pagination class="justify-content-center" [boundaryLinks]="true" [totalItems]="gridKos.data.totalCount" [maxSize]="4" [(ngModel)]="gridKos.model.paging.pageNumber" [itemsPerPage]="gridKos.model.paging.count" (pageChanged)="gridKos.onPageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      <pagination class="justify-content-center mb-0" [boundaryLinks]="true" [totalItems]="gridKos.data.totalCount" [maxSize]="4" [(ngModel)]="gridKos.model.paging.pageNumber" [itemsPerPage]="gridKos.model.paging.count" (pageChanged)="gridKos.onPageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
       </pagination>
     </div>
   </div>

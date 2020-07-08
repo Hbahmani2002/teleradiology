@@ -25,7 +25,7 @@ export class roleDataServices {
   public GetPermissionListByRoleID(model: roleModel): Observable<Array<permissionViewModel>> {
     return this.apiDataService.callDataService('Role/GetPermissionListByRoleID', model);
   }
-  public SavePermission(model: savePermissionModel): Observable<number> {
+  public SavePermission(model: savePermissionModel): Observable<any> {
     return this.apiDataService.callDataService('Role/SavePermission', model);
   }
 }

@@ -1,40 +1,4 @@
-<!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<nav class="navbar navbar-expand navbar-dark bg-primary">
-  <a href="#menu-toggle" id="menu-toggle" class="navbar-brand"><span class="navbar-toggler-icon"></span></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
-  <div class="collapse navbar-collapse" id="navbarsExample02">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active"> <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> </li>
-      <li class="nav-item"> <a class="nav-link" href="#">Link</a> </li>
-    </ul>
-    <form class="form-inline my-2 my-md-0"> </form>
-  </div>
-</nav>
-<div id="wrapper" class="toggled">
-  <!-- Sidebar 
-<div id="sidebar-wrapper">
-  <ul class="sidebar-nav">
-    <li class="sidebar-brand"> <a href="#"> Start Bootstrap </a> </li>
-    <li> <a href="#">Dashboard</a> </li>
-    <li> <a href="#">Shortcuts</a> </li>
-    <li> <a href="#">Overview</a> </li>
-    <li> <a href="#">Events</a> </li>
-    <li> <a href="#">About</a> </li>
-    <li> <a href="#">Services</a> </li>
-    <li> <a href="#">Contact</a> </li>
-  </ul>
-</div> <!-- /#sidebar-wrapper 
-<!-- Page Content 
-<div id="page-content-wrapper">
-  <div class="container-fluid mt-2 p-0 " style="min-height:100%;">
-    <router-outlet></router-outlet>
-  </div>
-  <div class="container-fluid m-0 p-0 footerClass">
-    <app-footer></app-footer>
-  </div>
-</div> <!-- /#page-content-wrapper 
-</div> <!-- /#wrapper -->
+
 <div id="wrapper" class="body textClass" [ngClass]="{'d-flex' : true , 'toggled' : collapse}">
   <div class="bg-light border-right column" id="sidebar-wrapper">
     <div class="p-2 pl-3 shadow bg-white rounded">
@@ -106,7 +70,7 @@
   </div>
   <div id="page-content-wrapper" class="column ">
     <div class="header  top-right shadow bg-white rounded">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom sticky-top" (scroll)="onWindowScroll($event);">
+      <nav  class="navbar navbar-expand-lg navbar-light bg-light border-bottom sticky-top" (scroll)="onWindowScroll($event);">
         <button class="btn btn-light" id="menu-toggle" (click)="toggle()"><span class="navbar-toggler-icon"></span></button>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

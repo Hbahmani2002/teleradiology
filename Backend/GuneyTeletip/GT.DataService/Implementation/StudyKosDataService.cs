@@ -34,8 +34,6 @@ namespace GT.DataService.Implementation
         MakeKosCompositeRepository makeKosCompositeRepository;
         KosStudyJobRepository kosStudyJobRepository;
         KosDeleteCompositeRepository kosDeleteCompositeRepository;
-        GetorderStatusCompositeRepository getorderStatusCompositeRepository;
-        GetorderStatusRepository getorderStatusRepository;
         StudyOperationCountRepository studyOperationCount;
 
         KosDurumOrderCompositeRepository KosDurumOrderCompositeRepository;
@@ -60,8 +58,6 @@ namespace GT.DataService.Implementation
             makeKosCompositeRepository = new MakeKosCompositeRepository(_Workspace);
             kosStudyJobRepository = new KosStudyJobRepository(_Workspace);
             kosDeleteCompositeRepository = new KosDeleteCompositeRepository(_Workspace);
-            getorderStatusCompositeRepository = new GetorderStatusCompositeRepository(_Workspace);
-            getorderStatusRepository = new GetorderStatusRepository(_Workspace);
             studyOperationCount = new StudyOperationCountRepository(_Workspace);
 
             KosDurumOrderCompositeRepository = new KosDurumOrderCompositeRepository(_Workspace);

@@ -118,7 +118,7 @@ module.exports = "<div class=\"container-fluid h-100\">\r\n  <div class=\"row h-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<filter header=\"Kullanıcı Filtreleme\">\r\n  <form>\r\n    <div class=\"form-row mb-2\">\r\n      <div class=\"col-md-6\">\r\n        <label class=\"font-weight-bold\">Kullanıcı Adı</label>\r\n        <div class=\"input-group input-group-sm\">\r\n          <input type=\"text\" class=\"form-control input-sm\" name=\"username\" [(ngModel)]=\"userName\">\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </form>\r\n  <button class=\"btn btn-success btn-sm mr-2\" tooltip=\"Filtrele\" (click)=\"onFilter()\"><fa name=\"search\"></fa></button>\r\n  <button class=\"btn btn-danger btn-sm\" tooltip=\"Filtreleri Temizle\"><fa name=\"close\"></fa></button>\r\n</filter>\r\n"
+module.exports = "<filter header=\"Kullanıcı Filtreleme\">\r\n  <form>\r\n    <div class=\"form-row mb-2\">\r\n      <div class=\"col-md-6\">\r\n        <label class=\"font-weight-bold\">Kullanıcı Adı</label>\r\n        <div class=\"input-group input-group-sm\">\r\n          <input type=\"text\" class=\"form-control input-sm\" name=\"username\" [(ngModel)]=\"userName\">\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </form>\r\n  <button class=\"btn btn-success btn-sm mr-2\" tooltip=\"Filtrele\" (click)=\"onFilter()\"><fa name=\"search\"></fa></button>\r\n  <button class=\"btn btn-danger btn-sm\" tooltip=\"Filtreleri Temizle\" (click)=\"onClearFilter()\"><fa name=\"close\"></fa></button>\r\n</filter>\r\n"
 
 /***/ }),
 
@@ -338,7 +338,7 @@ module.exports = "<nav class=\"navbar navbar-expand-lg navbar-light bg-light bor
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--<link href=\"//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css\" rel=\"stylesheet\" id=\"bootstrap-css\">\r\n<script src=\"//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js\"></script>\r\n<script src=\"//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script>\r\n<nav class=\"navbar navbar-expand navbar-dark bg-primary\">\r\n  <a href=\"#menu-toggle\" id=\"menu-toggle\" class=\"navbar-brand\"><span class=\"navbar-toggler-icon\"></span></a> <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExample02\" aria-controls=\"navbarsExample02\" aria-expanded=\"false\" aria-label=\"Toggle navigation\"> <span class=\"navbar-toggler-icon\"></span> </button>\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarsExample02\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      <li class=\"nav-item active\"> <a class=\"nav-link\" href=\"#\">Home <span class=\"sr-only\">(current)</span></a> </li>\r\n      <li class=\"nav-item\"> <a class=\"nav-link\" href=\"#\">Link</a> </li>\r\n    </ul>\r\n    <form class=\"form-inline my-2 my-md-0\"> </form>\r\n  </div>\r\n</nav>\r\n<div id=\"wrapper\" class=\"toggled\">\r\n  <!-- Sidebar \r\n<div id=\"sidebar-wrapper\">\r\n  <ul class=\"sidebar-nav\">\r\n    <li class=\"sidebar-brand\"> <a href=\"#\"> Start Bootstrap </a> </li>\r\n    <li> <a href=\"#\">Dashboard</a> </li>\r\n    <li> <a href=\"#\">Shortcuts</a> </li>\r\n    <li> <a href=\"#\">Overview</a> </li>\r\n    <li> <a href=\"#\">Events</a> </li>\r\n    <li> <a href=\"#\">About</a> </li>\r\n    <li> <a href=\"#\">Services</a> </li>\r\n    <li> <a href=\"#\">Contact</a> </li>\r\n  </ul>\r\n</div> <!-- /#sidebar-wrapper \r\n<!-- Page Content \r\n<div id=\"page-content-wrapper\">\r\n  <div class=\"container-fluid mt-2 p-0 \" style=\"min-height:100%;\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n  <div class=\"container-fluid m-0 p-0 footerClass\">\r\n    <app-footer></app-footer>\r\n  </div>\r\n</div> <!-- /#page-content-wrapper \r\n</div> <!-- /#wrapper -->\r\n<div id=\"wrapper\" class=\"body textClass\" [ngClass]=\"{'d-flex' : true , 'toggled' : collapse}\">\r\n  <div class=\"bg-light border-right column\" id=\"sidebar-wrapper\">\r\n    <div class=\"p-2 pl-3 shadow bg-white rounded\">\r\n      <a routerLink=\"\"><img src=\"./././assets/img/logo.png\" /></a>\r\n    </div>\r\n    <div class=\"list-group list-group-flush\">\r\n      <ul class=\"p-0 \" style=\"list-style: none;\">\r\n        <li>\r\n          <a class=\"list-group-item list-group-item-action\" (click)=\"isfirstCollapsed1 = !isfirstCollapsed1\"\r\n             [attr.aria-expanded]=\"!isfirstCollapsed1\" aria-controls=\"collapseBasic1\">\r\n            <div class=\"d-flex justify-content-between mb-2\" style=\"color: inherit !important\">\r\n              <p class=\"mb-1\"><fa name=\"exchange\"></fa>  İŞLEMLER</p>\r\n              <small class=\"pull-right\"><fa name=\"chevron-down\" *ngIf=\"isfirstCollapsed1\"></fa> <fa name=\"chevron-up\" *ngIf=\"!isfirstCollapsed1\"></fa></small>\r\n\r\n            </div>\r\n            <div id=\"collapseBasic1\" [collapse]=\"isfirstCollapsed1\" [isAnimated]=\"true\" class=\"list-group list-group-flush \">\r\n              <ul class=\"p-0 \" style=\"list-style: none;\">\r\n                <li><a routerLink=\"/operations/kos\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> KOS İşlemleri</a></li>\r\n                <li><a routerLink=\"/definitions/jobs\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Arka Plan İşleri</a></li>\r\n              </ul>\r\n\r\n            </div>\r\n          </a>\r\n\r\n        </li>\r\n        <li>\r\n          <a class=\"list-group-item list-group-item-action\" (click)=\"isfirstCollapsed3 = !isfirstCollapsed3\"\r\n             [attr.aria-expanded]=\"!isfirstCollapsed3\" aria-controls=\"collapseBasic3\">\r\n            <div class=\"d-flex justify-content-between mb-2\">\r\n              <p class=\"mb-1\"><fa name=\"user\"></fa>  TANIMLAMALAR</p>\r\n              <small class=\"pull-right\"><fa name=\"chevron-down\" *ngIf=\"isfirstCollapsed3\"></fa> <fa name=\"chevron-up\" *ngIf=\"!isfirstCollapsed3\"></fa></small>\r\n\r\n            </div>\r\n            <div id=\"collapseBasic3\" [collapse]=\"isfirstCollapsed3\" [isAnimated]=\"true\" class=\"list-group list-group-flush \">\r\n              <ul class=\"p-0 \" style=\"list-style: none;\">\r\n                <li><a routerLink=\"/definitions/user\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Kullanıcı Tanımlama</a></li>\r\n                <li><a routerLink=\"/definitions/role\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Rol Tanımlama</a></li>\r\n              </ul>\r\n\r\n            </div>\r\n          </a>\r\n        </li>\r\n        <li>\r\n          <a class=\"list-group-item list-group-item-action\" (click)=\"isfirstCollapsed2 = !isfirstCollapsed2\"\r\n             [attr.aria-expanded]=\"!isfirstCollapsed2\" aria-controls=\"collapseBasic2\">\r\n            <div class=\"d-flex justify-content-between mb-2\">\r\n              <p class=\"mb-1\"><fa name=\"cogs\"></fa>  AYARLAR</p>\r\n              <small class=\"pull-right\"><fa name=\"chevron-down\" *ngIf=\"isfirstCollapsed2\"></fa> <fa name=\"chevron-up\" *ngIf=\"!isfirstCollapsed2\"></fa></small>\r\n\r\n            </div>\r\n            <div id=\"collapseBasic2\" [collapse]=\"isfirstCollapsed2\" [isAnimated]=\"true\" class=\"list-group list-group-flush \">\r\n              <ul class=\"p-0 \" style=\"list-style: none;\">\r\n                <li><a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Kullanıcı Ayarları</a></li>\r\n                <li><a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Kos Ayarları</a></li>\r\n                <li><a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Sistem Ayarları</a></li>\r\n              </ul>\r\n            </div>\r\n          </a>\r\n        </li>\r\n\r\n        <li>\r\n          <a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light\"></a>\r\n        </li>\r\n      </ul>\r\n\r\n\r\n\r\n    </div>\r\n  </div>\r\n  <div id=\"page-content-wrapper\" class=\"column \">\r\n    <div class=\"header  top-right shadow bg-white rounded\">\r\n      <nav class=\"navbar navbar-expand-lg navbar-light bg-light border-bottom sticky-top\" (scroll)=\"onWindowScroll($event);\">\r\n        <button class=\"btn btn-light\" id=\"menu-toggle\" (click)=\"toggle()\"><span class=\"navbar-toggler-icon\"></span></button>\r\n\r\n        <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\"\r\n                aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n          <span class=\"navbar-toggler-icon\"></span>\r\n        </button>\r\n\r\n        <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n          <ul class=\"navbar-nav ml-auto mt-2 mt-lg-0\">\r\n            <li class=\"nav-item dropdown\">\r\n              <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-toggle=\"dropdown\"\r\n                 aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                Muhammed Mert AĞAOĞLU\r\n              </a>\r\n              <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdown\">\r\n                <a class=\"dropdown-item\" href=\"#\">Ayarlar</a>\r\n                <a class=\"dropdown-item\" href=\"#\">Seçenekler</a>\r\n                <div class=\"dropdown-divider\"></div>\r\n                <a class=\"dropdown-item bg-danger\" routerLink=\"/login\">Çıkış</a>\r\n              </div>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n      </nav>\r\n    </div>\r\n\r\n    <div class=\"bottom\">\r\n      <div class=\"container-fluid mt-2 p-0 \" style=\"min-height:100%;\">\r\n        <router-outlet></router-outlet>\r\n      </div>\r\n      <div class=\"container-fluid m-0 p-0 footerClass\">\r\n        <app-footer></app-footer>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n   \r\n"
+module.exports = "<!--<link href=\"//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css\" rel=\"stylesheet\" id=\"bootstrap-css\">\r\n<script src=\"//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js\"></script>\r\n<script src=\"//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script>\r\n<nav class=\"navbar navbar-expand navbar-dark bg-primary\">\r\n  <a href=\"#menu-toggle\" id=\"menu-toggle\" class=\"navbar-brand\"><span class=\"navbar-toggler-icon\"></span></a> <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExample02\" aria-controls=\"navbarsExample02\" aria-expanded=\"false\" aria-label=\"Toggle navigation\"> <span class=\"navbar-toggler-icon\"></span> </button>\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarsExample02\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      <li class=\"nav-item active\"> <a class=\"nav-link\" href=\"#\">Home <span class=\"sr-only\">(current)</span></a> </li>\r\n      <li class=\"nav-item\"> <a class=\"nav-link\" href=\"#\">Link</a> </li>\r\n    </ul>\r\n    <form class=\"form-inline my-2 my-md-0\"> </form>\r\n  </div>\r\n</nav>\r\n<div id=\"wrapper\" class=\"toggled\">\r\n  <!-- Sidebar \r\n<div id=\"sidebar-wrapper\">\r\n  <ul class=\"sidebar-nav\">\r\n    <li class=\"sidebar-brand\"> <a href=\"#\"> Start Bootstrap </a> </li>\r\n    <li> <a href=\"#\">Dashboard</a> </li>\r\n    <li> <a href=\"#\">Shortcuts</a> </li>\r\n    <li> <a href=\"#\">Overview</a> </li>\r\n    <li> <a href=\"#\">Events</a> </li>\r\n    <li> <a href=\"#\">About</a> </li>\r\n    <li> <a href=\"#\">Services</a> </li>\r\n    <li> <a href=\"#\">Contact</a> </li>\r\n  </ul>\r\n</div> <!-- /#sidebar-wrapper \r\n<!-- Page Content \r\n<div id=\"page-content-wrapper\">\r\n  <div class=\"container-fluid mt-2 p-0 \" style=\"min-height:100%;\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n  <div class=\"container-fluid m-0 p-0 footerClass\">\r\n    <app-footer></app-footer>\r\n  </div>\r\n</div> <!-- /#page-content-wrapper \r\n</div> <!-- /#wrapper -->\r\n<div id=\"wrapper\" class=\"body textClass\" [ngClass]=\"{'d-flex' : true , 'toggled' : collapse}\">\r\n  <div class=\"bg-light border-right column\" id=\"sidebar-wrapper\">\r\n    <div class=\"p-2 pl-3 shadow bg-white rounded\">\r\n      <a routerLink=\"\"><img src=\"./././assets/img/logo.png\" /></a>\r\n    </div>\r\n    <div class=\"list-group list-group-flush\">\r\n      <ul class=\"p-0 \" style=\"list-style: none;\">\r\n        <li>\r\n          <a class=\"list-group-item list-group-item-action\" (click)=\"isfirstCollapsed1 = !isfirstCollapsed1\"\r\n             [attr.aria-expanded]=\"!isfirstCollapsed1\" aria-controls=\"collapseBasic1\">\r\n            <div class=\"d-flex justify-content-between mb-2\" style=\"color: inherit !important\">\r\n              <p class=\"mb-1\"><fa name=\"exchange\"></fa>  İŞLEMLER</p>\r\n              <small class=\"pull-right\"><fa name=\"chevron-down\" *ngIf=\"isfirstCollapsed1\"></fa> <fa name=\"chevron-up\" *ngIf=\"!isfirstCollapsed1\"></fa></small>\r\n\r\n            </div>\r\n            <div id=\"collapseBasic1\" [collapse]=\"isfirstCollapsed1\" [isAnimated]=\"true\" class=\"list-group list-group-flush \">\r\n              <ul class=\"p-0 \" style=\"list-style: none;\">\r\n                <li><a routerLink=\"/operations/kos\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> KOS İşlemleri</a></li>\r\n                <li><a routerLink=\"/definitions/jobs\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Arka Plan İşleri</a></li>\r\n              </ul>\r\n\r\n            </div>\r\n          </a>\r\n\r\n        </li>\r\n        <li>\r\n          <a class=\"list-group-item list-group-item-action\" (click)=\"isfirstCollapsed3 = !isfirstCollapsed3\"\r\n             [attr.aria-expanded]=\"!isfirstCollapsed3\" aria-controls=\"collapseBasic3\">\r\n            <div class=\"d-flex justify-content-between mb-2\">\r\n              <p class=\"mb-1\"><fa name=\"user\"></fa>  TANIMLAMALAR</p>\r\n              <small class=\"pull-right\"><fa name=\"chevron-down\" *ngIf=\"isfirstCollapsed3\"></fa> <fa name=\"chevron-up\" *ngIf=\"!isfirstCollapsed3\"></fa></small>\r\n\r\n            </div>\r\n            <div id=\"collapseBasic3\" [collapse]=\"isfirstCollapsed3\" [isAnimated]=\"true\" class=\"list-group list-group-flush \">\r\n              <ul class=\"p-0 \" style=\"list-style: none;\">\r\n                <li><a routerLink=\"/definitions/user\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Kullanıcı Tanımlama</a></li>\r\n                <li><a routerLink=\"/definitions/role\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Rol Tanımlama</a></li>\r\n              </ul>\r\n\r\n            </div>\r\n          </a>\r\n        </li>\r\n        <li>\r\n          <a class=\"list-group-item list-group-item-action\" (click)=\"isfirstCollapsed2 = !isfirstCollapsed2\"\r\n             [attr.aria-expanded]=\"!isfirstCollapsed2\" aria-controls=\"collapseBasic2\">\r\n            <div class=\"d-flex justify-content-between mb-2\">\r\n              <p class=\"mb-1\"><fa name=\"cogs\"></fa>  AYARLAR</p>\r\n              <small class=\"pull-right\"><fa name=\"chevron-down\" *ngIf=\"isfirstCollapsed2\"></fa> <fa name=\"chevron-up\" *ngIf=\"!isfirstCollapsed2\"></fa></small>\r\n\r\n            </div>\r\n            <div id=\"collapseBasic2\" [collapse]=\"isfirstCollapsed2\" [isAnimated]=\"true\" class=\"list-group list-group-flush \">\r\n              <ul class=\"p-0 \" style=\"list-style: none;\">\r\n                <li><a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Kullanıcı Ayarları</a></li>\r\n                <li><a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Kos Ayarları</a></li>\r\n                <li><a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Sistem Ayarları</a></li>\r\n              </ul>\r\n            </div>\r\n          </a>\r\n        </li>\r\n\r\n        <li>\r\n          <a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light\"></a>\r\n        </li>\r\n      </ul>\r\n\r\n\r\n\r\n    </div>\r\n  </div>\r\n  <div id=\"page-content-wrapper\" class=\"column \">\r\n    <div class=\"header  top-right shadow bg-white rounded\">\r\n      <nav class=\"navbar navbar-expand-lg navbar-light bg-light border-bottom sticky-top\" (scroll)=\"onWindowScroll($event);\">\r\n        <button class=\"btn btn-light\" id=\"menu-toggle\" (click)=\"toggle()\"><span class=\"navbar-toggler-icon\"></span></button>\r\n\r\n        <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\"\r\n                aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n          <span class=\"navbar-toggler-icon\"></span>\r\n        </button>\r\n\r\n        <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n          <ul class=\"navbar-nav ml-auto mt-2 mt-lg-0\">\r\n            <li class=\"nav-item dropdown\">\r\n              <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-toggle=\"dropdown\"\r\n                 aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                Muhammed Mert AĞAOĞLU\r\n              </a>\r\n              <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdown\">\r\n                <a class=\"dropdown-item\" href=\"#\">Ayarlar</a>\r\n                <a class=\"dropdown-item\" href=\"#\">Seçenekler</a>\r\n                <div class=\"dropdown-divider\"></div>\r\n                <a class=\"dropdown-item bg-danger\" (click)=\"logout()\">Çıkış</a>\r\n              </div>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n      </nav>\r\n    </div>\r\n\r\n    <div class=\"bottom\">\r\n      <div class=\"container-fluid mt-2 p-0 \" style=\"min-height:100%;\">\r\n        <router-outlet></router-outlet>\r\n      </div>\r\n      <div class=\"container-fluid m-0 p-0 footerClass\">\r\n        <app-footer></app-footer>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n   \r\n"
 
 /***/ }),
 
@@ -371,7 +371,7 @@ module.exports = "\r\n<div class=\"modal-header\">\r\n  <h4 class=\"modal-title 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<link href=\"//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css\" rel=\"stylesheet\" id=\"bootstrap-css\">\r\n<script src=\"//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js\"></script>\r\n<script src=\"//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script>\r\n<!------ Include the above in your HEAD tag ---------->\r\n\r\n\r\n<nav class=\"navbar navbar-expand navbar-dark bg-primary shadow\">\r\n  <a (click)=\"toggle()\" id=\"menu-toggle\" class=\"navbar-brand\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExample02\" aria-controls=\"navbarsExample02\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarsExample02\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      <li class=\"nav-item active\"> <a class=\"nav-link\" href=\"#\">Home <span class=\"sr-only\">(current)</span></a> </li>\r\n      <li class=\"nav-item\"> <a class=\"nav-link\" href=\"#\">Link</a> </li>\r\n    </ul>\r\n    <form class=\"form-inline my-2 my-md-0\"> </form>\r\n  </div>\r\n</nav>\r\n<div id=\"wrapper\" [ngClass]=\"{'toggled' : collapse}\">\r\n  <!-- Sidebar -->\r\n  <div id=\"sidebar-wrapper\">\r\n    <div class=\"list-group list-group-flush\">\r\n      <ul class=\"p-0 \" style=\"list-style: none;\">\r\n        <li>\r\n          <a class=\"list-group-item list-group-item-action\" (click)=\"isfirstCollapsed1 = !isfirstCollapsed1\"\r\n             [attr.aria-expanded]=\"!isfirstCollapsed1\" aria-controls=\"collapseBasic1\">\r\n            <div class=\"d-flex justify-content-between mb-2\" style=\"color: inherit !important\">\r\n              <p class=\"mb-1\"><fa name=\"exchange\"></fa>  İŞLEMLER</p>\r\n              <small class=\"pull-right\"><fa name=\"chevron-down\" *ngIf=\"isfirstCollapsed1\"></fa> <fa name=\"chevron-up\" *ngIf=\"!isfirstCollapsed1\"></fa></small>\r\n\r\n            </div>\r\n            <div id=\"collapseBasic1\" [collapse]=\"isfirstCollapsed1\" [isAnimated]=\"true\" class=\"list-group list-group-flush \">\r\n              <ul class=\"p-0 \" style=\"list-style: none;\">\r\n                <li><a routerLink=\"/operations/kos\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> KOS İşlemleri</a></li>\r\n                <li><a routerLink=\"/definitions/jobs\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Arka Plan İşleri</a></li>\r\n              </ul>\r\n\r\n            </div>\r\n          </a>\r\n\r\n        </li>\r\n        <li>\r\n          <a class=\"list-group-item list-group-item-action\" (click)=\"isfirstCollapsed3 = !isfirstCollapsed3\"\r\n             [attr.aria-expanded]=\"!isfirstCollapsed3\" aria-controls=\"collapseBasic3\">\r\n            <div class=\"d-flex justify-content-between mb-2\">\r\n              <p class=\"mb-1\"><fa name=\"user\"></fa>  TANIMLAMALAR</p>\r\n              <small class=\"pull-right\"><fa name=\"chevron-down\" *ngIf=\"isfirstCollapsed3\"></fa> <fa name=\"chevron-up\" *ngIf=\"!isfirstCollapsed3\"></fa></small>\r\n\r\n            </div>\r\n            <div id=\"collapseBasic3\" [collapse]=\"isfirstCollapsed3\" [isAnimated]=\"true\" class=\"list-group list-group-flush \">\r\n              <ul class=\"p-0 \" style=\"list-style: none;\">\r\n                <li><a routerLink=\"/definitions/user\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Kullanıcı Tanımlama</a></li>\r\n                <li><a routerLink=\"/definitions/role\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Rol Tanımlama</a></li>\r\n              </ul>\r\n\r\n            </div>\r\n          </a>\r\n        </li>\r\n        <li>\r\n          <a class=\"list-group-item list-group-item-action\" (click)=\"isfirstCollapsed2 = !isfirstCollapsed2\"\r\n             [attr.aria-expanded]=\"!isfirstCollapsed2\" aria-controls=\"collapseBasic2\">\r\n            <div class=\"d-flex justify-content-between mb-2\">\r\n              <p class=\"mb-1\"><fa name=\"cogs\"></fa>  AYARLAR</p>\r\n              <small class=\"pull-right\"><fa name=\"chevron-down\" *ngIf=\"isfirstCollapsed2\"></fa> <fa name=\"chevron-up\" *ngIf=\"!isfirstCollapsed2\"></fa></small>\r\n\r\n            </div>\r\n            <div id=\"collapseBasic2\" [collapse]=\"isfirstCollapsed2\" [isAnimated]=\"true\" class=\"list-group list-group-flush \">\r\n              <ul class=\"p-0 \" style=\"list-style: none;\">\r\n                <li><a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Kullanıcı Ayarları</a></li>\r\n                <li><a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Kos Ayarları</a></li>\r\n                <li><a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Sistem Ayarları</a></li>\r\n              </ul>\r\n            </div>\r\n          </a>\r\n        </li>\r\n\r\n        <li>\r\n          <a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light\"></a>\r\n        </li>\r\n      </ul>\r\n\r\n\r\n\r\n    </div>\r\n  </div> <!-- /#sidebar-wrapper -->\r\n  <!-- Page Content -->\r\n  <div id=\"page-content-wrapper\">\r\n    <div class=\"container-fluid\">\r\n     <router-outlet></router-outlet>\r\n    </div>\r\n  </div> <!-- /#page-content-wrapper -->\r\n</div> <!-- /#wrapper -->\r\n<!-- Bootstrap core JavaScript -->\r\n<script src=\"js/jquery.min.js\"></script>\r\n<script src=\"js/bootstrap.bundle.min.js\"></script> <!-- Menu Toggle Script -->\r\n\r\n\r\n \r\n"
+module.exports = "<link href=\"//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css\" rel=\"stylesheet\" id=\"bootstrap-css\">\r\n<script src=\"//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js\"></script>\r\n<script src=\"//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script>\r\n<!------ Include the above in your HEAD tag ---------->\r\n\r\n\r\n<nav class=\"navbar navbar-expand navbar-light bg-default shadow\" style=\"height: 40px!important\">\r\n  <div style=\"width: 250px;\">\r\n    <a routerLink=\"\"><img src=\"./././assets/img/logo.png\" /></a>\r\n  </div>\r\n  <button (click)=\"toggle()\" id=\"menu-toggle\" class=\"btn btn-light\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExample02\" aria-controls=\"navbarsExample02\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n  <div class=\"collapse navbar-collapse textColor\" id=\"navbarsExample02\">\r\n    <ul class=\"navbar-nav mr-auto textColor\">\r\n      <li class=\"nav-item active textColor\"> <a class=\"nav-link textColor\" href=\"#\">Home <span class=\"sr-only\">(current)</span></a> </li>\r\n      <li class=\"nav-item textColor\"> <a class=\"nav-link textColor\" href=\"#\">Link</a> </li>\r\n    </ul>\r\n    <form class=\"form-inline my-2 my-md-0\"> </form>\r\n  </div>\r\n</nav>\r\n<div id=\"wrapper\" [ngClass]=\"{'toggled' : collapse}\">\r\n  <!-- Sidebar -->\r\n  <div id=\"sidebar-wrapper\">\r\n    <ul class=\"sidebar-nav\">\r\n      <li>\r\n        <div>\r\n          <button class=\"btn bgColor btn-block text-left rounded-0 p-3\" data-toggle=\"collapse\" href=\"#collapseExample1\" role=\"button\" aria-expanded=\"false\" aria-controls=\"collapseExample1\">\r\n            <fa name=\"exchange\" class=\"textColor\"></fa>\r\n            <span class=\"pl-3 textColor\">\r\n              İşlemler\r\n            </span>\r\n          </button>\r\n          <div class=\"collapse bgColor \" id=\"collapseExample1\">\r\n            <div class=\"card card-body p-0 rounded-0 bgColor\">\r\n              <ul class=\"list-group list-group-flush bgColor textColor\">\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\">\r\n                  <a routerLink=\"/operations/kos\"><fa name=\"angle-right\"></fa> KOS İşlemleri</a>\r\n                </li>\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\">\r\n                  <a routerLink=\"/definitions/jobs\"><fa name=\"angle-right\"></fa> Arka Plan İşleri</a>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </li>\r\n      <li>\r\n        <div>\r\n          <button class=\"btn btn-block text-left rounded-0 bgColor p-3\" data-toggle=\"collapse\" href=\"#collapseExample2\" role=\"button\" aria-expanded=\"false\" aria-controls=\"collapseExample2\">\r\n            <fa name=\"user\" class=\"textColor\"></fa>\r\n            <span class=\"pl-3 textColor\">\r\n              Tanımlamalar\r\n            </span>\r\n          </button>\r\n          <div class=\"collapse bgColor\" id=\"collapseExample2\">\r\n            <div class=\"card card-body p-0 rounded-0 bgColor\">\r\n              <ul class=\"list-group list-group-flush bgColor\">\r\n                <li class=\"list-group-item p-0 m-0 bgColor v\">\r\n                  <a routerLink=\"/definitions/user\" class=\"m-0 p-0\"><fa name=\"angle-right\"></fa> Kullanıcı Tanımlama</a></li>\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\">\r\n                  <a routerLink=\"/definitions/role\"><fa name=\"angle-right\"></fa> Rol Tanımlama</a>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </li>\r\n      <li>\r\n        <div>\r\n          <button class=\"btn btn-block text-left rounded-0 bgColor p-3\" data-toggle=\"collapse\" href=\"#collapseExample3\" role=\"button\" aria-expanded=\"false\" aria-controls=\"collapseExample3\">\r\n            <fa name=\"cogs\" class=\"textColor\"></fa>\r\n            <span class=\"pl-3 textColor\">\r\n              Ayarlar\r\n            </span>\r\n          </button>\r\n          <div class=\"collapse bgColor\" id=\"collapseExample3\">\r\n            <div class=\"card card-body p-0 rounded-0 bgColor\">\r\n              <ul class=\"list-group list-group-flush bgColor\">\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\"><a routerLink=\"\"><fa name=\"angle-right\"></fa> Kos Ayarlar</a></li>\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\"><a routerLink=\"\"><fa name=\"angle-right\"></fa> Kullanıcı Ayarlar</a></li>\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\"><a routerLink=\"\"><fa name=\"angle-right\"></fa> Sistem Ayarlar</a></li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </li> \r\n    </ul>\r\n   \r\n  </div> <!-- /#sidebar-wrapper -->\r\n  <!-- Page Content -->\r\n  <div id=\"page-content-wrapper\">\r\n    <div class=\"container-fluid\">\r\n     <router-outlet></router-outlet>\r\n    </div>\r\n  </div> <!-- /#page-content-wrapper -->\r\n</div> <!-- /#wrapper -->\r\n<!-- Bootstrap core JavaScript -->\r\n<script src=\"js/jquery.min.js\"></script>\r\n<script src=\"js/bootstrap.bundle.min.js\"></script> <!-- Menu Toggle Script -->\r\n\r\n\r\n \r\n"
 
 /***/ }),
 
@@ -1151,6 +1151,9 @@ var UserfilterComponent = /** @class */ (function () {
     };
     UserfilterComponent.prototype.onFilter = function () {
         this.userNameOutput = this.userName;
+    };
+    UserfilterComponent.prototype.onClearFilter = function () {
+        this.userName = "";
     };
     UserfilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -2111,7 +2114,6 @@ var KosfilterComponent = /** @class */ (function () {
         if (this.accessionNo == "" || this.accessionNo == undefined)
             return;
         this.accessionNo.split(" ").forEach(function (item) {
-            debugger;
             if (item != "") {
                 accessionNoList.push(item);
             }
@@ -2300,16 +2302,18 @@ var KosListComponent_Models;
                 console.log(result.outputData);
             });
         };
-        GridUser.prototype.getFilter = function () {
+        GridUser.prototype.getFilter = function (type) {
             var list = [];
             this.filter.paging.pageNumber = this.model.paging.pageNumber;
             this.filter.paging.count = this.model.paging.count;
             this.filter.sorting = this.model.sorting;
             var item = this.filter.filter;
             var o = this.kosFilter;
-            this.selectedItems.forEach(function (item) {
-                list.push(item.id);
-            });
+            if (type != 2) {
+                this.selectedItems.forEach(function (item) {
+                    list.push(item.id);
+                });
+            }
             item.StudyIDList = list;
             item.hastaneIDList = o.hastaneIDList;
             item.basTarih = o.basTarih;
@@ -2324,7 +2328,7 @@ var KosListComponent_Models;
         GridUser.prototype.onClickCreateKos = function () {
             var _this = this;
             if (this.selectAll) {
-                var filter = this.getFilter().filter;
+                var filter = this.getFilter(1).filter;
                 filter = new _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_4__["infStudyFilter"]();
                 this.kosService.createKosBg(filter).subscribe(function (o) {
                     console.log(o);
@@ -2332,8 +2336,7 @@ var KosListComponent_Models;
                 });
             }
             else {
-                this.getFilter();
-                this.kosService.createKos(this.getFilter()).subscribe(function (o) {
+                this.kosService.createKos(this.getFilter(1)).subscribe(function (o) {
                     console.log(o);
                     _this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
                 });
@@ -2342,7 +2345,7 @@ var KosListComponent_Models;
         GridUser.prototype.onClickSendKos = function () {
             var _this = this;
             if (this.selectAll) {
-                var filter = this.getFilter().filter;
+                var filter = this.getFilter(1).filter;
                 filter = new _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_4__["infStudyFilter"]();
                 this.kosService.sendKosBg(filter).subscribe(function (o) {
                     console.log(o);
@@ -2350,7 +2353,7 @@ var KosListComponent_Models;
                 });
             }
             else {
-                this.kosService.sendKos(this.getFilter()).subscribe(function (o) {
+                this.kosService.sendKos(this.getFilter(1)).subscribe(function (o) {
                     console.log(o);
                     _this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
                 });
@@ -2359,7 +2362,7 @@ var KosListComponent_Models;
         GridUser.prototype.onClickDeleteKos = function () {
             var _this = this;
             if (this.selectAll) {
-                var filter = this.getFilter().filter;
+                var filter = this.getFilter(1).filter;
                 filter = new _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_4__["infStudyFilter"]();
                 this.kosService.deleteKosBg(filter).subscribe(function (o) {
                     console.log(o);
@@ -2367,7 +2370,7 @@ var KosListComponent_Models;
                 });
             }
             else {
-                this.kosService.deleteKos(this.getFilter()).subscribe(function (o) {
+                this.kosService.deleteKos(this.getFilter(1)).subscribe(function (o) {
                     console.log(o);
                     _this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
                 });
@@ -2376,7 +2379,7 @@ var KosListComponent_Models;
         GridUser.prototype.onClickUpdateReadKos = function () {
             var _this = this;
             if (this.selectAll) {
-                var filter = this.getFilter().filter;
+                var filter = this.getFilter(1).filter;
                 filter = new _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_4__["infStudyFilter"]();
                 this.kosService.updateReadKosBg(filter).subscribe(function (o) {
                     console.log(o);
@@ -2384,7 +2387,7 @@ var KosListComponent_Models;
                 });
             }
             else {
-                this.kosService.updateReadKos(this.getFilter()).subscribe(function (o) {
+                this.kosService.updateReadKos(this.getFilter(1)).subscribe(function (o) {
                     console.log(o);
                     _this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
                 });
@@ -2393,7 +2396,7 @@ var KosListComponent_Models;
         GridUser.prototype.onClickReprocessKos = function () {
             var _this = this;
             if (this.selectAll) {
-                var filter = this.getFilter().filter;
+                var filter = this.getFilter(1).filter;
                 filter = new _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_4__["infStudyFilter"]();
                 this.kosService.reprocessKosBg(filter).subscribe(function (o) {
                     console.log(o);
@@ -2401,14 +2404,14 @@ var KosListComponent_Models;
                 });
             }
             else {
-                this.kosService.reprocessKos(this.getFilter()).subscribe(function (o) {
+                this.kosService.reprocessKos(this.getFilter(1)).subscribe(function (o) {
                     console.log(o);
                     _this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
                 });
             }
         };
         GridUser.prototype.onClickExportExcel = function () {
-            this.kosService.exportExcel(this.getFilter()).subscribe(function (o) {
+            this.kosService.exportExcel(this.getFilter(1)).subscribe(function (o) {
                 console.log(o);
             });
             ;
@@ -2426,13 +2429,14 @@ var KosListComponent_Models;
         };
         GridUser.prototype.onRefresh = function () {
             var _this = this;
-            var item = this.getFilter();
+            var item = this.getFilter(2);
             var filter = item.filter;
             console.log(item);
             this.kosService.getKosList(item).subscribe(function (o) {
                 _this.data.list = o["list"];
                 _this.data.totalCount = o["totalCount"];
                 console.log(_this.data.list);
+                filter.StudyIDList = [];
             });
         };
         GridUser.prototype.gridSelect = function (event, type) {
@@ -2559,7 +2563,7 @@ __webpack_require__.r(__webpack_exports__);
 var KosstatisticComponent = /** @class */ (function () {
     function KosstatisticComponent(kosService) {
         this.kosService = kosService;
-        this.isCollapsed = true;
+        this.isCollapsed = false;
         this.isCollapsed1 = true;
         this.kosDurumModel = Array();
     }
@@ -3548,10 +3552,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SidelayoutComponent", function() { return SidelayoutComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Services/Util/logoutService */ "./src/app/Shared/Services/Util/logoutService.ts");
+
 
 
 var SidelayoutComponent = /** @class */ (function () {
-    function SidelayoutComponent() {
+    function SidelayoutComponent(logoutService) {
+        this.logoutService = logoutService;
         this.collapse = false;
         this.isfirstCollapsed1 = true;
         this.isfirstCollapsed2 = true;
@@ -3567,13 +3574,20 @@ var SidelayoutComponent = /** @class */ (function () {
             this.collapse = true;
         }
     };
+    SidelayoutComponent.prototype.logout = function () {
+        console.log("logout");
+        this.logoutService.logout();
+    };
+    SidelayoutComponent.ctorParameters = function () { return [
+        { type: _Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__["LogoutService"] }
+    ]; };
     SidelayoutComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-sidelayout',
             template: __webpack_require__(/*! raw-loader!./sidelayout.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Layouts/sidelayout/sidelayout.component.html"),
             styles: [__webpack_require__(/*! ./sidelayout.component.css */ "./src/app/Shared/Layouts/sidelayout/sidelayout.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__["LogoutService"]])
     ], SidelayoutComponent);
     return SidelayoutComponent;
 }());
@@ -3926,7 +3940,7 @@ var OpenModal = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n@media (max-width: 543px) {\n    .navbar-toggleable .navbar-nav .nav-item {\n        margin-left: 0;\n    }\n}\n\n@media (max-width: 767px) {\n    .navbar-toggleable-sm .navbar-nav .nav-item {\n        margin-left: 0;\n    }\n}\n\n@media (max-width: 991px) {\n  .navbar-toggleable-md .navbar-nav .nav-item {\n    margin-left: 0;\n  }\n}\n\n#wrapper {\n  padding-right: 0;\n  transition: all 0.5s ease;\n}\n\n#wrapper.toggled {\n  padding-left: 250px;\n}\n\n#sidebar-wrapper {\n  z-index: 1000;\n  position: fixed;\n  left: 250px;\n  width: 0;\n  height: 100%;\n  margin-left: -250px;\n  overflow-y: auto;\n  background: #1E2648;\n  transition: all 0.5s ease;\n}\n\n#wrapper.toggled #sidebar-wrapper {\n  width: 250px;\n}\n\n#page-content-wrapper {\n  width: 100%;\n  position: absolute;\n  padding: 15px;\n}\n\n#wrapper.toggled #page-content-wrapper {\n  position: absolute;\n  margin-left: 0px;\n}\n\n/* Sidebar Styles */\n\n.sidebar-nav {\n  position: absolute;\n  top: 0;\n  width: 250px;\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n\n.sidebar-nav li {\n  text-indent: 20px;\n  line-height: 40px;\n}\n\n.sidebar-nav li a {\n  display: block;\n  text-decoration: none;\n  color: #999999;\n}\n\n.sidebar-nav li a:hover {\n  text-decoration: none;\n  color: #fff;\n  background: rgba(255, 255, 255, 0.2);\n}\n\n.sidebar-nav li a:active, .sidebar-nav li a:focus {\n  text-decoration: none;\n}\n\n.sidebar-nav>.sidebar-brand {\n  height: 65px;\n  font-size: 18px;\n  line-height: 60px;\n}\n\n.sidebar-nav>.sidebar-brand a {\n  color: #999999;\n}\n\n.sidebar-nav>.sidebar-brand a:hover {\n  color: #fff;\n  background: none;\n}\n\n@media(min-width:768px) {\n  #wrapper {\n    padding-right: 0;\n  }\n  #wrapper.toggled {\n    padding-left: 250px;\n  }\n  #sidebar-wrapper {\n    width: 0;\n  }\n  #wrapper.toggled #sidebar-wrapper {\n    width: 250px;\n  }\n  #page-content-wrapper {\n    padding: 20px;\n    position: relative;\n  }\n  #wrapper.toggled #page-content-wrapper {\n    position: relative;\n    margin-left: 0;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvU2hhcmVkL1BhZ2VzL3NpZGV0ZXN0L3NpZGV0ZXN0LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUNBO0lBQ0k7UUFDSSxjQUFjO0lBQ2xCO0FBQ0o7O0FBRUE7SUFDSTtRQUNJLGNBQWM7SUFDbEI7QUFDSjs7QUFFQTtFQUNFO0lBQ0UsY0FBYztFQUNoQjtBQUNGOztBQUNBO0VBQ0UsZ0JBQWdCO0VBSWhCLHlCQUF5QjtBQUMzQjs7QUFFQTtFQUNFLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLGFBQWE7RUFDYixlQUFlO0VBQ2YsV0FBVztFQUNYLFFBQVE7RUFDUixZQUFZO0VBQ1osbUJBQW1CO0VBQ25CLGdCQUFnQjtFQUNoQixtQkFBbUI7RUFJbkIseUJBQXlCO0FBQzNCOztBQUVBO0VBQ0UsWUFBWTtBQUNkOztBQUVBO0VBQ0UsV0FBVztFQUNYLGtCQUFrQjtFQUNsQixhQUFhO0FBQ2Y7O0FBRUE7RUFDRSxrQkFBa0I7RUFDbEIsZ0JBQWdCO0FBQ2xCOztBQUdBLG1CQUFtQjs7QUFFbkI7RUFDRSxrQkFBa0I7RUFDbEIsTUFBTTtFQUNOLFlBQVk7RUFDWixTQUFTO0VBQ1QsVUFBVTtFQUNWLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFLGlCQUFpQjtFQUNqQixpQkFBaUI7QUFDbkI7O0FBRUE7RUFDRSxjQUFjO0VBQ2QscUJBQXFCO0VBQ3JCLGNBQWM7QUFDaEI7O0FBRUE7RUFDRSxxQkFBcUI7RUFDckIsV0FBVztFQUNYLG9DQUFvQztBQUN0Qzs7QUFFQTtFQUNFLHFCQUFxQjtBQUN2Qjs7QUFFQTtFQUNFLFlBQVk7RUFDWixlQUFlO0VBQ2YsaUJBQWlCO0FBQ25COztBQUVBO0VBQ0UsY0FBYztBQUNoQjs7QUFFQTtFQUNFLFdBQVc7RUFDWCxnQkFBZ0I7QUFDbEI7O0FBRUE7RUFDRTtJQUNFLGdCQUFnQjtFQUNsQjtFQUNBO0lBQ0UsbUJBQW1CO0VBQ3JCO0VBQ0E7SUFDRSxRQUFRO0VBQ1Y7RUFDQTtJQUNFLFlBQVk7RUFDZDtFQUNBO0lBQ0UsYUFBYTtJQUNiLGtCQUFrQjtFQUNwQjtFQUNBO0lBQ0Usa0JBQWtCO0lBQ2xCLGNBQWM7RUFDaEI7QUFDRiIsImZpbGUiOiJzcmMvYXBwL1NoYXJlZC9QYWdlcy9zaWRldGVzdC9zaWRldGVzdC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXG5AbWVkaWEgKG1heC13aWR0aDogNTQzcHgpIHtcbiAgICAubmF2YmFyLXRvZ2dsZWFibGUgLm5hdmJhci1uYXYgLm5hdi1pdGVtIHtcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDA7XG4gICAgfVxufVxuXG5AbWVkaWEgKG1heC13aWR0aDogNzY3cHgpIHtcbiAgICAubmF2YmFyLXRvZ2dsZWFibGUtc20gLm5hdmJhci1uYXYgLm5hdi1pdGVtIHtcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDA7XG4gICAgfVxufVxuXG5AbWVkaWEgKG1heC13aWR0aDogOTkxcHgpIHtcbiAgLm5hdmJhci10b2dnbGVhYmxlLW1kIC5uYXZiYXItbmF2IC5uYXYtaXRlbSB7XG4gICAgbWFyZ2luLWxlZnQ6IDA7XG4gIH1cbn1cbiN3cmFwcGVyIHtcbiAgcGFkZGluZy1yaWdodDogMDtcbiAgLXdlYmtpdC10cmFuc2l0aW9uOiBhbGwgMC41cyBlYXNlO1xuICAtbW96LXRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG4gIC1vLXRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG4gIHRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG59XG5cbiN3cmFwcGVyLnRvZ2dsZWQge1xuICBwYWRkaW5nLWxlZnQ6IDI1MHB4O1xufVxuXG4jc2lkZWJhci13cmFwcGVyIHtcbiAgei1pbmRleDogMTAwMDtcbiAgcG9zaXRpb246IGZpeGVkO1xuICBsZWZ0OiAyNTBweDtcbiAgd2lkdGg6IDA7XG4gIGhlaWdodDogMTAwJTtcbiAgbWFyZ2luLWxlZnQ6IC0yNTBweDtcbiAgb3ZlcmZsb3cteTogYXV0bztcbiAgYmFja2dyb3VuZDogIzFFMjY0ODtcbiAgLXdlYmtpdC10cmFuc2l0aW9uOiBhbGwgMC41cyBlYXNlO1xuICAtbW96LXRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG4gIC1vLXRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG4gIHRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG59XG5cbiN3cmFwcGVyLnRvZ2dsZWQgI3NpZGViYXItd3JhcHBlciB7XG4gIHdpZHRoOiAyNTBweDtcbn1cblxuI3BhZ2UtY29udGVudC13cmFwcGVyIHtcbiAgd2lkdGg6IDEwMCU7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgcGFkZGluZzogMTVweDtcbn1cblxuI3dyYXBwZXIudG9nZ2xlZCAjcGFnZS1jb250ZW50LXdyYXBwZXIge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIG1hcmdpbi1sZWZ0OiAwcHg7XG59XG5cblxuLyogU2lkZWJhciBTdHlsZXMgKi9cblxuLnNpZGViYXItbmF2IHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAyNTBweDtcbiAgbWFyZ2luOiAwO1xuICBwYWRkaW5nOiAwO1xuICBsaXN0LXN0eWxlOiBub25lO1xufVxuXG4uc2lkZWJhci1uYXYgbGkge1xuICB0ZXh0LWluZGVudDogMjBweDtcbiAgbGluZS1oZWlnaHQ6IDQwcHg7XG59XG5cbi5zaWRlYmFyLW5hdiBsaSBhIHtcbiAgZGlzcGxheTogYmxvY2s7XG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbiAgY29sb3I6ICM5OTk5OTk7XG59XG5cbi5zaWRlYmFyLW5hdiBsaSBhOmhvdmVyIHtcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xuICBjb2xvcjogI2ZmZjtcbiAgYmFja2dyb3VuZDogcmdiYSgyNTUsIDI1NSwgMjU1LCAwLjIpO1xufVxuXG4uc2lkZWJhci1uYXYgbGkgYTphY3RpdmUsIC5zaWRlYmFyLW5hdiBsaSBhOmZvY3VzIHtcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xufVxuXG4uc2lkZWJhci1uYXY+LnNpZGViYXItYnJhbmQge1xuICBoZWlnaHQ6IDY1cHg7XG4gIGZvbnQtc2l6ZTogMThweDtcbiAgbGluZS1oZWlnaHQ6IDYwcHg7XG59XG5cbi5zaWRlYmFyLW5hdj4uc2lkZWJhci1icmFuZCBhIHtcbiAgY29sb3I6ICM5OTk5OTk7XG59XG5cbi5zaWRlYmFyLW5hdj4uc2lkZWJhci1icmFuZCBhOmhvdmVyIHtcbiAgY29sb3I6ICNmZmY7XG4gIGJhY2tncm91bmQ6IG5vbmU7XG59XG5cbkBtZWRpYShtaW4td2lkdGg6NzY4cHgpIHtcbiAgI3dyYXBwZXIge1xuICAgIHBhZGRpbmctcmlnaHQ6IDA7XG4gIH1cbiAgI3dyYXBwZXIudG9nZ2xlZCB7XG4gICAgcGFkZGluZy1sZWZ0OiAyNTBweDtcbiAgfVxuICAjc2lkZWJhci13cmFwcGVyIHtcbiAgICB3aWR0aDogMDtcbiAgfVxuICAjd3JhcHBlci50b2dnbGVkICNzaWRlYmFyLXdyYXBwZXIge1xuICAgIHdpZHRoOiAyNTBweDtcbiAgfVxuICAjcGFnZS1jb250ZW50LXdyYXBwZXIge1xuICAgIHBhZGRpbmc6IDIwcHg7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB9XG4gICN3cmFwcGVyLnRvZ2dsZWQgI3BhZ2UtY29udGVudC13cmFwcGVyIHtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgbWFyZ2luLWxlZnQ6IDA7XG4gIH1cbn1cbiJdfQ== */"
+module.exports = "\n@media (max-width: 543px) {\n    .navbar-toggleable .navbar-nav .nav-item {\n        margin-left: 0;\n    }\n}\n\n@media (max-width: 767px) {\n    .navbar-toggleable-sm .navbar-nav .nav-item {\n        margin-left: 0;\n    }\n}\n\n@media (max-width: 991px) {\n  .navbar-toggleable-md .navbar-nav .nav-item {\n    margin-left: 0;\n  }\n}\n\n#wrapper {\n  padding-right: 0;\n  transition: all 0.5s ease;\n}\n\n#wrapper.toggled {\n  padding-left: 250px;\n}\n\n.bgColor {\n  background: #1E2648;\n}\n\n.textColor{\r\n  color: darkgray !important ;\r\n}\n\nimg {\n  width: 110px;\n  height: 32px\n}\n\n#sidebar-wrapper {\n  z-index: 1000;\n  position: fixed;\n  left: 250px;\n  width: 50px;\n  height: 100%;\n  margin-left: -250px;\n  overflow-y: auto;\n  background: #1E2648;\n  transition: all 0.5s ease;\n}\n\n#wrapper.toggled #sidebar-wrapper {\n  width: 250px;\n}\n\n#page-content-wrapper {\n  width: 100%;\n  position: absolute;\n  padding: 15px;\n}\n\n#wrapper.toggled #page-content-wrapper {\n  position: absolute;\n  margin-left: 0px;\n}\n\n/* Sidebar Styles */\n\n.sidebar-nav {\n  position: absolute;\n  top: 0;\n  width: 250px;\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n\n.sidebar-nav li {\n  text-indent: 20px;\n  line-height: 40px;\n}\n\n.sidebar-nav li a {\n  display: block;\n  text-decoration: none;\n  color: #999999;\n}\n\n.sidebar-nav li a:hover {\n  text-decoration: none;\n  color: #fff;\n  background: rgba(255, 255, 255, 0.2);\n}\n\n.sidebar-nav li a:active, .sidebar-nav li a:focus {\n  text-decoration: none;\n}\n\n.sidebar-nav>.sidebar-brand {\n  height: 65px;\n  font-size: 18px;\n  line-height: 60px;\n}\n\n.sidebar-nav>.sidebar-brand a {\n  color: #999999;\n}\n\n.sidebar-nav>.sidebar-brand a:hover {\n  color: #fff;\n  background: none;\n}\n\n@media(min-width:768px) {\n  #wrapper {\n    padding-right: 0;\n  }\n  #wrapper.toggled {\n    padding-left: 250px;\n  }\n  #sidebar-wrapper {\n    width: 50px;\n  }\n  #wrapper.toggled #sidebar-wrapper {\n    width: 250px;\n  }\n  #page-content-wrapper {\n    padding: 20px;\n    position: relative;\n  }\n  #wrapper.toggled #page-content-wrapper {\n    position: relative;\n    margin-left: 0;\n  }\n}\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvU2hhcmVkL1BhZ2VzL3NpZGV0ZXN0L3NpZGV0ZXN0LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUNBO0lBQ0k7UUFDSSxjQUFjO0lBQ2xCO0FBQ0o7O0FBRUE7SUFDSTtRQUNJLGNBQWM7SUFDbEI7QUFDSjs7QUFFQTtFQUNFO0lBQ0UsY0FBYztFQUNoQjtBQUNGOztBQUNBO0VBQ0UsZ0JBQWdCO0VBSWhCLHlCQUF5QjtBQUMzQjs7QUFFQTtFQUNFLG1CQUFtQjtBQUNyQjs7QUFDQTtFQUNFLG1CQUFtQjtBQUNyQjs7QUFDQTtFQUNFLDJCQUEyQjtBQUM3Qjs7QUFDQTtFQUNFLFlBQVk7RUFDWjtBQUNGOztBQUNBO0VBQ0UsYUFBYTtFQUNiLGVBQWU7RUFDZixXQUFXO0VBQ1gsV0FBVztFQUNYLFlBQVk7RUFDWixtQkFBbUI7RUFDbkIsZ0JBQWdCO0VBQ2hCLG1CQUFtQjtFQUluQix5QkFBeUI7QUFDM0I7O0FBRUE7RUFDRSxZQUFZO0FBQ2Q7O0FBRUE7RUFDRSxXQUFXO0VBQ1gsa0JBQWtCO0VBQ2xCLGFBQWE7QUFDZjs7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQixnQkFBZ0I7QUFDbEI7O0FBR0EsbUJBQW1COztBQUVuQjtFQUNFLGtCQUFrQjtFQUNsQixNQUFNO0VBQ04sWUFBWTtFQUNaLFNBQVM7RUFDVCxVQUFVO0VBQ1YsZ0JBQWdCO0FBQ2xCOztBQUVBO0VBQ0UsaUJBQWlCO0VBQ2pCLGlCQUFpQjtBQUNuQjs7QUFFQTtFQUNFLGNBQWM7RUFDZCxxQkFBcUI7RUFDckIsY0FBYztBQUNoQjs7QUFFQTtFQUNFLHFCQUFxQjtFQUNyQixXQUFXO0VBQ1gsb0NBQW9DO0FBQ3RDOztBQUVBO0VBQ0UscUJBQXFCO0FBQ3ZCOztBQUVBO0VBQ0UsWUFBWTtFQUNaLGVBQWU7RUFDZixpQkFBaUI7QUFDbkI7O0FBRUE7RUFDRSxjQUFjO0FBQ2hCOztBQUVBO0VBQ0UsV0FBVztFQUNYLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFO0lBQ0UsZ0JBQWdCO0VBQ2xCO0VBQ0E7SUFDRSxtQkFBbUI7RUFDckI7RUFDQTtJQUNFLFdBQVc7RUFDYjtFQUNBO0lBQ0UsWUFBWTtFQUNkO0VBQ0E7SUFDRSxhQUFhO0lBQ2Isa0JBQWtCO0VBQ3BCO0VBQ0E7SUFDRSxrQkFBa0I7SUFDbEIsY0FBYztFQUNoQjtBQUNGIiwiZmlsZSI6InNyYy9hcHAvU2hhcmVkL1BhZ2VzL3NpZGV0ZXN0L3NpZGV0ZXN0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJcbkBtZWRpYSAobWF4LXdpZHRoOiA1NDNweCkge1xuICAgIC5uYXZiYXItdG9nZ2xlYWJsZSAubmF2YmFyLW5hdiAubmF2LWl0ZW0ge1xuICAgICAgICBtYXJnaW4tbGVmdDogMDtcbiAgICB9XG59XG5cbkBtZWRpYSAobWF4LXdpZHRoOiA3NjdweCkge1xuICAgIC5uYXZiYXItdG9nZ2xlYWJsZS1zbSAubmF2YmFyLW5hdiAubmF2LWl0ZW0ge1xuICAgICAgICBtYXJnaW4tbGVmdDogMDtcbiAgICB9XG59XG5cbkBtZWRpYSAobWF4LXdpZHRoOiA5OTFweCkge1xuICAubmF2YmFyLXRvZ2dsZWFibGUtbWQgLm5hdmJhci1uYXYgLm5hdi1pdGVtIHtcbiAgICBtYXJnaW4tbGVmdDogMDtcbiAgfVxufVxuI3dyYXBwZXIge1xuICBwYWRkaW5nLXJpZ2h0OiAwO1xuICAtd2Via2l0LXRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG4gIC1tb3otdHJhbnNpdGlvbjogYWxsIDAuNXMgZWFzZTtcbiAgLW8tdHJhbnNpdGlvbjogYWxsIDAuNXMgZWFzZTtcbiAgdHJhbnNpdGlvbjogYWxsIDAuNXMgZWFzZTtcbn1cblxuI3dyYXBwZXIudG9nZ2xlZCB7XG4gIHBhZGRpbmctbGVmdDogMjUwcHg7XG59XG4uYmdDb2xvciB7XG4gIGJhY2tncm91bmQ6ICMxRTI2NDg7XG59XG4udGV4dENvbG9ye1xyXG4gIGNvbG9yOiBkYXJrZ3JheSAhaW1wb3J0YW50IDtcclxufVxuaW1nIHtcbiAgd2lkdGg6IDExMHB4O1xuICBoZWlnaHQ6IDMycHhcbn1cbiNzaWRlYmFyLXdyYXBwZXIge1xuICB6LWluZGV4OiAxMDAwO1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGxlZnQ6IDI1MHB4O1xuICB3aWR0aDogNTBweDtcbiAgaGVpZ2h0OiAxMDAlO1xuICBtYXJnaW4tbGVmdDogLTI1MHB4O1xuICBvdmVyZmxvdy15OiBhdXRvO1xuICBiYWNrZ3JvdW5kOiAjMUUyNjQ4O1xuICAtd2Via2l0LXRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG4gIC1tb3otdHJhbnNpdGlvbjogYWxsIDAuNXMgZWFzZTtcbiAgLW8tdHJhbnNpdGlvbjogYWxsIDAuNXMgZWFzZTtcbiAgdHJhbnNpdGlvbjogYWxsIDAuNXMgZWFzZTtcbn1cblxuI3dyYXBwZXIudG9nZ2xlZCAjc2lkZWJhci13cmFwcGVyIHtcbiAgd2lkdGg6IDI1MHB4O1xufVxuXG4jcGFnZS1jb250ZW50LXdyYXBwZXIge1xuICB3aWR0aDogMTAwJTtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBwYWRkaW5nOiAxNXB4O1xufVxuXG4jd3JhcHBlci50b2dnbGVkICNwYWdlLWNvbnRlbnQtd3JhcHBlciB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbWFyZ2luLWxlZnQ6IDBweDtcbn1cblxuXG4vKiBTaWRlYmFyIFN0eWxlcyAqL1xuXG4uc2lkZWJhci1uYXYge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogMDtcbiAgd2lkdGg6IDI1MHB4O1xuICBtYXJnaW46IDA7XG4gIHBhZGRpbmc6IDA7XG4gIGxpc3Qtc3R5bGU6IG5vbmU7XG59XG5cbi5zaWRlYmFyLW5hdiBsaSB7XG4gIHRleHQtaW5kZW50OiAyMHB4O1xuICBsaW5lLWhlaWdodDogNDBweDtcbn1cblxuLnNpZGViYXItbmF2IGxpIGEge1xuICBkaXNwbGF5OiBibG9jaztcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xuICBjb2xvcjogIzk5OTk5OTtcbn1cblxuLnNpZGViYXItbmF2IGxpIGE6aG92ZXIge1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG4gIGNvbG9yOiAjZmZmO1xuICBiYWNrZ3JvdW5kOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMik7XG59XG5cbi5zaWRlYmFyLW5hdiBsaSBhOmFjdGl2ZSwgLnNpZGViYXItbmF2IGxpIGE6Zm9jdXMge1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG59XG5cbi5zaWRlYmFyLW5hdj4uc2lkZWJhci1icmFuZCB7XG4gIGhlaWdodDogNjVweDtcbiAgZm9udC1zaXplOiAxOHB4O1xuICBsaW5lLWhlaWdodDogNjBweDtcbn1cblxuLnNpZGViYXItbmF2Pi5zaWRlYmFyLWJyYW5kIGEge1xuICBjb2xvcjogIzk5OTk5OTtcbn1cblxuLnNpZGViYXItbmF2Pi5zaWRlYmFyLWJyYW5kIGE6aG92ZXIge1xuICBjb2xvcjogI2ZmZjtcbiAgYmFja2dyb3VuZDogbm9uZTtcbn1cblxuQG1lZGlhKG1pbi13aWR0aDo3NjhweCkge1xuICAjd3JhcHBlciB7XG4gICAgcGFkZGluZy1yaWdodDogMDtcbiAgfVxuICAjd3JhcHBlci50b2dnbGVkIHtcbiAgICBwYWRkaW5nLWxlZnQ6IDI1MHB4O1xuICB9XG4gICNzaWRlYmFyLXdyYXBwZXIge1xuICAgIHdpZHRoOiA1MHB4O1xuICB9XG4gICN3cmFwcGVyLnRvZ2dsZWQgI3NpZGViYXItd3JhcHBlciB7XG4gICAgd2lkdGg6IDI1MHB4O1xuICB9XG4gICNwYWdlLWNvbnRlbnQtd3JhcHBlciB7XG4gICAgcGFkZGluZzogMjBweDtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIH1cbiAgI3dyYXBwZXIudG9nZ2xlZCAjcGFnZS1jb250ZW50LXdyYXBwZXIge1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICBtYXJnaW4tbGVmdDogMDtcbiAgfVxufVxuIl19 */"
 
 /***/ }),
 
@@ -3947,6 +3961,7 @@ __webpack_require__.r(__webpack_exports__);
 var SidetestComponent = /** @class */ (function () {
     function SidetestComponent() {
         this.collapse = true;
+        this.collapse1 = true;
     }
     SidetestComponent.prototype.ngOnInit = function () {
     };
@@ -4403,6 +4418,7 @@ var cookieService = /** @class */ (function () {
         return null;
     };
     cookieService.prototype.eraseCookie = function (name) {
+        console.log("eraseCookie" + name);
         document.cookie = name + '=; Max-Age=-99999999;';
     };
     return cookieService;
@@ -4469,6 +4485,49 @@ var httpService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], httpService);
     return httpService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/Shared/Services/Util/logoutService.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/Shared/Services/Util/logoutService.ts ***!
+  \*******************************************************/
+/*! exports provided: LogoutService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LogoutService", function() { return LogoutService; });
+/* harmony import */ var _cookieService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cookieService */ "./src/app/Shared/Services/Util/cookieService.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+var LogoutService = /** @class */ (function () {
+    function LogoutService(cookieService, routing) {
+        this.cookieService = cookieService;
+        this.routing = routing;
+        this.authCookieName = 'gt_auth';
+    }
+    LogoutService.prototype.removeCookie = function () {
+        this.token = undefined;
+        this.cookieService.eraseCookie(this.authCookieName);
+    };
+    LogoutService.prototype.redirectToLogin = function () {
+        this.routing.navigate(["login"]);
+    };
+    LogoutService.prototype.logout = function () {
+        console.log("logout Service");
+        this.removeCookie();
+        this.redirectToLogin();
+    };
+    LogoutService.ctorParameters = function () { return [
+        { type: _cookieService__WEBPACK_IMPORTED_MODULE_0__["cookieService"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }
+    ]; };
+    return LogoutService;
 }());
 
 
@@ -4731,6 +4790,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Features_Private_Operations_Services_jobDataServices__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./Features/Private/Operations/Services/jobDataServices */ "./src/app/Features/Private/Operations/Services/jobDataServices.ts");
 /* harmony import */ var _Shared_Services_ErrorHandling_GlobalErrorHandler__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./Shared/Services/ErrorHandling/GlobalErrorHandler */ "./src/app/Shared/Services/ErrorHandling/GlobalErrorHandler.ts");
 /* harmony import */ var _Shared_Pages_sidetest_sidetest_component__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./Shared/Pages/sidetest/sidetest.component */ "./src/app/Shared/Pages/sidetest/sidetest.component.ts");
+/* harmony import */ var _Shared_Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./Shared/Services/Util/logoutService */ "./src/app/Shared/Services/Util/logoutService.ts");
+
 
 
 
@@ -4875,6 +4936,7 @@ var AppModule = /** @class */ (function () {
                 _Features_Private_Operations_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_56__["kosDataServices"],
                 _Features_Private_Definitions_Services_roleDataServices__WEBPACK_IMPORTED_MODULE_57__["roleDataServices"],
                 _Features_Private_Operations_Services_jobDataServices__WEBPACK_IMPORTED_MODULE_62__["jobDataServices"],
+                _Shared_Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_65__["LogoutService"],
             ],
             entryComponents: [
                 _Features_Private_Definitions_Modals_editrole_editrole_component__WEBPACK_IMPORTED_MODULE_43__["EditroleComponent"],
@@ -5008,4 +5070,4 @@ module.exports = __webpack_require__(/*! C:\Users\Protek\source\repos\protek.gun
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
-//# sourceMappingURL=main-es5.b958c9a1905d9f59c099.js.map
+//# sourceMappingURL=main-es5.32be92a436f1dea26159.js.map
