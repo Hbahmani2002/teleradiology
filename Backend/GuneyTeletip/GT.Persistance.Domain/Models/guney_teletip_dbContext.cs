@@ -31,6 +31,7 @@ namespace GT.Persistance.Domain.Models
         public virtual DbSet<KosStudyJob> KosStudyJob { get; set; }
         public virtual DbSet<KosStudyParameter> KosStudyParameter { get; set; }
         public virtual DbSet<StmGetorderStatusforAccessionnumberlist> StmGetorderStatusforAccessionnumberlist { get; set; }
+        public virtual DbSet<StmTeletipStatus> StmTeletipStatus { get; set; }
         public virtual DbSet<StudyOperationCount> StudyOperationCount { get; set; }
         public virtual DbSet<UsrRole> UsrRole { get; set; }
         public virtual DbSet<UsrTenant> UsrTenant { get; set; }
@@ -739,6 +740,22 @@ namespace GT.Persistance.Domain.Models
                     .HasMaxLength(64);
 
                 entity.Property(e => e.Wadostatusid).HasColumnName("wadostatusid");
+            });
+
+            modelBuilder.Entity<StmTeletipStatus>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("stm_teletip_status_pkey");
+
+                entity.ToTable("stm_teletip_status");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasColumnType("character varying");
             });
 
             modelBuilder.Entity<StudyOperationCount>(entity =>

@@ -22,9 +22,6 @@ namespace GT.Repository.Implementation.Composite
             var exp1 = GetorderStatusCondition.Get(g);
             return Query(exp1);
         }
-
-   
-
         
         public IEnumerable<GetorderStatusViewModel> Query(Expression<Func<StmGetorderStatusforAccessionnumberlist, bool>> exp)
         {
