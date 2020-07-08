@@ -18,6 +18,6 @@
     <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties infinity_4appjson_1json__JsonSchema="https://json.schemastore.org/appJson" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>
