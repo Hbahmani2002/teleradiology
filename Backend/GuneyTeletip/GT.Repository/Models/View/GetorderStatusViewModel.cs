@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GT.UTILS.GRID;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +7,7 @@ namespace GT.Repository.Models.View
 {
     public class GetorderStatusViewModel
     {
+        [DataEntityID]
         public long ID { get; set; }
         public long FkTenant { get; set; }
         public string TenantName { get; set; }

@@ -9,6 +9,6 @@ namespace GT.DataService.Model
         public DateTime? BasTar { get; set; }
         public DateTime? BitTar { get; set; }
         public long[] HastaneIDList { get; set; }
-        public long[] EslesmeDurumuList { get; set; }
+        public long[] TeletipStatusIDList { get; set; }
     }
 }

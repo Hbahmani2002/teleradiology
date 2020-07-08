@@ -11,8 +11,6 @@ using System.Text;
 
 namespace GT.Repository.Implementation
 {
-
-
   public class GetOrderStatusforAccessionNumberRepository : AbstractTableRepository<StmGetorderStatusforAccessionnumberlist>
     {
         public GetOrderStatusforAccessionNumberRepository(IAbstractWorkspace workspace) : base(workspace)
@@ -25,8 +23,46 @@ namespace GT.Repository.Implementation
             throw new NotImplementedException();
         }
 
+        public IQueryable<GetorderStatusViewModel> Query(GetorderStatusConditionFilter g)
+        {
+            var exp = GetorderStatusCondition.Get(g);
+            return Query(exp);
+        }
 
+        public IQueryable<GetorderStatusViewModel> Query(Expression<Func<StmGetorderStatusforAccessionnumberlist, bool>> exp)
+        {
+            var getorderStatus = _AbstractWorkspace.Query<StmGetorderStatusforAccessionnumberlist>(exp);
+            var list = from gs in getorderStatus
+                       select new GetorderStatusViewModel
+                       {
+                           Accessionnumber = gs.Accessionnumber,
+                           Citizenid = gs.Citizenid,
+                           Dosestatus = gs.Dosestatus,
+                           Dosestatusid = gs.Dosestatusid,
+                           Error = gs.Error,
+                           FkInfBatch = gs.FkInfBatch,
+                           FkKosStudy = gs.FkKosStudy,
+                           FkTenant = gs.FkTenant,
+                           Lastmedulasenddate = gs.Lastmedulasenddate,
+                           Medulainstitutionid = gs.Medulainstitutionid,
+                           Medularesponsecode = gs.Medularesponsecode,
+                           Medularesponsemessage = gs.Medularesponsemessage,
+                           Medulastatus = gs.Medulastatus,
+                           Medulastatusid = gs.Medulastatusid,
+                           Patienthistorysearchstatus = gs.Patienthistorysearchstatus,
+                           Patienthistorysearchstatusid = gs.Patienthistorysearchstatusid,
+                           Performeddate = gs.Performeddate,
+                           Reportstatus = gs.Reportstatus,
+                           Reportstatusid = gs.Reportstatusid,
+                           Scheduledate = gs.Scheduledate,
+                           Teletipstatus = gs.Teletipstatus,
+                           Teletipstatusid = gs.Teletipstatusid,
+                           Sutcode = gs.Sutcode,
+                           Wadostatus = gs.Wadostatus,
+                           Wadostatusid = gs.Wadostatusid,
+                           ID = gs.Pk,
+                       };
+            return list;
+        }
     }
-
-
 }

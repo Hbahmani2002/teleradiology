@@ -35,7 +35,7 @@ namespace GT.DataService.Implementation
         KosStudyJobRepository kosStudyJobRepository;
         KosDeleteCompositeRepository kosDeleteCompositeRepository;
         StudyOperationCountRepository studyOperationCount;
-
+        GetorderStatusRepository getorderStatusRepository;
         KosDurumOrderCompositeRepository KosDurumOrderCompositeRepository;
         public StudyKosDataService() : this(null, false)
         {
@@ -59,7 +59,7 @@ namespace GT.DataService.Implementation
             kosStudyJobRepository = new KosStudyJobRepository(_Workspace);
             kosDeleteCompositeRepository = new KosDeleteCompositeRepository(_Workspace);
             studyOperationCount = new StudyOperationCountRepository(_Workspace);
-
+            getorderStatusRepository = new GetorderStatusRepository(_Workspace);
             KosDurumOrderCompositeRepository = new KosDurumOrderCompositeRepository(_Workspace);
         }
 
