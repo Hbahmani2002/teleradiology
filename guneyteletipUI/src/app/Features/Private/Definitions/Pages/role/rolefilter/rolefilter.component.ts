@@ -12,7 +12,7 @@ export class RolefilterComponent implements OnInit {
   roleNameOutput;
   ngOnInit() {
   }
-  onFiler() {
+  onFilter() {
     this.roleNameOutput = this.roleName;
   }
 }

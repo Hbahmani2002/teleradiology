@@ -16,8 +16,8 @@
       <thead>
         <tr>
 
-          <th scope="col" class="p-0"><input type="checkbox"></th>
-          <th scope="col" class="p-0" (click)="gridRole.onSorting('id')">Id<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
+          <th scope="col" class="p-0"><input type="checkbox" (click)="gridRole.onSelectAll($event)"></th>
+          <th scope="col" class="p-0" (click)="gridRole.onSorting('roleID')">Id<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
           <th scope="col" class="p-0" (click)="gridRole.onSorting('roleName')">Rol Adı<div class="pull-right mr-1"><fa name="sort"></fa></div></th>
 
         </tr>
@@ -28,7 +28,7 @@
             <input type="checkbox" class="" [checked]="gridRole.isSelected(item)"
                    (change)="gridRole.onSelectItem(item)">
           </td>
-          <td class="p-0">{{item.id}}</td>
+          <td class="p-0">{{item.roleID}}</td>
           <td class="p-0">{{item.roleName}}</td>
         </tr>
       </tbody>

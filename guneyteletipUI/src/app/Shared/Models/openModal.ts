@@ -14,9 +14,8 @@ export class OpenModal {
 
   openModal(template, initialState): Observable<modalOutput>  { 
 
-    this.bsModalRef = this.modalService.show(template, { initialState });
+    this.bsModalRef = this.modalService.show(template, { initialState: initialState});
     return new Observable<modalOutput>(this.getDataFromModal());
-
   }
   private getDataFromModal() {
     return (observer) => {

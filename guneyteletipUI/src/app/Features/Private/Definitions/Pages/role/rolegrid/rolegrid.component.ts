@@ -6,6 +6,7 @@ import { ConfirmationdialogComponent } from 'src/app/Shared/Modals/confirmationd
 import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 import { roleDataServices } from '../../../Services/roleDataServices';
 import { roleViewModel } from '../../../Models/RoleViewModel';
+import { roleModel } from '../../../Models/roleModel';
 
 @Component({
   selector: 'app-rolegrid',
@@ -14,12 +15,12 @@ import { roleViewModel } from '../../../Models/RoleViewModel';
 })
 export class RolegridComponent implements OnInit {
 
-  @Input() set filterData(value: any) {
+  /*@Input() set filterData(value: any) {
     if (value == null || value == undefined)
       return;
     this.roleFilter = value;
     this.gridRole.onRefresh();
-  }
+  }*/
 
 
   modal: OpenModal = new OpenModal(this.modalService, this.changeDetection);
@@ -31,21 +32,29 @@ export class RolegridComponent implements OnInit {
   }
   roleFilter: roleFilter = new roleFilter();
   gridRole: RoleListComponent_Models.GridRole = new RoleListComponent_Models.GridRole(this.roleService, this.roleFilter);
-
+  rolModel: roleModel = new roleModel();
   openEditRoleModal(type: string) {
     if (type == 'ekle') {
       const initialState = {
-        modalTitle: "Role Ekle",
+        modalTitle: "Rol Ekle",
         roleId: undefined
       };
-      this.modal.openModal(EditroleComponent, initialState);
+      this.modal.openModal(EditroleComponent, initialState).subscribe(reason => {
+        if (reason.reason == 'save') {
+          this.gridRole.onRefresh();
+        }
+      });
     }
     else if ('düzenle') {
       const initialState = {
-        modalTitle: "Role Düzenle",
-        roleId: 1 //grin.clickedItem.roleıd
+        modalTitle: "Rol Düzenle",
+        roleID: this.gridRole.clickedItem.roleID
       };
-      this.modal.openModal(EditroleComponent, initialState);
+      this.modal.openModal(EditroleComponent, initialState).subscribe(reason => {
+        if (reason.reason == 'save') {
+          this.gridRole.onRefresh();
+        }
+      });
     }
   }
   openConfirmationDialog() {
@@ -53,10 +62,13 @@ export class RolegridComponent implements OnInit {
       modalTitle: "UYARI!",
       message: "Rolü silmek istediğinize emin misiniz?"
     };
-    this.modal.openModal(ConfirmationdialogComponent, initialState).subscribe((result) => {
-      console.log(result.reason);
-      if (result.reason == 'ok') {
-        
+    this.modal.openModal(ConfirmationdialogComponent, initialState).subscribe(reason => {
+      if (reason.reason == 'ok') {
+        this.rolModel.rolID = this.gridRole.clickedItem.roleID;
+        this.roleService.Delete(this.rolModel).subscribe(o => {
+          console.log(o);
+          this.gridRole.onRefresh();
+        });
       }
     });
   }

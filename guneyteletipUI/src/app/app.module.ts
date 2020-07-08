@@ -63,6 +63,10 @@ import { jobDataServices } from './Features/Private/Operations/Services/jobDataS
 import { GlobalErrorHandler } from './Shared/Services/ErrorHandling/GlobalErrorHandler';
 import { SidetestComponent } from './Shared/Pages/sidetest/sidetest.component';
 import { LogoutService } from './Shared/Services/Util/logoutService';
+import { TeletipstmComponent } from './Features/Private/Operations/Pages/teletipstm/teletipstm.component';
+import { StmfilterComponent } from './Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component';
+import { StmgridComponent } from './Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component';
+
 
 @NgModule({
   declarations: [
@@ -99,8 +103,9 @@ import { LogoutService } from './Shared/Services/Util/logoutService';
     JobsfilterComponent,
     JobsgridComponent,
     SidetestComponent,
-
-    
+    TeletipstmComponent,
+    StmfilterComponent,
+    StmgridComponent
   ],
   imports: [
 
