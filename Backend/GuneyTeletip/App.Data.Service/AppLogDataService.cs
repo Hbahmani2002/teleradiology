@@ -32,7 +32,7 @@ namespace App.Data.Service
             log.LogType = (int)type;
             log.TimeCreated = DateTime.Now;
             log.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
-            log.Desc1 = desc;
+            log.Desc1 = desc.Substring(0, 3999);
             appLog.Add(log);
             _Workspace.CommitChanges();
             return log.Pk;

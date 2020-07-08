@@ -79,8 +79,7 @@ namespace GT.Job.Implementation
         {
             var resultCollection = new ConcurrentBag<ProcessResult>();
             ParallelLoopResult result = Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, item =>
-            {
-                var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
+            {                
                 var res = MakeKos(item);
                 resultCollection.Add(res);
             });

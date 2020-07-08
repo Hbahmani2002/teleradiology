@@ -93,7 +93,7 @@ namespace GT.DataService.Implementation
                 ForAccNum.FkUserModified = item.FkUserModified;
                 ForAccNum.Accessionnumber = item.Accessionnumber;
                 ForAccNum.Citizenid = item.Citizenid;
-                ForAccNum.Teletipstatus = item.Citizenid;
+                ForAccNum.Teletipstatus = item.Teletipstatus;
                 ForAccNum.Teletipstatusid = item.Teletipstatusid.Value;
                 ForAccNum.Medulastatus = item.Medulastatus;
                 ForAccNum.Medulastatusid = item.Medulastatusid.Value;

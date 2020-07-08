@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Teletip.SorgulamaServis;
 using Util.Job.Interface;
 using Util.Logger;
+using Util.ProcessUtil;
 
 namespace GT.Job.Implementation
 {
@@ -74,6 +75,33 @@ namespace GT.Job.Implementation
                 progressAction.IncreaseProgressSuccess();
             });
         }
+
+        private ProcessResult MakeKos(KosDeleteViewModel item)
+        {
+
+            var res = STMService.GetRemoveKos(int.Parse(item.KurumSkrsKodu), item.AccessionNumber, item.StudyInstanceID);
+
+            var studyDataService = new StudyKosDataService();
+
+
+            var sb = new StringBuilder();
+         
+            studyDataService.Save_UpdateDeleteKos(item.StudyID, "");
+            return null;
+        }
+
+        public IEnumerable<ProcessResult> DoSingleBatch(IEnumerable<KosDeleteViewModel> items)
+        {
+            var resultCollection = new ConcurrentBag<ProcessResult>();
+            ParallelLoopResult result = Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, item =>
+            {
+                var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
+                var res = MakeKos(item);
+                resultCollection.Add(res);
+            });
+            return resultCollection.ToArray();
+        }
+
 
     }
 }

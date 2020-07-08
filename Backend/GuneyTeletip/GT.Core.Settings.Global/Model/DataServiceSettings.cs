@@ -19,7 +19,12 @@
 
             public int MakeKosServiceItemPerBatch => 50;
 
+            public int SendKosServiceItemPerBatch => 500;
+
             public int OrderServiceItemPerBatch => 50;
+
+            public int OrderStatusForAccessionNumberPerBatch => 10;
+
             public int KosWaitHour => 2;
         }
 
