@@ -1,1 +1,39 @@
-<p>stmfilter works!</p>
+<filter header="Filtreleme">
+  <form>
+    <div class="form-row p-0 ">
+      <div class="col-md-4">
+        <label class="font-weight-bold">Hastane Seçimi</label>
+        <ng-multiselect-dropdown name="ddlTenant"
+                                 [placeholder]="'Hastane Seçimi'"
+                                 [data]="ddlTenantData"
+                                 [(ngModel)]="ddlTenantSelectedItems"
+                                 [settings]="ddlTenantSettings">
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-md-4">
+        <label class="font-weight-bold">Tarih Aralığı</label>
+        <div class="input-group input-group-sm mb-3">
+          <input class="form-control" type="text"
+                 autocomplete="off"
+                 name="dateRange"
+                 [(ngModel)]="dateRange"
+                 placeholder="Tarih Aralığı" [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY', rangeInputFormat : 'DD/MM/YYYY', containerClass: 'theme-dark-blue'}" #drp="bsDaterangepicker" bsDaterangepicker>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label class="font-weight-bold">Eşleşme Durumu</label>
+        <ng-multiselect-dropdown name="ddlEnum"
+                                 [placeholder]="'Eşleşme Durumu'"
+                                 [data]="ddlEnumData"
+                                 [(ngModel)]="ddlEnumSelectedItems"
+                                 [settings]="ddlEnumSettings">
+        </ng-multiselect-dropdown>
+      </div>
+    </div>
+  </form>
+  <div class="mt-1">
+    <button class="btn btn-success btn-sm mr-2" tooltip="Filtrele" (click)="onFilter()"><fa name="search"></fa></button>
+    <button class="btn btn-danger  btn-sm" tooltip="Filtreleri Temizle" (click)="onClearFilter()"><fa name="close"></fa></button>
+  </div>
+</filter>
+

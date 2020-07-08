@@ -1,1 +1,21 @@
-<p>teletipstm works!</p>
+<div class="container-fluid h-100">
+  <div class="row h-100 pt-1">
+    <div class="col-md-12">
+      <div class="row mb-0">
+        <div class="col">
+          <pageheader headertext="Teletıp STM İşlemleri" pageposition="İŞLEMLER > Teletıp STM İşlemleri"></pageheader>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col">
+          <app-stmfilter></app-stmfilter>  <!--(filterChanged)="filter($event)"  [filter]="filterData"-->
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <app-stmgrid ></app-stmgrid>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
