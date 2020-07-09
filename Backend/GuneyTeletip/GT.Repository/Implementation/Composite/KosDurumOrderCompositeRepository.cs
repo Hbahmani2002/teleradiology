@@ -24,7 +24,7 @@ namespace GT.Repository.Implementation.Composite
         }
         public IQueryable<KosDurumViewModel> Query(Expression<Func<KosStudy, bool>> exp)
         {
-            var tenantSkrs = _AbstractWorkspace.Query<UsrTenantSkrs>();
+             var tenantSkrs = _AbstractWorkspace.Query<UsrTenantSkrs>();
             var skrs = _AbstractWorkspace.Query<ConstSkrs>();
             var study= _AbstractWorkspace.Query<KosStudy>(exp);
             var stmorder = _AbstractWorkspace.Query<StmGetorderStatusforAccessionnumberlist>();
