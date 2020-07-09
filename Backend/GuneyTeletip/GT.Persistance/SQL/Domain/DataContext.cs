@@ -53,6 +53,7 @@
         public virtual DbSet<KosStudyJob> KosStudyJob { get; set; }
         public virtual DbSet<KosStudyParameter> KosStudyParameter { get; set; }
         public virtual DbSet<StmGetorderStatusforAccessionnumberlist> StmGetorderStatusforAccessionnumberlist { get; set; }
+        public virtual DbSet<StmTeletipStatus> StmTeletipStatus { get; set; }
         public virtual DbSet<StudyOperationCount> StudyOperationCount { get; set; }
         public virtual DbSet<UsrRole> UsrRole { get; set; }
         public virtual DbSet<UsrTenant> UsrTenant { get; set; }
@@ -72,17 +73,12 @@
         public virtual DbSet<XxxSkrsKurumKodlari> XxxSkrsKurumKodlari { get; set; }
         public virtual DbSet<YyyInfPaht> YyyInfPaht { get; set; }
 
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                if (IsLogging)
-                    optionsBuilder.UseLoggerFactory(consoleLoggerFactory);
-                var connectionString = AppSettings.GetCurrent().DatabaseSetting.StudyPostgre;
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql(connectionString);
+                optionsBuilder.UseNpgsql("Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002");
             }
         }
 
@@ -766,6 +762,22 @@
                     .HasMaxLength(64);
 
                 entity.Property(e => e.Wadostatusid).HasColumnName("wadostatusid");
+            });
+
+            modelBuilder.Entity<StmTeletipStatus>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("stm_teletip_status_pkey");
+
+                entity.ToTable("stm_teletip_status");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasColumnType("character varying");
             });
 
             modelBuilder.Entity<StudyOperationCount>(entity =>
@@ -1721,7 +1733,9 @@
                     .HasColumnName("username");
             });
 
-          //  OnModelCreatingPartial(modelBuilder);
+           // OnModelCreatingPartial(modelBuilder);
         }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

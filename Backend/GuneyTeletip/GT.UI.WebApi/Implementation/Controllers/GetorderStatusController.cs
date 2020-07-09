@@ -18,7 +18,7 @@ namespace GT.UI.WebApi.Implementation.Controllers
     public class GetorderStatusController : AuthenticatedBaseController
     {
         [HttpPost]
-        [Route("/GetorderStatus/GetJobList")]
+        [Route("/GetorderStatus/GetGetorderStatusList")]
         public ServiceResult<PagingResult<GetorderStatusViewModel>> GetGetorderStatusList(Gridable<GetorderStatusViewFilter> parms)
         {
             var cx = GetBussinesContext();
