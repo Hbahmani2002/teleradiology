@@ -26,6 +26,7 @@ export class StmfilterComponent implements OnInit {
 
   public isCollapsed = false;
   public dateRange;
+  public accessionNo: string;
 
   constructor(private stmService: stmDataServices, private userService: userDataServices,) { }
 
@@ -69,6 +70,10 @@ export class StmfilterComponent implements OnInit {
       filter.basTar = new Date(this.dateRange[0].toDateString());
       filter.bitTar = new Date(this.dateRange[1].toDateString());
     }
+    if (this.accessionNo != "" || this.accessionNo != undefined) {
+      filter.accessionNumberList = [];
+      filter.accessionNumberList = this.splitAccession();
+    }
     this.filterChanged.emit(filter);
   }
 
@@ -76,5 +81,16 @@ export class StmfilterComponent implements OnInit {
     this.ddlTenantSelectedItems = [];
     this.ddlEnumSelectedItems = [];
     this.dateRange = undefined;
+  }
+  splitAccession() {
+    let accessionNoList = [];
+    if (this.accessionNo == "" || this.accessionNo == undefined)
+      return;
+    this.accessionNo.split(" ").forEach(item => {
+      if (item != "") {
+        accessionNoList.push(item);
+      }
+    });
+    return accessionNoList;
   }
 }

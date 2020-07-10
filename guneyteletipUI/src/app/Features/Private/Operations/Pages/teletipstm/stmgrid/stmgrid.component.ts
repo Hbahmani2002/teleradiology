@@ -28,6 +28,7 @@ export class StmgridComponent implements OnInit {
 export class stmFilter {
   basTar: any;
   bitTar: any;
+  accessionNumberList: any[];
   hastaneIDList: any[];
   teletipStatusIDList: any[];
 }
@@ -55,6 +56,7 @@ namespace StmComponent_Models {
 
       item.basTar = o.basTar;
       item.bitTar = o.bitTar;
+      item.accessionNumberList = o.accessionNumberList;
       item.hastaneIDList = o.hastaneIDList;
       item.teletipStatusIDList = o.teletipStatusIDList;
 
