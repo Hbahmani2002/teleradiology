@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
 
   public userName;
   public password;
+  alertMessage;
   constructor(private loginService: LoginServices, private routing: Router) { }
   
   ngOnInit() {
@@ -19,8 +20,9 @@ export class LoginComponent implements OnInit {
   login() {
  
     this.loginService.login(this.userName, this.password).subscribe(o => {
+      
       if (o != LoginEnumResult.ok) {
-        //
+        this.alertMessage = o.error.Message
         return;
       }
       console.log("loginned");

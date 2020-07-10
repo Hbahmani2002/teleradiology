@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ddlSettings } from '../../kosoperations/kosfilter/ddlSettings';
 import { kosDataServices } from '../../../Services/kosDataServices';
 import { userDataServices } from 'src/app/Features/Private/Definitions/Services/userDataServices';
+import { stmDataServices } from '../../../Services/stmDataServices';
+import { stmFilter } from '../stmgrid/stmgrid.component';
 
 @Component({
   selector: 'app-stmfilter',
@@ -10,6 +12,7 @@ import { userDataServices } from 'src/app/Features/Private/Definitions/Services/
 })
 export class StmfilterComponent implements OnInit {
 
+  @Output() filterChanged = new EventEmitter<stmFilter>();
   public ddlSettings: ddlSettings = new ddlSettings();
 
   public ddlTenantSettings;
@@ -20,7 +23,11 @@ export class StmfilterComponent implements OnInit {
   public ddlEnumData = [];
   public ddlEnumSelectedItems = [];
 
-  constructor(private kosService: kosDataServices, private userService: userDataServices) { }
+
+  public isCollapsed = false;
+  public dateRange;
+
+  constructor(private stmService: stmDataServices, private userService: userDataServices,) { }
 
   ngOnInit() {
     this.ddlTenantSettings = this.ddlSettings.ddlTenantSettings;
@@ -36,9 +43,38 @@ export class StmfilterComponent implements OnInit {
     });
   }
   getEnumList() {
-    this.kosService.GetEnumTypeList().subscribe(data => {
+    this.stmService.GetTeletipStatusList().subscribe(data => {
       this.ddlEnumData = data;
       console.log(data);
     });
+  }
+  onFilter() {
+    let filter = new stmFilter();
+    if (this.ddlTenantSelectedItems.length != 0) {
+      filter.hastaneIDList = [];
+      this.ddlTenantSelectedItems.forEach(item => {
+        filter.hastaneIDList.push(item.id);
+      });
+    }
+    if (this.ddlEnumSelectedItems.length != 0) {
+      filter.teletipStatusIDList = [];
+      this.ddlEnumSelectedItems.forEach(item => {
+        filter.teletipStatusIDList.push(item.id);
+      });
+    }
+    if (this.dateRange != undefined) {
+      filter.basTar = undefined;
+      filter.bitTar = undefined;
+
+      filter.basTar = new Date(this.dateRange[0].toDateString());
+      filter.bitTar = new Date(this.dateRange[1].toDateString());
+    }
+    this.filterChanged.emit(filter);
+  }
+
+  onClearFilter() {
+    this.ddlTenantSelectedItems = [];
+    this.ddlEnumSelectedItems = [];
+    this.dateRange = undefined;
   }
 }

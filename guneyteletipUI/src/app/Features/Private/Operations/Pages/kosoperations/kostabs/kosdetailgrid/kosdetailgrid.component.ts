@@ -13,14 +13,16 @@ export class KosdetailgridComponent implements OnInit {
   @Input() set kosId(value: any) {
     if (value == null || value == undefined)
       return;
+    debugger;
     console.log(value);
     this.gridKosDetail.detailFilter.id = value;
+    this.gridKosDetail.onRefresh();
   }
   
   constructor(private kosService: kosDataServices) { }
 
   ngOnInit() {
-    this.gridKosDetail.onRefresh();
+    //this.gridKosDetail.onRefresh();
   }
   detailFilter: kosDetailFilter = new kosDetailFilter();
   gridKosDetail: KosDetailComponent_Models.GridKosDetail = new KosDetailComponent_Models.GridKosDetail(this.kosService, this.detailFilter);
@@ -80,7 +82,9 @@ namespace KosDetailComponent_Models {
       var item = this.getFilter()
       var filter = item.filter;
       console.log(item);
+      debugger;
       this.kosService.GetKosHistoryByStudyID(item).subscribe(o => {
+        debugger;
         this.data.list = o["list"];
         this.data.totalCount = o["totalCount"];
         console.log(this.data.list)

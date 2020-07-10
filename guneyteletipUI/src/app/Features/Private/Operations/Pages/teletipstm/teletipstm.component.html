@@ -8,12 +8,12 @@
       </div>
       <div class="row mb-2">
         <div class="col">
-          <app-stmfilter></app-stmfilter>  <!--(filterChanged)="filter($event)"  [filter]="filterData"-->
+          <app-stmfilter (filterChanged)="filter($event)"></app-stmfilter>
         </div>
       </div>
       <div class="row mb-3">
         <div class="col">
-          <app-stmgrid ></app-stmgrid>
+          <app-stmgrid [filter]="filterData"></app-stmgrid>
         </div>
       </div>
     </div>

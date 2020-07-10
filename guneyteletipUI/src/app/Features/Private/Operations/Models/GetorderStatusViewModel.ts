@@ -7,16 +7,10 @@ export class GetorderStatusViewModel {
   accessionnumber: any;
   citizenid: any;
   teletipstatus: any;
-  teletipstatusid: any;
   medulastatus: any;
-  medulastatusid: any;
   wadostatus: any;
-  wadostatusid: any;
   reportstatus: any;
-  reportstatusid: any;
   dosestatus: any;
-  dosestatusid: any;
-  medulainstitutionid: any;
   sutcode: any;
   lastmedulasenddate: any;
   medularesponsecode: any;
@@ -25,7 +19,5 @@ export class GetorderStatusViewModel {
   performeddate: any;
   error: any;
   patienthistorysearchstatus: any;
-  patienthistorysearchstatusid: any;
-  citizenID: any;
 }
 

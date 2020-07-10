@@ -41,7 +41,7 @@ module.exports = "<div class=\"container-fluid h-100\">\r\n  <h5>Dashboard Works
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal-header\">\r\n  <h4 class=\"modal-title pull-left\">{{modalTitle}}</h4>\r\n  <button type=\"button\" class=\"close pull-right\" aria-label=\"Close\" (click)=\"modal.onClose('carpi')\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n</div>\r\n<div class=\"modal-body\">\r\n  <form>\r\n    <div class=\"form-group row m-1\" *ngIf=\"false\">\r\n      <label class=\"col-sm-4 col-form-label\">Role ID : </label>\r\n      <div class=\"col-sm-8\">\r\n        <input type=\"number\" class=\"form-control\" name=\"id\" disabled>\r\n      </div>\r\n    </div>\r\n    <div class=\"form-group row m-1\">\r\n      <label class=\"col-sm-4 col-form-label\">Role Adı : </label>\r\n      <div class=\"col-sm-8\">\r\n        <input type=\"text\" class=\"form-control\" name=\"AdSoyad\">\r\n      </div>\r\n    </div>\r\n    <div class=\"form-group row m-1\">\r\n      <label class=\"col-sm-4 col-form-label\">Görünen Ad : </label>\r\n      <div class=\"col-sm-8\">\r\n        <input type=\"text\" class=\"form-control\" name=\"AdSoyad\">\r\n      </div>\r\n    </div>\r\n    <div class=\"form-group row m-1\">\r\n      <label class=\"col-sm-4 col-form-label\">Açıklama : </label>\r\n      <div class=\"col-sm-8\">\r\n        <input type=\"text\" class=\"form-control\" name=\"AdSoyad\">\r\n      </div>\r\n    </div>\r\n    <div class=\"form-group row m-1\">\r\n      <div style=\"margin-top:1rem\">\r\n        <span style=\"color:Red;\"> * </span> işaretli alanlar zorunludur.\r\n      </div>\r\n    </div>\r\n    <div *ngFor=\"let item of error\" class=\"alert alert-danger ng-star-inserted\" role=\"alert\">{{item}}</div>\r\n\r\n  </form>\r\n</div>\r\n<div class=\"modal-footer\">\r\n  <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.onClose('close')\">İptal</button>\r\n  <button type=\"button\" class=\"btn btn-success\" (click)=\"modal.onClose('save')\">Kaydet</button>\r\n</div>\r\n"
+module.exports = "<div class=\"modal-header\">\r\n  <h4 class=\"modal-title pull-left\">{{modalTitle}}</h4>\r\n  <button type=\"button\" class=\"close pull-right\" aria-label=\"Close\" (click)=\"cancel('carpi')\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n</div>\r\n<div class=\"modal-body\">\r\n  <form>\r\n    <div class=\"form-group row m-1\" *ngIf=\"idVisible\">\r\n      <label class=\"col-sm-4 col-form-label\">Role ID : </label>\r\n      <div class=\"col-sm-8\">\r\n        <input type=\"number\" class=\"form-control\" name=\"id\" [(ngModel)]=\"saveRolModel.id\" disabled>\r\n      </div>\r\n    </div>\r\n    <div class=\"form-group row m-1\">\r\n      <label class=\"col-sm-4 col-form-label\">Role Adı : </label>\r\n      <div class=\"col-sm-8\">\r\n        <input type=\"text\" class=\"form-control\" name=\"AdSoyad\" [(ngModel)]=\"saveRolModel.rolAdi\">\r\n      </div>\r\n    </div>\r\n    <!--<div class=\"form-group row m-1\">\r\n    <label class=\"col-sm-4 col-form-label\">Görünen Ad : </label>\r\n    <div class=\"col-sm-8\">\r\n      <input type=\"text\" class=\"form-control\" name=\"AdSoyad\">\r\n    </div>\r\n  </div>-->\r\n    <div class=\"form-group row m-1\">\r\n      <label class=\"col-sm-4 col-form-label\">Açıklama : </label>\r\n      <div class=\"col-sm-8\">\r\n        <input type=\"text\" class=\"form-control\" name=\"AdSoyad\" [(ngModel)]=\"saveRolModel.aciklama\">\r\n      </div>\r\n    </div>\r\n    <div class=\"form-group row m-1\">\r\n      <div style=\"margin-top:1rem\">\r\n        <span style=\"color:Red;\"> * </span> işaretli alanlar zorunludur.\r\n      </div>\r\n    </div>\r\n    <div *ngFor=\"let item of error\" class=\"alert alert-danger ng-star-inserted\" role=\"alert\">{{item}}</div>\r\n\r\n  </form>\r\n</div>\r\n<div class=\"modal-footer\">\r\n  <button type=\"button\" class=\"btn btn-danger\" (click)=\"cancel('cancel')\">İptal</button>\r\n  <button type=\"button\" class=\"btn btn-success\" (click)=\"save()\">Kaydet</button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -63,7 +63,7 @@ module.exports = "\r\n    <div class=\"modal-header\">\r\n      <h4 class=\"moda
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid h-100\">\r\n  <div class=\"row h-100 pt-1\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"row mb-0\">\r\n        <div class=\"col mb-1\">\r\n          <pageheader headertext=\"Role Tanımlama\" pageposition=\"TANIMLAMALAR > Role Tanımlama\"></pageheader>\r\n        </div>\r\n      </div>\r\n      <!--<div class=\"row mb-3\">\r\n    <div class=\"col\">\r\n      <app-rolefilter></app-rolefilter>\r\n    </div>\r\n  </div>-->\r\n      <div class=\"row mb-3\">\r\n        <div class=\"col\">\r\n          <app-rolegrid [filterData]=\"roleFilterComponent?.roleNameOutput\"></app-rolegrid>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"row mb-5\">\r\n        <div class=\"col\">\r\n          <app-roletabs></app-roletabs>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\n"
+module.exports = "<div class=\"container-fluid h-100\">\r\n  <div class=\"row h-100 pt-1\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"row mb-0\">\r\n        <div class=\"col mb-1\">\r\n          <pageheader headertext=\"Role Tanımlama\" pageposition=\"TANIMLAMALAR > Role Tanımlama\"></pageheader>\r\n        </div>\r\n      </div>\r\n      <!--<div class=\"row mb-3\">\r\n    <div class=\"col\">\r\n      <app-rolefilter></app-rolefilter>\r\n    </div>\r\n  </div>-->\r\n      <div class=\"row mb-3\">\r\n        <div class=\"col\">\r\n          <app-rolegrid></app-rolegrid>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"row mb-5\">\r\n        <div class=\"col\">\r\n          <app-roletabs></app-roletabs>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\n"
 
 /***/ }),
 
@@ -85,7 +85,7 @@ module.exports = "<filter header=\"Rol Filtreleme\">\r\n  <form>\r\n    <div cla
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button (click)=\"openEditRoleModal('ekle')\" class=\"btn btn-info smalbutton\" tooltip=\"Ekle\"><fa name=\"plus-circle\"></fa></button>\r\n<button (click)=\"openEditRoleModal('düzenle')\" class=\"btn btn-primary smalbutton\" tooltip=\"Güncelle\"><fa name=\"pencil\"></fa></button>\r\n<button (click)=\"openConfirmationDialog()\" class=\"btn btn-danger smalbutton\" tooltip=\"Sil\"><fa name=\"trash\"></fa></button>\r\n<div class=\"card mt-2\">\r\n  <div class=\"card-header\">\r\n    <fa name=\"list\"></fa>\r\n    Rol Listesi > [Toplam:{{gridRole.data.totalCount}}/Seçili:{{gridRole.selectedItems.length}}/Tıklanan:{{gridRole.clickedItem!=undefined?1:0}}]\r\n    <div class=\"pull-right\">\r\n      <select [(ngModel)]=\"gridRole.model.paging.count\" (change)=\"gridRole.onRefresh()\">\r\n        <option *ngFor=\"let c of gridRole.pager\" [ngValue]=\"c\">{{c}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n  <div class=\"card-body p-0 table-responsive\">\r\n    <table #filterSection class=\"table table-bordered m-0 medlifeGrid\">\r\n      <thead>\r\n        <tr>\r\n\r\n          <th scope=\"col\" class=\"p-0\"><input type=\"checkbox\"></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridRole.onSorting('id')\">Id<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridRole.onSorting('roleName')\">Rol Adı<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr (click)=\"gridRole.onClickItem(item)\" *ngFor=\"let item of gridRole.data.list\" [class]=\"gridRole.getRowClass(item)\">\r\n          <td class=\"p-0\">\r\n            <input type=\"checkbox\" class=\"\" [checked]=\"gridRole.isSelected(item)\"\r\n                   (change)=\"gridRole.onSelectItem(item)\">\r\n          </td>\r\n          <td class=\"p-0\">{{item.id}}</td>\r\n          <td class=\"p-0\">{{item.roleName}}</td>\r\n        </tr>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n  <div class=\"row justify-content-center  mb-3\">\r\n    <div class=\"col-sm-7 pagination-sm  justify-content-center pageNumber\">\r\n      <pagination class=\"justify-content-center\" [boundaryLinks]=\"true\" [totalItems]=\"gridRole.data.totalCount\" [maxSize]=\"4\" [(ngModel)]=\"gridRole.model.paging.pageNumber\" [itemsPerPage]=\"gridRole.model.paging.count\" (pageChanged)=\"gridRole.onPageChanged($event)\" previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"&laquo;\" lastText=\"&raquo;\">\r\n      </pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+module.exports = "<button (click)=\"openEditRoleModal('ekle')\" class=\"btn btn-info smalbutton\" tooltip=\"Ekle\"><fa name=\"plus-circle\"></fa></button>\r\n<button (click)=\"openEditRoleModal('düzenle')\" class=\"btn btn-primary smalbutton\" tooltip=\"Güncelle\"><fa name=\"pencil\"></fa></button>\r\n<button (click)=\"openConfirmationDialog()\" class=\"btn btn-danger smalbutton\" tooltip=\"Sil\"><fa name=\"trash\"></fa></button>\r\n<div class=\"card mt-2\">\r\n  <div class=\"card-header\">\r\n    <fa name=\"list\"></fa>\r\n    Rol Listesi > [Toplam:{{gridRole.data.totalCount}}/Seçili:{{gridRole.selectedItems.length}}/Tıklanan:{{gridRole.clickedItem!=undefined?1:0}}]\r\n    <div class=\"pull-right\">\r\n      <select [(ngModel)]=\"gridRole.model.paging.count\" (change)=\"gridRole.onRefresh()\">\r\n        <option *ngFor=\"let c of gridRole.pager\" [ngValue]=\"c\">{{c}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n  <div class=\"card-body p-0 table-responsive\">\r\n    <table #filterSection class=\"table table-bordered m-0 medlifeGrid\">\r\n      <thead>\r\n        <tr>\r\n\r\n          <th scope=\"col\" class=\"p-0\"><input type=\"checkbox\" (click)=\"gridRole.onSelectAll($event)\"></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridRole.onSorting('roleID')\">Id<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridRole.onSorting('roleName')\">Rol Adı<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr (click)=\"gridRole.onClickItem(item)\" *ngFor=\"let item of gridRole.data.list\" [class]=\"gridRole.getRowClass(item)\">\r\n          <td class=\"p-0\">\r\n            <input type=\"checkbox\" class=\"\" [checked]=\"gridRole.isSelected(item)\"\r\n                   (change)=\"gridRole.onSelectItem(item)\">\r\n          </td>\r\n          <td class=\"p-0\">{{item.roleID}}</td>\r\n          <td class=\"p-0\">{{item.roleName}}</td>\r\n        </tr>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n  <div class=\"row justify-content-center  mb-3\">\r\n    <div class=\"col-sm-7 pagination-sm  justify-content-center pageNumber\">\r\n      <pagination class=\"justify-content-center\" [boundaryLinks]=\"true\" [totalItems]=\"gridRole.data.totalCount\" [maxSize]=\"4\" [(ngModel)]=\"gridRole.model.paging.pageNumber\" [itemsPerPage]=\"gridRole.model.paging.count\" (pageChanged)=\"gridRole.onPageChanged($event)\" previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"&laquo;\" lastText=\"&raquo;\">\r\n      </pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -96,7 +96,7 @@ module.exports = "<button (click)=\"openEditRoleModal('ekle')\" class=\"btn btn-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <tabset>\r\n    <tab heading=\"Rol Detay\" id=\"tab1\">\r\n      Where is Lorem Ipsum?\r\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n    </tab>\r\n    <tab heading=\"Tab 2\">\r\n      Where is Lorem Ipsum?\r\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Where is Lorem Ipsum?\r\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Where is Lorem Ipsum?\r\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n    </tab>\r\n  </tabset>\r\n</div>\r\n\r\n"
+module.exports = "<div>\r\n  <tabset>\r\n    <tab heading=\"Rol Detay\" id=\"tab1\">\r\n      <div class=\"row\">\r\n        <div class=\"col-4\">\r\n          <div class=\"container my-4 pull-left\">\r\n            <p class=\"font-weight-bold\">İşlem Yetkileri</p>\r\n            <ul class=\"list-group list-group-flush\">\r\n              <li class=\"list-group-item p-1\">\r\n                <div class=\"custom-control custom-checkbox\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"check11\">\r\n                  <label class=\"custom-control-label\" for=\"check11\">Check me</label>\r\n                </div>\r\n              </li>\r\n              <li class=\"list-group-item p-1\">\r\n                <div class=\"custom-control custom-checkbox\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"check12\">\r\n                  <label class=\"custom-control-label\" for=\"check12\">Check me</label>\r\n                </div>\r\n              </li>\r\n              <li class=\"list-group-item p-1\">\r\n                <div class=\"custom-control custom-checkbox\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"check13\">\r\n                  <label class=\"custom-control-label\" for=\"check13\">Check me</label>\r\n                </div>\r\n              </li>\r\n              <li class=\"list-group-item p-1\">\r\n                <div class=\"custom-control custom-checkbox\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"check14\">\r\n                  <label class=\"custom-control-label\" for=\"check14\">Check me</label>\r\n                </div>\r\n              </li>\r\n              <li class=\"list-group-item p-1\">\r\n                <div class=\"custom-control custom-checkbox\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"check15\">\r\n                  <label class=\"custom-control-label\" for=\"check15\">Check me</label>\r\n                </div>\r\n              </li>\r\n            </ul>\r\n          </div>\r\n        </div>\r\n        <div class=\"col-4\">\r\n          <div class=\"container my-4 pull-left\">\r\n            <p class=\"font-weight-bold\">Tanımlama Yetkileri</p>\r\n            <ul class=\"list-group list-group-flush\">\r\n              <li class=\"list-group-item p-1\">\r\n                <div class=\"custom-control custom-checkbox\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"check21\">\r\n                  <label class=\"custom-control-label\" for=\"check21\">Check me</label>\r\n                </div>\r\n              </li>\r\n              <li class=\"list-group-item p-1\">\r\n                <div class=\"custom-control custom-checkbox\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"check22\">\r\n                  <label class=\"custom-control-label\" for=\"check22\">Check me</label>\r\n                </div>\r\n              </li>\r\n              <li class=\"list-group-item p-1\">\r\n                <div class=\"custom-control custom-checkbox\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"check23\">\r\n                  <label class=\"custom-control-label\" for=\"check23\">Check me</label>\r\n                </div>\r\n              </li>\r\n              <li class=\"list-group-item p-1\">\r\n                <div class=\"custom-control custom-checkbox\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"check24\">\r\n                  <label class=\"custom-control-label\" for=\"check24\">Check me</label>\r\n                </div>\r\n              </li>\r\n              <li class=\"list-group-item p-1\">\r\n                <div class=\"custom-control custom-checkbox\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"check25\">\r\n                  <label class=\"custom-control-label\" for=\"check25\">Check me</label>\r\n                </div>\r\n              </li>\r\n            </ul>\r\n          </div>\r\n        </div>\r\n        <div class=\"col-4\">\r\n          <div class=\"container my-4 pull-left\">\r\n            <p class=\"font-weight-bold\">Ayar Yetkileri</p>\r\n            <ul class=\"list-group list-group-flush\">\r\n              <li class=\"list-group-item p-1\">\r\n                <div class=\"custom-control custom-checkbox\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"check31\">\r\n                  <label class=\"custom-control-label\" for=\"check1\">Check me</label>\r\n                </div>\r\n              </li>\r\n              <li class=\"list-group-item p-1\">\r\n                <div class=\"custom-control custom-checkbox\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"check32\">\r\n                  <label class=\"custom-control-label\" for=\"check2\">Check me</label>\r\n                </div>\r\n              </li>\r\n              <li class=\"list-group-item p-1\">\r\n                <div class=\"custom-control custom-checkbox\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"check33\">\r\n                  <label class=\"custom-control-label\" for=\"check3\">Check me</label>\r\n                </div>\r\n              </li>\r\n              <li class=\"list-group-item p-1\">\r\n                <div class=\"custom-control custom-checkbox\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"check34\">\r\n                  <label class=\"custom-control-label\" for=\"check4\">Check me</label>\r\n                </div>\r\n              </li>\r\n              <li class=\"list-group-item p-1\">\r\n                <div class=\"custom-control custom-checkbox\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"check35\">\r\n                  <label class=\"custom-control-label\" for=\"check5\">Check me</label>\r\n                </div>\r\n              </li>\r\n            </ul>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n    </tab>\r\n    <!--<tab heading=\"Tab 2\">\r\n    Where is Lorem Ipsum?\r\n    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Where is Lorem Ipsum?\r\n    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Where is Lorem Ipsum?\r\n    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n  </tab>-->\r\n  </tabset>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -107,7 +107,7 @@ module.exports = "<div>\r\n  <tabset>\r\n    <tab heading=\"Rol Detay\" id=\"tab
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid h-100\">\r\n  <div class=\"row h-100 pt-1\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"row mb-0\">\r\n        <div class=\"col\">\r\n          <pageheader headertext=\"Kullanıcı Tanımlama\" pageposition=\"TANIMLAMALAR > Kullanıcı Tanımlama\"></pageheader>\r\n        </div>\r\n      </div>\r\n      <div class=\"row mb-3\">\r\n        <div class=\"col\">\r\n          <app-userfilter></app-userfilter>\r\n        </div>\r\n      </div>\r\n      <div class=\"row mb-3\">\r\n        <div class=\"col\">\r\n          <app-usergrid [filterValue]=\"userFilterComponent?.userNameOutput\"></app-usergrid>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"row mb-5\">\r\n        <div class=\"col\">\r\n          <app-usertabs [clickedItem]=\"userGridComponent?.gridUser?.clickedItem?.id\"></app-usertabs>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"container-fluid h-100\">\r\n  <div class=\"row h-100 pt-1\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"row mb-0\">\r\n        <div class=\"col\">\r\n          <pageheader headertext=\"Kullanıcı Tanımlama\" pageposition=\"TANIMLAMALAR > Kullanıcı Tanımlama\"></pageheader>\r\n        </div>\r\n      </div>\r\n      <div class=\"row mb-3\">\r\n        <div class=\"col\">\r\n          <app-userfilter (username)=\"getFilter($event)\"></app-userfilter>\r\n        </div>\r\n      </div>\r\n      <div class=\"row mb-3\">\r\n        <div class=\"col\">\r\n          <app-usergrid [filterValue]=\"filterValue\"></app-usergrid>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"row mb-5\">\r\n        <div class=\"col\">\r\n          <app-usertabs [clickedItem]=\"userGridComponent?.gridUser?.clickedItem?.id\"></app-usertabs>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -129,7 +129,7 @@ module.exports = "<filter header=\"Kullanıcı Filtreleme\">\r\n  <form>\r\n    
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<button (click)=\"openEditUserModal('ekle')\" class=\"btn btn-info smalbutton\" tooltip=\"Ekle\"><fa name=\"plus-circle\"></fa></button>\r\n<button (click)=\"openEditUserModal('düzenle')\" class=\"btn btn-primary smalbutton\" tooltip=\"Güncelle\"><fa name=\"pencil\"></fa></button>\r\n<button (click)=\"openConfirmationDialog()\"class=\"btn btn-danger smalbutton\" tooltip=\"Sil\"><fa name=\"trash\"></fa></button>\r\n\r\n<div class=\"card mt-2\">\r\n  <div class=\"card-header\">\r\n    <fa name=\"list\"></fa>\r\n    Kullanıcı Listesi > [Toplam:{{gridUser.data.totalCount}}/Seçili:{{gridUser.selectedItems.length}}/Tıklanan:{{gridUser.clickedItem!=undefined?1:0}}]\r\n    <div class=\"pull-right\">\r\n      <select [(ngModel)]=\"gridUser.model.paging.count\" (change)=\"gridUser.onRefresh()\">\r\n        <option *ngFor=\"let c of gridUser.pager\" [ngValue]=\"c\">{{c}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n  <div class=\"card-body p-0 table-responsive\">\r\n    <table #filterSection class=\"table table-bordered m-0 medlifeGrid\">\r\n      <thead>\r\n        <tr>\r\n          <th scope=\"col\" class=\"p-0\"><input type=\"checkbox\" (click)=\"gridUser.onSelectAll($event)\"></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridUser.onSorting('id')\">Id<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridUser.onSorting('userName')\">Kullanıcı Adı<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridUser.onSorting('name')\">Adı<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridUser.onSorting('surname')\">Soyadı<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridUser.onSorting('emailAdress')\">E-mail<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridUser.onSorting('rolName')\">Rol<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr (click)=\"gridUser.onClickItem(item)\" *ngFor=\"let item of gridUser.data.list\" [class]=\"gridUser.getRowClass(item)\">\r\n          <td class=\"p-0\">\r\n            <input type=\"checkbox\" class=\"\" [checked]=\"gridUser.isSelected(item)\"\r\n                   (change)=\"gridUser.onSelectItem(item)\">\r\n          </td>\r\n          <td class=\"p-0\">{{item.id}}</td>\r\n          <td class=\"p-0\">{{item.userName}}</td>\r\n          <td class=\"p-0\">{{item.name}}</td>\r\n          <td class=\"p-0\">{{item.surname}}</td>\r\n          <td class=\"p-0\">{{item.emailAdress}}</td>\r\n          <td class=\"p-0\">{{item.rolNameList}}</td>\r\n        </tr>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n  <div class=\"row justify-content-center  mb-3\">\r\n    <div class=\"col-sm-7 pagination-sm  justify-content-center pageNumber\">\r\n      <pagination class=\"justify-content-center\" [boundaryLinks]=\"true\" [totalItems]=\"gridUser.data.totalCount\" [maxSize]=\"4\" [(ngModel)]=\"gridUser.model.paging.pageNumber\" [itemsPerPage]=\"gridUser.model.paging.count\" (pageChanged)=\"gridUser.onPageChanged($event)\" previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"&laquo;\" lastText=\"&raquo;\">\r\n      </pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n"
+module.exports = "\r\n<button [disabled]=\"gridUser.clickedItem == undefined\" (click)=\"openEditUserModal('ekle')\" class=\"btn btn-info smalbutton\" tooltip=\"Ekle\"><fa name=\"plus-circle\"></fa></button>\r\n<button [disabled]=\"gridUser.clickedItem == undefined\" (click)=\"openEditUserModal('düzenle')\" class=\"btn btn-primary smalbutton\" tooltip=\"Güncelle\"><fa name=\"pencil\"></fa></button>\r\n<button [disabled]=\"gridUser.clickedItem == undefined\" (click)=\"openConfirmationDialog()\"class=\"btn btn-danger smalbutton\" tooltip=\"Sil\"><fa name=\"trash\"></fa></button>\r\n\r\n<div class=\"card mt-2 shadow bg-white rounded-0\">\r\n  <div class=\"card-header\">\r\n    <fa name=\"list\"></fa>\r\n    Kullanıcı Listesi > [Toplam:{{gridUser.data.totalCount}}/Seçili:{{gridUser.selectedItems.length}}/Tıklanan:{{gridUser.clickedItem!=undefined?1:0}}]\r\n    <div class=\"pull-right\">\r\n      <select [(ngModel)]=\"gridUser.model.paging.count\" (change)=\"gridUser.onRefresh()\">\r\n        <option *ngFor=\"let c of gridUser.pager\" [ngValue]=\"c\">{{c}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n  <div class=\"card-body p-0 table-responsive\">\r\n    <table #filterSection class=\"table table-hover m-0 medlifeGrid\">\r\n      <thead>\r\n        <tr>\r\n          <th scope=\"col\" class=\"p-0\"><input type=\"checkbox\" (click)=\"gridUser.onSelectAll($event)\"></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridUser.onSorting('id')\">Id<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridUser.onSorting('userName')\">Kullanıcı Adı<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridUser.onSorting('name')\">Adı<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridUser.onSorting('surname')\">Soyadı<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridUser.onSorting('emailAdress')\">E-mail<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridUser.onSorting('rolName')\">Rol<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr (click)=\"gridUser.onClickItem(item)\" *ngFor=\"let item of gridUser.data.list\" [class]=\"gridUser.getRowClass(item)\">\r\n          <td class=\"p-0\">\r\n            <input type=\"checkbox\" class=\"\" [checked]=\"gridUser.isSelected(item)\"\r\n                   (change)=\"gridUser.onSelectItem(item)\">\r\n          </td>\r\n          <td class=\"p-0\">{{item.id}}</td>\r\n          <td class=\"p-0\">{{item.userName}}</td>\r\n          <td class=\"p-0\">{{item.name}}</td>\r\n          <td class=\"p-0\">{{item.surname}}</td>\r\n          <td class=\"p-0\">{{item.emailAdress}}</td>\r\n          <td class=\"p-0\">{{item.rolNameList}}</td>\r\n        </tr>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n  <div class=\"row justify-content-center mt-2\">\r\n    <div class=\"col-sm-7 pagination-sm  justify-content-center pageNumber\">\r\n      <pagination class=\"justify-content-center mb-0\" [boundaryLinks]=\"true\" [totalItems]=\"gridUser.data.totalCount\" [maxSize]=\"4\" [(ngModel)]=\"gridUser.model.paging.pageNumber\" [itemsPerPage]=\"gridUser.model.paging.count\" (pageChanged)=\"gridUser.onPageChanged($event)\" previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"&laquo;\" lastText=\"&raquo;\">\r\n      </pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -140,7 +140,7 @@ module.exports = "\r\n<button (click)=\"openEditUserModal('ekle')\" class=\"btn 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <tabset>\r\n    <tab heading=\"Rol Seçimi\" id=\"tabRole\">\r\n      <div class=\"content mt-5\">\r\n        <div class=\"form-group row m-1\">\r\n          <div class=\"col-sm-3\"></div>\r\n          <label class=\"font-weight-bold\">Rol Seçimi</label>\r\n          <div class=\"col-sm-4\">\r\n            <ng-multiselect-dropdown [placeholder]=\"'Rol Seçimi'\"\r\n                                     [data]=\"ddlRoleData\"\r\n                                     [(ngModel)]=\"ddlRoleSelectedItem\"\r\n                                     [settings]=\"ddlRoleSettings\"\r\n                                     [disabled]=\"ddlRoleDisabled\">\r\n            </ng-multiselect-dropdown>\r\n          </div>\r\n          <div class=\"col-sm-2\">\r\n            <button class=\"btn btn-sm\" [ngClass]=\"{'btn-success': !ddlRoleDisabled, 'btn-warning' : ddlRoleDisabled}\" (click)=\"ddlRoleDisabled = !ddlRoleDisabled; onSaveRole()\">\r\n              <fa name=\"pencil\" *ngIf=\"ddlRoleDisabled\"></fa>\r\n              <fa name=\"check\" *ngIf=\"!ddlRoleDisabled\"></fa>\r\n            </button>\r\n          </div>\r\n          <div class=\"col-sm-2\"></div>\r\n        </div>\r\n      </div>\r\n    </tab>\r\n    <tab heading=\"Hastane Seçimi\" id=\"tabTenant\">\r\n      <div class=\"content mt-5\">\r\n        <div class=\"form-group row m-1\">\r\n          <div class=\"col-sm-3\"></div>\r\n          <label class=\"font-weight-bold\">Hastane Seçimi</label>\r\n          <div class=\"col-sm-4\">\r\n            <ng-multiselect-dropdown [placeholder]=\"'Hastane Seçimi'\"\r\n                                     [data]=\"ddlTenantData\"\r\n                                     [(ngModel)]=\"ddlTenantSelectedItem\"\r\n                                     [settings]=\"ddlTenantSettings\"\r\n                                     [disabled]=\"ddlTenantDisabled\">\r\n            </ng-multiselect-dropdown>\r\n          </div>\r\n          <div class=\"col-sm-2\">\r\n            <button class=\"btn btn-sm\" [ngClass]=\"{'btn-success': !ddlTenantDisabled, 'btn-warning' : ddlTenantDisabled}\" (click)=\"ddlTenantDisabled = !ddlTenantDisabled; onSaveTenant()\">\r\n              <fa name=\"pencil\" *ngIf=\"ddlTenantDisabled\"></fa>\r\n              <fa name=\"check\" *ngIf=\"!ddlTenantDisabled\" ></fa>\r\n            </button>\r\n          </div>\r\n          <div class=\"col-sm-2\"></div>\r\n        </div>\r\n      </div>\r\n    </tab>\r\n  </tabset>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"shadow rounded-0\">\r\n  <tabset>\r\n    <tab heading=\"Rol Seçimi\" id=\"tabRole\">\r\n      <div class=\"content mt-5 pb-5\">\r\n        <div class=\"form-group row m-1\">\r\n          <div class=\"col-sm-3\"></div>\r\n          <label class=\"font-weight-bold\">Rol Seçimi</label>\r\n          <div class=\"col-sm-4\">\r\n            <ng-multiselect-dropdown [placeholder]=\"'Rol Seçimi'\"\r\n                                     [data]=\"ddlRoleData\"\r\n                                     [(ngModel)]=\"ddlRoleSelectedItem\"\r\n                                     [settings]=\"ddlRoleSettings\"\r\n                                     [disabled]=\"ddlRoleDisabled\">\r\n            </ng-multiselect-dropdown>\r\n          </div>\r\n          <div class=\"col-sm-2\">\r\n            <button class=\"btn btn-sm\" [ngClass]=\"{'btn-success': !ddlRoleDisabled, 'btn-warning' : ddlRoleDisabled}\" (click)=\"ddlRoleDisabled = !ddlRoleDisabled; onSaveRole()\">\r\n              <fa name=\"pencil\" *ngIf=\"ddlRoleDisabled\"></fa>\r\n              <fa name=\"check\" *ngIf=\"!ddlRoleDisabled\"></fa>\r\n            </button>\r\n          </div>\r\n          <div class=\"col-sm-2\"></div>\r\n        </div>\r\n      </div>\r\n    </tab>\r\n    <tab heading=\"Hastane Seçimi\" id=\"tabTenant\">\r\n      <div class=\"content mt-5 pb-5\">\r\n        <div class=\"form-group row m-1 \">\r\n          <div class=\"col-sm-3\"></div>\r\n          <label class=\"font-weight-bold\">Hastane Seçimi</label>\r\n          <div class=\"col-sm-4\">\r\n            <ng-multiselect-dropdown [placeholder]=\"'Hastane Seçimi'\"\r\n                                     [data]=\"ddlTenantData\"\r\n                                     [(ngModel)]=\"ddlTenantSelectedItem\"\r\n                                     [settings]=\"ddlTenantSettings\"\r\n                                     [disabled]=\"ddlTenantDisabled\">\r\n            </ng-multiselect-dropdown>\r\n          </div>\r\n          <div class=\"col-sm-2\">\r\n            <button class=\"btn btn-sm\" [ngClass]=\"{'btn-success': !ddlTenantDisabled, 'btn-warning' : ddlTenantDisabled}\" (click)=\"ddlTenantDisabled = !ddlTenantDisabled; onSaveTenant()\">\r\n              <fa name=\"pencil\" *ngIf=\"ddlTenantDisabled\"></fa>\r\n              <fa name=\"check\" *ngIf=\"!ddlTenantDisabled\" ></fa>\r\n            </button>\r\n          </div>\r\n          <div class=\"col-sm-2\"></div>\r\n        </div>\r\n      </div>\r\n    </tab>\r\n  </tabset>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -184,7 +184,7 @@ module.exports = "<div class=\"card mt-2\">\r\n  <div class=\"card-header p-1\">
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--filter is a component, created by Protek Developer Team. You can see the attribute of filter in Shared/Components/filter-->\r\n<filter header=\"Filtreleme\">\r\n  <form > \r\n    <div class=\"form-row p-0 \">\r\n      <div class=\"col-md-3\">\r\n        <label class=\"font-weight-bold\">Hastane Seçimi</label>\r\n        <ng-multiselect-dropdown name =\"ddlTenant\"\r\n                                 [placeholder]=\"'Hastane Seçimi'\"\r\n                                 [data]=\"ddlTenantData\"\r\n                                 [(ngModel)]=\"ddlTenantSelectedItems\"\r\n                                 [settings]=\"ddlTenantSettings\">\r\n        </ng-multiselect-dropdown>\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <label class=\"font-weight-bold\">Tarih Aralığı</label>\r\n        <div class=\"input-group input-group-sm mb-3\">\r\n          <input class=\"form-control\" type=\"text\"\r\n                 autocomplete=\"off\"\r\n                 name=\"dateRange\"\r\n                 [(ngModel)]=\"dateRange\"\r\n                 placeholder=\"Tarih Aralığı\" [bsConfig]=\"{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY', rangeInputFormat : 'DD/MM/YYYY'}\" #drp=\"bsDaterangepicker\" bsDaterangepicker >\r\n        </div>\r\n        \r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <label class=\"font-weight-bold\">Modalite</label>\r\n        <ng-multiselect-dropdown name=\"ddlModality\"\r\n                                 [placeholder]=\"'Modalite'\"\r\n                                 [data]=\"ddlModalityData\"\r\n                                 [(ngModel)]=\"ddlModalitySelectedItems\"\r\n                                 [settings]=\"ddlModalitySettings\">\r\n        </ng-multiselect-dropdown>\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <label class=\"font-weight-bold\">Eşleşme Durumu</label>\r\n        <ng-multiselect-dropdown name=\"ddlEnum\"\r\n                                 [placeholder]=\"'Eşleşme Durumu'\"\r\n                                 [data]=\"ddlEnumData\"\r\n                                 [(ngModel)]=\"ddlEnumSelectedItems\"\r\n                                 [settings]=\"ddlEnumSettings\">\r\n        </ng-multiselect-dropdown>\r\n      </div>\r\n    </div>\r\n    <div class=\"form-row\">\r\n      <div class=\"col-md-6\">\r\n        <label class=\"font-weight-bold\">TC Kimlik No</label>\r\n        <div class=\"input-group input-group-sm\">\r\n          <!--<input type=\"text\" class=\"form-control input-sm\" name=\"tcno\" [(ngModel)]=\"tcKimlikNo\">-->\r\n          <textarea class=\"form-control input-sm\" [(ngModel)]=\"tcKimlikNo\" name=\"tcno\" style=\"height: 2rem;\"></textarea>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-6\">\r\n        <label class=\"font-weight-bold\">Accession No</label>\r\n        <div class=\"input-group input-group-sm\">\r\n          <!--<input type=\"text\" class=\"form-control input-sm\" name=\"accesion\" [(ngModel)]=\"accessionNo\">-->\r\n          <textarea class=\"form-control input-sm\" [(ngModel)]=\"accessionNo\" name=\"accesion\" style=\"height: 2rem;\"></textarea>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </form>\r\n  <div class=\"mt-1\">\r\n    <button class=\"btn btn-success btn-sm mr-2\" tooltip=\"Filtrele\" (click)=\"onFilter()\"><fa name=\"search\"></fa></button>\r\n    <button class=\"btn btn-danger  btn-sm\" tooltip=\"Filtreleri Temizle\" (click)=\"onClearFilter()\"><fa name=\"close\"></fa></button>\r\n  </div>\r\n</filter>\r\n"
+module.exports = "<!--filter is a component, created by Protek Developer Team. You can see the attribute of filter in Shared/Components/filter-->\r\n<filter header=\"Filtreleme\">\r\n  <form > \r\n    <div class=\"form-row p-0 \">\r\n      <div class=\"col-md-3\">\r\n        <label class=\"font-weight-bold\">Hastane Seçimi</label>\r\n        <ng-multiselect-dropdown name =\"ddlTenant\"\r\n                                 [placeholder]=\"'Hastane Seçimi'\"\r\n                                 [data]=\"ddlTenantData\"\r\n                                 [(ngModel)]=\"ddlTenantSelectedItems\"\r\n                                 [settings]=\"ddlTenantSettings\">\r\n        </ng-multiselect-dropdown>\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <label class=\"font-weight-bold\">Tarih Aralığı</label>\r\n        <div class=\"input-group input-group-sm mb-3\">\r\n          <input class=\"form-control\" type=\"text\"\r\n                 autocomplete=\"off\"\r\n                 name=\"dateRange\"\r\n                 [(ngModel)]=\"dateRange\"\r\n                 placeholder=\"Tarih Aralığı\" [bsConfig]=\"{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY', rangeInputFormat : 'DD/MM/YYYY', containerClass: 'theme-dark-blue'}\" #drp=\"bsDaterangepicker\" bsDaterangepicker >\r\n        </div>\r\n        \r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <label class=\"font-weight-bold\">Modalite</label>\r\n        <ng-multiselect-dropdown name=\"ddlModality\"\r\n                                 [placeholder]=\"'Modalite'\"\r\n                                 [data]=\"ddlModalityData\"\r\n                                 [(ngModel)]=\"ddlModalitySelectedItems\"\r\n                                 [settings]=\"ddlModalitySettings\">\r\n        </ng-multiselect-dropdown>\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <label class=\"font-weight-bold\">Eşleşme Durumu</label>\r\n        <ng-multiselect-dropdown name=\"ddlEnum\"\r\n                                 [placeholder]=\"'Eşleşme Durumu'\"\r\n                                 [data]=\"ddlEnumData\"\r\n                                 [(ngModel)]=\"ddlEnumSelectedItems\"\r\n                                 [settings]=\"ddlEnumSettings\">\r\n        </ng-multiselect-dropdown>\r\n      </div>\r\n    </div>\r\n    <div class=\"form-row\">\r\n      <div class=\"col-md-6\">\r\n        <label class=\"font-weight-bold\">TC Kimlik No</label>\r\n        <div class=\"input-group input-group-sm\">\r\n          <!--<input type=\"text\" class=\"form-control input-sm\" name=\"tcno\" [(ngModel)]=\"tcKimlikNo\">-->\r\n          <textarea class=\"form-control input-sm\" [(ngModel)]=\"tcKimlikNo\" name=\"tcno\" style=\"height: 2rem;\"></textarea>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-6\">\r\n        <label class=\"font-weight-bold\">Accession No</label>\r\n        <div class=\"input-group input-group-sm\">\r\n          <!--<input type=\"text\" class=\"form-control input-sm\" name=\"accesion\" [(ngModel)]=\"accessionNo\">-->\r\n          <textarea class=\"form-control input-sm\" [(ngModel)]=\"accessionNo\" name=\"accesion\" style=\"height: 2rem;\"></textarea>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </form>\r\n  <div class=\"mt-1\">\r\n    <button class=\"btn btn-success btn-sm mr-2\" tooltip=\"Filtrele\" (click)=\"onFilter()\"><fa name=\"search\"></fa></button>\r\n    <button class=\"btn btn-danger  btn-sm\" tooltip=\"Filtreleri Temizle\" (click)=\"onClearFilter()\"><fa name=\"close\"></fa></button>\r\n  </div>\r\n</filter>\r\n"
 
 /***/ }),
 
@@ -195,7 +195,7 @@ module.exports = "<!--filter is a component, created by Protek Developer Team. Y
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"m-0\">\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickCreateKos()\" class=\"btn btn-info smalbutton\" tooltip=\"Koş Oluştur\"><fa name=\"plus-circle\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickSendKos()\" class=\"btn btn-info smalbutton\" tooltip=\"Seçilenlerin KOS'larını Gönder\"><fa name=\"share-square\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickDeleteKos()\" class=\"btn btn-danger smalbutton\" tooltip=\"Seçilenlerin KOS'larını Teletıp'tan sil\"><fa name=\"trash\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickUpdateReadKos()\" class=\"btn btn-primary smalbutton\" tooltip=\"Seçilenlerin KOS Durumlarını Teletıp'tan oku\"><fa name=\"get-pocket\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickReprocessKos()\" class=\"btn btn-secondary smalbutton\" tooltip=\"Reprocess Kos\"><fa name=\"reply\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickExportExcel()\" class=\"btn btn-primary smalbutton\" tooltip=\"Excel'e çevir\"><fa name=\"table\"></fa></button>\r\n</div>\r\n\r\n<div class=\"card mt-2 shadow bg-white rounded\">\r\n  <div class=\"card-header p-1\">\r\n    <fa name=\"list\"></fa>\r\n    Kayıt Listesi > [Toplam:{{gridKos.data.totalCount}}/Seçili:{{gridKos.selectedItems.length}}/Tıklanan:{{gridKos.clickedItem!=undefined?1:0}}]\r\n    <div class=\"pull-right\">\r\n      <select [(ngModel)]=\"gridKos.model.paging.count\" (change)=\"gridKos.onRefresh()\">\r\n        <option *ngFor=\"let c of gridKos.pager\" [ngValue]=\"c\">{{c}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n  <div class=\"card-body p-0 table-responsive\">\r\n    <table #filterSection class=\"table table-bordered m-0 medlifeGrid\">\r\n      <thead>\r\n        <tr>\r\n          <th scope=\"col\" class=\"p-0\">\r\n            <input type=\"checkbox\" class=\"m-1\" (click)=\"gridKos.gridSelect($event,'selectPage')\" [(ngModel)]=\"gridKos.selectPage\" title=\"Sayfayı Seç\">\r\n            <input type=\"checkbox\" class=\"m-1\" (click)=\"gridKos.gridSelect($event,'selectAll')\" [(ngModel)]=\"gridKos.selectAll\" title=\"Tümünü Seç\">\r\n          </th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('id')\">ID<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('hastaNo')\">Hasta No<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('patientName')\">Hasta İsmi<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('accessionNumber')\">Accession No<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('modality')\">Modalite<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('creationDttm')\">Oluşturma Tarihi<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('studyDate')\">Study Date<div class=\"pull-right mr-1\"><fa name=\"sort\"></fa></div></th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr (click)=\"gridKos.onClickItem(item)\" *ngFor=\"let item of gridKos.data.list\" [class]=\"gridKos.getRowClass(item)\">\r\n          <td class=\"p-0\">\r\n            <input type=\"checkbox\"  class=\"m-1\" [checked]=\"gridKos.isSelected(item)\"\r\n                   (change)=\"gridKos.onSelectItem(item)\" [disabled] =\"gridKos.selectAll\">\r\n          </td>\r\n          <td class=\"p-0\">{{item.id}}</td>\r\n          <td class=\"p-0\">{{item.hastaNo}}</td>\r\n          <td class=\"p-0\">{{item.patientName}}</td>\r\n          <td class=\"p-0\">{{item.accessionNumber}}</td>\r\n          <td class=\"p-0\">{{item.modality}}</td>\r\n          <td class=\"p-0\">{{item.creationDttm | date : 'dd.MM.yyyy'}}</td>\r\n          <td class=\"p-0\">{{item.studyDate | date : 'dd.MM.yyyy'}}</td>\r\n        </tr>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n  <div class=\"row justify-content-center  mb-3\">\r\n    <div class=\"col-sm-7 pagination-sm  justify-content-center pageNumber\">\r\n      <pagination class=\"justify-content-center\" [boundaryLinks]=\"true\" [totalItems]=\"gridKos.data.totalCount\" [maxSize]=\"4\" [(ngModel)]=\"gridKos.model.paging.pageNumber\" [itemsPerPage]=\"gridKos.model.paging.count\" (pageChanged)=\"gridKos.onPageChanged($event)\" previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"&laquo;\" lastText=\"&raquo;\">\r\n      </pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n"
+module.exports = "<div class=\"m-0\">\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickCreateKos()\" class=\"btn btn-info smalbutton\" tooltip=\"Koş Oluştur\"><fa name=\"plus-circle\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickSendKos()\" class=\"btn btn-info smalbutton\" tooltip=\"Seçilenlerin KOS'larını Gönder\"><fa name=\"share-square\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickDeleteKos()\" class=\"btn btn-danger smalbutton\" tooltip=\"Seçilenlerin KOS'larını Teletıp'tan sil\"><fa name=\"trash\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickUpdateReadKos()\" class=\"btn btn-primary smalbutton\" tooltip=\"Seçilenlerin KOS Durumlarını Teletıp'tan oku\"><fa name=\"get-pocket\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickReprocessKos()\" class=\"btn btn-secondary smalbutton\" tooltip=\"Reprocess Kos\"><fa name=\"reply\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickExportExcel()\" class=\"btn btn-primary smalbutton\" tooltip=\"Excel'e çevir\"><fa name=\"table\"></fa></button>\r\n</div>\r\n\r\n<div class=\"card mt-2 shadow bg-white rounded-0\">\r\n  <div class=\"card-header pr-1 pt-1 pb-1 pl-2\">\r\n    <fa name=\"list\" class=\"align-middle\"></fa>\r\n    Kayıt Listesi > [Toplam:{{gridKos.data.totalCount}}/Seçili:{{gridKos.selectedItems.length}}/Tıklanan:{{gridKos.clickedItem!=undefined?1:0}}]\r\n    <div class=\"pull-right align-middle\">\r\n      <select [(ngModel)]=\"gridKos.model.paging.count\" (change)=\"gridKos.onRefresh()\">\r\n        <option *ngFor=\"let c of gridKos.pager\" [ngValue]=\"c\">{{c}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n  <div class=\"card-body p-0 table-responsive\">\r\n    <table #filterSection class=\"table table-hover m-0 medlifeGrid\">\r\n      <thead>\r\n        <tr>\r\n          <th scope=\"col\" class=\"p-0\" style=\"width: 25px;\">\r\n            <input type=\"checkbox\" class=\"m-1\" (click)=\"gridKos.gridSelect($event,'selectPage')\" [(ngModel)]=\"gridKos.selectPage\" title=\"Sayfayı Seç\">\r\n            <input type=\"checkbox\" class=\"m-1\" (click)=\"gridKos.gridSelect($event,'selectAll')\" [(ngModel)]=\"gridKos.selectAll\" title=\"Tümünü Seç\">\r\n          </th>\r\n\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('id')\">ID<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('hastaNo')\">Hasta No<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('patientName')\">Hasta İsmi<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('accessionNumber')\">Accession No<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('modality')\">Modalite<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('creationDttm')\">Oluşturma Tarihi<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('studyDate')\">Study Date<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr (click)=\"gridKos.onClickItem(item)\" *ngFor=\"let item of gridKos.data.list\" [class]=\"gridKos.getRowClass(item)\">\r\n          <td class=\"p-0\">\r\n            <input type=\"checkbox\"  class=\"m-1\" [checked]=\"gridKos.isSelected(item)\"\r\n                   (change)=\"gridKos.onSelectItem(item)\" [disabled] =\"gridKos.selectAll\">\r\n          </td>\r\n          <td class=\"p-0\">{{item.id}}</td>\r\n          <td class=\"p-0\">{{item.hastaNo}}</td>\r\n          <td class=\"p-0\">{{item.patientName}}</td>\r\n          <td class=\"p-0\">{{item.accessionNumber}}</td>\r\n          <td class=\"p-0\">{{item.modality}}</td>\r\n          <td class=\"p-0\">{{item.creationDttm | date : 'dd.MM.yyyy'}}</td>\r\n          <td class=\"p-0\">{{item.studyDate | date : 'dd.MM.yyyy'}}</td>\r\n        </tr>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n  <div class=\"row justify-content-center mt-2\">\r\n    <div class=\"col-sm-7 pagination-sm  justify-content-center pageNumber\">\r\n      <pagination class=\"justify-content-center mb-0\" [boundaryLinks]=\"true\" [totalItems]=\"gridKos.data.totalCount\" [maxSize]=\"4\" [(ngModel)]=\"gridKos.model.paging.pageNumber\" [itemsPerPage]=\"gridKos.model.paging.count\" (pageChanged)=\"gridKos.onPageChanged($event)\" previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"&laquo;\" lastText=\"&raquo;\">\r\n      </pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -217,7 +217,7 @@ module.exports = "<div class=\"container-fluid h-100\">\r\n  <div class=\"row h-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card mt-2 shadow bg-white rounded\">\r\n  <div class=\"card-header p-1\">\r\n    <fa name=\"bar-chart\"></fa>\r\n    İstatistikler\r\n    <div class=\"pull-right mr-1\">\r\n      <button (click)=\"onRefresh()\" class=\"btn btn-sm btn-light p-0 m-0\" style=\"height: 1.5rem; width:2rem\">\r\n        <fa name=\"refresh\"></fa>\r\n      </button>\r\n    </div>\r\n  </div>\r\n  <div class=\"card-body p-1 m-1\">\r\n    <div class=\"card p-0 m-0\">\r\n      <div class=\"card-header p-0\">\r\n        <label class=\"m-1\">KOS Durum</label>\r\n        <div class=\"pull-right\">\r\n          <button (click)=\"isCollapsed = !isCollapsed;\" class=\"btn btn-sm btn-light p-0 m-0\" style=\"height: 1.5rem; width:2rem\" [attr.aria-expanded]=\"!isCollapsed\" aria-controls=\"collapseBasic\" >\r\n            <fa class=\"m-2\" *ngIf=\"isCollapsed\" name=\"angle-down\"></fa>\r\n            <fa class=\"m-2\" *ngIf=\"!isCollapsed\" name=\"angle-up\"></fa>\r\n          </button>\r\n        </div>\r\n      </div>\r\n      <div id=\"collapseBasic\" [collapse]=\"isCollapsed\" [isAnimated]=\"true\">\r\n        <div class=\"card-body p-2\">\r\n          <ul class=\"pl-4 mb-0\">\r\n            <li *ngFor=\"let item of kosDurumModel\">\r\n              <label>{{item.name}} : <span class=\"font-weight-bold\">{{item.totalCount}}</span></label>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n      </div>\r\n\r\n    </div>\r\n    <!--<div class=\"card\">\r\n    <div class=\"card-header\">\r\n      SEND KOS İstatistikleri\r\n      <div class=\"pull-right\">\r\n        <button (click)=\"isCollapsed1 = !isCollapsed1;\" class=\"btn btn-sm btn-light\" [attr.aria-expanded]=\"!isCollapsed1\" aria-controls=\"collapseBasic1\">\r\n          <fa *ngIf=\"isCollapsed1\" name=\"angle-down\"></fa>\r\n          <fa *ngIf=\"!isCollapsed1\" name=\"angle-up\"></fa>\r\n        </button>\r\n      </div>\r\n    </div>\r\n    <div id=\"collapseBasic1\" [collapse]=\"isCollapsed1\" [isAnimated]=\"true\">\r\n      <div class=\"card-body\">\r\n        <div class=\"row\">\r\n          <div class=\"col-2\">\r\n            <button class=\"btn btn-success btn-sm\"></button>\r\n          </div>\r\n          <div class=\"col-10\">\r\n            <label class=\"font-weight-bold\">Başarılı : 356</label>\r\n          </div>\r\n        </div>\r\n        <div class=\"row\">\r\n          <div class=\"col-2\">\r\n            <button class=\"btn btn-danger btn-sm\"></button>\r\n          </div>\r\n          <div class=\"col-10\">\r\n            <label class=\"font-weight-bold\">Başarısız : 45</label>\r\n          </div>\r\n        </div>\r\n        <div class=\"row\">\r\n          <div class=\"col-2\">\r\n            <button class=\"btn btn-primary btn-sm\"></button>\r\n          </div>\r\n          <div class=\"col-10\">\r\n            <label class=\"font-weight-bold\">Toplam : 401</label>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n  </div>-->\r\n  </div>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"card mt-2 shadow bg-white rounded-0\">\r\n  <div class=\"card-header p-1\">\r\n    <fa name=\"bar-chart align-middle\"></fa>\r\n    İstatistikler\r\n    <div class=\"pull-right align-middle\">\r\n      <button (click)=\"onRefresh()\" class=\"btn btn-sm btn-light align-middle\" style=\"height: 1.3rem; width:1.6rem\">\r\n        <fa name=\"refresh \" class=\"align-middle p-0\"></fa>\r\n      </button>\r\n    </div>\r\n  </div>\r\n  <div class=\"card-body p-1 m-1\">\r\n    <div class=\"card p-0 m-0\">\r\n      <div class=\"card-header p-0\">\r\n        <label class=\"m-1\">KOS Durum</label>\r\n        <div class=\"pull-right\">\r\n          <button (click)=\"isCollapsed = !isCollapsed;\" class=\"btn btn-sm btn-light p-0 m-0\" style=\"height: 1.5rem; width:2rem\" [attr.aria-expanded]=\"!isCollapsed\" aria-controls=\"collapseBasic\" >\r\n            <fa class=\"m-2\" *ngIf=\"isCollapsed\" name=\"angle-down\"></fa>\r\n            <fa class=\"m-2\" *ngIf=\"!isCollapsed\" name=\"angle-up\"></fa>\r\n          </button>\r\n        </div>\r\n      </div>\r\n      <div id=\"collapseBasic\" [collapse]=\"isCollapsed\" [isAnimated]=\"true\">\r\n        <div class=\"card-body p-2\">\r\n          <ul class=\"pl-4 mb-0\">\r\n            <li *ngFor=\"let item of kosDurumModel\">\r\n              <label>{{item.name}} : <span class=\"font-weight-bold\">{{item.totalCount}}</span></label>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n      </div>\r\n\r\n    </div>\r\n    <!--<div class=\"card\">\r\n    <div class=\"card-header\">\r\n      SEND KOS İstatistikleri\r\n      <div class=\"pull-right\">\r\n        <button (click)=\"isCollapsed1 = !isCollapsed1;\" class=\"btn btn-sm btn-light\" [attr.aria-expanded]=\"!isCollapsed1\" aria-controls=\"collapseBasic1\">\r\n          <fa *ngIf=\"isCollapsed1\" name=\"angle-down\"></fa>\r\n          <fa *ngIf=\"!isCollapsed1\" name=\"angle-up\"></fa>\r\n        </button>\r\n      </div>\r\n    </div>\r\n    <div id=\"collapseBasic1\" [collapse]=\"isCollapsed1\" [isAnimated]=\"true\">\r\n      <div class=\"card-body\">\r\n        <div class=\"row\">\r\n          <div class=\"col-2\">\r\n            <button class=\"btn btn-success btn-sm\"></button>\r\n          </div>\r\n          <div class=\"col-10\">\r\n            <label class=\"font-weight-bold\">Başarılı : 356</label>\r\n          </div>\r\n        </div>\r\n        <div class=\"row\">\r\n          <div class=\"col-2\">\r\n            <button class=\"btn btn-danger btn-sm\"></button>\r\n          </div>\r\n          <div class=\"col-10\">\r\n            <label class=\"font-weight-bold\">Başarısız : 45</label>\r\n          </div>\r\n        </div>\r\n        <div class=\"row\">\r\n          <div class=\"col-2\">\r\n            <button class=\"btn btn-primary btn-sm\"></button>\r\n          </div>\r\n          <div class=\"col-10\">\r\n            <label class=\"font-weight-bold\">Toplam : 401</label>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n  </div>-->\r\n  </div>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -250,7 +250,40 @@ module.exports = "<!--<button class=\"btn btn-info btn-sm  mr-1\" tooltip=\"Ekle
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <tabset>\r\n    <tab heading=\"Kos Detay\" id=\"tab1\">\r\n      <app-kosdetail [kosId]=\"kosID\"></app-kosdetail>\r\n    </tab>\r\n    <tab heading=\"Kos Geçmişi\" id=\"tab2\">\r\n      <app-kosdetailgrid [kosId]=\"kosID\"></app-kosdetailgrid>\r\n    </tab>\r\n  </tabset>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"shadow rounded-0\">\r\n  <tabset>\r\n    <tab heading=\"Kos Detay\" id=\"tab1\">\r\n      <app-kosdetail [kosId]=\"kosID\"></app-kosdetail>\r\n    </tab>\r\n    <tab heading=\"Kos Geçmişi\" id=\"tab2\">\r\n      <app-kosdetailgrid [kosId]=\"kosID\"></app-kosdetailgrid>\r\n    </tab>\r\n  </tabset>\r\n</div>\r\n\r\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component.html":
+/*!***************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component.html ***!
+  \***************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<filter header=\"Filtreleme\">\r\n  <form>\r\n    <div class=\"form-row p-0 \">\r\n      <div class=\"col-md-4\">\r\n        <label class=\"font-weight-bold\">Hastane Seçimi</label>\r\n        <ng-multiselect-dropdown name=\"ddlTenant\"\r\n                                 [placeholder]=\"'Hastane Seçimi'\"\r\n                                 [data]=\"ddlTenantData\"\r\n                                 [(ngModel)]=\"ddlTenantSelectedItems\"\r\n                                 [settings]=\"ddlTenantSettings\">\r\n        </ng-multiselect-dropdown>\r\n      </div>\r\n      <div class=\"col-md-4\">\r\n        <label class=\"font-weight-bold\">Tarih Aralığı</label>\r\n        <div class=\"input-group input-group-sm mb-3\">\r\n          <input class=\"form-control\" type=\"text\"\r\n                 autocomplete=\"off\"\r\n                 name=\"dateRange\"\r\n                 [(ngModel)]=\"dateRange\"\r\n                 placeholder=\"Tarih Aralığı\" [bsConfig]=\"{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY', rangeInputFormat : 'DD/MM/YYYY', containerClass: 'theme-dark-blue'}\" #drp=\"bsDaterangepicker\" bsDaterangepicker>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-4\">\r\n        <label class=\"font-weight-bold\">Eşleşme Durumu</label>\r\n        <ng-multiselect-dropdown name=\"ddlEnum\"\r\n                                 [placeholder]=\"'Eşleşme Durumu'\"\r\n                                 [data]=\"ddlEnumData\"\r\n                                 [(ngModel)]=\"ddlEnumSelectedItems\"\r\n                                 [settings]=\"ddlEnumSettings\">\r\n        </ng-multiselect-dropdown>\r\n      </div>\r\n    </div>\r\n  </form>\r\n  <div class=\"mt-1\">\r\n    <button class=\"btn btn-success btn-sm mr-2\" tooltip=\"Filtrele\" (click)=\"onFilter()\"><fa name=\"search\"></fa></button>\r\n    <button class=\"btn btn-danger  btn-sm\" tooltip=\"Filtreleri Temizle\" (click)=\"onClearFilter()\"><fa name=\"close\"></fa></button>\r\n  </div>\r\n</filter>\r\n\r\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component.html":
+/*!***********************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component.html ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!--<div class=\"m-0\">\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickCreateKos()\" class=\"btn btn-info smalbutton\" tooltip=\"Koş Oluştur\"><fa name=\"plus-circle\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickSendKos()\" class=\"btn btn-info smalbutton\" tooltip=\"Seçilenlerin KOS'larını Gönder\"><fa name=\"share-square\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickDeleteKos()\" class=\"btn btn-danger smalbutton\" tooltip=\"Seçilenlerin KOS'larını Teletıp'tan sil\"><fa name=\"trash\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickUpdateReadKos()\" class=\"btn btn-primary smalbutton\" tooltip=\"Seçilenlerin KOS Durumlarını Teletıp'tan oku\"><fa name=\"get-pocket\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickReprocessKos()\" class=\"btn btn-secondary smalbutton\" tooltip=\"Reprocess Kos\"><fa name=\"reply\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickExportExcel()\" class=\"btn btn-primary smalbutton\" tooltip=\"Excel'e çevir\"><fa name=\"table\"></fa></button>\r\n</div>-->\r\n<div class=\"card mt-2 shadow bg-white rounded-0\">\r\n  <div class=\"card-header pr-1 pt-1 pb-1 pl-2\">\r\n    <fa name=\"list\" class=\"align-middle\"></fa>\r\n    Kayıt Listesi > [Toplam:{{gridStm.data.totalCount}}/Seçili:{{gridStm.selectedItems.length}}/Tıklanan:{{gridStm.clickedItem!=undefined?1:0}}]\r\n    <div class=\"pull-right align-middle\">\r\n      <select [(ngModel)]=\"gridStm.model.paging.count\" (change)=\"gridStm.onRefresh()\">\r\n        <option *ngFor=\"let c of gridStm.pager\" [ngValue]=\"c\">{{c}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n  <div class=\"card-body p-0 table-responsive\">\r\n    <table #filterSection class=\"table table-bordered m-0 medlifeGrid\">\r\n      <thead>\r\n        <tr>\r\n          <th scope=\"col\" class=\"p-0\" style=\"width: 25px;\">\r\n            <input type=\"checkbox\" class=\"m-1\" (click)=\"gridStm.gridSelect($event,'selectPage')\" [(ngModel)]=\"gridStm.selectPage\" title=\"Sayfayı Seç\">\r\n            <input type=\"checkbox\" class=\"m-1\" (click)=\"gridStm.gridSelect($event,'selectAll')\" [(ngModel)]=\"gridStm.selectAll\" title=\"Tümünü Seç\">\r\n          </th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('id')\">ID<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('citizenid')\">citizenid<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('fkTenant')\">fkTenant<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('tenantName')\">tenantName<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('fkInfBatch')\">fkInfBatch<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('fkKosStudy')\">fkKosStudy<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('accessionnumber')\">accessionnumber<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('teletipstatus')\">teletipstatus<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('medulastatus')\">medulastatus<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('wadostatus')\">wadostatus<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('reportstatus')\">reportstatus<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('dosestatus')\">dosestatus<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('sutcode')\">sutcode<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('lastmedulasenddate')\">lastmedulasenddate<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('medularesponsecode')\">medularesponsecode<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('medularesponsemessage')\">medularesponsemessage<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('scheduledate')\">scheduledate<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('performeddate')\">performeddate<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('error')\">error<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridStm.onSorting('patienthistorysearchstatus')\">patienthistorysearchstatus<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr (click)=\"gridStm.onClickItem(item)\" *ngFor=\"let item of gridStm.data.list\" [class]=\"gridStm.getRowClass(item)\">\r\n          <td class=\"p-0\">\r\n            <input type=\"checkbox\" class=\"m-1\" [checked]=\"gridStm.isSelected(item)\"\r\n                   (change)=\"gridStm.onSelectItem(item)\" [disabled]=\"gridStm.selectAll\">\r\n          </td>\r\n          <td class=\"p-0\">{{item.id}}</td>\r\n          <td class=\"p-0\">{{item.citizenid}}</td>\r\n          <td class=\"p-0\">{{item.fkTenant}}</td>\r\n          <td class=\"p-0\">{{item.tenantName}}</td>\r\n          <td class=\"p-0\">{{item.fkInfBatch}}</td>\r\n          <td class=\"p-0\">{{item.fkKosStudy}}</td>\r\n          <td class=\"p-0\">{{item.accessionnumber}}</td>\r\n          <td class=\"p-0\">{{item.teletipstatus}}</td>\r\n          <td class=\"p-0\">{{item.medulastatus}}</td>\r\n          <td class=\"p-0\">{{item.wadostatus}}</td>\r\n          <td class=\"p-0\">{{item.reportstatus}}</td>\r\n          <td class=\"p-0\">{{item.dosestatus}}</td>\r\n          <td class=\"p-0\">{{item.sutcode}}</td>\r\n          <td class=\"p-0\">{{item.lastmedulasenddate  | date : 'dd.MM.yyyy'}}</td>\r\n          <td class=\"p-0\">{{item.medularesponsecode}}</td>\r\n          <td class=\"p-0\">{{item.medularesponsemessage}}</td>\r\n          <td class=\"p-0\">{{item.scheduledate | date : 'dd.MM.yyyy'}}</td>\r\n          <td class=\"p-0\">{{item.performeddate | date : 'dd.MM.yyyy'}}</td>\r\n          <td class=\"p-0\">{{item.error}}</td>\r\n          <td class=\"p-0\">{{item.patienthistorysearchstatus}}</td>\r\n        </tr>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n  <div class=\"row justify-content-center mt-2\">\r\n    <div class=\"col-sm-7 pagination-sm  justify-content-center pageNumber\">\r\n      <pagination class=\"justify-content-center mb-0\" [boundaryLinks]=\"true\" [totalItems]=\"gridStm.data.totalCount\" [maxSize]=\"4\" [(ngModel)]=\"gridStm.model.paging.pageNumber\" [itemsPerPage]=\"gridStm.model.paging.count\" (pageChanged)=\"gridStm.onPageChanged($event)\" previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"&laquo;\" lastText=\"&raquo;\">\r\n      </pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/teletipstm/teletipstm.component.html":
+/*!******************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/Features/Private/Operations/Pages/teletipstm/teletipstm.component.html ***!
+  \******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-fluid h-100\">\r\n  <div class=\"row h-100 pt-1\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"row mb-0\">\r\n        <div class=\"col\">\r\n          <pageheader headertext=\"Teletıp STM İşlemleri\" pageposition=\"İŞLEMLER > Teletıp STM İşlemleri\"></pageheader>\r\n        </div>\r\n      </div>\r\n      <div class=\"row mb-2\">\r\n        <div class=\"col\">\r\n          <app-stmfilter (filterChanged)=\"filter($event)\"></app-stmfilter>\r\n        </div>\r\n      </div>\r\n      <div class=\"row mb-3\">\r\n        <div class=\"col\">\r\n          <app-stmgrid [filter]=\"filterData\"></app-stmgrid>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\n"
 
 /***/ }),
 
@@ -261,7 +294,7 @@ module.exports = "<div>\r\n  <tabset>\r\n    <tab heading=\"Kos Detay\" id=\"tab
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"body textClass\">\r\n  <div class=\"text-center pt-4\">\r\n    <img src=\"./././././assets/img/loginlogo.png\" style=\"width: 350px; height:175px;\"/>\r\n  </div>\r\n  <div class=\"container\">\r\n    <div class=\"row\">\r\n      <div class=\"col-sm-9 col-md-7 col-lg-5 mx-auto\">\r\n        <div class=\"card card-signin my-5 shadow-lg\" style=\"opacity:0.5; background-color:black;\">\r\n          <div class=\"card-body\">\r\n            <h5 class=\"card-title text-center labelText\">GİRİŞ</h5>\r\n            <form class=\"form-signin\">\r\n              <div class=\"form-group\">\r\n                <label class=\"labelText\">Kullanıcı Adı</label>\r\n                <input type=\"text\" class=\"form-control\" name=\"userName\" [(ngModel)] =\"userName\">\r\n              </div>\r\n              <div class=\"form-group\">\r\n                <label class=\"labelText\">Şifre</label>\r\n                <input type=\"password\" class=\"form-control\" name=\"password\" [(ngModel)]=\"password\">\r\n              </div>\r\n\r\n              <div class=\"custom-control custom-checkbox mb-3\">\r\n                <input type=\"checkbox\" class=\"custom-control-input\" id=\"customCheck1\">\r\n                <label class=\"custom-control-label labelText\" for=\"customCheck1\">Beni Hatırla</label>\r\n              </div>\r\n              <button class=\"btn btn-lg btn-primary btn-block\" (click)=\"login()\">\r\n                <span class=\"labelText\"  style=\"font-size:13px;\"> GİRİŞ </span>\r\n              </button>\r\n              <hr class=\"my-4\">\r\n              <div class=\"text-center\">\r\n                <a routerLink=\"#\" class=\"labelText\">Şifremi unuttum</a>\r\n              </div>\r\n\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div>\r\n    <div class=\"text-center\">\r\n      <a routerLink=\"#\" class=\"infoText\" style=\"color:black !important; opacity:0.7;\">İletişim Bilgileri</a>\r\n    </div>\r\n    <div class=\"container-fluid m-0 p-0 footerClass \">\r\n      <footer class=\"page-footer font-small teal pt-4 bordered\">\r\n        <div class=\"container pb-4  shadow-lg\">\r\n          <div class=\"row\">\r\n            <!--<div class=\"col  text-center\">\r\n    <a routerLink=\"#\" class=\"infoText\">GİZLİLİK ŞÖZLEŞMESİ</a>\r\n    <hr />\r\n  </div>-->\r\n            <div class=\"col  text-center\">\r\n              <a routerLink=\"#\" class=\"infoText\">AYDINLATMA VE ONAM FORMU</a>\r\n              <hr />\r\n              <p class=\"m-0\">By@Protek Sağlık Bilişim</p>\r\n              <p class=\"m-0\">Teknik İletisim  : <span class=\"text-primary\">0(222) 444 11 33</span> </p>\r\n              <p class=\"m-0\">Radbil İletişim  : <span class=\"text-primary\">0(333) 555 22 44</span></p>\r\n            </div>\r\n            <!--<div class=\"col  text-center\">\r\n    <a routerLink=\"#\" class=\"infoText\">MESAFELİ SATIŞ ŞÖZLEŞMESİ</a>\r\n    <hr />\r\n  </div>-->\r\n          </div>\r\n        </div>\r\n      </footer>\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\n"
+module.exports = "<div class=\"body textClass\">\r\n  <div class=\"text-center pt-4\">\r\n    <img src=\"./././././assets/img/loginlogo.png\"/>\r\n  </div>\r\n    <div class=\"container mb-0\">\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-9 col-md-7 col-lg-5 mx-auto\">\r\n          <div class=\"loginbox card card-signin my-5 shadow-lg\" style=\"opacity:0.5; background-color:black;\">\r\n            <div class=\"card-body \">\r\n              <h5 class=\"card-title text-center labelText\">GİRİŞ</h5>\r\n              <form class=\"form-signin\">\r\n                <div class=\"form-group\">\r\n                  <label class=\"labelText\">Kullanıcı Adı</label>\r\n                  <input type=\"text\" class=\"form-control\" name=\"userName\" [(ngModel)]=\"userName\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                  <label class=\"labelText\">Şifre</label>\r\n                  <input type=\"password\" class=\"form-control\" name=\"password\" [(ngModel)]=\"password\">\r\n                </div>\r\n\r\n                <div class=\"custom-control custom-checkbox mb-3\">\r\n                  <input type=\"checkbox\" class=\"custom-control-input\" id=\"customCheck1\">\r\n                  <label class=\"custom-control-label labelText\" for=\"customCheck1\">Beni Hatırla</label>\r\n                </div>\r\n                <button class=\"btn btn-lg btn-primary btn-block\" (click)=\"login()\">\r\n                  <span class=\"labelText\" style=\"font-size:13px;\"> GİRİŞ </span>\r\n                </button>\r\n                <div class=\"text-center mt-2\">\r\n                  <a routerLink=\"#\" class=\"labelText\">Şifremi unuttum</a>\r\n                </div>\r\n              </form>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </div>\r\n\r\n  <div>\r\n    <div class=\"text-center mt-0\">\r\n      <a routerLink=\"#\" class=\"infoText\" style=\"color:black !important; opacity:0.7;\">İletişim Bilgileri</a>\r\n    </div>\r\n    <div class=\"container-fluid m-0 p-0 footerClass \">\r\n      <footer class=\"page-footer font-small teal pt-2 bordered\">\r\n        <div class=\"container pb-4  shadow-lg\">\r\n          <div class=\"row\">\r\n            <!--<div class=\"col  text-center\">\r\n    <a routerLink=\"#\" class=\"infoText\">GİZLİLİK ŞÖZLEŞMESİ</a>\r\n    <hr />\r\n  </div>-->\r\n            <div class=\"col text-center p-0\">\r\n              <a routerLink=\"#\" class=\"infoText\">AYDINLATMA VE ONAM FORMU</a>\r\n              <p class=\"m-0\">By@Protek Sağlık Bilişim</p>\r\n              <p class=\"m-0\">Teknik İletisim  : <span class=\"text-primary\">0(222) 444 11 33</span> </p>\r\n              <p class=\"m-0\">Radbil İletişim  : <span class=\"text-primary\">0(333) 555 22 44</span></p>\r\n            </div>\r\n            <!--<div class=\"col  text-center\">\r\n    <a routerLink=\"#\" class=\"infoText\">MESAFELİ SATIŞ ŞÖZLEŞMESİ</a>\r\n    <hr />\r\n  </div>-->\r\n          </div>\r\n        </div>\r\n      </footer>\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\n"
 
 /***/ }),
 
@@ -283,7 +316,7 @@ module.exports = "<div class=\"container-fluid h-100\">\r\n  <h5>Test Page Work'
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"m-0\">\r\n  <div class=\"card m-0 shadow  bg-white rounded\">\r\n    <div class=\"card-header\">\r\n      <label class=\"label\"><fa name=\"filter\"></fa> {{headertext}} </label>\r\n      <div class=\"pull-left\">\r\n        <button (click)=\"isCollapsed = !isCollapsed;\" class=\"btn btn-sm btn-light\" [attr.aria-expanded]=\"!isCollapsed\" aria-controls=\"collapseBasic\">\r\n          <fa *ngIf=\"!isCollapsed\" name=\"angle-down\"></fa>\r\n          <fa *ngIf=\"isCollapsed\" name=\"angle-up\"></fa>\r\n        </button>\r\n      </div>\r\n    </div>\r\n    <div id=\"collapseBasic\" [collapse]=\"isCollapsed\" [isAnimated]=\"true\">\r\n      <div class=\"card-body p-2\">\r\n        <ng-content></ng-content>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n"
+module.exports = "\r\n<div class=\"m-0\">\r\n  <div class=\"card m-0 shadow  bg-white rounded-0\">\r\n    <div class=\"card-header p-1\">\r\n      <span class=\"align-middle\"><fa name=\"filter\"></fa> {{headertext}} </span>\r\n      <div class=\"pull-left\">\r\n        <span (click)=\"isCollapsed = !isCollapsed;\" class=\"buttonCollapse\" [attr.aria-expanded]=\"!isCollapsed\" aria-controls=\"collapseBasic\">\r\n          <fa *ngIf=\"!isCollapsed\" name=\"angle-down\"></fa>\r\n          <fa *ngIf=\"isCollapsed\" name=\"angle-up\"></fa>\r\n        </span>\r\n      </div>\r\n    </div>\r\n    <div id=\"collapseBasic\" [collapse]=\"isCollapsed\" [isAnimated]=\"true\">\r\n      <div class=\"card-body p-2\">\r\n        <ng-content></ng-content>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -338,7 +371,7 @@ module.exports = "<nav class=\"navbar navbar-expand-lg navbar-light bg-light bor
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--<link href=\"//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css\" rel=\"stylesheet\" id=\"bootstrap-css\">\r\n<script src=\"//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js\"></script>\r\n<script src=\"//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script>\r\n<nav class=\"navbar navbar-expand navbar-dark bg-primary\">\r\n  <a href=\"#menu-toggle\" id=\"menu-toggle\" class=\"navbar-brand\"><span class=\"navbar-toggler-icon\"></span></a> <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExample02\" aria-controls=\"navbarsExample02\" aria-expanded=\"false\" aria-label=\"Toggle navigation\"> <span class=\"navbar-toggler-icon\"></span> </button>\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarsExample02\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      <li class=\"nav-item active\"> <a class=\"nav-link\" href=\"#\">Home <span class=\"sr-only\">(current)</span></a> </li>\r\n      <li class=\"nav-item\"> <a class=\"nav-link\" href=\"#\">Link</a> </li>\r\n    </ul>\r\n    <form class=\"form-inline my-2 my-md-0\"> </form>\r\n  </div>\r\n</nav>\r\n<div id=\"wrapper\" class=\"toggled\">\r\n  <!-- Sidebar \r\n<div id=\"sidebar-wrapper\">\r\n  <ul class=\"sidebar-nav\">\r\n    <li class=\"sidebar-brand\"> <a href=\"#\"> Start Bootstrap </a> </li>\r\n    <li> <a href=\"#\">Dashboard</a> </li>\r\n    <li> <a href=\"#\">Shortcuts</a> </li>\r\n    <li> <a href=\"#\">Overview</a> </li>\r\n    <li> <a href=\"#\">Events</a> </li>\r\n    <li> <a href=\"#\">About</a> </li>\r\n    <li> <a href=\"#\">Services</a> </li>\r\n    <li> <a href=\"#\">Contact</a> </li>\r\n  </ul>\r\n</div> <!-- /#sidebar-wrapper \r\n<!-- Page Content \r\n<div id=\"page-content-wrapper\">\r\n  <div class=\"container-fluid mt-2 p-0 \" style=\"min-height:100%;\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n  <div class=\"container-fluid m-0 p-0 footerClass\">\r\n    <app-footer></app-footer>\r\n  </div>\r\n</div> <!-- /#page-content-wrapper \r\n</div> <!-- /#wrapper -->\r\n<div id=\"wrapper\" class=\"body textClass\" [ngClass]=\"{'d-flex' : true , 'toggled' : collapse}\">\r\n  <div class=\"bg-light border-right column\" id=\"sidebar-wrapper\">\r\n    <div class=\"p-2 pl-3 shadow bg-white rounded\">\r\n      <a routerLink=\"\"><img src=\"./././assets/img/logo.png\" /></a>\r\n    </div>\r\n    <div class=\"list-group list-group-flush\">\r\n      <ul class=\"p-0 \" style=\"list-style: none;\">\r\n        <li>\r\n          <a class=\"list-group-item list-group-item-action\" (click)=\"isfirstCollapsed1 = !isfirstCollapsed1\"\r\n             [attr.aria-expanded]=\"!isfirstCollapsed1\" aria-controls=\"collapseBasic1\">\r\n            <div class=\"d-flex justify-content-between mb-2\" style=\"color: inherit !important\">\r\n              <p class=\"mb-1\"><fa name=\"exchange\"></fa>  İŞLEMLER</p>\r\n              <small class=\"pull-right\"><fa name=\"chevron-down\" *ngIf=\"isfirstCollapsed1\"></fa> <fa name=\"chevron-up\" *ngIf=\"!isfirstCollapsed1\"></fa></small>\r\n\r\n            </div>\r\n            <div id=\"collapseBasic1\" [collapse]=\"isfirstCollapsed1\" [isAnimated]=\"true\" class=\"list-group list-group-flush \">\r\n              <ul class=\"p-0 \" style=\"list-style: none;\">\r\n                <li><a routerLink=\"/operations/kos\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> KOS İşlemleri</a></li>\r\n                <li><a routerLink=\"/definitions/jobs\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Arka Plan İşleri</a></li>\r\n              </ul>\r\n\r\n            </div>\r\n          </a>\r\n\r\n        </li>\r\n        <li>\r\n          <a class=\"list-group-item list-group-item-action\" (click)=\"isfirstCollapsed3 = !isfirstCollapsed3\"\r\n             [attr.aria-expanded]=\"!isfirstCollapsed3\" aria-controls=\"collapseBasic3\">\r\n            <div class=\"d-flex justify-content-between mb-2\">\r\n              <p class=\"mb-1\"><fa name=\"user\"></fa>  TANIMLAMALAR</p>\r\n              <small class=\"pull-right\"><fa name=\"chevron-down\" *ngIf=\"isfirstCollapsed3\"></fa> <fa name=\"chevron-up\" *ngIf=\"!isfirstCollapsed3\"></fa></small>\r\n\r\n            </div>\r\n            <div id=\"collapseBasic3\" [collapse]=\"isfirstCollapsed3\" [isAnimated]=\"true\" class=\"list-group list-group-flush \">\r\n              <ul class=\"p-0 \" style=\"list-style: none;\">\r\n                <li><a routerLink=\"/definitions/user\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Kullanıcı Tanımlama</a></li>\r\n                <li><a routerLink=\"/definitions/role\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Rol Tanımlama</a></li>\r\n              </ul>\r\n\r\n            </div>\r\n          </a>\r\n        </li>\r\n        <li>\r\n          <a class=\"list-group-item list-group-item-action\" (click)=\"isfirstCollapsed2 = !isfirstCollapsed2\"\r\n             [attr.aria-expanded]=\"!isfirstCollapsed2\" aria-controls=\"collapseBasic2\">\r\n            <div class=\"d-flex justify-content-between mb-2\">\r\n              <p class=\"mb-1\"><fa name=\"cogs\"></fa>  AYARLAR</p>\r\n              <small class=\"pull-right\"><fa name=\"chevron-down\" *ngIf=\"isfirstCollapsed2\"></fa> <fa name=\"chevron-up\" *ngIf=\"!isfirstCollapsed2\"></fa></small>\r\n\r\n            </div>\r\n            <div id=\"collapseBasic2\" [collapse]=\"isfirstCollapsed2\" [isAnimated]=\"true\" class=\"list-group list-group-flush \">\r\n              <ul class=\"p-0 \" style=\"list-style: none;\">\r\n                <li><a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Kullanıcı Ayarları</a></li>\r\n                <li><a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Kos Ayarları</a></li>\r\n                <li><a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Sistem Ayarları</a></li>\r\n              </ul>\r\n            </div>\r\n          </a>\r\n        </li>\r\n\r\n        <li>\r\n          <a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light\"></a>\r\n        </li>\r\n      </ul>\r\n\r\n\r\n\r\n    </div>\r\n  </div>\r\n  <div id=\"page-content-wrapper\" class=\"column \">\r\n    <div class=\"header  top-right shadow bg-white rounded\">\r\n      <nav class=\"navbar navbar-expand-lg navbar-light bg-light border-bottom sticky-top\" (scroll)=\"onWindowScroll($event);\">\r\n        <button class=\"btn btn-light\" id=\"menu-toggle\" (click)=\"toggle()\"><span class=\"navbar-toggler-icon\"></span></button>\r\n\r\n        <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\"\r\n                aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n          <span class=\"navbar-toggler-icon\"></span>\r\n        </button>\r\n\r\n        <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n          <ul class=\"navbar-nav ml-auto mt-2 mt-lg-0\">\r\n            <li class=\"nav-item dropdown\">\r\n              <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-toggle=\"dropdown\"\r\n                 aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                Muhammed Mert AĞAOĞLU\r\n              </a>\r\n              <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdown\">\r\n                <a class=\"dropdown-item\" href=\"#\">Ayarlar</a>\r\n                <a class=\"dropdown-item\" href=\"#\">Seçenekler</a>\r\n                <div class=\"dropdown-divider\"></div>\r\n                <a class=\"dropdown-item bg-danger\" (click)=\"logout()\">Çıkış</a>\r\n              </div>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n      </nav>\r\n    </div>\r\n\r\n    <div class=\"bottom\">\r\n      <div class=\"container-fluid mt-2 p-0 \" style=\"min-height:100%;\">\r\n        <router-outlet></router-outlet>\r\n      </div>\r\n      <div class=\"container-fluid m-0 p-0 footerClass\">\r\n        <app-footer></app-footer>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n   \r\n"
+module.exports = "\r\n<div id=\"wrapper\" class=\"body textClass\" [ngClass]=\"{'d-flex' : true , 'toggled' : collapse}\">\r\n  <div class=\"bg-light border-right column\" id=\"sidebar-wrapper\">\r\n    <div class=\"p-2 pl-3 shadow bg-white rounded\">\r\n      <a routerLink=\"\"><img src=\"./././assets/img/logo.png\" /></a>\r\n    </div>\r\n    <div class=\"list-group list-group-flush\">\r\n      <ul class=\"p-0 \" style=\"list-style: none;\">\r\n        <li>\r\n          <a class=\"list-group-item list-group-item-action\" (click)=\"isfirstCollapsed1 = !isfirstCollapsed1\"\r\n             [attr.aria-expanded]=\"!isfirstCollapsed1\" aria-controls=\"collapseBasic1\">\r\n            <div class=\"d-flex justify-content-between mb-2\" style=\"color: inherit !important\">\r\n              <p class=\"mb-1\"><fa name=\"exchange\"></fa>  İŞLEMLER</p>\r\n              <small class=\"pull-right\"><fa name=\"chevron-down\" *ngIf=\"isfirstCollapsed1\"></fa> <fa name=\"chevron-up\" *ngIf=\"!isfirstCollapsed1\"></fa></small>\r\n\r\n            </div>\r\n            <div id=\"collapseBasic1\" [collapse]=\"isfirstCollapsed1\" [isAnimated]=\"true\" class=\"list-group list-group-flush \">\r\n              <ul class=\"p-0 \" style=\"list-style: none;\">\r\n                <li><a routerLink=\"/operations/kos\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> KOS İşlemleri</a></li>\r\n                <li><a routerLink=\"/definitions/jobs\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Arka Plan İşleri</a></li>\r\n              </ul>\r\n\r\n            </div>\r\n          </a>\r\n\r\n        </li>\r\n        <li>\r\n          <a class=\"list-group-item list-group-item-action\" (click)=\"isfirstCollapsed3 = !isfirstCollapsed3\"\r\n             [attr.aria-expanded]=\"!isfirstCollapsed3\" aria-controls=\"collapseBasic3\">\r\n            <div class=\"d-flex justify-content-between mb-2\">\r\n              <p class=\"mb-1\"><fa name=\"user\"></fa>  TANIMLAMALAR</p>\r\n              <small class=\"pull-right\"><fa name=\"chevron-down\" *ngIf=\"isfirstCollapsed3\"></fa> <fa name=\"chevron-up\" *ngIf=\"!isfirstCollapsed3\"></fa></small>\r\n\r\n            </div>\r\n            <div id=\"collapseBasic3\" [collapse]=\"isfirstCollapsed3\" [isAnimated]=\"true\" class=\"list-group list-group-flush \">\r\n              <ul class=\"p-0 \" style=\"list-style: none;\">\r\n                <li><a routerLink=\"/definitions/user\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Kullanıcı Tanımlama</a></li>\r\n                <li><a routerLink=\"/definitions/role\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Rol Tanımlama</a></li>\r\n              </ul>\r\n\r\n            </div>\r\n          </a>\r\n        </li>\r\n        <li>\r\n          <a class=\"list-group-item list-group-item-action\" (click)=\"isfirstCollapsed2 = !isfirstCollapsed2\"\r\n             [attr.aria-expanded]=\"!isfirstCollapsed2\" aria-controls=\"collapseBasic2\">\r\n            <div class=\"d-flex justify-content-between mb-2\">\r\n              <p class=\"mb-1\"><fa name=\"cogs\"></fa>  AYARLAR</p>\r\n              <small class=\"pull-right\"><fa name=\"chevron-down\" *ngIf=\"isfirstCollapsed2\"></fa> <fa name=\"chevron-up\" *ngIf=\"!isfirstCollapsed2\"></fa></small>\r\n\r\n            </div>\r\n            <div id=\"collapseBasic2\" [collapse]=\"isfirstCollapsed2\" [isAnimated]=\"true\" class=\"list-group list-group-flush \">\r\n              <ul class=\"p-0 \" style=\"list-style: none;\">\r\n                <li><a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Kullanıcı Ayarları</a></li>\r\n                <li><a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Kos Ayarları</a></li>\r\n                <li><a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light \" style=\"display: block !important; width: 200px\"><fa name=\"angle-right\"></fa> Sistem Ayarları</a></li>\r\n              </ul>\r\n            </div>\r\n          </a>\r\n        </li>\r\n\r\n        <li>\r\n          <a routerLink=\"#\" class=\"list-group-item list-group-item-action bg-light\"></a>\r\n        </li>\r\n      </ul>\r\n\r\n\r\n\r\n    </div>\r\n  </div>\r\n  <div id=\"page-content-wrapper\" class=\"column \">\r\n    <div class=\"header  top-right shadow bg-white rounded\">\r\n      <nav  class=\"navbar navbar-expand-lg navbar-light bg-light border-bottom sticky-top\" (scroll)=\"onWindowScroll($event);\">\r\n        <button class=\"btn btn-light\" id=\"menu-toggle\" (click)=\"toggle()\"><span class=\"navbar-toggler-icon\"></span></button>\r\n\r\n        <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\"\r\n                aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n          <span class=\"navbar-toggler-icon\"></span>\r\n        </button>\r\n\r\n        <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n          <ul class=\"navbar-nav ml-auto mt-2 mt-lg-0\">\r\n            <li class=\"nav-item dropdown\">\r\n              <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-toggle=\"dropdown\"\r\n                 aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                Muhammed Mert AĞAOĞLU\r\n              </a>\r\n              <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdown\">\r\n                <a class=\"dropdown-item\" href=\"#\">Ayarlar</a>\r\n                <a class=\"dropdown-item\" href=\"#\">Seçenekler</a>\r\n                <div class=\"dropdown-divider\"></div>\r\n                <a class=\"dropdown-item bg-danger\" (click)=\"logout()\">Çıkış</a>\r\n              </div>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n      </nav>\r\n    </div>\r\n\r\n    <div class=\"bottom\">\r\n      <div class=\"container-fluid mt-2 p-0 \" style=\"min-height:100%;\">\r\n        <router-outlet></router-outlet>\r\n      </div>\r\n      <div class=\"container-fluid m-0 p-0 footerClass\">\r\n        <app-footer></app-footer>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n   \r\n"
 
 /***/ }),
 
@@ -371,7 +404,7 @@ module.exports = "\r\n<div class=\"modal-header\">\r\n  <h4 class=\"modal-title 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<link href=\"//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css\" rel=\"stylesheet\" id=\"bootstrap-css\">\r\n<script src=\"//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js\"></script>\r\n<script src=\"//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script>\r\n<!------ Include the above in your HEAD tag ---------->\r\n\r\n\r\n<nav class=\"navbar navbar-expand navbar-light bg-default shadow\" style=\"height: 40px!important\">\r\n  <div style=\"width: 250px;\">\r\n    <a routerLink=\"\"><img src=\"./././assets/img/logo.png\" /></a>\r\n  </div>\r\n  <button (click)=\"toggle()\" id=\"menu-toggle\" class=\"btn btn-light\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExample02\" aria-controls=\"navbarsExample02\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n  <div class=\"collapse navbar-collapse textColor\" id=\"navbarsExample02\">\r\n    <ul class=\"navbar-nav mr-auto textColor\">\r\n      <li class=\"nav-item active textColor\"> <a class=\"nav-link textColor\" href=\"#\">Home <span class=\"sr-only\">(current)</span></a> </li>\r\n      <li class=\"nav-item textColor\"> <a class=\"nav-link textColor\" href=\"#\">Link</a> </li>\r\n    </ul>\r\n    <form class=\"form-inline my-2 my-md-0\"> </form>\r\n  </div>\r\n</nav>\r\n<div id=\"wrapper\" [ngClass]=\"{'toggled' : collapse}\">\r\n  <!-- Sidebar -->\r\n  <div id=\"sidebar-wrapper\">\r\n    <ul class=\"sidebar-nav\">\r\n      <li>\r\n        <div>\r\n          <button class=\"btn bgColor btn-block text-left rounded-0 p-3\" data-toggle=\"collapse\" href=\"#collapseExample1\" role=\"button\" aria-expanded=\"false\" aria-controls=\"collapseExample1\">\r\n            <fa name=\"exchange\" class=\"textColor\"></fa>\r\n            <span class=\"pl-3 textColor\">\r\n              İşlemler\r\n            </span>\r\n          </button>\r\n          <div class=\"collapse bgColor \" id=\"collapseExample1\">\r\n            <div class=\"card card-body p-0 rounded-0 bgColor\">\r\n              <ul class=\"list-group list-group-flush bgColor textColor\">\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\">\r\n                  <a routerLink=\"/operations/kos\"><fa name=\"angle-right\"></fa> KOS İşlemleri</a>\r\n                </li>\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\">\r\n                  <a routerLink=\"/definitions/jobs\"><fa name=\"angle-right\"></fa> Arka Plan İşleri</a>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </li>\r\n      <li>\r\n        <div>\r\n          <button class=\"btn btn-block text-left rounded-0 bgColor p-3\" data-toggle=\"collapse\" href=\"#collapseExample2\" role=\"button\" aria-expanded=\"false\" aria-controls=\"collapseExample2\">\r\n            <fa name=\"user\" class=\"textColor\"></fa>\r\n            <span class=\"pl-3 textColor\">\r\n              Tanımlamalar\r\n            </span>\r\n          </button>\r\n          <div class=\"collapse bgColor\" id=\"collapseExample2\">\r\n            <div class=\"card card-body p-0 rounded-0 bgColor\">\r\n              <ul class=\"list-group list-group-flush bgColor\">\r\n                <li class=\"list-group-item p-0 m-0 bgColor v\">\r\n                  <a routerLink=\"/definitions/user\" class=\"m-0 p-0\"><fa name=\"angle-right\"></fa> Kullanıcı Tanımlama</a></li>\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\">\r\n                  <a routerLink=\"/definitions/role\"><fa name=\"angle-right\"></fa> Rol Tanımlama</a>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </li>\r\n      <li>\r\n        <div>\r\n          <button class=\"btn btn-block text-left rounded-0 bgColor p-3\" data-toggle=\"collapse\" href=\"#collapseExample3\" role=\"button\" aria-expanded=\"false\" aria-controls=\"collapseExample3\">\r\n            <fa name=\"cogs\" class=\"textColor\"></fa>\r\n            <span class=\"pl-3 textColor\">\r\n              Ayarlar\r\n            </span>\r\n          </button>\r\n          <div class=\"collapse bgColor\" id=\"collapseExample3\">\r\n            <div class=\"card card-body p-0 rounded-0 bgColor\">\r\n              <ul class=\"list-group list-group-flush bgColor\">\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\"><a routerLink=\"\"><fa name=\"angle-right\"></fa> Kos Ayarlar</a></li>\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\"><a routerLink=\"\"><fa name=\"angle-right\"></fa> Kullanıcı Ayarlar</a></li>\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\"><a routerLink=\"\"><fa name=\"angle-right\"></fa> Sistem Ayarlar</a></li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </li> \r\n    </ul>\r\n   \r\n  </div> <!-- /#sidebar-wrapper -->\r\n  <!-- Page Content -->\r\n  <div id=\"page-content-wrapper\">\r\n    <div class=\"container-fluid\">\r\n     <router-outlet></router-outlet>\r\n    </div>\r\n  </div> <!-- /#page-content-wrapper -->\r\n</div> <!-- /#wrapper -->\r\n<!-- Bootstrap core JavaScript -->\r\n<script src=\"js/jquery.min.js\"></script>\r\n<script src=\"js/bootstrap.bundle.min.js\"></script> <!-- Menu Toggle Script -->\r\n\r\n\r\n \r\n"
+module.exports = "<link href=\"//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css\" rel=\"stylesheet\" id=\"bootstrap-css\">\r\n<script src=\"//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js\"></script>\r\n<script src=\"//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script>\r\n\r\n\r\n<nav class=\"fixed-top navbar navbar-expand navbar-light shadow textClass\" style=\"height: 40px!important; background-color: white; overflow-y:hidden!important ; z-index:2000!important;\">\r\n  <div style=\"width: 250px;\">\r\n    <a routerLink=\"\"><img src=\"./././assets/img/logo.png\" /></a>\r\n  </div>\r\n  <a (click)=\"toggle()\" id=\"menu-toggle\" class=\"toggleButton\">\r\n    <span class=\"navbar-toggler-icon\" style=\"width:30px; height:30px;\"></span>\r\n  </a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExample02\" aria-controls=\"navbarsExample02\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\" style=\"z-index:1000;\">\r\n    <ul class=\"navbar-nav ml-auto mt-2 mt-lg-0\">\r\n      <li class=\"nav-item dropdown\">\r\n        <label style=\"padding-top:5px;\">\r\n          M.Mert AĞAOĞLU (Admin) \r\n          <img src=\"././././assets/img/avatar.png\" alt=\"Avatar\" class=\"avatar\">\r\n        </label>\r\n        <!--<a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-toggle=\"dropdown\"\r\n     aria-haspopup=\"true\" aria-expanded=\"false\">\r\n    M.Mert AĞAOĞLU (Admin)\r\n  </a>-->\r\n        <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdown\">\r\n          <a class=\"dropdown-item\" href=\"#\">Ayarlar</a>\r\n          <a class=\"dropdown-item\" href=\"#\">Seçenekler</a>\r\n          <div class=\"dropdown-divider\"></div>\r\n          <a class=\"dropdown-item bg-danger\" (click)=\"logout()\">Çıkış</a>\r\n        </div>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</nav>\r\n\r\n<div id=\"wrapper\" class=\"textClass\" [ngClass]=\"{'toggled' : collapse}\" style=\"padding-top:30px; min-height:85%;\" (scroll)=\"onWindowScroll($event);\">\r\n  <!-- Sidebar (scroll)=\"onWindowScroll($event);\"-->\r\n  <div id=\"sidebar-wrapper\">\r\n    <ul class=\"sidebar-nav pt-2\">\r\n      <li>\r\n        <div>\r\n          <button (click)=\"toggleInSide()\" class=\"btn bgColor btn-block text-left rounded-0 p-3\" data-toggle=\"collapse\" href=\"#collapseExample1\" role=\"button\" aria-expanded=\"false\" aria-controls=\"collapseExample1\">\r\n            <fa name=\"exchange\" class=\"textColor\"></fa>\r\n            <span class=\"pl-4 textColor\">\r\n              İşlemler\r\n            </span>\r\n          </button>\r\n          <div *ngIf=\"collapse\" class=\"collapse bgColor \" id=\"collapseExample1\">\r\n            <div class=\"card card-body p-0 rounded-0 bgColor\">\r\n              <ul class=\"list-group list-group-flush bgColor textColor\">\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\">\r\n                  <a routerLink=\"/operations/kos\"><fa name=\"angle-right\"></fa> KOS İşlemleri</a>\r\n                </li>\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\">\r\n                  <a routerLink=\"/operations/jobs\"><fa name=\"angle-right\"></fa> Arka Plan İşleri</a>\r\n                </li>\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\">\r\n                  <a routerLink=\"/operations/stm\"><fa name=\"angle-right\"></fa> Teletıp STM İşlemleri</a>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </li>\r\n      <li>\r\n        <div>\r\n          <button (click)=\"toggleInSide()\" class=\"btn btn-block text-left rounded-0 bgColor p-3\" data-toggle=\"collapse\" href=\"#collapseExample2\" role=\"button\" aria-expanded=\"false\" aria-controls=\"collapseExample2\">\r\n            <fa name=\"user\" class=\"textColor\"></fa>\r\n            <span class=\"pl-4 textColor\">\r\n              Tanımlamalar\r\n            </span>\r\n          </button>\r\n          <div *ngIf=\"collapse\" class=\"collapse bgColor\" id=\"collapseExample2\">\r\n            <div class=\"card card-body p-0 rounded-0 bgColor\">\r\n              <ul class=\"list-group list-group-flush bgColor\">\r\n                <li class=\"list-group-item p-0 m-0 bgColor v\">\r\n                  <a routerLink=\"/definitions/user\" class=\"m-0 p-0\"><fa name=\"angle-right\"></fa> Kullanıcı Tanımlama</a>\r\n                </li>\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\">\r\n                  <a routerLink=\"/definitions/role\"><fa name=\"angle-right\"></fa> Rol Tanımlama</a>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </li>\r\n      <li>\r\n        <div>\r\n          <button (click)=\"toggleInSide()\" class=\"btn btn-block text-left rounded-0 bgColor p-3\" data-toggle=\"collapse\" href=\"#collapseExample3\" role=\"button\" aria-expanded=\"false\" aria-controls=\"collapseExample3\">\r\n            <fa name=\"cogs\" class=\"textColor\"></fa>\r\n            <span class=\"pl-4 textColor\">\r\n              Ayarlar\r\n            </span>\r\n          </button>\r\n          <div *ngIf=\"collapse\" class=\"collapse bgColor\" id=\"collapseExample3\">\r\n            <div class=\"card card-body p-0 rounded-0 bgColor\">\r\n              <ul class=\"list-group list-group-flush bgColor\">\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\"><a routerLink=\"\"><fa name=\"angle-right\"></fa> Kos Ayarlar</a></li>\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\"><a routerLink=\"\"><fa name=\"angle-right\"></fa> Kullanıcı Ayarlar</a></li>\r\n                <li class=\"list-group-item p-0 m-0 bgColor textColor\"><a routerLink=\"\"><fa name=\"angle-right\"></fa> Sistem Ayarlar</a></li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </li>\r\n      <li>\r\n        <div>\r\n          <button (click)=\"logout()\" class=\"btn btn-block text-left rounded-0 bgColor p-3\">\r\n            <fa name=\"sign-out\" style=\"color:red;\"></fa>\r\n            <span class=\"pl-4\" style=\"color:red;\">\r\n              Çıkış\r\n            </span>\r\n          </button>\r\n        </div>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n  <div id=\"page-content-wrapper\" class=\"p-0\" >\r\n    <div class=\"p-0 shadow-lg dekorCard\"></div>\r\n    <div class=\"container-fluid routerField\">\r\n      <router-outlet></router-outlet>\r\n    </div>\r\n  </div>\r\n\r\n</div>\r\n<div class=\"container-fluid footerClass textClass\">\r\n  <footer class=\"page-footer font-small teal pt-4 bordered\" style=\"background-color: lightgray;\">\r\n    <div class=\"container pb-4\">\r\n      <div class=\"row\">\r\n        <div class=\"col border-right border-dark text-right\">\r\n          <p class=\"m-0\">Radbil İletisim  : <span class=\"text-primary\">0(222) 444 11 33</span> </p>\r\n          <p class=\"m-0\">XYZ Mah , ABC Sk No: 3.14 </p>\r\n          <p class=\"m-0\">KOCAELİ/GEBZE  </p>\r\n        </div>\r\n        <div class=\"col text-left\">\r\n          <p class=\"m-0\"></p>\r\n          <p class=\"m-0\">By@Protek Saglik bilisim </p>\r\n          <p class=\"m-0\">Teknik iletisim : <span class=\"text-primary\">Protek Saglik bilisim </span> </p>\r\n          <p class=\"m-0\">Versiyon : <span class=\"text-primary\"> 0.0.0.0</span></p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </footer>\r\n</div>\r\n<script src=\"js/jquery.min.js\"></script>\r\n<script src=\"js/bootstrap.bundle.min.js\"></script>\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -454,24 +487,51 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var src_app_Shared_Models_openModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Shared/Models/openModal */ "./src/app/Shared/Models/openModal.ts");
 /* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm2015/ngx-bootstrap-modal.js");
+/* harmony import */ var _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Services/roleDataServices */ "./src/app/Features/Private/Definitions/Services/roleDataServices.ts");
+/* harmony import */ var _Models_saveRoleModel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Models/saveRoleModel */ "./src/app/Features/Private/Definitions/Models/saveRoleModel.ts");
+
+
 
 
 
 
 let EditroleComponent = class EditroleComponent {
-    constructor(bsModalRef, modalService, changeDetection) {
+    constructor(bsModalRef, modalService, changeDetection, roleService) {
         this.bsModalRef = bsModalRef;
         this.modalService = modalService;
         this.changeDetection = changeDetection;
+        this.roleService = roleService;
         this.modal = new src_app_Shared_Models_openModal__WEBPACK_IMPORTED_MODULE_2__["OpenModal"](this.modalService, this.changeDetection);
+        this.saveRolModel = new _Models_saveRoleModel__WEBPACK_IMPORTED_MODULE_5__["saveRoleModel"]();
     }
     ngOnInit() {
+        console.log(this.roleID);
+        if (this.roleID == undefined) {
+            this.idVisible = false;
+        }
+        else {
+            this.idVisible = true;
+            this.saveRolModel.id = this.roleID;
+        }
+    }
+    getRoleByID() {
+    }
+    save() {
+        console.log(this.saveRolModel);
+        this.roleService.save(this.saveRolModel).subscribe(o => {
+            console.log(o);
+            this.modal.onClose('save');
+        });
+    }
+    cancel(reason) {
+        this.modal.onClose(reason);
     }
 };
 EditroleComponent.ctorParameters = () => [
     { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] },
     { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"] },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] }
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
+    { type: _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_4__["roleDataServices"] }
 ];
 EditroleComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -479,7 +539,7 @@ EditroleComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./editrole.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Modals/editrole/editrole.component.html"),
         styles: [__webpack_require__(/*! ./editrole.component.css */ "./src/app/Features/Private/Definitions/Modals/editrole/editrole.component.css")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_4__["roleDataServices"]])
 ], EditroleComponent);
 
 
@@ -674,6 +734,38 @@ class userViewFilter {
 
 /***/ }),
 
+/***/ "./src/app/Features/Private/Definitions/Models/roleModel.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/Features/Private/Definitions/Models/roleModel.ts ***!
+  \******************************************************************/
+/*! exports provided: roleModel */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "roleModel", function() { return roleModel; });
+class roleModel {
+}
+
+
+/***/ }),
+
+/***/ "./src/app/Features/Private/Definitions/Models/saveRoleModel.ts":
+/*!**********************************************************************!*\
+  !*** ./src/app/Features/Private/Definitions/Models/saveRoleModel.ts ***!
+  \**********************************************************************/
+/*! exports provided: saveRoleModel */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveRoleModel", function() { return saveRoleModel; });
+class saveRoleModel {
+}
+
+
+/***/ }),
+
 /***/ "./src/app/Features/Private/Definitions/Models/userSaveModel.ts":
 /*!**********************************************************************!*\
   !*** ./src/app/Features/Private/Definitions/Models/userSaveModel.ts ***!
@@ -784,7 +876,7 @@ let RolefilterComponent = class RolefilterComponent {
     constructor() { }
     ngOnInit() {
     }
-    onFiler() {
+    onFilter() {
         this.roleNameOutput = this.roleName;
     }
 };
@@ -832,6 +924,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/Shared/Models/UIControls/grid-control */ "./src/app/Shared/Models/UIControls/grid-control.ts");
 /* harmony import */ var _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../Services/roleDataServices */ "./src/app/Features/Private/Definitions/Services/roleDataServices.ts");
 /* harmony import */ var _Models_RoleViewModel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../Models/RoleViewModel */ "./src/app/Features/Private/Definitions/Models/RoleViewModel.ts");
+/* harmony import */ var _Models_roleModel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../Models/roleModel */ "./src/app/Features/Private/Definitions/Models/roleModel.ts");
+
 
 
 
@@ -846,15 +940,16 @@ let RolegridComponent = class RolegridComponent {
         this.modalService = modalService;
         this.changeDetection = changeDetection;
         this.roleService = roleService;
+        /*@Input() set filterData(value: any) {
+          if (value == null || value == undefined)
+            return;
+          this.roleFilter = value;
+          this.gridRole.onRefresh();
+        }*/
         this.modal = new src_app_Shared_Models_openModal__WEBPACK_IMPORTED_MODULE_3__["OpenModal"](this.modalService, this.changeDetection);
         this.roleFilter = new roleFilter();
         this.gridRole = new RoleListComponent_Models.GridRole(this.roleService, this.roleFilter);
-    }
-    set filterData(value) {
-        if (value == null || value == undefined)
-            return;
-        this.roleFilter = value;
-        this.gridRole.onRefresh();
+        this.rolModel = new _Models_roleModel__WEBPACK_IMPORTED_MODULE_9__["roleModel"]();
     }
     ngOnInit() {
         this.gridRole.onRefresh();
@@ -862,17 +957,25 @@ let RolegridComponent = class RolegridComponent {
     openEditRoleModal(type) {
         if (type == 'ekle') {
             const initialState = {
-                modalTitle: "Role Ekle",
+                modalTitle: "Rol Ekle",
                 roleId: undefined
             };
-            this.modal.openModal(_Modals_editrole_editrole_component__WEBPACK_IMPORTED_MODULE_2__["EditroleComponent"], initialState);
+            this.modal.openModal(_Modals_editrole_editrole_component__WEBPACK_IMPORTED_MODULE_2__["EditroleComponent"], initialState).subscribe(reason => {
+                if (reason.reason == 'save') {
+                    this.gridRole.onRefresh();
+                }
+            });
         }
         else if ('düzenle') {
             const initialState = {
-                modalTitle: "Role Düzenle",
-                roleId: 1 //grin.clickedItem.roleıd
+                modalTitle: "Rol Düzenle",
+                roleID: this.gridRole.clickedItem.roleID
             };
-            this.modal.openModal(_Modals_editrole_editrole_component__WEBPACK_IMPORTED_MODULE_2__["EditroleComponent"], initialState);
+            this.modal.openModal(_Modals_editrole_editrole_component__WEBPACK_IMPORTED_MODULE_2__["EditroleComponent"], initialState).subscribe(reason => {
+                if (reason.reason == 'save') {
+                    this.gridRole.onRefresh();
+                }
+            });
         }
     }
     openConfirmationDialog() {
@@ -880,9 +983,13 @@ let RolegridComponent = class RolegridComponent {
             modalTitle: "UYARI!",
             message: "Rolü silmek istediğinize emin misiniz?"
         };
-        this.modal.openModal(src_app_Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmationdialogComponent"], initialState).subscribe((result) => {
-            console.log(result.reason);
-            if (result.reason == 'ok') {
+        this.modal.openModal(src_app_Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmationdialogComponent"], initialState).subscribe(reason => {
+            if (reason.reason == 'ok') {
+                this.rolModel.rolID = this.gridRole.clickedItem.roleID;
+                this.roleService.Delete(this.rolModel).subscribe(o => {
+                    console.log(o);
+                    this.gridRole.onRefresh();
+                });
             }
         });
     }
@@ -892,11 +999,6 @@ RolegridComponent.ctorParameters = () => [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
     { type: _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_7__["roleDataServices"] }
 ];
-tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-], RolegridComponent.prototype, "filterData", null);
 RolegridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-rolegrid',
@@ -1026,9 +1128,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserComponent", function() { return UserComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _userfilter_userfilter_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./userfilter/userfilter.component */ "./src/app/Features/Private/Definitions/Pages/user/userfilter/userfilter.component.ts");
-/* harmony import */ var _usergrid_usergrid_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./usergrid/usergrid.component */ "./src/app/Features/Private/Definitions/Pages/user/usergrid/usergrid.component.ts");
-
+/* harmony import */ var _usergrid_usergrid_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./usergrid/usergrid.component */ "./src/app/Features/Private/Definitions/Pages/user/usergrid/usergrid.component.ts");
 
 
 
@@ -1036,14 +1136,14 @@ let UserComponent = class UserComponent {
     constructor() { }
     ngOnInit() {
     }
+    getFilter(event) {
+        debugger;
+        this.filterValue = event;
+    }
 };
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_userfilter_userfilter_component__WEBPACK_IMPORTED_MODULE_2__["UserfilterComponent"], { static: false }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _userfilter_userfilter_component__WEBPACK_IMPORTED_MODULE_2__["UserfilterComponent"])
-], UserComponent.prototype, "userFilterComponent", void 0);
-tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_usergrid_usergrid_component__WEBPACK_IMPORTED_MODULE_3__["UsergridComponent"], { static: false }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _usergrid_usergrid_component__WEBPACK_IMPORTED_MODULE_3__["UsergridComponent"])
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_usergrid_usergrid_component__WEBPACK_IMPORTED_MODULE_2__["UsergridComponent"], { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _usergrid_usergrid_component__WEBPACK_IMPORTED_MODULE_2__["UsergridComponent"])
 ], UserComponent.prototype, "userGridComponent", void 0);
 UserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1085,18 +1185,24 @@ __webpack_require__.r(__webpack_exports__);
 
 let UserfilterComponent = class UserfilterComponent {
     constructor() {
-        //@Output() filterChanged = new Emitter
+        this.username = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.isCollapsed = false;
+        this.userName = "";
     }
     ngOnInit() {
     }
     onFilter() {
-        this.userNameOutput = this.userName;
+        debugger;
+        this.username.emit(this.userName);
     }
     onClearFilter() {
         this.userName = "";
     }
 };
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+], UserfilterComponent.prototype, "username", void 0);
 UserfilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-userfilter',
@@ -1517,6 +1623,22 @@ class userDataServices {
 userDataServices.ctorParameters = () => [
     { type: src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__["ApiDataService"] }
 ];
+
+
+/***/ }),
+
+/***/ "./src/app/Features/Private/Operations/Models/GetorderStatusViewFilter.ts":
+/*!********************************************************************************!*\
+  !*** ./src/app/Features/Private/Operations/Models/GetorderStatusViewFilter.ts ***!
+  \********************************************************************************/
+/*! exports provided: GetorderStatusViewFilter */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetorderStatusViewFilter", function() { return GetorderStatusViewFilter; });
+class GetorderStatusViewFilter {
+}
 
 
 /***/ }),
@@ -2558,11 +2680,13 @@ let KosdetailgridComponent = class KosdetailgridComponent {
     set kosId(value) {
         if (value == null || value == undefined)
             return;
+        debugger;
         console.log(value);
         this.gridKosDetail.detailFilter.id = value;
+        this.gridKosDetail.onRefresh();
     }
     ngOnInit() {
-        this.gridKosDetail.onRefresh();
+        //this.gridKosDetail.onRefresh();
     }
 };
 KosdetailgridComponent.ctorParameters = () => [
@@ -2625,7 +2749,9 @@ var KosDetailComponent_Models;
             var item = this.getFilter();
             var filter = item.filter;
             console.log(item);
+            debugger;
             this.kosService.GetKosHistoryByStudyID(item).subscribe(o => {
+                debugger;
                 this.data.list = o["list"];
                 this.data.totalCount = o["totalCount"];
                 console.log(this.data.list);
@@ -2691,6 +2817,311 @@ KostabsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
 ], KostabsComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component.css":
+/*!************************************************************************************************!*\
+  !*** ./src/app/Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component.css ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0ZlYXR1cmVzL1ByaXZhdGUvT3BlcmF0aW9ucy9QYWdlcy90ZWxldGlwc3RtL3N0bWZpbHRlci9zdG1maWx0ZXIuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component.ts":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component.ts ***!
+  \***********************************************************************************************/
+/*! exports provided: StmfilterComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StmfilterComponent", function() { return StmfilterComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _kosoperations_kosfilter_ddlSettings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../kosoperations/kosfilter/ddlSettings */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosfilter/ddlSettings.ts");
+/* harmony import */ var src_app_Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/Features/Private/Definitions/Services/userDataServices */ "./src/app/Features/Private/Definitions/Services/userDataServices.ts");
+/* harmony import */ var _Services_stmDataServices__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../Services/stmDataServices */ "./src/app/Features/Private/Operations/Services/stmDataServices.ts");
+/* harmony import */ var _stmgrid_stmgrid_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../stmgrid/stmgrid.component */ "./src/app/Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component.ts");
+
+
+
+
+
+
+let StmfilterComponent = class StmfilterComponent {
+    constructor(stmService, userService) {
+        this.stmService = stmService;
+        this.userService = userService;
+        this.filterChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.ddlSettings = new _kosoperations_kosfilter_ddlSettings__WEBPACK_IMPORTED_MODULE_2__["ddlSettings"]();
+        this.ddlTenantData = [];
+        this.ddlTenantSelectedItems = [];
+        this.ddlEnumData = [];
+        this.ddlEnumSelectedItems = [];
+        this.isCollapsed = false;
+    }
+    ngOnInit() {
+        this.ddlTenantSettings = this.ddlSettings.ddlTenantSettings;
+        this.ddlEnumSettings = this.ddlSettings.ddlEnumSettings;
+        this.getTenantList();
+        this.getEnumList();
+    }
+    getTenantList() {
+        this.userService.getTenantList().subscribe(data => {
+            this.ddlTenantData = data;
+            console.log(this.ddlTenantData);
+        });
+    }
+    getEnumList() {
+        this.stmService.GetTeletipStatusList().subscribe(data => {
+            this.ddlEnumData = data;
+            console.log(data);
+        });
+    }
+    onFilter() {
+        let filter = new _stmgrid_stmgrid_component__WEBPACK_IMPORTED_MODULE_5__["stmFilter"]();
+        if (this.ddlTenantSelectedItems.length != 0) {
+            filter.hastaneIDList = [];
+            this.ddlTenantSelectedItems.forEach(item => {
+                filter.hastaneIDList.push(item.id);
+            });
+        }
+        if (this.ddlEnumSelectedItems.length != 0) {
+            filter.teletipStatusIDList = [];
+            this.ddlEnumSelectedItems.forEach(item => {
+                filter.teletipStatusIDList.push(item.id);
+            });
+        }
+        if (this.dateRange != undefined) {
+            filter.basTar = undefined;
+            filter.bitTar = undefined;
+            filter.basTar = new Date(this.dateRange[0].toDateString());
+            filter.bitTar = new Date(this.dateRange[1].toDateString());
+        }
+        this.filterChanged.emit(filter);
+    }
+    onClearFilter() {
+        this.ddlTenantSelectedItems = [];
+        this.ddlEnumSelectedItems = [];
+        this.dateRange = undefined;
+    }
+};
+StmfilterComponent.ctorParameters = () => [
+    { type: _Services_stmDataServices__WEBPACK_IMPORTED_MODULE_4__["stmDataServices"] },
+    { type: src_app_Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_3__["userDataServices"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+], StmfilterComponent.prototype, "filterChanged", void 0);
+StmfilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-stmfilter',
+        template: __webpack_require__(/*! raw-loader!./stmfilter.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component.html"),
+        styles: [__webpack_require__(/*! ./stmfilter.component.css */ "./src/app/Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_stmDataServices__WEBPACK_IMPORTED_MODULE_4__["stmDataServices"], src_app_Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_3__["userDataServices"]])
+], StmfilterComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component.css":
+/*!********************************************************************************************!*\
+  !*** ./src/app/Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component.css ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0ZlYXR1cmVzL1ByaXZhdGUvT3BlcmF0aW9ucy9QYWdlcy90ZWxldGlwc3RtL3N0bWdyaWQvc3RtZ3JpZC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component.ts":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component.ts ***!
+  \*******************************************************************************************/
+/*! exports provided: StmgridComponent, stmFilter */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StmgridComponent", function() { return StmgridComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stmFilter", function() { return stmFilter; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Shared/Models/UIControls/grid-control */ "./src/app/Shared/Models/UIControls/grid-control.ts");
+/* harmony import */ var _Services_stmDataServices__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Services/stmDataServices */ "./src/app/Features/Private/Operations/Services/stmDataServices.ts");
+/* harmony import */ var _Models_GetorderStatusViewFilter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../Models/GetorderStatusViewFilter */ "./src/app/Features/Private/Operations/Models/GetorderStatusViewFilter.ts");
+
+
+
+
+
+let StmgridComponent = class StmgridComponent {
+    constructor(stmService) {
+        this.stmService = stmService;
+        this.stmFilter = new stmFilter();
+        this.gridStm = new StmComponent_Models.GridStm(this.stmService, this.stmFilter);
+    }
+    set filter(value) {
+        if (value == null || value == undefined)
+            return;
+        console.log(value);
+        this.gridStm.stmFilter = value;
+        this.gridStm.onRefresh();
+    }
+    ngOnInit() {
+    }
+};
+StmgridComponent.ctorParameters = () => [
+    { type: _Services_stmDataServices__WEBPACK_IMPORTED_MODULE_3__["stmDataServices"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+], StmgridComponent.prototype, "filter", null);
+StmgridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-stmgrid',
+        template: __webpack_require__(/*! raw-loader!./stmgrid.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component.html"),
+        styles: [__webpack_require__(/*! ./stmgrid.component.css */ "./src/app/Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_stmDataServices__WEBPACK_IMPORTED_MODULE_3__["stmDataServices"]])
+], StmgridComponent);
+
+class stmFilter {
+}
+var StmComponent_Models;
+(function (StmComponent_Models) {
+    class GridStm extends src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__["Grid"].GridControl {
+        constructor(stmService, stmFilter) {
+            super();
+            this.stmService = stmService;
+            this.stmFilter = stmFilter;
+            this.direction = 0;
+            this.selectAll = false;
+            this.selectPage = false;
+            this.filter = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__["Grid"].GridInputModel(new _Models_GetorderStatusViewFilter__WEBPACK_IMPORTED_MODULE_4__["GetorderStatusViewFilter"]());
+        }
+        getFilter() {
+            this.filter.paging.pageNumber = this.model.paging.pageNumber;
+            this.filter.paging.count = this.model.paging.count;
+            this.filter.sorting = this.model.sorting;
+            let item = this.filter.filter;
+            var o = this.stmFilter;
+            item.basTar = o.basTar;
+            item.bitTar = o.bitTar;
+            item.hastaneIDList = o.hastaneIDList;
+            item.teletipStatusIDList = o.teletipStatusIDList;
+            return this.filter;
+        }
+        ;
+        onSorting(colName) {
+            if (this.direction == 0) {
+                this.direction = 1;
+            }
+            else {
+                this.direction = 0;
+            }
+            this.model.sorting.colName = colName;
+            this.model.sorting.direction = this.direction;
+            this.onRefresh();
+        }
+        onRefresh() {
+            var item = this.getFilter();
+            var filter = item.filter;
+            console.log(item);
+            this.stmService.GetorderStatusList(item).subscribe(o => {
+                this.data.list = o["list"];
+                this.data.totalCount = o["totalCount"];
+                console.log(this.data.list);
+            });
+        }
+        gridSelect(event, type) {
+            if (type == 'selectPage') {
+                if (event.srcElement.checked) {
+                    this.selectAll = false;
+                }
+                console.log(event.srcElement.checked);
+                this.onSelectAll(event);
+            }
+            else if (type == 'selectAll') {
+                if (event.srcElement.checked) {
+                    this.selectPage = false;
+                    this.selectedItems.length = this.data.totalCount;
+                }
+                else {
+                    this.selectedItems.length = 0;
+                }
+            }
+            else { }
+        }
+    }
+    GridStm.ctorParameters = () => [
+        { type: _Services_stmDataServices__WEBPACK_IMPORTED_MODULE_3__["stmDataServices"] },
+        { type: stmFilter }
+    ];
+    StmComponent_Models.GridStm = GridStm;
+})(StmComponent_Models || (StmComponent_Models = {}));
+
+
+/***/ }),
+
+/***/ "./src/app/Features/Private/Operations/Pages/teletipstm/teletipstm.component.css":
+/*!***************************************************************************************!*\
+  !*** ./src/app/Features/Private/Operations/Pages/teletipstm/teletipstm.component.css ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0ZlYXR1cmVzL1ByaXZhdGUvT3BlcmF0aW9ucy9QYWdlcy90ZWxldGlwc3RtL3RlbGV0aXBzdG0uY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/Features/Private/Operations/Pages/teletipstm/teletipstm.component.ts":
+/*!**************************************************************************************!*\
+  !*** ./src/app/Features/Private/Operations/Pages/teletipstm/teletipstm.component.ts ***!
+  \**************************************************************************************/
+/*! exports provided: TeletipstmComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TeletipstmComponent", function() { return TeletipstmComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _kosoperations_kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../kosoperations/kosgrid/kosgrid.component */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosgrid/kosgrid.component.ts");
+
+
+
+let TeletipstmComponent = class TeletipstmComponent {
+    constructor() {
+        this.filterData = new _kosoperations_kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_2__["kosFilter"]();
+    }
+    ngOnInit() {
+    }
+    filter(filter) {
+        this.filterData = filter;
+    }
+};
+TeletipstmComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-teletipstm',
+        template: __webpack_require__(/*! raw-loader!./teletipstm.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/teletipstm/teletipstm.component.html"),
+        styles: [__webpack_require__(/*! ./teletipstm.component.css */ "./src/app/Features/Private/Operations/Pages/teletipstm/teletipstm.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], TeletipstmComponent);
 
 
 
@@ -2808,6 +3239,36 @@ kosDataServices.ctorParameters = () => [
 
 /***/ }),
 
+/***/ "./src/app/Features/Private/Operations/Services/stmDataServices.ts":
+/*!*************************************************************************!*\
+  !*** ./src/app/Features/Private/Operations/Services/stmDataServices.ts ***!
+  \*************************************************************************/
+/*! exports provided: stmDataServices */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stmDataServices", function() { return stmDataServices; });
+/* harmony import */ var src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Shared/Services/Api/apiDataService */ "./src/app/Shared/Services/Api/apiDataService.ts");
+
+class stmDataServices {
+    constructor(apiDataService) {
+        this.apiDataService = apiDataService;
+    }
+    GetorderStatusList(model) {
+        return this.apiDataService.callDataService('GetorderStatus/GetGetorderStatusList', model);
+    }
+    GetTeletipStatusList() {
+        return this.apiDataService.callDataService('GetorderStatus/GetTeletipStatusList', undefined);
+    }
+}
+stmDataServices.ctorParameters = () => [
+    { type: src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__["ApiDataService"] }
+];
+
+
+/***/ }),
+
 /***/ "./src/app/Features/Public/Login/Pages/login/login.component.css":
 /*!***********************************************************************!*\
   !*** ./src/app/Features/Public/Login/Pages/login/login.component.css ***!
@@ -2815,7 +3276,7 @@ kosDataServices.ctorParameters = () => [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".textClass {\n  font-family: 'dsLight' !important;\n}\r\n\r\n:root {\r\n  --input-padding-x: 1.5rem;\r\n  --input-padding-y: .75rem;\r\n}\r\n\r\n.infoText {\r\n  font-weight: bold;\r\n  font-size: large;\r\n  color: gainsboro;\r\n  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif\r\n}\r\n\r\n.labelText {\r\n  color: gainsboro;\r\n  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif\r\n}\r\n\r\n.footerClass {\r\n  position: fixed;\r\n  left: 0;\r\n  bottom: 0;\r\n  width: 100%;\r\n  background-color: black;\r\n  color: white;\r\n  text-align: center;\r\n  opacity: 0.5;\r\n}\r\n\r\n.body {\r\n  height: 100%;\r\n  background: #007bff;\r\n  background: linear-gradient(to right, #650000, #bd7201 );\r\n}\r\n\r\n.card-signin {\r\n  border: 0;\r\n  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);\r\n}\r\n\r\n.card-signin .card-title {\r\n  margin-bottom: 2rem;\r\n  font-weight: 300;\r\n  font-size: 1.5rem;\r\n}\r\n\r\n.card-signin .card-body {\r\n  padding: 2rem;\r\n}\r\n\r\n.form-signin {\r\n  width: 100%;\r\n}\r\n\r\n.form-signin .btn {\r\n  font-size: 80%;\r\n  letter-spacing: .1rem;\r\n  font-weight: bold;\r\n  padding: 1rem;\r\n  transition: all 0.2s;\r\n}\r\n\r\n.form-label-group {\r\n  position: relative;\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.form-label-group input {\r\n  height: auto;\r\n  border-radius: 2rem;\r\n}\r\n\r\n.form-label-group>input,\r\n.form-label-group>label {\r\n  padding: var(--input-padding-y) var(--input-padding-x);\r\n}\r\n\r\n.form-label-group>label {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  display: block;\r\n  width: 100%;\r\n  margin-bottom: 0;\r\n  /* Override default `<label>` margin */\r\n  line-height: 1.5;\r\n  color: #495057;\r\n  border: 1px solid transparent;\r\n  border-radius: .25rem;\r\n  transition: all .1s ease-in-out;\r\n}\r\n\r\n.form-label-group input::-webkit-input-placeholder {\r\n  color: transparent;\r\n}\r\n\r\n.form-label-group input:-ms-input-placeholder {\r\n  color: transparent;\r\n}\r\n\r\n.form-label-group input:-ms-input-placeholder {\r\n  color: transparent;\r\n}\r\n\r\n.form-label-group input:-moz-placeholder {\r\n  color: transparent;\r\n}\r\n\r\n@supports (-ms-ime-align: auto) {\r\n  .form-label-group>label {\r\n    display: none;\r\n  }\r\n}\r\n\r\n/* Fallback for IE\r\n-------------------------------------------------- */\r\n\r\n@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {\r\n  .form-label-group>label {\r\n    display: none;\r\n  }\r\n  .form-label-group input:-ms-input-placeholder {\r\n    color: #777;\r\n  }\r\n}\r\n\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvRmVhdHVyZXMvUHVibGljL0xvZ2luL1BhZ2VzL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxpQ0FBaUM7QUFDbkM7O0FBRUE7RUFDRSx5QkFBeUI7RUFDekIseUJBQXlCO0FBQzNCOztBQUNBO0VBQ0UsaUJBQWlCO0VBQ2pCLGdCQUFnQjtFQUNoQixnQkFBZ0I7RUFDaEI7QUFDRjs7QUFDQTtFQUNFLGdCQUFnQjtFQUNoQjtBQUNGOztBQUNBO0VBQ0UsZUFBZTtFQUNmLE9BQU87RUFDUCxTQUFTO0VBQ1QsV0FBVztFQUNYLHVCQUF1QjtFQUN2QixZQUFZO0VBQ1osa0JBQWtCO0VBQ2xCLFlBQVk7QUFDZDs7QUFDQTtFQUNFLFlBQVk7RUFDWixtQkFBbUI7RUFDbkIsd0RBQXdEO0FBQzFEOztBQUVBO0VBQ0UsU0FBUztFQUNULDhDQUE4QztBQUNoRDs7QUFFQTtFQUNFLG1CQUFtQjtFQUNuQixnQkFBZ0I7RUFDaEIsaUJBQWlCO0FBQ25COztBQUVBO0VBQ0UsYUFBYTtBQUNmOztBQUVBO0VBQ0UsV0FBVztBQUNiOztBQUVBO0VBQ0UsY0FBYztFQUNkLHFCQUFxQjtFQUNyQixpQkFBaUI7RUFDakIsYUFBYTtFQUNiLG9CQUFvQjtBQUN0Qjs7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxZQUFZO0VBQ1osbUJBQW1CO0FBQ3JCOztBQUVBOztFQUVFLHNEQUFzRDtBQUN4RDs7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQixNQUFNO0VBQ04sT0FBTztFQUNQLGNBQWM7RUFDZCxXQUFXO0VBQ1gsZ0JBQWdCO0VBQ2hCLHNDQUFzQztFQUN0QyxnQkFBZ0I7RUFDaEIsY0FBYztFQUNkLDZCQUE2QjtFQUM3QixxQkFBcUI7RUFDckIsK0JBQStCO0FBQ2pDOztBQUVBO0VBQ0Usa0JBQWtCO0FBQ3BCOztBQUVBO0VBQ0Usa0JBQWtCO0FBQ3BCOztBQUVBO0VBQ0Usa0JBQWtCO0FBQ3BCOztBQUVBO0VBQ0Usa0JBQWtCO0FBQ3BCOztBQUdBO0VBQ0U7SUFDRSxhQUFhO0VBQ2Y7QUFDRjs7QUFFQTtvREFDb0Q7O0FBRXBEO0VBRUU7SUFDRSxhQUFhO0VBQ2Y7RUFDQTtJQUNFLFdBQVc7RUFDYjtBQUNGIiwiZmlsZSI6InNyYy9hcHAvRmVhdHVyZXMvUHVibGljL0xvZ2luL1BhZ2VzL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIudGV4dENsYXNzIHtcbiAgZm9udC1mYW1pbHk6ICdkc0xpZ2h0JyAhaW1wb3J0YW50O1xufVxyXG5cclxuOnJvb3Qge1xyXG4gIC0taW5wdXQtcGFkZGluZy14OiAxLjVyZW07XHJcbiAgLS1pbnB1dC1wYWRkaW5nLXk6IC43NXJlbTtcclxufVxyXG4uaW5mb1RleHQge1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGZvbnQtc2l6ZTogbGFyZ2U7XHJcbiAgY29sb3I6IGdhaW5zYm9ybztcclxuICBmb250LWZhbWlseTogJ0dpbGwgU2FucycsICdHaWxsIFNhbnMgTVQnLCBDYWxpYnJpLCAnVHJlYnVjaGV0IE1TJywgc2Fucy1zZXJpZlxyXG59XHJcbi5sYWJlbFRleHQge1xyXG4gIGNvbG9yOiBnYWluc2Jvcm87XHJcbiAgZm9udC1mYW1pbHk6ICdHaWxsIFNhbnMnLCAnR2lsbCBTYW5zIE1UJywgQ2FsaWJyaSwgJ1RyZWJ1Y2hldCBNUycsIHNhbnMtc2VyaWZcclxufVxyXG4uZm9vdGVyQ2xhc3Mge1xyXG4gIHBvc2l0aW9uOiBmaXhlZDtcclxuICBsZWZ0OiAwO1xyXG4gIGJvdHRvbTogMDtcclxuICB3aWR0aDogMTAwJTtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiBibGFjaztcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIG9wYWNpdHk6IDAuNTtcclxufVxyXG4uYm9keSB7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIGJhY2tncm91bmQ6ICMwMDdiZmY7XHJcbiAgYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KHRvIHJpZ2h0LCAjNjUwMDAwLCAjYmQ3MjAxICk7XHJcbn1cclxuXHJcbi5jYXJkLXNpZ25pbiB7XHJcbiAgYm9yZGVyOiAwO1xyXG4gIGJveC1zaGFkb3c6IDAgMC41cmVtIDFyZW0gMCByZ2JhKDAsIDAsIDAsIDAuMSk7XHJcbn1cclxuXHJcbi5jYXJkLXNpZ25pbiAuY2FyZC10aXRsZSB7XHJcbiAgbWFyZ2luLWJvdHRvbTogMnJlbTtcclxuICBmb250LXdlaWdodDogMzAwO1xyXG4gIGZvbnQtc2l6ZTogMS41cmVtO1xyXG59XHJcblxyXG4uY2FyZC1zaWduaW4gLmNhcmQtYm9keSB7XHJcbiAgcGFkZGluZzogMnJlbTtcclxufVxyXG5cclxuLmZvcm0tc2lnbmluIHtcclxuICB3aWR0aDogMTAwJTtcclxufVxyXG5cclxuLmZvcm0tc2lnbmluIC5idG4ge1xyXG4gIGZvbnQtc2l6ZTogODAlO1xyXG4gIGxldHRlci1zcGFjaW5nOiAuMXJlbTtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBwYWRkaW5nOiAxcmVtO1xyXG4gIHRyYW5zaXRpb246IGFsbCAwLjJzO1xyXG59XHJcblxyXG4uZm9ybS1sYWJlbC1ncm91cCB7XHJcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gIG1hcmdpbi1ib3R0b206IDFyZW07XHJcbn1cclxuXHJcbi5mb3JtLWxhYmVsLWdyb3VwIGlucHV0IHtcclxuICBoZWlnaHQ6IGF1dG87XHJcbiAgYm9yZGVyLXJhZGl1czogMnJlbTtcclxufVxyXG5cclxuLmZvcm0tbGFiZWwtZ3JvdXA+aW5wdXQsXHJcbi5mb3JtLWxhYmVsLWdyb3VwPmxhYmVsIHtcclxuICBwYWRkaW5nOiB2YXIoLS1pbnB1dC1wYWRkaW5nLXkpIHZhcigtLWlucHV0LXBhZGRpbmcteCk7XHJcbn1cclxuXHJcbi5mb3JtLWxhYmVsLWdyb3VwPmxhYmVsIHtcclxuICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgdG9wOiAwO1xyXG4gIGxlZnQ6IDA7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgbWFyZ2luLWJvdHRvbTogMDtcclxuICAvKiBPdmVycmlkZSBkZWZhdWx0IGA8bGFiZWw+YCBtYXJnaW4gKi9cclxuICBsaW5lLWhlaWdodDogMS41O1xyXG4gIGNvbG9yOiAjNDk1MDU3O1xyXG4gIGJvcmRlcjogMXB4IHNvbGlkIHRyYW5zcGFyZW50O1xyXG4gIGJvcmRlci1yYWRpdXM6IC4yNXJlbTtcclxuICB0cmFuc2l0aW9uOiBhbGwgLjFzIGVhc2UtaW4tb3V0O1xyXG59XHJcblxyXG4uZm9ybS1sYWJlbC1ncm91cCBpbnB1dDo6LXdlYmtpdC1pbnB1dC1wbGFjZWhvbGRlciB7XHJcbiAgY29sb3I6IHRyYW5zcGFyZW50O1xyXG59XHJcblxyXG4uZm9ybS1sYWJlbC1ncm91cCBpbnB1dDotbXMtaW5wdXQtcGxhY2Vob2xkZXIge1xyXG4gIGNvbG9yOiB0cmFuc3BhcmVudDtcclxufVxyXG5cclxuLmZvcm0tbGFiZWwtZ3JvdXAgaW5wdXQ6LW1zLWlucHV0LXBsYWNlaG9sZGVyIHtcclxuICBjb2xvcjogdHJhbnNwYXJlbnQ7XHJcbn1cclxuXHJcbi5mb3JtLWxhYmVsLWdyb3VwIGlucHV0Oi1tb3otcGxhY2Vob2xkZXIge1xyXG4gIGNvbG9yOiB0cmFuc3BhcmVudDtcclxufVxyXG5cclxuXHJcbkBzdXBwb3J0cyAoLW1zLWltZS1hbGlnbjogYXV0bykge1xyXG4gIC5mb3JtLWxhYmVsLWdyb3VwPmxhYmVsIHtcclxuICAgIGRpc3BsYXk6IG5vbmU7XHJcbiAgfVxyXG59XHJcblxyXG4vKiBGYWxsYmFjayBmb3IgSUVcclxuLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gKi9cclxuXHJcbkBtZWRpYSBhbGwgYW5kICgtbXMtaGlnaC1jb250cmFzdDogbm9uZSksXHJcbigtbXMtaGlnaC1jb250cmFzdDogYWN0aXZlKSB7XHJcbiAgLmZvcm0tbGFiZWwtZ3JvdXA+bGFiZWwge1xyXG4gICAgZGlzcGxheTogbm9uZTtcclxuICB9XHJcbiAgLmZvcm0tbGFiZWwtZ3JvdXAgaW5wdXQ6LW1zLWlucHV0LXBsYWNlaG9sZGVyIHtcclxuICAgIGNvbG9yOiAjNzc3O1xyXG4gIH1cclxufVxyXG5cclxuIl19 */"
+module.exports = ".textClass {\n  font-family: 'dsLight' !important;\n}\r\n\r\n:root {\r\n  --input-padding-x: 1.5rem;\r\n  --input-padding-y: .75rem;\r\n}\r\n\r\n.infoText {\r\n  font-weight: bold;\r\n  font-size: large;\r\n  color: gainsboro;\r\n \r\n}\r\n\r\n.labelText {\r\n  color: gainsboro;\r\n}\r\n\r\n.footerClass {\r\n  position: fixed;\r\n  left: 0;\r\n  bottom: 0;\r\n  width: 100%;\r\n  background-color: black;\r\n  color: white;\r\n  text-align: center;\r\n  opacity: 0.5;\r\n}\r\n\r\n.body {\n  height: 100%;\n  background: #007bff;\n  background: linear-gradient(to right, #000080, #9E9E9E );\n}\r\n\r\n.card-signin {\r\n  border: 0;\r\n  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);\r\n}\r\n\r\n.card-signin .card-title {\r\n  margin-bottom: 2rem;\r\n  font-weight: 300;\r\n  font-size: 1.5rem;\r\n}\r\n\r\n.card-signin .card-body {\r\n  padding: 2rem;\r\n}\r\n\r\n.form-signin {\r\n  width: 100%;\r\n}\r\n\r\n.form-signin .btn {\r\n  font-size: 80%;\r\n  letter-spacing: .1rem;\r\n  font-weight: bold;\r\n  padding: 1rem;\r\n  transition: all 0.2s;\r\n}\r\n\r\n.form-label-group {\r\n  position: relative;\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.form-label-group input {\r\n  height: auto;\r\n  border-radius: 2rem;\r\n}\r\n\r\n.form-label-group>input,\r\n.form-label-group>label {\r\n  padding: var(--input-padding-y) var(--input-padding-x);\r\n}\r\n\r\n.form-label-group>label {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  display: block;\r\n  width: 100%;\r\n  margin-bottom: 0;\r\n  /* Override default `<label>` margin */\r\n  line-height: 1.5;\r\n  color: #495057;\r\n  border: 1px solid transparent;\r\n  border-radius: .25rem;\r\n  transition: all .1s ease-in-out;\r\n}\r\n\r\n.form-label-group input::-webkit-input-placeholder {\r\n  color: transparent;\r\n}\r\n\r\n.form-label-group input:-ms-input-placeholder {\r\n  color: transparent;\r\n}\r\n\r\n.form-label-group input:-ms-input-placeholder {\r\n  color: transparent;\r\n}\r\n\r\n.form-label-group input:-moz-placeholder {\r\n  color: transparent;\r\n}\r\n\r\n@supports (-ms-ime-align: auto) {\r\n  .form-label-group>label {\r\n    display: none;\r\n  }\r\n}\r\n\r\n/* Fallback for IE\r\n-------------------------------------------------- */\r\n\r\n@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {\r\n  .form-label-group>label {\r\n    display: none;\r\n  }\r\n  .form-label-group input:-ms-input-placeholder {\r\n    color: #777;\r\n  }\r\n}\r\n\r\n.footerClass {\n  position: fixed;\n  left: 0;\n  bottom: 0;\n  width: 100%;\n  background-color: black;\n  color: white;\n  text-align: center;\n  opacity: 0.5;\n}\r\n\r\n.loginbox {\n  width: auto !important;\n  height: auto !important;\n}\r\n\r\nimg {\n  width: 300px;\n  height: 150px;\n}\r\n\r\n@media screen and (max-height: 950px) {\n  .loginbox {\n    height: 400px !important;\n    padding: 0;\n    margin-top: 0;\n    margin-bottom: 10px !important;\n  }\n  img {\n    width: 200px;\n    height: 100px;\n  }\n  .footerClass {\n    font-size: small;\n    height: 100px;\n  }\n}\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvRmVhdHVyZXMvUHVibGljL0xvZ2luL1BhZ2VzL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxpQ0FBaUM7QUFDbkM7O0FBRUE7RUFDRSx5QkFBeUI7RUFDekIseUJBQXlCO0FBQzNCOztBQUNBO0VBQ0UsaUJBQWlCO0VBQ2pCLGdCQUFnQjtFQUNoQixnQkFBZ0I7O0FBRWxCOztBQUNBO0VBQ0UsZ0JBQWdCO0FBQ2xCOztBQUNBO0VBQ0UsZUFBZTtFQUNmLE9BQU87RUFDUCxTQUFTO0VBQ1QsV0FBVztFQUNYLHVCQUF1QjtFQUN2QixZQUFZO0VBQ1osa0JBQWtCO0VBQ2xCLFlBQVk7QUFDZDs7QUFDQTtFQUNFLFlBQVk7RUFDWixtQkFBbUI7RUFDbkIsd0RBQXdEO0FBQzFEOztBQUVBO0VBQ0UsU0FBUztFQUNULDhDQUE4QztBQUNoRDs7QUFFQTtFQUNFLG1CQUFtQjtFQUNuQixnQkFBZ0I7RUFDaEIsaUJBQWlCO0FBQ25COztBQUVBO0VBQ0UsYUFBYTtBQUNmOztBQUVBO0VBQ0UsV0FBVztBQUNiOztBQUVBO0VBQ0UsY0FBYztFQUNkLHFCQUFxQjtFQUNyQixpQkFBaUI7RUFDakIsYUFBYTtFQUNiLG9CQUFvQjtBQUN0Qjs7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxZQUFZO0VBQ1osbUJBQW1CO0FBQ3JCOztBQUVBOztFQUVFLHNEQUFzRDtBQUN4RDs7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQixNQUFNO0VBQ04sT0FBTztFQUNQLGNBQWM7RUFDZCxXQUFXO0VBQ1gsZ0JBQWdCO0VBQ2hCLHNDQUFzQztFQUN0QyxnQkFBZ0I7RUFDaEIsY0FBYztFQUNkLDZCQUE2QjtFQUM3QixxQkFBcUI7RUFDckIsK0JBQStCO0FBQ2pDOztBQUVBO0VBQ0Usa0JBQWtCO0FBQ3BCOztBQUVBO0VBQ0Usa0JBQWtCO0FBQ3BCOztBQUVBO0VBQ0Usa0JBQWtCO0FBQ3BCOztBQUVBO0VBQ0Usa0JBQWtCO0FBQ3BCOztBQUdBO0VBQ0U7SUFDRSxhQUFhO0VBQ2Y7QUFDRjs7QUFFQTtvREFDb0Q7O0FBRXBEO0VBRUU7SUFDRSxhQUFhO0VBQ2Y7RUFDQTtJQUNFLFdBQVc7RUFDYjtBQUNGOztBQUVBO0VBQ0UsZUFBZTtFQUNmLE9BQU87RUFDUCxTQUFTO0VBQ1QsV0FBVztFQUNYLHVCQUF1QjtFQUN2QixZQUFZO0VBQ1osa0JBQWtCO0VBQ2xCLFlBQVk7QUFDZDs7QUFDQTtFQUNFLHNCQUFzQjtFQUN0Qix1QkFBdUI7QUFDekI7O0FBQ0E7RUFDRSxZQUFZO0VBQ1osYUFBYTtBQUNmOztBQUNBO0VBQ0U7SUFDRSx3QkFBd0I7SUFDeEIsVUFBVTtJQUNWLGFBQWE7SUFDYiw4QkFBOEI7RUFDaEM7RUFDQTtJQUNFLFlBQVk7SUFDWixhQUFhO0VBQ2Y7RUFDQTtJQUNFLGdCQUFnQjtJQUNoQixhQUFhO0VBQ2Y7QUFDRiIsImZpbGUiOiJzcmMvYXBwL0ZlYXR1cmVzL1B1YmxpYy9Mb2dpbi9QYWdlcy9sb2dpbi9sb2dpbi5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRleHRDbGFzcyB7XG4gIGZvbnQtZmFtaWx5OiAnZHNMaWdodCcgIWltcG9ydGFudDtcbn1cclxuXHJcbjpyb290IHtcclxuICAtLWlucHV0LXBhZGRpbmcteDogMS41cmVtO1xyXG4gIC0taW5wdXQtcGFkZGluZy15OiAuNzVyZW07XHJcbn1cclxuLmluZm9UZXh0IHtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBmb250LXNpemU6IGxhcmdlO1xyXG4gIGNvbG9yOiBnYWluc2Jvcm87XHJcbiBcclxufVxyXG4ubGFiZWxUZXh0IHtcclxuICBjb2xvcjogZ2FpbnNib3JvO1xyXG59XHJcbi5mb290ZXJDbGFzcyB7XHJcbiAgcG9zaXRpb246IGZpeGVkO1xyXG4gIGxlZnQ6IDA7XHJcbiAgYm90dG9tOiAwO1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGJhY2tncm91bmQtY29sb3I6IGJsYWNrO1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgb3BhY2l0eTogMC41O1xyXG59XG4uYm9keSB7XG4gIGhlaWdodDogMTAwJTtcbiAgYmFja2dyb3VuZDogIzAwN2JmZjtcbiAgYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KHRvIHJpZ2h0LCAjMDAwMDgwLCAjOUU5RTlFICk7XG59XHJcblxyXG4uY2FyZC1zaWduaW4ge1xyXG4gIGJvcmRlcjogMDtcclxuICBib3gtc2hhZG93OiAwIDAuNXJlbSAxcmVtIDAgcmdiYSgwLCAwLCAwLCAwLjEpO1xyXG59XHJcblxyXG4uY2FyZC1zaWduaW4gLmNhcmQtdGl0bGUge1xyXG4gIG1hcmdpbi1ib3R0b206IDJyZW07XHJcbiAgZm9udC13ZWlnaHQ6IDMwMDtcclxuICBmb250LXNpemU6IDEuNXJlbTtcclxufVxyXG5cclxuLmNhcmQtc2lnbmluIC5jYXJkLWJvZHkge1xyXG4gIHBhZGRpbmc6IDJyZW07XHJcbn1cclxuXHJcbi5mb3JtLXNpZ25pbiB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbn1cclxuXHJcbi5mb3JtLXNpZ25pbiAuYnRuIHtcclxuICBmb250LXNpemU6IDgwJTtcclxuICBsZXR0ZXItc3BhY2luZzogLjFyZW07XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgcGFkZGluZzogMXJlbTtcclxuICB0cmFuc2l0aW9uOiBhbGwgMC4ycztcclxufVxyXG5cclxuLmZvcm0tbGFiZWwtZ3JvdXAge1xyXG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICBtYXJnaW4tYm90dG9tOiAxcmVtO1xyXG59XHJcblxyXG4uZm9ybS1sYWJlbC1ncm91cCBpbnB1dCB7XHJcbiAgaGVpZ2h0OiBhdXRvO1xyXG4gIGJvcmRlci1yYWRpdXM6IDJyZW07XHJcbn1cclxuXHJcbi5mb3JtLWxhYmVsLWdyb3VwPmlucHV0LFxyXG4uZm9ybS1sYWJlbC1ncm91cD5sYWJlbCB7XHJcbiAgcGFkZGluZzogdmFyKC0taW5wdXQtcGFkZGluZy15KSB2YXIoLS1pbnB1dC1wYWRkaW5nLXgpO1xyXG59XHJcblxyXG4uZm9ybS1sYWJlbC1ncm91cD5sYWJlbCB7XHJcbiAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gIHRvcDogMDtcclxuICBsZWZ0OiAwO1xyXG4gIGRpc3BsYXk6IGJsb2NrO1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIG1hcmdpbi1ib3R0b206IDA7XHJcbiAgLyogT3ZlcnJpZGUgZGVmYXVsdCBgPGxhYmVsPmAgbWFyZ2luICovXHJcbiAgbGluZS1oZWlnaHQ6IDEuNTtcclxuICBjb2xvcjogIzQ5NTA1NztcclxuICBib3JkZXI6IDFweCBzb2xpZCB0cmFuc3BhcmVudDtcclxuICBib3JkZXItcmFkaXVzOiAuMjVyZW07XHJcbiAgdHJhbnNpdGlvbjogYWxsIC4xcyBlYXNlLWluLW91dDtcclxufVxyXG5cclxuLmZvcm0tbGFiZWwtZ3JvdXAgaW5wdXQ6Oi13ZWJraXQtaW5wdXQtcGxhY2Vob2xkZXIge1xyXG4gIGNvbG9yOiB0cmFuc3BhcmVudDtcclxufVxyXG5cclxuLmZvcm0tbGFiZWwtZ3JvdXAgaW5wdXQ6LW1zLWlucHV0LXBsYWNlaG9sZGVyIHtcclxuICBjb2xvcjogdHJhbnNwYXJlbnQ7XHJcbn1cclxuXHJcbi5mb3JtLWxhYmVsLWdyb3VwIGlucHV0Oi1tcy1pbnB1dC1wbGFjZWhvbGRlciB7XHJcbiAgY29sb3I6IHRyYW5zcGFyZW50O1xyXG59XHJcblxyXG4uZm9ybS1sYWJlbC1ncm91cCBpbnB1dDotbW96LXBsYWNlaG9sZGVyIHtcclxuICBjb2xvcjogdHJhbnNwYXJlbnQ7XHJcbn1cclxuXHJcblxyXG5Ac3VwcG9ydHMgKC1tcy1pbWUtYWxpZ246IGF1dG8pIHtcclxuICAuZm9ybS1sYWJlbC1ncm91cD5sYWJlbCB7XHJcbiAgICBkaXNwbGF5OiBub25lO1xyXG4gIH1cclxufVxyXG5cclxuLyogRmFsbGJhY2sgZm9yIElFXHJcbi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICovXHJcblxyXG5AbWVkaWEgYWxsIGFuZCAoLW1zLWhpZ2gtY29udHJhc3Q6IG5vbmUpLFxyXG4oLW1zLWhpZ2gtY29udHJhc3Q6IGFjdGl2ZSkge1xyXG4gIC5mb3JtLWxhYmVsLWdyb3VwPmxhYmVsIHtcclxuICAgIGRpc3BsYXk6IG5vbmU7XHJcbiAgfVxyXG4gIC5mb3JtLWxhYmVsLWdyb3VwIGlucHV0Oi1tcy1pbnB1dC1wbGFjZWhvbGRlciB7XHJcbiAgICBjb2xvcjogIzc3NztcclxuICB9XHJcbn1cblxuLmZvb3RlckNsYXNzIHtcbiAgcG9zaXRpb246IGZpeGVkO1xuICBsZWZ0OiAwO1xuICBib3R0b206IDA7XG4gIHdpZHRoOiAxMDAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiBibGFjaztcbiAgY29sb3I6IHdoaXRlO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG9wYWNpdHk6IDAuNTtcbn1cbi5sb2dpbmJveCB7XG4gIHdpZHRoOiBhdXRvICFpbXBvcnRhbnQ7XG4gIGhlaWdodDogYXV0byAhaW1wb3J0YW50O1xufVxuaW1nIHtcbiAgd2lkdGg6IDMwMHB4O1xuICBoZWlnaHQ6IDE1MHB4O1xufVxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC1oZWlnaHQ6IDk1MHB4KSB7XG4gIC5sb2dpbmJveCB7XG4gICAgaGVpZ2h0OiA0MDBweCAhaW1wb3J0YW50O1xuICAgIHBhZGRpbmc6IDA7XG4gICAgbWFyZ2luLXRvcDogMDtcbiAgICBtYXJnaW4tYm90dG9tOiAxMHB4ICFpbXBvcnRhbnQ7XG4gIH1cbiAgaW1nIHtcbiAgICB3aWR0aDogMjAwcHg7XG4gICAgaGVpZ2h0OiAxMDBweDtcbiAgfVxuICAuZm9vdGVyQ2xhc3Mge1xuICAgIGZvbnQtc2l6ZTogc21hbGw7XG4gICAgaGVpZ2h0OiAxMDBweDtcbiAgfVxufVxuIl19 */"
 
 /***/ }),
 
@@ -2847,7 +3308,7 @@ let LoginComponent = class LoginComponent {
     login() {
         this.loginService.login(this.userName, this.password).subscribe(o => {
             if (o != _Services_LoginService__WEBPACK_IMPORTED_MODULE_2__["LoginEnumResult"].ok) {
-                //
+                this.alertMessage = o.error.Message;
                 return;
             }
             console.log("loginned");
@@ -2925,8 +3386,6 @@ let LoginServices = class LoginServices {
                 this.tokenService.saveToken(token);
             }
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(LoginEnumResult.ok);
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])(err => {
-            throw err;
         })
         //result is success
         );
@@ -3051,7 +3510,7 @@ TestpageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".label {\r\n  font-weight: bold;\r\n  font-size: large;\r\n  margin: 0.3rem;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvU2hhcmVkL0NvbXBvbmVudHMvZmlsdGVyL2ZpbHRlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsaUJBQWlCO0VBQ2pCLGdCQUFnQjtFQUNoQixjQUFjO0FBQ2hCIiwiZmlsZSI6InNyYy9hcHAvU2hhcmVkL0NvbXBvbmVudHMvZmlsdGVyL2ZpbHRlci5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmxhYmVsIHtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBmb250LXNpemU6IGxhcmdlO1xyXG4gIG1hcmdpbjogMC4zcmVtO1xyXG59XHJcbiJdfQ== */"
+module.exports = ".buttonCollapse{\r\n  margin:0;\r\n  padding-left:10px;\r\n  padding-right:10px;\r\n  padding-bottom:0;\r\n  padding-top:0;\r\n  width:15px;\r\n  height:15px;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvU2hhcmVkL0NvbXBvbmVudHMvZmlsdGVyL2ZpbHRlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsUUFBUTtFQUNSLGlCQUFpQjtFQUNqQixrQkFBa0I7RUFDbEIsZ0JBQWdCO0VBQ2hCLGFBQWE7RUFDYixVQUFVO0VBQ1YsV0FBVztBQUNiIiwiZmlsZSI6InNyYy9hcHAvU2hhcmVkL0NvbXBvbmVudHMvZmlsdGVyL2ZpbHRlci5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJ1dHRvbkNvbGxhcHNle1xyXG4gIG1hcmdpbjowO1xyXG4gIHBhZGRpbmctbGVmdDoxMHB4O1xyXG4gIHBhZGRpbmctcmlnaHQ6MTBweDtcclxuICBwYWRkaW5nLWJvdHRvbTowO1xyXG4gIHBhZGRpbmctdG9wOjA7XHJcbiAgd2lkdGg6MTVweDtcclxuICBoZWlnaHQ6MTVweDtcclxufVxyXG4iXX0= */"
 
 /***/ }),
 
@@ -3678,7 +4137,7 @@ class OpenModal {
         this.messages = [];
     }
     openModal(template, initialState) {
-        this.bsModalRef = this.modalService.show(template, { initialState });
+        this.bsModalRef = this.modalService.show(template, { initialState: initialState });
         return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](this.getDataFromModal());
     }
     getDataFromModal() {
@@ -3717,7 +4176,7 @@ OpenModal.ctorParameters = () => [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n@media (max-width: 543px) {\n    .navbar-toggleable .navbar-nav .nav-item {\n        margin-left: 0;\n    }\n}\n\n@media (max-width: 767px) {\n    .navbar-toggleable-sm .navbar-nav .nav-item {\n        margin-left: 0;\n    }\n}\n\n@media (max-width: 991px) {\n  .navbar-toggleable-md .navbar-nav .nav-item {\n    margin-left: 0;\n  }\n}\n\n#wrapper {\n  padding-right: 0;\n  transition: all 0.5s ease;\n}\n\n#wrapper.toggled {\n  padding-left: 250px;\n}\n\n.bgColor {\n  background: #1E2648;\n}\n\n.textColor{\r\n  color: darkgray !important ;\r\n}\n\nimg {\n  width: 110px;\n  height: 32px\n}\n\n#sidebar-wrapper {\n  z-index: 1000;\n  position: fixed;\n  left: 250px;\n  width: 50px;\n  height: 100%;\n  margin-left: -250px;\n  overflow-y: auto;\n  background: #1E2648;\n  transition: all 0.5s ease;\n}\n\n#wrapper.toggled #sidebar-wrapper {\n  width: 250px;\n}\n\n#page-content-wrapper {\n  width: 100%;\n  position: absolute;\n  padding: 15px;\n}\n\n#wrapper.toggled #page-content-wrapper {\n  position: absolute;\n  margin-left: 0px;\n}\n\n/* Sidebar Styles */\n\n.sidebar-nav {\n  position: absolute;\n  top: 0;\n  width: 250px;\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n\n.sidebar-nav li {\n  text-indent: 20px;\n  line-height: 40px;\n}\n\n.sidebar-nav li a {\n  display: block;\n  text-decoration: none;\n  color: #999999;\n}\n\n.sidebar-nav li a:hover {\n  text-decoration: none;\n  color: #fff;\n  background: rgba(255, 255, 255, 0.2);\n}\n\n.sidebar-nav li a:active, .sidebar-nav li a:focus {\n  text-decoration: none;\n}\n\n.sidebar-nav>.sidebar-brand {\n  height: 65px;\n  font-size: 18px;\n  line-height: 60px;\n}\n\n.sidebar-nav>.sidebar-brand a {\n  color: #999999;\n}\n\n.sidebar-nav>.sidebar-brand a:hover {\n  color: #fff;\n  background: none;\n}\n\n@media(min-width:768px) {\n  #wrapper {\n    padding-right: 0;\n  }\n  #wrapper.toggled {\n    padding-left: 250px;\n  }\n  #sidebar-wrapper {\n    width: 50px;\n  }\n  #wrapper.toggled #sidebar-wrapper {\n    width: 250px;\n  }\n  #page-content-wrapper {\n    padding: 20px;\n    position: relative;\n  }\n  #wrapper.toggled #page-content-wrapper {\n    position: relative;\n    margin-left: 0;\n  }\n}\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvU2hhcmVkL1BhZ2VzL3NpZGV0ZXN0L3NpZGV0ZXN0LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUNBO0lBQ0k7UUFDSSxjQUFjO0lBQ2xCO0FBQ0o7O0FBRUE7SUFDSTtRQUNJLGNBQWM7SUFDbEI7QUFDSjs7QUFFQTtFQUNFO0lBQ0UsY0FBYztFQUNoQjtBQUNGOztBQUNBO0VBQ0UsZ0JBQWdCO0VBSWhCLHlCQUF5QjtBQUMzQjs7QUFFQTtFQUNFLG1CQUFtQjtBQUNyQjs7QUFDQTtFQUNFLG1CQUFtQjtBQUNyQjs7QUFDQTtFQUNFLDJCQUEyQjtBQUM3Qjs7QUFDQTtFQUNFLFlBQVk7RUFDWjtBQUNGOztBQUNBO0VBQ0UsYUFBYTtFQUNiLGVBQWU7RUFDZixXQUFXO0VBQ1gsV0FBVztFQUNYLFlBQVk7RUFDWixtQkFBbUI7RUFDbkIsZ0JBQWdCO0VBQ2hCLG1CQUFtQjtFQUluQix5QkFBeUI7QUFDM0I7O0FBRUE7RUFDRSxZQUFZO0FBQ2Q7O0FBRUE7RUFDRSxXQUFXO0VBQ1gsa0JBQWtCO0VBQ2xCLGFBQWE7QUFDZjs7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQixnQkFBZ0I7QUFDbEI7O0FBR0EsbUJBQW1COztBQUVuQjtFQUNFLGtCQUFrQjtFQUNsQixNQUFNO0VBQ04sWUFBWTtFQUNaLFNBQVM7RUFDVCxVQUFVO0VBQ1YsZ0JBQWdCO0FBQ2xCOztBQUVBO0VBQ0UsaUJBQWlCO0VBQ2pCLGlCQUFpQjtBQUNuQjs7QUFFQTtFQUNFLGNBQWM7RUFDZCxxQkFBcUI7RUFDckIsY0FBYztBQUNoQjs7QUFFQTtFQUNFLHFCQUFxQjtFQUNyQixXQUFXO0VBQ1gsb0NBQW9DO0FBQ3RDOztBQUVBO0VBQ0UscUJBQXFCO0FBQ3ZCOztBQUVBO0VBQ0UsWUFBWTtFQUNaLGVBQWU7RUFDZixpQkFBaUI7QUFDbkI7O0FBRUE7RUFDRSxjQUFjO0FBQ2hCOztBQUVBO0VBQ0UsV0FBVztFQUNYLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFO0lBQ0UsZ0JBQWdCO0VBQ2xCO0VBQ0E7SUFDRSxtQkFBbUI7RUFDckI7RUFDQTtJQUNFLFdBQVc7RUFDYjtFQUNBO0lBQ0UsWUFBWTtFQUNkO0VBQ0E7SUFDRSxhQUFhO0lBQ2Isa0JBQWtCO0VBQ3BCO0VBQ0E7SUFDRSxrQkFBa0I7SUFDbEIsY0FBYztFQUNoQjtBQUNGIiwiZmlsZSI6InNyYy9hcHAvU2hhcmVkL1BhZ2VzL3NpZGV0ZXN0L3NpZGV0ZXN0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJcbkBtZWRpYSAobWF4LXdpZHRoOiA1NDNweCkge1xuICAgIC5uYXZiYXItdG9nZ2xlYWJsZSAubmF2YmFyLW5hdiAubmF2LWl0ZW0ge1xuICAgICAgICBtYXJnaW4tbGVmdDogMDtcbiAgICB9XG59XG5cbkBtZWRpYSAobWF4LXdpZHRoOiA3NjdweCkge1xuICAgIC5uYXZiYXItdG9nZ2xlYWJsZS1zbSAubmF2YmFyLW5hdiAubmF2LWl0ZW0ge1xuICAgICAgICBtYXJnaW4tbGVmdDogMDtcbiAgICB9XG59XG5cbkBtZWRpYSAobWF4LXdpZHRoOiA5OTFweCkge1xuICAubmF2YmFyLXRvZ2dsZWFibGUtbWQgLm5hdmJhci1uYXYgLm5hdi1pdGVtIHtcbiAgICBtYXJnaW4tbGVmdDogMDtcbiAgfVxufVxuI3dyYXBwZXIge1xuICBwYWRkaW5nLXJpZ2h0OiAwO1xuICAtd2Via2l0LXRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG4gIC1tb3otdHJhbnNpdGlvbjogYWxsIDAuNXMgZWFzZTtcbiAgLW8tdHJhbnNpdGlvbjogYWxsIDAuNXMgZWFzZTtcbiAgdHJhbnNpdGlvbjogYWxsIDAuNXMgZWFzZTtcbn1cblxuI3dyYXBwZXIudG9nZ2xlZCB7XG4gIHBhZGRpbmctbGVmdDogMjUwcHg7XG59XG4uYmdDb2xvciB7XG4gIGJhY2tncm91bmQ6ICMxRTI2NDg7XG59XG4udGV4dENvbG9ye1xyXG4gIGNvbG9yOiBkYXJrZ3JheSAhaW1wb3J0YW50IDtcclxufVxuaW1nIHtcbiAgd2lkdGg6IDExMHB4O1xuICBoZWlnaHQ6IDMycHhcbn1cbiNzaWRlYmFyLXdyYXBwZXIge1xuICB6LWluZGV4OiAxMDAwO1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGxlZnQ6IDI1MHB4O1xuICB3aWR0aDogNTBweDtcbiAgaGVpZ2h0OiAxMDAlO1xuICBtYXJnaW4tbGVmdDogLTI1MHB4O1xuICBvdmVyZmxvdy15OiBhdXRvO1xuICBiYWNrZ3JvdW5kOiAjMUUyNjQ4O1xuICAtd2Via2l0LXRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG4gIC1tb3otdHJhbnNpdGlvbjogYWxsIDAuNXMgZWFzZTtcbiAgLW8tdHJhbnNpdGlvbjogYWxsIDAuNXMgZWFzZTtcbiAgdHJhbnNpdGlvbjogYWxsIDAuNXMgZWFzZTtcbn1cblxuI3dyYXBwZXIudG9nZ2xlZCAjc2lkZWJhci13cmFwcGVyIHtcbiAgd2lkdGg6IDI1MHB4O1xufVxuXG4jcGFnZS1jb250ZW50LXdyYXBwZXIge1xuICB3aWR0aDogMTAwJTtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBwYWRkaW5nOiAxNXB4O1xufVxuXG4jd3JhcHBlci50b2dnbGVkICNwYWdlLWNvbnRlbnQtd3JhcHBlciB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbWFyZ2luLWxlZnQ6IDBweDtcbn1cblxuXG4vKiBTaWRlYmFyIFN0eWxlcyAqL1xuXG4uc2lkZWJhci1uYXYge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogMDtcbiAgd2lkdGg6IDI1MHB4O1xuICBtYXJnaW46IDA7XG4gIHBhZGRpbmc6IDA7XG4gIGxpc3Qtc3R5bGU6IG5vbmU7XG59XG5cbi5zaWRlYmFyLW5hdiBsaSB7XG4gIHRleHQtaW5kZW50OiAyMHB4O1xuICBsaW5lLWhlaWdodDogNDBweDtcbn1cblxuLnNpZGViYXItbmF2IGxpIGEge1xuICBkaXNwbGF5OiBibG9jaztcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xuICBjb2xvcjogIzk5OTk5OTtcbn1cblxuLnNpZGViYXItbmF2IGxpIGE6aG92ZXIge1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG4gIGNvbG9yOiAjZmZmO1xuICBiYWNrZ3JvdW5kOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMik7XG59XG5cbi5zaWRlYmFyLW5hdiBsaSBhOmFjdGl2ZSwgLnNpZGViYXItbmF2IGxpIGE6Zm9jdXMge1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG59XG5cbi5zaWRlYmFyLW5hdj4uc2lkZWJhci1icmFuZCB7XG4gIGhlaWdodDogNjVweDtcbiAgZm9udC1zaXplOiAxOHB4O1xuICBsaW5lLWhlaWdodDogNjBweDtcbn1cblxuLnNpZGViYXItbmF2Pi5zaWRlYmFyLWJyYW5kIGEge1xuICBjb2xvcjogIzk5OTk5OTtcbn1cblxuLnNpZGViYXItbmF2Pi5zaWRlYmFyLWJyYW5kIGE6aG92ZXIge1xuICBjb2xvcjogI2ZmZjtcbiAgYmFja2dyb3VuZDogbm9uZTtcbn1cblxuQG1lZGlhKG1pbi13aWR0aDo3NjhweCkge1xuICAjd3JhcHBlciB7XG4gICAgcGFkZGluZy1yaWdodDogMDtcbiAgfVxuICAjd3JhcHBlci50b2dnbGVkIHtcbiAgICBwYWRkaW5nLWxlZnQ6IDI1MHB4O1xuICB9XG4gICNzaWRlYmFyLXdyYXBwZXIge1xuICAgIHdpZHRoOiA1MHB4O1xuICB9XG4gICN3cmFwcGVyLnRvZ2dsZWQgI3NpZGViYXItd3JhcHBlciB7XG4gICAgd2lkdGg6IDI1MHB4O1xuICB9XG4gICNwYWdlLWNvbnRlbnQtd3JhcHBlciB7XG4gICAgcGFkZGluZzogMjBweDtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIH1cbiAgI3dyYXBwZXIudG9nZ2xlZCAjcGFnZS1jb250ZW50LXdyYXBwZXIge1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICBtYXJnaW4tbGVmdDogMDtcbiAgfVxufVxuIl19 */"
+module.exports = "\n.textClass {\n  font-family: 'dsLight' !important;\n}\n.avatar {\n \n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n}\n@media (max-width: 543px) {\n    .navbar-toggleable .navbar-nav .nav-item {\n        margin-left: 0;\n    }\n}\n@media (max-width: 767px) {\n    .navbar-toggleable-sm .navbar-nav .nav-item {\n        margin-left: 0;\n    }\n}\n@media (max-width: 991px) {\n  .navbar-toggleable-md .navbar-nav .nav-item {\n    margin-left: 0;\n  }\n}\n#wrapper {\n  padding-left:50px;\n  padding-right: 0;\n  transition: all 0.5s ease;\n}\n#wrapper.toggled {\n  padding-left: 250px;\n}\n.bgColor {\n  background: #1E2648;\n}\n.dekorCard {\n  width: 100%;\n  height: 200px;\n  background-color: #BDBDBD;\n  clear: both;\n  position: relative;\n}\n.footerClass {\n  padding:0;\n  margin:0;\n  clear: both;\n  position: relative;\n  margin-top: 50px;\n}\n.textColor {\n  color: darkgray !important;\n}\nimg {\n  width: 110px;\n  height: 32px\n}\n#sidebar-wrapper {\n  z-index: 1000;\n  position: fixed;\n  left: 250px;\n  width: 50px;\n  height: 100%;\n  margin-left: -250px;\n  overflow-y: auto;\n  background: #1E2648;\n  transition: all 0.5s ease;\n}\n#wrapper.toggled #sidebar-wrapper {\n  width: 250px;\n}\n#page-content-wrapper {\n  width: 100%;\n  height:100%;\n  position: absolute;\n  padding: 15px;\n}\n/*#wrapper.toggled .routerField {\n  margin-top: -185px;\n  padding-left:0;\n}*/\n.routerField {\n  margin-top: -185px;\n  padding-left: 0px;\n  min-height: 100%;\n}\n#wrapper.toggled #page-content-wrapper {\n  position: absolute;\n  margin-left: 0px;\n}\n.toggleButton {\n  height:32px;\n  width:32px;\n  border:none;\n  background-color: white;\n\n}\n/* Sidebar Styles */\n.sidebar-nav {\n  position: absolute;\n  top: 0;\n  width: 250px;\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.sidebar-nav li {\n  text-indent: 20px;\n  line-height: 40px;\n}\n.sidebar-nav li a {\n  display: block;\n  text-decoration: none;\n  color: #999999;\n}\n.sidebar-nav li a:hover {\n  text-decoration: none;\n  color: #fff;\n  background: rgba(255, 255, 255, 0.2);\n}\n.sidebar-nav li a:active, .sidebar-nav li a:focus {\n  text-decoration: none;\n}\n.sidebar-nav>.sidebar-brand {\n  height: 65px;\n  font-size: 18px;\n  line-height: 60px;\n}\n.sidebar-nav>.sidebar-brand a {\n  color: #999999;\n}\n.sidebar-nav>.sidebar-brand a:hover {\n  color: #fff;\n  background: none;\n}\n@media(min-width:768px) {\n  #wrapper {\n    padding-right: 0;\n  }\n  #wrapper.toggled {\n    padding-left: 250px;\n  }\n  #sidebar-wrapper {\n    width: 50px;\n  }\n  #wrapper.toggled #sidebar-wrapper {\n    width: 250px;\n  }\n  #page-content-wrapper {\n    padding: 20px;\n    position: relative;\n  }\n  #wrapper.toggled #page-content-wrapper {\n    position: relative;\n    margin-left: 0;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvU2hhcmVkL1BhZ2VzL3NpZGV0ZXN0L3NpZGV0ZXN0LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUNBO0VBQ0UsaUNBQWlDO0FBQ25DO0FBQ0E7O0VBRUUsV0FBVztFQUNYLFlBQVk7RUFDWixrQkFBa0I7QUFDcEI7QUFDQTtJQUNJO1FBQ0ksY0FBYztJQUNsQjtBQUNKO0FBRUE7SUFDSTtRQUNJLGNBQWM7SUFDbEI7QUFDSjtBQUVBO0VBQ0U7SUFDRSxjQUFjO0VBQ2hCO0FBQ0Y7QUFDQTtFQUNFLGlCQUFpQjtFQUNqQixnQkFBZ0I7RUFJaEIseUJBQXlCO0FBQzNCO0FBRUE7RUFDRSxtQkFBbUI7QUFDckI7QUFDQTtFQUNFLG1CQUFtQjtBQUNyQjtBQUlBO0VBQ0UsV0FBVztFQUNYLGFBQWE7RUFDYix5QkFBeUI7RUFDekIsV0FBVztFQUNYLGtCQUFrQjtBQUNwQjtBQUNBO0VBQ0UsU0FBUztFQUNULFFBQVE7RUFDUixXQUFXO0VBQ1gsa0JBQWtCO0VBQ2xCLGdCQUFnQjtBQUNsQjtBQUNBO0VBQ0UsMEJBQTBCO0FBQzVCO0FBQ0E7RUFDRSxZQUFZO0VBQ1o7QUFDRjtBQUNBO0VBQ0UsYUFBYTtFQUNiLGVBQWU7RUFDZixXQUFXO0VBQ1gsV0FBVztFQUNYLFlBQVk7RUFDWixtQkFBbUI7RUFDbkIsZ0JBQWdCO0VBQ2hCLG1CQUFtQjtFQUluQix5QkFBeUI7QUFDM0I7QUFFQTtFQUNFLFlBQVk7QUFDZDtBQUVBO0VBQ0UsV0FBVztFQUNYLFdBQVc7RUFDWCxrQkFBa0I7RUFDbEIsYUFBYTtBQUNmO0FBQ0E7OztFQUdFO0FBQ0Y7RUFDRSxrQkFBa0I7RUFDbEIsaUJBQWlCO0VBQ2pCLGdCQUFnQjtBQUNsQjtBQUlBO0VBQ0Usa0JBQWtCO0VBQ2xCLGdCQUFnQjtBQUNsQjtBQUNBO0VBQ0UsV0FBVztFQUNYLFVBQVU7RUFDVixXQUFXO0VBQ1gsdUJBQXVCOztBQUV6QjtBQUVBLG1CQUFtQjtBQUVuQjtFQUNFLGtCQUFrQjtFQUNsQixNQUFNO0VBQ04sWUFBWTtFQUNaLFNBQVM7RUFDVCxVQUFVO0VBQ1YsZ0JBQWdCO0FBQ2xCO0FBRUE7RUFDRSxpQkFBaUI7RUFDakIsaUJBQWlCO0FBQ25CO0FBRUE7RUFDRSxjQUFjO0VBQ2QscUJBQXFCO0VBQ3JCLGNBQWM7QUFDaEI7QUFFQTtFQUNFLHFCQUFxQjtFQUNyQixXQUFXO0VBQ1gsb0NBQW9DO0FBQ3RDO0FBRUE7RUFDRSxxQkFBcUI7QUFDdkI7QUFFQTtFQUNFLFlBQVk7RUFDWixlQUFlO0VBQ2YsaUJBQWlCO0FBQ25CO0FBRUE7RUFDRSxjQUFjO0FBQ2hCO0FBRUE7RUFDRSxXQUFXO0VBQ1gsZ0JBQWdCO0FBQ2xCO0FBRUE7RUFDRTtJQUNFLGdCQUFnQjtFQUNsQjtFQUNBO0lBQ0UsbUJBQW1CO0VBQ3JCO0VBQ0E7SUFDRSxXQUFXO0VBQ2I7RUFDQTtJQUNFLFlBQVk7RUFDZDtFQUNBO0lBQ0UsYUFBYTtJQUNiLGtCQUFrQjtFQUNwQjtFQUNBO0lBQ0Usa0JBQWtCO0lBQ2xCLGNBQWM7RUFDaEI7QUFDRiIsImZpbGUiOiJzcmMvYXBwL1NoYXJlZC9QYWdlcy9zaWRldGVzdC9zaWRldGVzdC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXG4udGV4dENsYXNzIHtcbiAgZm9udC1mYW1pbHk6ICdkc0xpZ2h0JyAhaW1wb3J0YW50O1xufVxuLmF2YXRhciB7XG4gXG4gIHdpZHRoOiAzMHB4O1xuICBoZWlnaHQ6IDMwcHg7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbn1cbkBtZWRpYSAobWF4LXdpZHRoOiA1NDNweCkge1xuICAgIC5uYXZiYXItdG9nZ2xlYWJsZSAubmF2YmFyLW5hdiAubmF2LWl0ZW0ge1xuICAgICAgICBtYXJnaW4tbGVmdDogMDtcbiAgICB9XG59XG5cbkBtZWRpYSAobWF4LXdpZHRoOiA3NjdweCkge1xuICAgIC5uYXZiYXItdG9nZ2xlYWJsZS1zbSAubmF2YmFyLW5hdiAubmF2LWl0ZW0ge1xuICAgICAgICBtYXJnaW4tbGVmdDogMDtcbiAgICB9XG59XG5cbkBtZWRpYSAobWF4LXdpZHRoOiA5OTFweCkge1xuICAubmF2YmFyLXRvZ2dsZWFibGUtbWQgLm5hdmJhci1uYXYgLm5hdi1pdGVtIHtcbiAgICBtYXJnaW4tbGVmdDogMDtcbiAgfVxufVxuI3dyYXBwZXIge1xuICBwYWRkaW5nLWxlZnQ6NTBweDtcbiAgcGFkZGluZy1yaWdodDogMDtcbiAgLXdlYmtpdC10cmFuc2l0aW9uOiBhbGwgMC41cyBlYXNlO1xuICAtbW96LXRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG4gIC1vLXRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG4gIHRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG59XG5cbiN3cmFwcGVyLnRvZ2dsZWQge1xuICBwYWRkaW5nLWxlZnQ6IDI1MHB4O1xufVxuLmJnQ29sb3Ige1xuICBiYWNrZ3JvdW5kOiAjMUUyNjQ4O1xufVxuXG5cblxuLmRla29yQ2FyZCB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDIwMHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjQkRCREJEO1xuICBjbGVhcjogYm90aDtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xufVxuLmZvb3RlckNsYXNzIHtcbiAgcGFkZGluZzowO1xuICBtYXJnaW46MDtcbiAgY2xlYXI6IGJvdGg7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgbWFyZ2luLXRvcDogNTBweDtcbn1cbi50ZXh0Q29sb3Ige1xuICBjb2xvcjogZGFya2dyYXkgIWltcG9ydGFudDtcbn1cbmltZyB7XG4gIHdpZHRoOiAxMTBweDtcbiAgaGVpZ2h0OiAzMnB4XG59XG4jc2lkZWJhci13cmFwcGVyIHtcbiAgei1pbmRleDogMTAwMDtcbiAgcG9zaXRpb246IGZpeGVkO1xuICBsZWZ0OiAyNTBweDtcbiAgd2lkdGg6IDUwcHg7XG4gIGhlaWdodDogMTAwJTtcbiAgbWFyZ2luLWxlZnQ6IC0yNTBweDtcbiAgb3ZlcmZsb3cteTogYXV0bztcbiAgYmFja2dyb3VuZDogIzFFMjY0ODtcbiAgLXdlYmtpdC10cmFuc2l0aW9uOiBhbGwgMC41cyBlYXNlO1xuICAtbW96LXRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG4gIC1vLXRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG4gIHRyYW5zaXRpb246IGFsbCAwLjVzIGVhc2U7XG59XG5cbiN3cmFwcGVyLnRvZ2dsZWQgI3NpZGViYXItd3JhcHBlciB7XG4gIHdpZHRoOiAyNTBweDtcbn1cblxuI3BhZ2UtY29udGVudC13cmFwcGVyIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDoxMDAlO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHBhZGRpbmc6IDE1cHg7XG59XG4vKiN3cmFwcGVyLnRvZ2dsZWQgLnJvdXRlckZpZWxkIHtcbiAgbWFyZ2luLXRvcDogLTE4NXB4O1xuICBwYWRkaW5nLWxlZnQ6MDtcbn0qL1xuLnJvdXRlckZpZWxkIHtcbiAgbWFyZ2luLXRvcDogLTE4NXB4O1xuICBwYWRkaW5nLWxlZnQ6IDBweDtcbiAgbWluLWhlaWdodDogMTAwJTtcbn1cblxuXG5cbiN3cmFwcGVyLnRvZ2dsZWQgI3BhZ2UtY29udGVudC13cmFwcGVyIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBtYXJnaW4tbGVmdDogMHB4O1xufVxuLnRvZ2dsZUJ1dHRvbiB7XG4gIGhlaWdodDozMnB4O1xuICB3aWR0aDozMnB4O1xuICBib3JkZXI6bm9uZTtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG5cbn1cblxuLyogU2lkZWJhciBTdHlsZXMgKi9cblxuLnNpZGViYXItbmF2IHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAyNTBweDtcbiAgbWFyZ2luOiAwO1xuICBwYWRkaW5nOiAwO1xuICBsaXN0LXN0eWxlOiBub25lO1xufVxuXG4uc2lkZWJhci1uYXYgbGkge1xuICB0ZXh0LWluZGVudDogMjBweDtcbiAgbGluZS1oZWlnaHQ6IDQwcHg7XG59XG5cbi5zaWRlYmFyLW5hdiBsaSBhIHtcbiAgZGlzcGxheTogYmxvY2s7XG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbiAgY29sb3I6ICM5OTk5OTk7XG59XG5cbi5zaWRlYmFyLW5hdiBsaSBhOmhvdmVyIHtcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xuICBjb2xvcjogI2ZmZjtcbiAgYmFja2dyb3VuZDogcmdiYSgyNTUsIDI1NSwgMjU1LCAwLjIpO1xufVxuXG4uc2lkZWJhci1uYXYgbGkgYTphY3RpdmUsIC5zaWRlYmFyLW5hdiBsaSBhOmZvY3VzIHtcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xufVxuXG4uc2lkZWJhci1uYXY+LnNpZGViYXItYnJhbmQge1xuICBoZWlnaHQ6IDY1cHg7XG4gIGZvbnQtc2l6ZTogMThweDtcbiAgbGluZS1oZWlnaHQ6IDYwcHg7XG59XG5cbi5zaWRlYmFyLW5hdj4uc2lkZWJhci1icmFuZCBhIHtcbiAgY29sb3I6ICM5OTk5OTk7XG59XG5cbi5zaWRlYmFyLW5hdj4uc2lkZWJhci1icmFuZCBhOmhvdmVyIHtcbiAgY29sb3I6ICNmZmY7XG4gIGJhY2tncm91bmQ6IG5vbmU7XG59XG5cbkBtZWRpYShtaW4td2lkdGg6NzY4cHgpIHtcbiAgI3dyYXBwZXIge1xuICAgIHBhZGRpbmctcmlnaHQ6IDA7XG4gIH1cbiAgI3dyYXBwZXIudG9nZ2xlZCB7XG4gICAgcGFkZGluZy1sZWZ0OiAyNTBweDtcbiAgfVxuICAjc2lkZWJhci13cmFwcGVyIHtcbiAgICB3aWR0aDogNTBweDtcbiAgfVxuICAjd3JhcHBlci50b2dnbGVkICNzaWRlYmFyLXdyYXBwZXIge1xuICAgIHdpZHRoOiAyNTBweDtcbiAgfVxuICAjcGFnZS1jb250ZW50LXdyYXBwZXIge1xuICAgIHBhZGRpbmc6IDIwcHg7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB9XG4gICN3cmFwcGVyLnRvZ2dsZWQgI3BhZ2UtY29udGVudC13cmFwcGVyIHtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgbWFyZ2luLWxlZnQ6IDA7XG4gIH1cbn1cbiJdfQ== */"
 
 /***/ }),
 
@@ -3733,12 +4192,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SidetestComponent", function() { return SidetestComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Services/Util/logoutService */ "./src/app/Shared/Services/Util/logoutService.ts");
+/* harmony import */ var _Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Modals/confirmationdialog/confirmationdialog.component */ "./src/app/Shared/Modals/confirmationdialog/confirmationdialog.component.ts");
+/* harmony import */ var _Models_openModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Models/openModal */ "./src/app/Shared/Models/openModal.ts");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm2015/ngx-bootstrap-modal.js");
+
+
+
+
 
 
 let SidetestComponent = class SidetestComponent {
-    constructor() {
-        this.collapse = true;
-        this.collapse1 = true;
+    constructor(logoutService, modalService, changeDetection) {
+        this.logoutService = logoutService;
+        this.modalService = modalService;
+        this.changeDetection = changeDetection;
+        this.collapse = false;
+        this.collapse1 = false;
+        this.modal = new _Models_openModal__WEBPACK_IMPORTED_MODULE_4__["OpenModal"](this.modalService, this.changeDetection);
     }
     ngOnInit() {
     }
@@ -3750,14 +4221,36 @@ let SidetestComponent = class SidetestComponent {
             this.collapse = true;
         }
     }
+    toggleInSide() {
+        if (!this.collapse) {
+            this.toggle();
+        }
+    }
+    logout() {
+        const initialState = {
+            modalTitle: "Uyarı",
+            message: "Sistemden çıkış yapmak istediğinize emin misiniz?",
+        };
+        this.modal.openModal(_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_3__["ConfirmationdialogComponent"], initialState).subscribe((result) => {
+            if (result.reason == 'ok') {
+                console.log("logout");
+                this.logoutService.logout();
+            }
+        });
+    }
 };
+SidetestComponent.ctorParameters = () => [
+    { type: _Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__["LogoutService"] },
+    { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] }
+];
 SidetestComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-sidetest',
         template: __webpack_require__(/*! raw-loader!./sidetest.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Pages/sidetest/sidetest.component.html"),
         styles: [__webpack_require__(/*! ./sidetest.component.css */ "./src/app/Shared/Pages/sidetest/sidetest.component.css")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__["LogoutService"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
 ], SidetestComponent);
 
 
@@ -3941,7 +4434,8 @@ let ErrorService = class ErrorService {
         return error.stack;
     }
     getServerMessage(error) {
-        return error.message;
+        debugger;
+        return error.error.Message;
     }
     getServerStack(error) {
         // handle stack trace
@@ -3987,6 +4481,7 @@ let GlobalErrorHandler = class GlobalErrorHandler {
         const notifier = this.injector.get(_NotificationService__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]);
         let message;
         let stackTrace;
+        debugger;
         if (error instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpErrorResponse"]) {
             // Server Error
             if (!navigator.onLine) {
@@ -4361,16 +4856,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _Shared_Layouts_sidelayout_sidelayout_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Shared/Layouts/sidelayout/sidelayout.component */ "./src/app/Shared/Layouts/sidelayout/sidelayout.component.ts");
-/* harmony import */ var _Features_Private_Dashboard_Pages_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Features/Private/Dashboard/Pages/dashboard/dashboard.component */ "./src/app/Features/Private/Dashboard/Pages/dashboard/dashboard.component.ts");
-/* harmony import */ var _Features_Private_Operations_Pages_kosoperations_kosoperations_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Features/Private/Operations/Pages/kosoperations/kosoperations.component */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosoperations.component.ts");
-/* harmony import */ var _Features_Private_Definitions_Pages_user_user_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Features/Private/Definitions/Pages/user/user.component */ "./src/app/Features/Private/Definitions/Pages/user/user.component.ts");
-/* harmony import */ var _Features_Private_Definitions_Pages_role_role_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Features/Private/Definitions/Pages/role/role.component */ "./src/app/Features/Private/Definitions/Pages/role/role.component.ts");
-/* harmony import */ var _Features_Public_Login_Pages_login_login_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Features/Public/Login/Pages/login/login.component */ "./src/app/Features/Public/Login/Pages/login/login.component.ts");
-/* harmony import */ var _Shared_Services_Guards_authorizationGuard__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Shared/Services/Guards/authorizationGuard */ "./src/app/Shared/Services/Guards/authorizationGuard.ts");
-/* harmony import */ var _Features_Public_testpage_testpage_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Features/Public/testpage/testpage.component */ "./src/app/Features/Public/testpage/testpage.component.ts");
-/* harmony import */ var _Features_Private_Operations_Pages_jobs_jobs_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Features/Private/Operations/Pages/jobs/jobs.component */ "./src/app/Features/Private/Operations/Pages/jobs/jobs.component.ts");
-/* harmony import */ var _Shared_Pages_sidetest_sidetest_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Shared/Pages/sidetest/sidetest.component */ "./src/app/Shared/Pages/sidetest/sidetest.component.ts");
+/* harmony import */ var _Features_Private_Dashboard_Pages_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Features/Private/Dashboard/Pages/dashboard/dashboard.component */ "./src/app/Features/Private/Dashboard/Pages/dashboard/dashboard.component.ts");
+/* harmony import */ var _Features_Private_Operations_Pages_kosoperations_kosoperations_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Features/Private/Operations/Pages/kosoperations/kosoperations.component */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosoperations.component.ts");
+/* harmony import */ var _Features_Private_Definitions_Pages_user_user_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Features/Private/Definitions/Pages/user/user.component */ "./src/app/Features/Private/Definitions/Pages/user/user.component.ts");
+/* harmony import */ var _Features_Private_Definitions_Pages_role_role_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Features/Private/Definitions/Pages/role/role.component */ "./src/app/Features/Private/Definitions/Pages/role/role.component.ts");
+/* harmony import */ var _Features_Public_Login_Pages_login_login_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Features/Public/Login/Pages/login/login.component */ "./src/app/Features/Public/Login/Pages/login/login.component.ts");
+/* harmony import */ var _Shared_Services_Guards_authorizationGuard__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Shared/Services/Guards/authorizationGuard */ "./src/app/Shared/Services/Guards/authorizationGuard.ts");
+/* harmony import */ var _Features_Public_testpage_testpage_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Features/Public/testpage/testpage.component */ "./src/app/Features/Public/testpage/testpage.component.ts");
+/* harmony import */ var _Features_Private_Operations_Pages_jobs_jobs_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Features/Private/Operations/Pages/jobs/jobs.component */ "./src/app/Features/Private/Operations/Pages/jobs/jobs.component.ts");
+/* harmony import */ var _Shared_Pages_sidetest_sidetest_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Shared/Pages/sidetest/sidetest.component */ "./src/app/Shared/Pages/sidetest/sidetest.component.ts");
+/* harmony import */ var _Features_Private_Operations_Pages_teletipstm_teletipstm_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Features/Private/Operations/Pages/teletipstm/teletipstm.component */ "./src/app/Features/Private/Operations/Pages/teletipstm/teletipstm.component.ts");
 
 
 
@@ -4387,25 +4882,21 @@ __webpack_require__.r(__webpack_exports__);
 const routes = [
     {
         path: '',
-        component: _Shared_Layouts_sidelayout_sidelayout_component__WEBPACK_IMPORTED_MODULE_3__["SidelayoutComponent"],
-        canActivate: [_Shared_Services_Guards_authorizationGuard__WEBPACK_IMPORTED_MODULE_9__["LoginCheckActivate"]],
+        component: _Shared_Pages_sidetest_sidetest_component__WEBPACK_IMPORTED_MODULE_11__["SidetestComponent"],
+        canActivate: [_Shared_Services_Guards_authorizationGuard__WEBPACK_IMPORTED_MODULE_8__["LoginCheckActivate"]],
         children: [
-            { path: '', component: _Features_Private_Dashboard_Pages_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_4__["DashboardComponent"], pathMatch: 'full' },
-            { path: 'operations/kos', component: _Features_Private_Operations_Pages_kosoperations_kosoperations_component__WEBPACK_IMPORTED_MODULE_5__["KosoperationsComponent"], pathMatch: 'full' },
-            { path: 'definitions/user', component: _Features_Private_Definitions_Pages_user_user_component__WEBPACK_IMPORTED_MODULE_6__["UserComponent"], pathMatch: 'full' },
-            { path: 'definitions/role', component: _Features_Private_Definitions_Pages_role_role_component__WEBPACK_IMPORTED_MODULE_7__["RoleComponent"], pathMatch: 'full' },
-            { path: 'definitions/jobs', component: _Features_Private_Operations_Pages_jobs_jobs_component__WEBPACK_IMPORTED_MODULE_11__["JobsComponent"], pathMatch: 'full' },
-            { path: 'gt_test', component: _Features_Public_testpage_testpage_component__WEBPACK_IMPORTED_MODULE_10__["TestpageComponent"], pathMatch: 'full' },
-            { path: 'gt_test', component: _Features_Public_testpage_testpage_component__WEBPACK_IMPORTED_MODULE_10__["TestpageComponent"], pathMatch: 'full' },
+            { path: '', component: _Features_Private_Dashboard_Pages_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_3__["DashboardComponent"], pathMatch: 'full' },
+            { path: 'operations/kos', component: _Features_Private_Operations_Pages_kosoperations_kosoperations_component__WEBPACK_IMPORTED_MODULE_4__["KosoperationsComponent"], pathMatch: 'full' },
+            { path: 'definitions/user', component: _Features_Private_Definitions_Pages_user_user_component__WEBPACK_IMPORTED_MODULE_5__["UserComponent"], pathMatch: 'full' },
+            { path: 'definitions/role', component: _Features_Private_Definitions_Pages_role_role_component__WEBPACK_IMPORTED_MODULE_6__["RoleComponent"], pathMatch: 'full' },
+            { path: 'operations/jobs', component: _Features_Private_Operations_Pages_jobs_jobs_component__WEBPACK_IMPORTED_MODULE_10__["JobsComponent"], pathMatch: 'full' },
+            { path: 'operations/stm', component: _Features_Private_Operations_Pages_teletipstm_teletipstm_component__WEBPACK_IMPORTED_MODULE_12__["TeletipstmComponent"], pathMatch: 'full' },
+            { path: 'gt_test', component: _Features_Public_testpage_testpage_component__WEBPACK_IMPORTED_MODULE_9__["TestpageComponent"], pathMatch: 'full' },
         ]
     },
     {
         path: 'login',
-        component: _Features_Public_Login_Pages_login_login_component__WEBPACK_IMPORTED_MODULE_8__["LoginComponent"]
-    },
-    {
-        path: 'side',
-        component: _Shared_Pages_sidetest_sidetest_component__WEBPACK_IMPORTED_MODULE_12__["SidetestComponent"]
+        component: _Features_Public_Login_Pages_login_login_component__WEBPACK_IMPORTED_MODULE_7__["LoginComponent"]
     }
 ];
 let AppRoutingModule = class AppRoutingModule {
@@ -4428,7 +4919,7 @@ AppRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".body {\n  height: 100% !important;\n  overflow: hidden !important; /*makes the body non-scrollable (we will add scrolling to the sidebar and main content containers)*/\n  margin: 0px !important; /*removes default style*/\n  display: flex !important; /*enables flex content for its children*/\n  box-sizing: border-box !important;\n  font-family: 'dsLight' !important;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSx1QkFBdUI7RUFDdkIsMkJBQTJCLEVBQUUsbUdBQW1HO0VBQ2hJLHNCQUFzQixFQUFFLHdCQUF3QjtFQUNoRCx3QkFBd0IsRUFBRSx3Q0FBd0M7RUFDbEUsaUNBQWlDO0VBQ2pDLGlDQUFpQztBQUNuQyIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJvZHkge1xuICBoZWlnaHQ6IDEwMCUgIWltcG9ydGFudDtcbiAgb3ZlcmZsb3c6IGhpZGRlbiAhaW1wb3J0YW50OyAvKm1ha2VzIHRoZSBib2R5IG5vbi1zY3JvbGxhYmxlICh3ZSB3aWxsIGFkZCBzY3JvbGxpbmcgdG8gdGhlIHNpZGViYXIgYW5kIG1haW4gY29udGVudCBjb250YWluZXJzKSovXG4gIG1hcmdpbjogMHB4ICFpbXBvcnRhbnQ7IC8qcmVtb3ZlcyBkZWZhdWx0IHN0eWxlKi9cbiAgZGlzcGxheTogZmxleCAhaW1wb3J0YW50OyAvKmVuYWJsZXMgZmxleCBjb250ZW50IGZvciBpdHMgY2hpbGRyZW4qL1xuICBib3gtc2l6aW5nOiBib3JkZXItYm94ICFpbXBvcnRhbnQ7XG4gIGZvbnQtZmFtaWx5OiAnZHNMaWdodCcgIWltcG9ydGFudDtcbn1cbiJdfQ== */"
+module.exports = ".body {\n  height: 100% !important;\n  overflow: hidden !important; /*makes the body non-scrollable (we will add scrolling to the sidebar and main content containers)*/\n  margin: 0px !important; /*removes default style*/\n  display: flex !important; /*enables flex content for its children*/\n  box-sizing: border-box !important;\n  font-family: 'dsLight' !important;\n}\n\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSx1QkFBdUI7RUFDdkIsMkJBQTJCLEVBQUUsbUdBQW1HO0VBQ2hJLHNCQUFzQixFQUFFLHdCQUF3QjtFQUNoRCx3QkFBd0IsRUFBRSx3Q0FBd0M7RUFDbEUsaUNBQWlDO0VBQ2pDLGlDQUFpQztBQUNuQyIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJvZHkge1xuICBoZWlnaHQ6IDEwMCUgIWltcG9ydGFudDtcbiAgb3ZlcmZsb3c6IGhpZGRlbiAhaW1wb3J0YW50OyAvKm1ha2VzIHRoZSBib2R5IG5vbi1zY3JvbGxhYmxlICh3ZSB3aWxsIGFkZCBzY3JvbGxpbmcgdG8gdGhlIHNpZGViYXIgYW5kIG1haW4gY29udGVudCBjb250YWluZXJzKSovXG4gIG1hcmdpbjogMHB4ICFpbXBvcnRhbnQ7IC8qcmVtb3ZlcyBkZWZhdWx0IHN0eWxlKi9cbiAgZGlzcGxheTogZmxleCAhaW1wb3J0YW50OyAvKmVuYWJsZXMgZmxleCBjb250ZW50IGZvciBpdHMgY2hpbGRyZW4qL1xuICBib3gtc2l6aW5nOiBib3JkZXItYm94ICFpbXBvcnRhbnQ7XG4gIGZvbnQtZmFtaWx5OiAnZHNMaWdodCcgIWltcG9ydGFudDtcbn1cblxuIl19 */"
 
 /***/ }),
 
@@ -4539,6 +5030,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_Services_ErrorHandling_GlobalErrorHandler__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./Shared/Services/ErrorHandling/GlobalErrorHandler */ "./src/app/Shared/Services/ErrorHandling/GlobalErrorHandler.ts");
 /* harmony import */ var _Shared_Pages_sidetest_sidetest_component__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./Shared/Pages/sidetest/sidetest.component */ "./src/app/Shared/Pages/sidetest/sidetest.component.ts");
 /* harmony import */ var _Shared_Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./Shared/Services/Util/logoutService */ "./src/app/Shared/Services/Util/logoutService.ts");
+/* harmony import */ var _Features_Private_Operations_Pages_teletipstm_teletipstm_component__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./Features/Private/Operations/Pages/teletipstm/teletipstm.component */ "./src/app/Features/Private/Operations/Pages/teletipstm/teletipstm.component.ts");
+/* harmony import */ var _Features_Private_Operations_Pages_teletipstm_stmfilter_stmfilter_component__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component */ "./src/app/Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component.ts");
+/* harmony import */ var _Features_Private_Operations_Pages_teletipstm_stmgrid_stmgrid_component__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component */ "./src/app/Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component.ts");
+/* harmony import */ var _Features_Private_Operations_Services_stmDataServices__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./Features/Private/Operations/Services/stmDataServices */ "./src/app/Features/Private/Operations/Services/stmDataServices.ts");
+
+
+
+
 
 
 
@@ -4643,6 +5142,9 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _Features_Private_Operations_Pages_jobs_jobsfilter_jobsfilter_component__WEBPACK_IMPORTED_MODULE_60__["JobsfilterComponent"],
             _Features_Private_Operations_Pages_jobs_jobsgrid_jobsgrid_component__WEBPACK_IMPORTED_MODULE_61__["JobsgridComponent"],
             _Shared_Pages_sidetest_sidetest_component__WEBPACK_IMPORTED_MODULE_64__["SidetestComponent"],
+            _Features_Private_Operations_Pages_teletipstm_teletipstm_component__WEBPACK_IMPORTED_MODULE_66__["TeletipstmComponent"],
+            _Features_Private_Operations_Pages_teletipstm_stmfilter_stmfilter_component__WEBPACK_IMPORTED_MODULE_67__["StmfilterComponent"],
+            _Features_Private_Operations_Pages_teletipstm_stmgrid_stmgrid_component__WEBPACK_IMPORTED_MODULE_68__["StmgridComponent"]
         ],
         imports: [
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
@@ -4684,6 +5186,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _Features_Private_Definitions_Services_roleDataServices__WEBPACK_IMPORTED_MODULE_57__["roleDataServices"],
             _Features_Private_Operations_Services_jobDataServices__WEBPACK_IMPORTED_MODULE_62__["jobDataServices"],
             _Shared_Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_65__["LogoutService"],
+            _Features_Private_Operations_Services_stmDataServices__WEBPACK_IMPORTED_MODULE_69__["stmDataServices"],
         ],
         entryComponents: [
             _Features_Private_Definitions_Modals_editrole_editrole_component__WEBPACK_IMPORTED_MODULE_43__["EditroleComponent"],
@@ -4813,4 +5316,4 @@ module.exports = __webpack_require__(/*! C:\Users\Protek\source\repos\protek.gun
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
-//# sourceMappingURL=main-es2015.1f8d43ab97a8b5c520c7.js.map
+//# sourceMappingURL=main-es2015.b55a50c41605487a951f.js.map

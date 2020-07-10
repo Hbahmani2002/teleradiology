@@ -15,7 +15,8 @@ export class ErrorService {
   }
 
   getServerMessage(error: HttpErrorResponse): string {
-    return error.message;
+    debugger;
+    return error.error.Message;
   }
 
   getServerStack(error: HttpErrorResponse): string {
