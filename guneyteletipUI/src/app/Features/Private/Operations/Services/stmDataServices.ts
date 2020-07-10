@@ -5,12 +5,12 @@ import { GetorderStatusViewFilter } from '../Models/GetorderStatusViewFilter';
 import { GetorderStatusViewModel } from '../Models/GetorderStatusViewModel';
 import { TeletipStatusViewModel } from '../Models/TeletipStatusViewModel';
 
-export class kosDataServices {
+export class stmDataServices {
 
   constructor(private apiDataService: ApiDataService) { }
 
-  public GetGetorderStatusList(model: Grid.GridInputModel<GetorderStatusViewFilter>): Observable<Grid.GridOutputModel<GetorderStatusViewModel>> {
-    return this.apiDataService.callDataService('GetorderStatus/GetJobList', model);
+  public GetorderStatusList(model: Grid.GridInputModel<GetorderStatusViewFilter>): Observable<Grid.GridOutputModel<GetorderStatusViewModel>> {
+    return this.apiDataService.callDataService('GetorderStatus/GetGetorderStatusList', model);
   }
   public GetTeletipStatusList(): Observable<Array<TeletipStatusViewModel>> {
     return this.apiDataService.callDataService('GetorderStatus/GetTeletipStatusList', undefined);

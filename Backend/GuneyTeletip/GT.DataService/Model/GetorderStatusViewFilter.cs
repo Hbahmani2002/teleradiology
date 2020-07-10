@@ -10,5 +10,6 @@ namespace GT.DataService.Model
         public DateTime? BitTar { get; set; }
         public long[] HastaneIDList { get; set; }
         public long[] TeletipStatusIDList { get; set; }
+        public string[] AccessionNumberList { get; set; }
     }
 }

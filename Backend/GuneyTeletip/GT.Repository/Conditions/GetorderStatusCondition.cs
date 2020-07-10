@@ -16,6 +16,7 @@ namespace GT.Repository.Conditions
         public DateTime? BitTar { get; set; }
         public long[] HastaneIDList { get; set; }
         public long[] TeletipStatusIDList { get; set; }
+        public string[] AccessionNumberList { get; set; }
     }
     public class GetorderStatusCondition
     {
@@ -38,13 +39,20 @@ namespace GT.Repository.Conditions
             {
                 exp = exp.And(o => o.TimeCreated <= filter.BitTar);
             }
-            if(filter.HastaneIDList!=null && filter.HastaneIDList.Count() > 0)
+            if (filter.AccessionNumberList != null && filter.AccessionNumberList.Count() > 0)
             {
-                exp = exp.And(o => o.FkTenant.ToString().Contains(filter.HastaneIDList.ToString()));
+                var arr = filter.AccessionNumberList.ToList();
+                exp = exp.And(o => arr.Contains(o.Accessionnumber));
+            }
+            if (filter.HastaneIDList!=null && filter.HastaneIDList.Count() > 0)
+            {
+                var arr = filter.HastaneIDList.ToList();
+                exp = exp.And(o => arr.Contains(o.FkTenant));
             }
             if (filter.TeletipStatusIDList != null && filter.TeletipStatusIDList.Count() > 0)
             {
-                exp = exp.And(o => o.Teletipstatusid.ToString().Contains(filter.TeletipStatusIDList.ToString()));
+                var arr = filter.TeletipStatusIDList.ToList();
+                exp = exp.And(o => arr.Contains(o.Teletipstatusid));
             }
             return exp;
         }

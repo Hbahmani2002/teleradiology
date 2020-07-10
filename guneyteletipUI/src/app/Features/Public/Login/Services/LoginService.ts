@@ -22,7 +22,7 @@ export class LoginServices {
 
   constructor(private httpService: httpService, private tokenService: tokenService) { }
 
-  login(userName: string, password: string): Observable<LoginEnumResult> {
+  login(userName: string, password: string): Observable<any> {
 
     let url = this.serverAddress + this.serviceAdress;
     let params = {
@@ -41,10 +41,6 @@ export class LoginServices {
           this.tokenService.saveToken(token);
         }
         return of(LoginEnumResult.ok);
-      }),
-      catchError(err => {
-     
-        throw err;
       })
       //result is success
     );

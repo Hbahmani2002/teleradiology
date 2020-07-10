@@ -1,1 +1,89 @@
-<p>stmgrid works!</p>
+<!--<div class="m-0">
+  <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickCreateKos()" class="btn btn-info smalbutton" tooltip="Koş Oluştur"><fa name="plus-circle"></fa></button>
+  <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickSendKos()" class="btn btn-info smalbutton" tooltip="Seçilenlerin KOS'larını Gönder"><fa name="share-square"></fa></button>
+  <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickDeleteKos()" class="btn btn-danger smalbutton" tooltip="Seçilenlerin KOS'larını Teletıp'tan sil"><fa name="trash"></fa></button>
+  <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickUpdateReadKos()" class="btn btn-primary smalbutton" tooltip="Seçilenlerin KOS Durumlarını Teletıp'tan oku"><fa name="get-pocket"></fa></button>
+  <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickReprocessKos()" class="btn btn-secondary smalbutton" tooltip="Reprocess Kos"><fa name="reply"></fa></button>
+  <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickExportExcel()" class="btn btn-primary smalbutton" tooltip="Excel'e çevir"><fa name="table"></fa></button>
+</div>-->
+<div class="card mt-2 shadow bg-white rounded-0">
+  <div class="card-header pr-1 pt-1 pb-1 pl-2">
+    <fa name="list" class="align-middle"></fa>
+    Kayıt Listesi > [Toplam:{{gridStm.data.totalCount}}/Seçili:{{gridStm.selectedItems.length}}/Tıklanan:{{gridStm.clickedItem!=undefined?1:0}}]
+    <div class="pull-right align-middle">
+      <select [(ngModel)]="gridStm.model.paging.count" (change)="gridStm.onRefresh()">
+        <option *ngFor="let c of gridStm.pager" [ngValue]="c">{{c}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="card-body p-0 table-responsive">
+    <table #filterSection class="table table-bordered m-0 medlifeGrid">
+      <thead>
+        <tr>
+          <!--<th scope="col" class="p-0" style="width: 25px;">
+    <input type="checkbox" class="m-1" (click)="gridStm.gridSelect($event,'selectPage')" [(ngModel)]="gridStm.selectPage" title="Sayfayı Seç">
+    <input type="checkbox" class="m-1" (click)="gridStm.gridSelect($event,'selectAll')" [(ngModel)]="gridStm.selectAll" title="Tümünü Seç">
+  </th>-->
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('id')">ID<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('citizenid')">citizenid<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('fkTenant')">fkTenant<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('tenantName')">tenantName<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('fkInfBatch')">fkInfBatch<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('fkKosStudy')">fkKosStudy<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('accessionnumber')">accessionnumber<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('teletipstatus')">teletipstatus<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('medulastatus')">medulastatus<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('wadostatus')">wadostatus<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('reportstatus')">reportstatus<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('dosestatus')">dosestatus<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('sutcode')">sutcode<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('lastmedulasenddate')">lastmedulasenddate<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('medularesponsecode')">medularesponsecode<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('medularesponsemessage')">medularesponsemessage<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('scheduledate')">scheduledate<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('performeddate')">performeddate<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('error')">error<fa name="sort" class="ml-1"></fa></th>
+          <th scope="col" class="p-0" (click)="gridStm.onSorting('patienthistorysearchstatus')">patienthistorysearchstatus<fa name="sort" class="ml-1"></fa></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr (click)="gridStm.onClickItem(item)" *ngFor="let item of gridStm.data.list" [class]="gridStm.getRowClass(item)">
+          <!--<td class="p-0">
+              <input type="checkbox" class="m-1" [checked]="gridStm.isSelected(item)"
+                     (change)="gridStm.onSelectItem(item)" [disabled]="gridStm.selectAll">
+            </td>-->
+            <td class="p-0">{{item.id}}</td>
+            <td class="p-0">{{item.citizenid}}</td>
+            <td class="p-0">{{item.fkTenant}}</td>
+            <td class="p-0">{{item.tenantName}}</td>
+            <td class="p-0">{{item.fkInfBatch}}</td>
+            <td class="p-0">{{item.fkKosStudy}}</td>
+            <td class="p-0">{{item.accessionnumber}}</td>
+            <td class="p-0">{{item.teletipstatus}}</td>
+            <td class="p-0">{{item.medulastatus}}</td>
+            <td class="p-0">{{item.wadostatus}}</td>
+            <td class="p-0">{{item.reportstatus}}</td>
+            <td class="p-0">{{item.dosestatus}}</td>
+            <td class="p-0">{{item.sutcode}}</td>
+            <td class="p-0">{{item.lastmedulasenddate  | date : 'dd.MM.yyyy'}}</td>
+            <td class="p-0">{{item.medularesponsecode}}</td>
+            <td class="p-0">{{item.medularesponsemessage}}</td>
+            <td class="p-0">{{item.scheduledate | date : 'dd.MM.yyyy'}}</td>
+            <td class="p-0">{{item.performeddate | date : 'dd.MM.yyyy'}}</td>
+            <td class="p-0">{{item.error}}</td>
+            <td class="p-0">{{item.patienthistorysearchstatus}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row justify-content-center mt-2">
+      <div class="col-sm-7 pagination-sm  justify-content-center pageNumber">
+        <pagination class="justify-content-center mb-0" [boundaryLinks]="true" [totalItems]="gridStm.data.totalCount" [maxSize]="4" [(ngModel)]="gridStm.model.paging.pageNumber" [itemsPerPage]="gridStm.model.paging.count" (pageChanged)="gridStm.onPageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+        </pagination>
+      </div>
+    </div>
+  </div>
+
+
+
+

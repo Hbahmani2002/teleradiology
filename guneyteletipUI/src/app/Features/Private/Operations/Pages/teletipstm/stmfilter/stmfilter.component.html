@@ -1,16 +1,14 @@
 <filter header="Filtreleme">
   <form>
     <div class="form-row p-0 ">
-      <div class="col-md-4">
-        <label class="font-weight-bold">Hastane Seçimi</label>
-        <ng-multiselect-dropdown name="ddlTenant"
-                                 [placeholder]="'Hastane Seçimi'"
-                                 [data]="ddlTenantData"
-                                 [(ngModel)]="ddlTenantSelectedItems"
-                                 [settings]="ddlTenantSettings">
-        </ng-multiselect-dropdown>
+      <div class="col-md-3">
+        <label class="font-weight-bold">Accession No</label>
+        <div class="input-group input-group-sm">
+          <!--<input type="text" class="form-control input-sm" name="accesion" [(ngModel)]="accessionNo">-->
+          <textarea class="form-control input-sm" [(ngModel)]="accessionNo" name="accesion" style="height: 2rem;"></textarea>
+        </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <label class="font-weight-bold">Tarih Aralığı</label>
         <div class="input-group input-group-sm mb-3">
           <input class="form-control" type="text"
@@ -20,7 +18,16 @@
                  placeholder="Tarih Aralığı" [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY', rangeInputFormat : 'DD/MM/YYYY', containerClass: 'theme-dark-blue'}" #drp="bsDaterangepicker" bsDaterangepicker>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
+        <label class="font-weight-bold">Hastane Seçimi</label>
+        <ng-multiselect-dropdown name="ddlTenant"
+                                 [placeholder]="'Hastane Seçimi'"
+                                 [data]="ddlTenantData"
+                                 [(ngModel)]="ddlTenantSelectedItems"
+                                 [settings]="ddlTenantSettings">
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-md-3">
         <label class="font-weight-bold">Eşleşme Durumu</label>
         <ng-multiselect-dropdown name="ddlEnum"
                                  [placeholder]="'Eşleşme Durumu'"

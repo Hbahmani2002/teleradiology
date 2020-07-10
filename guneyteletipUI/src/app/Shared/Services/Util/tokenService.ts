@@ -6,7 +6,6 @@ import { parameters } from 'src/app/Shared/Consts/parameters';
   providedIn: 'root'
 })
 export class tokenService {
- 
   cookieName = parameters.cookieName;
   cookieDay = parameters.cookieDay;
   tokenValue: string = undefined;

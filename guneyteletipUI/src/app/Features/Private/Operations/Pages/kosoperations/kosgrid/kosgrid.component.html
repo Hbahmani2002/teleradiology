@@ -25,6 +25,7 @@
             <input type="checkbox" class="m-1" (click)="gridKos.gridSelect($event,'selectPage')" [(ngModel)]="gridKos.selectPage" title="Sayfayı Seç">
             <input type="checkbox" class="m-1" (click)="gridKos.gridSelect($event,'selectAll')" [(ngModel)]="gridKos.selectAll" title="Tümünü Seç">
           </th>
+
           <th scope="col" class="p-0" (click)="gridKos.onSorting('id')">ID<fa name="sort" class="ml-1"></fa></th>
           <th scope="col" class="p-0" (click)="gridKos.onSorting('hastaNo')">Hasta No<fa name="sort" class="ml-1"></fa></th>
           <th scope="col" class="p-0" (click)="gridKos.onSorting('patientName')">Hasta İsmi<fa name="sort" class="ml-1"></fa></th>

@@ -66,6 +66,7 @@ import { LogoutService } from './Shared/Services/Util/logoutService';
 import { TeletipstmComponent } from './Features/Private/Operations/Pages/teletipstm/teletipstm.component';
 import { StmfilterComponent } from './Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component';
 import { StmgridComponent } from './Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component';
+import { stmDataServices } from './Features/Private/Operations/Services/stmDataServices';
 
 
 @NgModule({
@@ -152,6 +153,7 @@ import { StmgridComponent } from './Features/Private/Operations/Pages/teletipstm
       roleDataServices,
       jobDataServices,
       LogoutService,
+      stmDataServices,
     ],
   entryComponents:
     [

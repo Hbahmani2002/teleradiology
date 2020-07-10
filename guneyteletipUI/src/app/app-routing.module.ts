@@ -23,8 +23,8 @@ const routes: Routes = [
       { path: 'definitions/user', component: UserComponent, pathMatch: 'full' },
       { path: 'definitions/role', component: RoleComponent, pathMatch: 'full' },
       { path: 'operations/jobs', component: JobsComponent, pathMatch: 'full' },
-      { path: 'gt_test', component: TestpageComponent, pathMatch: 'full' },
       { path: 'operations/stm', component: TeletipstmComponent, pathMatch: 'full' },
+      { path: 'gt_test', component: TestpageComponent, pathMatch: 'full' },
     ]
   },
   {
