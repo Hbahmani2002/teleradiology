@@ -35,7 +35,6 @@ namespace GT.Repository.Models.View
         public string Error { get; set; }
         public string Patienthistorysearchstatus { get; set; }
         public int? Patienthistorysearchstatusid { get; set; }
-        public string CitizenID { get; set; }
         public string SkrsKod { get; set; }
     }
 }

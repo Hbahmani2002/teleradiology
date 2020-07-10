@@ -179,22 +179,11 @@ namespace GT.BAL.TeletipKos
                 var studyDataService = new StudyKosDataService();
                 var items = studyDataService.GetKosDurumOrderList(filter);
 
+                var mc = new STMOrderStatusForAccessionNumberListOperation(0);
+                mc.StmOrderList(items,o,ac);
 
 
-                foreach (var item in items)
-                {
-                    var mc = new STMOrderStatusForAccessionNumberListOperation();
-                    var list = new List<KosDurumViewModel>();
-
-                    for (int i = 0; i < 1; i++)
-                    {
-                        list.Add(item);
-                    }
-
-                    mc.DoSingleBatch(list, o, ac);
-                }
-
-
+             
 
             });
             job.Start();
