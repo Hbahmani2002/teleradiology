@@ -45,7 +45,8 @@ namespace GT.DataService.Implementation
                 BitTar=parms.Filter.BitTar,
                 BasTar=parms.Filter.BasTar,
                 HastaneIDList=parms.Filter.HastaneIDList,
-                TeletipStatusIDList=parms.Filter.TeletipStatusIDList
+                TeletipStatusIDList=parms.Filter.TeletipStatusIDList,
+                AccessionNumberList=parms.Filter.AccessionNumberList
             };
             return getOrderStatusforAccessionNumberRepository.Query(g).GetGridQuery(parms);
         }
