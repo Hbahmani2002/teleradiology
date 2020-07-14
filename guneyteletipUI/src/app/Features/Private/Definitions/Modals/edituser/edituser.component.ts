@@ -43,7 +43,7 @@ export class EdituserComponent implements OnInit {
       this.userModel.recordState = 0;
     }
     console.log(this.userModel);
-    debugger;
+
     this.userService.save(this.userModel).subscribe(data => {
       console.log(data);
       this.modal.onClose("save");
