@@ -34,7 +34,6 @@ export class ApiDataService {
   }
 
   private onFail(err: any): any {
-    debugger;
     var erData = err.error
     if (erData) {
       console.log(erData);

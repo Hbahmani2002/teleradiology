@@ -16,7 +16,7 @@ export class UserfilterComponent implements OnInit {
   ngOnInit() {
   }
   onFilter() {
-    debugger;
+ 
     this.username.emit(this.userName);
   }
   onClearFilter() {

@@ -66,14 +66,14 @@ export class UsertabsComponent implements OnInit {
   }
   getDdlRoleSelectedItems() {
     this.userService.getRoleByID(this.userModel).subscribe(data => {
-      debugger;
+
       this.ddlRoleSelectedItem = data;
     });
   }
   onSaveRole() {
     if (this.ddlRoleDisabled) {
       this.saveRole.RolID = this.ddlRoleSelectedItem[0].roleID;
-      debugger;
+
       console.log(this.saveRole);
       this.userService.saveRol(this.saveRole).subscribe(o => {
         console.log(o);

@@ -37,7 +37,6 @@ export class userDataServices {
     return this.apiDataService.callDataService('User/GetRoleByID', model);
   }
   public saveRol(model: saveRolUIModel): Observable<number> {
-    debugger;
     return this.apiDataService.callDataService('User/SaveRol', model);
   }
   public getTenantList(): Observable<Array<tenantViewModel>> {
