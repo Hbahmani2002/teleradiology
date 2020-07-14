@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\App.Data.Service\App.Data.Service.csproj" />
+    <ProjectReference Include="..\Dcm4chee.DataService\Dcm4chee.DataService.csproj" />
     <ProjectReference Include="..\GT.DataService.infinity\GT.DataService.infinity.csproj" />
     <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
   </ItemGroup>
