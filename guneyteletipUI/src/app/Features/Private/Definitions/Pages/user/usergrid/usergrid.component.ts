@@ -19,7 +19,7 @@ export class UsergridComponent implements OnInit {
   @Input() set filterValue(value: any) {
     if (value == null || value == undefined)
       return;
-    debugger;
+
     this.gridUser.userFilter.UserName = value;
     this.gridUser.onRefresh();
   }

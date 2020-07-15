@@ -40,6 +40,7 @@ namespace GT.UI.WebApi
         {
             services.AddControllers();
             TokenAuthentication(services);
+
         }
 
         private void TokenAuthentication(IServiceCollection services)

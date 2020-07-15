@@ -81,6 +81,7 @@ export class StmfilterComponent implements OnInit {
     this.ddlTenantSelectedItems = [];
     this.ddlEnumSelectedItems = [];
     this.dateRange = undefined;
+    this.accessionNo = "";
   }
   splitAccession() {
     let accessionNoList = [];

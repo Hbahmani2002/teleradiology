@@ -13,7 +13,6 @@ export class KosdetailgridComponent implements OnInit {
   @Input() set kosId(value: any) {
     if (value == null || value == undefined)
       return;
-    debugger;
     console.log(value);
     this.gridKosDetail.detailFilter.id = value;
     this.gridKosDetail.onRefresh();
@@ -82,9 +81,9 @@ namespace KosDetailComponent_Models {
       var item = this.getFilter()
       var filter = item.filter;
       console.log(item);
-      debugger;
+
       this.kosService.GetKosHistoryByStudyID(item).subscribe(o => {
-        debugger;
+   
         this.data.list = o["list"];
         this.data.totalCount = o["totalCount"];
         console.log(this.data.list)

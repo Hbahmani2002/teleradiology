@@ -29,6 +29,7 @@ namespace GT.Core.Settings
                                 {
                                     StudyPostgre = "",
                                     InfinityOracle = "",
+                                    PacsPostgre=""
                                 }
                             };
                             model = JsonConvert.DeserializeAnonymousType(file, model);
@@ -36,7 +37,7 @@ namespace GT.Core.Settings
                             {
                                 throw new Exception("model boş");
                             }
-                            _AppSettings = new AppSettings(new DatabaseSettings(model.ConnectionStrings.StudyPostgre, model.ConnectionStrings.InfinityOracle));
+                            _AppSettings = new AppSettings(new DatabaseSettings(model.ConnectionStrings.StudyPostgre, model.ConnectionStrings.InfinityOracle, model.ConnectionStrings.PacsPostgre));
                             //LoadSettings_Alpha()
                             //LoadSettings_Beta()
                         }
@@ -64,7 +65,8 @@ namespace GT.Core.Settings
             //vvvvvv
             DatabaseSetting = new DatabaseSettings(
                "Host=85.95.238.211;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9002",
-               "User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;"
+               "User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;",
+               "Host=85.95.238.210;Database=pacsdb;Username=pacs;Password=pacs;Port=5432"
                );
         }
         public Exception ConfigFileException { get; set; }

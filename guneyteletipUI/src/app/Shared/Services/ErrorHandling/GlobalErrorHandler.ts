@@ -17,7 +17,6 @@ export class GlobalErrorHandler implements ErrorHandler {
 
     let message;
     let stackTrace;
-    debugger;
     if (error instanceof HttpErrorResponse) {
       // Server Error
       if (!navigator.onLine) {
