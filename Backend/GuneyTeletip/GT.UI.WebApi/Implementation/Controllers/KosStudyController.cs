@@ -32,6 +32,10 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Kos/CreateKos")]
         public ServiceResult<MultipleOperationResultModel> CreateKos(Gridable<KosStudyFilter> parms)
         {
+            if (parms.Filter.BasTarih.HasValue)
+                parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
+            if (parms.Filter.BitTarih.HasValue)
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddHours(3);
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.CreateKos(parms);
             return HttpMessageService.Ok(job);
@@ -42,13 +46,13 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Kos/SendKos")]
         public ServiceResult<MultipleOperationResultModel> SendKos(Gridable<KosStudyFilter> parms)
         {
+            if (parms.Filter.BasTarih.HasValue)
+                parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
+            if (parms.Filter.BitTarih.HasValue)
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddHours(3);
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.SendKos(parms);
             return HttpMessageService.Ok(job);
-
-         
-
-
         }
 
 
@@ -64,6 +68,10 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Kos/CreateKosBackground")]
         public ServiceResult<long> CreateKosBackground(KosStudyFilter parms)
         {
+            if (parms.BasTarih.HasValue)
+                parms.BasTarih = parms.BasTarih.Value.AddHours(3);
+            if (parms.BitTarih.HasValue)
+                parms.BitTarih = parms.BitTarih.Value.AddHours(3);
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.CreateKosBackground(parms);
             return HttpMessageService.Ok(job.JobID);
@@ -75,6 +83,10 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Kos/SendKosBackground")]
         public ServiceResult<long> SendKosBackground(KosStudyFilter parms)
         {
+            if (parms.BasTarih.HasValue)
+                parms.BasTarih = parms.BasTarih.Value.AddHours(3);
+            if (parms.BitTarih.HasValue)
+                parms.BitTarih = parms.BitTarih.Value.AddHours(3);
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.SendKosBackground(parms);
             return HttpMessageService.Ok(job.JobID);
@@ -93,7 +105,10 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Kos/DeleteKos")]
         public ServiceResult<MultipleOperationResultModel> DeleteKos(Gridable<KosStudyFilter> parms)
         {
-            
+            if (parms.Filter.BasTarih.HasValue)
+                parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
+            if (parms.Filter.BitTarih.HasValue)
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddHours(3);
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.DeleteKos(parms);
             return HttpMessageService.Ok(job);
@@ -105,6 +120,10 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Kos/DeleteKosBackground")]
         public ServiceResult<long> DeleteKosBackground(KosStudyFilter parms)
         {
+            if (parms.BasTarih.HasValue)
+                parms.BasTarih = parms.BasTarih.Value.AddHours(3);
+            if (parms.BitTarih.HasValue)
+                parms.BitTarih = parms.BitTarih.Value.AddHours(3);
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.DeleteKosBackground(parms);
             return HttpMessageService.Ok(job.JobID);
@@ -116,9 +135,10 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Kos/StmGetOrderStatusForAccessionNumberlistBackground")]
         public ServiceResult<long> OrderStatusForAccessionnumberList(KosStudyFilter parms)
         {
-
-
-
+            if (parms.BasTarih.HasValue)
+                parms.BasTarih = parms.BasTarih.Value.AddHours(3);
+            if (parms.BitTarih.HasValue)
+                parms.BitTarih = parms.BitTarih.Value.AddHours(3);
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.StmGetOrderStatusForAccessionNumberlistBackground(parms);
             return HttpMessageService.Ok(job.JobID);
@@ -137,6 +157,10 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Kos/GetKosList")]
         public ServiceResult<PagingResult<InfStudyViewModel>> GetKosList(Gridable<KosStudyFilter> parms)
         {
+            if (parms.Filter.BasTarih.HasValue)
+                parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
+            if (parms.Filter.BitTarih.HasValue)
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddHours(3);
             var cx = GetBussinesContext();
             var service = new StudyKosDataService(cx);
             return HttpMessageService.Ok(service.GetInfStudyList(parms));
@@ -161,6 +185,10 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Kos/ReprocessKosBackground")]
         public ServiceResult<long> ReprocessKosBackground(Gridable<KosStudyFilter> parms)
         {
+            if (parms.Filter.BasTarih.HasValue)
+                parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
+            if (parms.Filter.BitTarih.HasValue)
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddHours(3);
             var cx = GetBussinesContext();
             var service = new StudyKosService(cx);
             var job = service.ReprocessKosBackground(parms.Filter);

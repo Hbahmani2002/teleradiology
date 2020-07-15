@@ -30,6 +30,10 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Job/GetJobList")]
         public ServiceResult<PagingResult<JobViewModel>> GetJobList(Gridable<JobViewFilter> parms)
         {
+            if (parms.Filter.BasTarih.HasValue)
+                parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
+            if (parms.Filter.BitTarih.HasValue)
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddHours(3);
             var cx = GetBussinesContext();
             var service = new JobDataService(cx);
             return HttpMessageService.Ok(service.GetJobList(parms));
