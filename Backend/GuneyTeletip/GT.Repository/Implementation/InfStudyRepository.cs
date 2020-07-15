@@ -26,6 +26,16 @@ namespace GT.Repository.Implementation
             return Single(o => o.Pk == id);
         }
 
+        public KosStudy GetByPkID(long StudyID)
+        {
+            return Single(o => (o.Pk == StudyID) && (o.FkKosEnumType==40) );
+        }
+
+
+
+
+
+
         public IQueryable<InfStudyViewModel> Query(InfStudyConditionFilter filter)
         {
             var exp = InfStudyCondition.Get(filter);

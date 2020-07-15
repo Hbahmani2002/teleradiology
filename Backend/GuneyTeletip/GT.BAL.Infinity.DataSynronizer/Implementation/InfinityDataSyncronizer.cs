@@ -29,129 +29,142 @@ namespace GT.BAL.Infinity.DataSynronizer
         }
         public void SyncronizeInfinityStudyList(long tenantID, long lastID, System.DateTime? startTime, System.DateTime? endTime)
         {
-            var filter = new DataService.infinity.Model.InfOracleFilter();
-            filter.Infcreationstartdate = startTime;
-            filter.Infcreationenddate = endTime;
-
-            filter.Infcreationstartdate = new DateTime(startTime.Value.Year, startTime.Value.Month, startTime.Value.Day);
 
 
-            filter.Infstudypklast = lastID;
+          
+                var filter = new DataService.infinity.Model.InfOracleFilter();
+                filter.Infcreationstartdate = startTime;
+                filter.Infcreationenddate = endTime;
 
-            filter.Accession_no = _InfStudyDataService.GetAccessionOnekNoByTenantID(tenantID);
-            var items=_InfOracleDataService.GetInfOracleList(filter);
-            var list = new List<InfOraclePostgreStudyViewModel>();
-
-            var volumMap = "";
-
-            foreach (var item in items)
-            {
+                filter.Infcreationstartdate = new DateTime(startTime.Value.Year, startTime.Value.Month, startTime.Value.Day);
 
 
-              
+                filter.Infstudypklast = lastID;
 
+                filter.Accession_no = _InfStudyDataService.GetAccessionOnekNoByTenantID(tenantID);
+                var items = _InfOracleDataService.GetInfOracleList(filter);
+                var list = new List<InfOraclePostgreStudyViewModel>();
 
-                if (item.VolumePathname != null)
-                {
+                var volumMap = "";
 
-                var model = new InfOraclePostgreStudyViewModel();
-                model.AccessionNo = item.AccessNo;
-                model.TimeCreated = item.CreationDttm;
-                model.FkTenant = tenantID;
-                model.FkUserCreated = 2; //Context.UserInfo.UserIDCurrent;
-                model.PatientId = item.PatientId;
-                model.Gender = item.PatientSex;
-                model.StudyDescription = item.StudyDesc;
-                model.InstitutionName = item.Institution;
-                model.Modality = item.Modalities;
-                model.AccessionNo = item.AccessNo;
-                model.StudyInstanceuid = item.StudyInstanceUid;
-                model.InstanceCount = 0;
-                model.DateBirth = item.PatientBirthDttm.HasValue? item.PatientBirthDttm.Value:DateTime.Now;
-                model.StudyDate = item.StudyDttm.HasValue? item.StudyDttm.Value:DateTime.Now;
-                model.StoragePath = item.Pathname;
-                model.PatinetNameSurname = item.PatientName;
-                model.CihazDeviceSerialNumber = null;
-                model.Desc1 = null;
-                model.Desc2 = null;
-                model.Desc3 = null;
-                model.TimeCreated = DateTime.Now;
-                model.TimeModified =null;
-                model.Institution =item.Institution;
-                model.SeriesCount = 0;
-                model.SeriesKey = 0;
-                model.InstanceKey = "";
-                model.FileName = item.Filename;                          
-                model.ValumeCode = item.VolumeCode;
-                model.ValumeType = item.VolumeType;
-                model.ValumeStat = item.VolumeStat;
-                model.ValumePathname = item.VolumePathname;
-                model.CreationDttm = item.CreationDttm.HasValue ? item.CreationDttm : DateTime.Now;
-                model.OracleStudyKey =item.StudyKey;
-                //model.FkKosEnumType = 2;
-                model.InfMergeKey = item.InfMergeKey;
-                model.SeriesInfo = item.SeriesInfo;
-
-
-
-                
-
-
-                if (item.VolumePathname!=null)
+                foreach (var item in items)
                 {
 
 
-                        if (item.VolumeCode != null)
+
+
+
+                    if (item.VolumePathname != null)
+                    {
+
+                        var model = new InfOraclePostgreStudyViewModel();
+                        model.AccessionNo = item.AccessNo;
+                        model.TimeCreated = item.CreationDttm;
+                        model.FkTenant = tenantID;
+                        model.FkUserCreated = 2; //Context.UserInfo.UserIDCurrent;
+                        model.PatientId = item.PatientId;
+                        model.Gender = item.PatientSex;
+                        model.StudyDescription = item.StudyDesc;
+                        model.InstitutionName = item.Institution;
+                        model.Modality = item.Modalities;
+                        model.AccessionNo = item.AccessNo;
+                        model.StudyInstanceuid = item.StudyInstanceUid;
+                        model.InstanceCount = 0;
+                        model.DateBirth = item.PatientBirthDttm.HasValue ? item.PatientBirthDttm.Value : DateTime.Now;
+                        model.StudyDate = item.StudyDttm.HasValue ? item.StudyDttm.Value : DateTime.Now;
+                        model.StoragePath = item.Pathname;
+                        model.PatinetNameSurname = item.PatientName;
+                        model.CihazDeviceSerialNumber = null;
+                        model.Desc1 = null;
+                        model.Desc2 = null;
+                        model.Desc3 = null;
+                        model.TimeCreated = DateTime.Now;
+                        model.TimeModified = null;
+                        model.Institution = item.Institution;
+                        model.SeriesCount = 0;
+                        model.SeriesKey = 0;
+                        model.InstanceKey = "";
+                        model.FileName = item.Filename;
+                        model.ValumeCode = item.VolumeCode;
+                        model.ValumeType = item.VolumeType;
+                        model.ValumeStat = item.VolumeStat;
+                        model.ValumePathname = item.VolumePathname;
+                        model.CreationDttm = item.CreationDttm.HasValue ? item.CreationDttm : DateTime.Now;
+                        model.OracleStudyKey = item.StudyKey;
+                        //model.FkKosEnumType = 2;
+                        model.InfMergeKey = item.InfMergeKey;
+                        model.SeriesInfo = item.SeriesInfo;
+
+
+
+
+
+
+                        if (item.VolumePathname != null)
                         {
 
 
-                            volumMap = KosPahtDataService.GetTenantKosPaht(item.VolumeCode);
-                            model.DicomPhat = item.VolumePathname.Replace(item.VolumePathname, volumMap) + "/" + item.Pathname;
+                            if (item.VolumeCode != null)
+                            {
+                                try
+                                {
+
+                          
+
+                                volumMap = KosPahtDataService.GetTenantKosPaht(item.VolumeCode);
+                                model.DicomPhat = item.VolumePathname.Replace(item.VolumePathname, volumMap) + "/" + item.Pathname;
+                                }
+                                catch(Exception ex)
+                                {
+                                    volumMap = KosPahtDataService.GetTenantKosPaht(item.VolumeCode);
+
+                                    throw new NotImplementedException();
+                                }
+                            }
+                            else
+                            {
+                                model.DicomPhat = item.VolumePathname + "\\" + item.Pathname.Replace("/", "\\");
+
+                            }
+
+
+
 
                         }
                         else
                         {
-                            model.DicomPhat = item.VolumePathname + "\\" + item.Pathname.Replace("/", "\\");
+                            model.DicomPhat = "";
 
                         }
 
 
+                        string OrcleZeroImages = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.ZeroImageGeneratorName.ToString();
 
-                        
+
+
+                        if (item.SeriesInfo.Contains(OrcleZeroImages))
+                        {
+
+                            model.ZeroImg = 1;
+                            model.FkKosEnumType = 999;
+                        }
+                        else
+                        {
+                            model.ZeroImg = 0;
+                            model.FkKosEnumType = 10;
+                        }
+
+
+
+                        list.Add(model);
+                        // throw new NotImplementedException();
+                    }
+
+
                 }
-                else
-                {
-                    model.DicomPhat = "";
-
-                }
-
-
-                string OrcleZeroImages = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.ZeroImageGeneratorName.ToString();
-             
-
-
-                if ( item.SeriesInfo.Contains(OrcleZeroImages))
-                {
-                    
-                    model.ZeroImg = 1;
-                    model.FkKosEnumType = 999;
-                }
-                else
-                {
-                    model.ZeroImg = 0;
-                    model.FkKosEnumType = 10;
-                }
-
-          
-
-                list.Add(model);
-                    // throw new NotImplementedException();
-                }
-              
-
-            }
-            _InfStudyDataService.Save(list);
-
+                _InfStudyDataService.Save(list);
+            
+        
         }
     }
 }
