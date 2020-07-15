@@ -221,6 +221,38 @@ namespace GT.DataService.Implementation
         }
         public IEnumerable<MakeKosViewModel> GetMakeKosList(Gridable<KosStudyFilter> parms)
         {
+
+
+            if (parms.Filter.StudyIDList != null && parms.Filter.StudyIDList.Length > 0)
+            {
+ 
+                int i = 0;
+                foreach (var StudyPk in parms.Filter.StudyIDList)
+                {
+                    var ParamterKosStudy = _InfStudyRepository.GetByPkID(StudyPk);
+
+               
+                        if (ParamterKosStudy == null)
+                        {
+                            throw new Exception("User bulunamadı. tenatID:" + "");
+                        }
+                        else
+                        {
+                            ParamterKosStudy.FkKosEnumType = Convert.ToInt64(KosEnumType.KosOlusturulamamisOlanlar);
+                            _InfStudyRepository.Update(ParamterKosStudy);
+                        }
+                 
+
+                      
+                    _Workspace.CommitChanges();
+                    i = +1;
+                }
+
+
+            }
+
+
+
             var s = ConvertConditionFilter(parms);
             s.KosEnum = KosEnumType.KosOlusturulamamisOlanlar;
             s.KosWaitHour = true;
@@ -272,6 +304,22 @@ namespace GT.DataService.Implementation
                 SentKosCount = true
             };
             return kosStudyJobRepository.Query(s, sc).OrderBy(o => o.StudyID).Take(count).ToList();
+        }
+
+
+        public List<MakeKosViewModel> GetDozList(int count)
+        {
+            var s = new InfStudyConditionFilter
+            {
+                KosEnum = KosEnumType.KosGonderilipEslesenler,
+                Modality = "SR",
+                KosWaitHour = true
+            };
+            var sc = new StudyOperationCountConditionFilter
+            {
+                MakeKosCount = true,
+            };
+            return makeKosCompositeRepository.Query(s, sc).OrderBy(o => o.StudyID).Take(count).ToList();
         }
 
 

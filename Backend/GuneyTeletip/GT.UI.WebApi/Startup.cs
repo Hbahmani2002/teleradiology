@@ -96,21 +96,21 @@ namespace GT.UI.WebApi
             });
 
 
-            //try
-            //{
+            try
+            {
 
 
-            //    var settings = AppSettings.GetCurrent();
-            //    var ks = settings.DataServiceSettings;
-            //    var filePath = AppSettings.GetCurrent().Log.PATH_JobInfinity;
-            //    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-            //    var logger = new TextFileLogger(filePath);
+                var settings = AppSettings.GetCurrent();
+                var ks = settings.DataServiceSettings;
+                var filePath = AppSettings.GetCurrent().Log.PATH_JobInfinity;
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                var logger = new TextFileLogger(filePath);
 
-            //    var jobManager = InfJobManager.Create(logger);
-            //    jobManager.Start();
-            //}
-            //catch
-            //{ }
+                var jobManager = InfJobManager.Create(logger);
+                jobManager.Start();
+            }
+            catch
+            { }
 
 
             //BussinessJobs.StartAutomaticJobs();
