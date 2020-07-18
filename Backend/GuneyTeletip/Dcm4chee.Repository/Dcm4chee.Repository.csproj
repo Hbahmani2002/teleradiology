@@ -7,11 +7,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Dcm4chee.Persistance\Dcm4chee.Persistance.csproj" />
     <ProjectReference Include="..\GT.Data.Models\GT.Data.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Conditions\" />
-    <Folder Include="Implementation\Composite\" />
+    <ProjectReference Include="..\Util.Expression\Util.Expression.csproj" />
+    <ProjectReference Include="..\Util.Grid\Util.Grid.csproj" />
   </ItemGroup>
 
 </Project>
