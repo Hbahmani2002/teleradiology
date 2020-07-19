@@ -33,7 +33,7 @@ namespace GT.UI.WebApi.Controllers
             if (parms.Filter.BasTarih.HasValue)
                 parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
             if (parms.Filter.BitTarih.HasValue)
-                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddHours(3);
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var cx = GetBussinesContext();
             var service = new JobDataService(cx);
             return HttpMessageService.Ok(service.GetJobList(parms));

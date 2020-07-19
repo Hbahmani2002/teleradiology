@@ -36,7 +36,7 @@ namespace GT.UI.WebApi.Controllers
             if (parms.Filter.BasTarih.HasValue)
                 parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
             if (parms.Filter.BitTarih.HasValue)
-                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddHours(3);
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.CreateKos(parms);
             return HttpMessageService.Ok(job);
@@ -50,7 +50,7 @@ namespace GT.UI.WebApi.Controllers
             if (parms.Filter.BasTarih.HasValue)
                 parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
             if (parms.Filter.BitTarih.HasValue)
-                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddHours(3);
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.SendKos(parms);
             return HttpMessageService.Ok(job);
@@ -72,7 +72,7 @@ namespace GT.UI.WebApi.Controllers
             if (parms.BasTarih.HasValue)
                 parms.BasTarih = parms.BasTarih.Value.AddHours(3);
             if (parms.BitTarih.HasValue)
-                parms.BitTarih = parms.BitTarih.Value.AddHours(3);
+                parms.BitTarih = parms.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.CreateKosBackground(parms);
             return HttpMessageService.Ok(job.JobID);
@@ -87,7 +87,7 @@ namespace GT.UI.WebApi.Controllers
             if (parms.BasTarih.HasValue)
                 parms.BasTarih = parms.BasTarih.Value.AddHours(3);
             if (parms.BitTarih.HasValue)
-                parms.BitTarih = parms.BitTarih.Value.AddHours(3);
+                parms.BitTarih = parms.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.SendKosBackground(parms);
             return HttpMessageService.Ok(job.JobID);
@@ -109,7 +109,7 @@ namespace GT.UI.WebApi.Controllers
             if (parms.Filter.BasTarih.HasValue)
                 parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
             if (parms.Filter.BitTarih.HasValue)
-                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddHours(3);
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.DeleteKos(parms);
             return HttpMessageService.Ok(job);
@@ -124,7 +124,7 @@ namespace GT.UI.WebApi.Controllers
             if (parms.BasTarih.HasValue)
                 parms.BasTarih = parms.BasTarih.Value.AddHours(3);
             if (parms.BitTarih.HasValue)
-                parms.BitTarih = parms.BitTarih.Value.AddHours(3);
+                parms.BitTarih = parms.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.DeleteKosBackground(parms);
             return HttpMessageService.Ok(job.JobID);
@@ -139,7 +139,7 @@ namespace GT.UI.WebApi.Controllers
             if (parms.BasTarih.HasValue)
                 parms.BasTarih = parms.BasTarih.Value.AddHours(3);
             if (parms.BitTarih.HasValue)
-                parms.BitTarih = parms.BitTarih.Value.AddHours(3);
+                parms.BitTarih = parms.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.StmGetOrderStatusForAccessionNumberlistBackground(parms);
             return HttpMessageService.Ok(job.JobID);
@@ -198,7 +198,7 @@ namespace GT.UI.WebApi.Controllers
             if (parms.Filter.BasTarih.HasValue)
                 parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
             if (parms.Filter.BitTarih.HasValue)
-                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddHours(3);
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var cx = GetBussinesContext();
             var service = new StudyKosService(cx);
             var job = service.ReprocessKosBackground(parms.Filter);
