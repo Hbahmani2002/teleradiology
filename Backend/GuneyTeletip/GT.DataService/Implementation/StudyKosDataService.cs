@@ -219,6 +219,13 @@ namespace GT.DataService.Implementation
             return _InfStudyRepository.Query(s)
                 .GetGridQuery(parms);
         }
+
+        public List<InfStudyViewModel> ExcelExport(Gridable<KosStudyFilter> parms)
+        {
+            var s = ConvertConditionFilter(parms);
+            return _InfStudyRepository.Query(s)
+                .ToList();
+        }
         public IEnumerable<MakeKosViewModel> GetMakeKosList(Gridable<KosStudyFilter> parms)
         {
 

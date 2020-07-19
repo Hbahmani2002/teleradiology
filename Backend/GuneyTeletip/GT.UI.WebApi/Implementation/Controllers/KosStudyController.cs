@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Util.Excel;
 
 namespace GT.UI.WebApi.Controllers
 {
@@ -150,7 +151,16 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Kos/ExportExcel")]
         public ServiceResult<string> ExportExcel(Gridable<KosStudyFilter> parms)
         {
-            return HttpMessageService.Ok("Export_GEN_2020.xlsx");
+            if (parms.Filter.BasTarih.HasValue)
+                parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
+            if (parms.Filter.BitTarih.HasValue)
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
+            var cx = GetBussinesContext();
+            var service = new StudyKosDataService(cx);
+            var list= service.ExcelExport(parms);
+            var fileName = "KosStudyLisy"+DateTime.Now.ToString("yyyyMMddhhmmss")+ ".xlsx";
+            ExcelFile.Write(list, fileName);
+            return HttpMessageService.Ok(fileName);
         }
 
         [HttpPost]
@@ -160,7 +170,7 @@ namespace GT.UI.WebApi.Controllers
             if (parms.Filter.BasTarih.HasValue)
                 parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
             if (parms.Filter.BitTarih.HasValue)
-                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddHours(3);
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var cx = GetBussinesContext();
             var service = new StudyKosDataService(cx);
             return HttpMessageService.Ok(service.GetInfStudyList(parms));
