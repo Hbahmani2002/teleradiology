@@ -53,13 +53,13 @@ namespace GT.DataService.infinity.Implementation
 
             var gelenInf = _InfOracleCompositeRepository.Query(f);
                 
+            //var list = gelenInf.ToList();
 
-
-        var gelenList= gelenInf
+          var gelenList= gelenInf
                 .Where(o=>( o.StudyDttm >= filter.Infcreationstartdate ) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no)) && (o.StudyKey > filter.Infstudypklast)) 
                 .OrderBy(o => o.StudyKey )
                 .Skip(0)
-                .Take(500)
+                .Take(100000)
                 .ToList(); 
 
 
@@ -71,6 +71,47 @@ namespace GT.DataService.infinity.Implementation
 
 
         }
+
+
+
+
+        public List<InfOracleViewModel> ManuelGetInfOracleList(InfOracleFilter filter)
+        {
+            var f = new InfStudyConditionFilter
+            {
+                AccessionNo = filter.Accession_no,
+                InfStudyPkLast = filter.Infstudypklast,
+                CreationStartDate = filter.Infcreationstartdate,
+                CreationEndDate = filter.Infcreationenddate
+
+            };
+
+
+            int TakeTop = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.InfinityOracleTakeTop;
+
+
+            var gelenInf = _InfOracleCompositeRepository.Query(f);
+
+
+
+            var gelenList = gelenInf
+                  .Where(o =>  (o.AccessNo == filter.Accession_no))
+                  .OrderBy(o => o.StudyKey)
+                  .Skip(0)
+                  .Take(500)
+                  .ToList();
+
+
+
+
+            return gelenList;
+
+
+
+
+        }
+
+
 
     }
 }

@@ -162,7 +162,7 @@ namespace GT.BAL.Infinity.DataSynronizer
 
 
                 }
-                _InfStudyDataService.Save(list);
+                _InfStudyDataService.Save(list,1);
             
         
         }

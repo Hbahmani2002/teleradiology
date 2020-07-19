@@ -18,6 +18,10 @@
     <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dmc4chee\" />
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

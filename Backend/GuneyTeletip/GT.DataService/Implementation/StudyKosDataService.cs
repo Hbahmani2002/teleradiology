@@ -15,6 +15,9 @@ using System.Text;
 using System.Threading;
 using static GT.Repository.Conditions.InfStudyConditionFilter;
 using static GT.Repository.Conditions.StudyOperationCountCondition;
+using GT.Core.Settings;
+using GT.DataService.Implementation;
+using GT.DataService.infinity.Implementation;
 
 namespace GT.DataService.Implementation
 {
@@ -22,6 +25,10 @@ namespace GT.DataService.Implementation
 
     public class StudyKosDataService : BaseService
     {
+
+
+  
+
 
         InfStudyRepository _InfStudyRepository;
         TenantCompositeRepository tenatCompositeRepository;
@@ -37,10 +44,20 @@ namespace GT.DataService.Implementation
         StudyOperationCountRepository studyOperationCount;
         GetorderStatusRepository getorderStatusRepository;
         KosDurumOrderCompositeRepository KosDurumOrderCompositeRepository;
+
+        InfOracleDataService _InfOracleDataService;
+        StudyKosDataService _InfStudyDataService;
+        KosPahtDataService KosPahtDataService;
+
+
         public StudyKosDataService() : this(null, false)
         {
 
         }
+
+
+ 
+
         public StudyKosDataService(IBussinessContext context, bool sqlLogging = false) : this(context, GTWorkspaceFactory.Create(sqlLogging))
         {
 
@@ -61,9 +78,12 @@ namespace GT.DataService.Implementation
             studyOperationCount = new StudyOperationCountRepository(_Workspace);
             getorderStatusRepository = new GetorderStatusRepository(_Workspace);
             KosDurumOrderCompositeRepository = new KosDurumOrderCompositeRepository(_Workspace);
+
+
+     
         }
 
-        public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items)
+        public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items,int otomatik)
         {
 
 
@@ -135,20 +155,22 @@ namespace GT.DataService.Implementation
                          _Workspace.CommitChanges();
 
 
-                    var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(tenatID);
-
-                    if (ParamterTimertenatID == null)
+                    if (otomatik == 1)
                     {
-                        throw new Exception("User bulunamadı. tenatID:" + tenatID);
+                        var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(tenatID);
 
-                    }
-                    else
-                    {
-                        ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(Last_OracleStudyKey);
-                        _InfStudyParameterRepository.Update(ParamterTimertenatID);
-                    }
-                    _Workspace.CommitChanges();
+                        if (ParamterTimertenatID == null)
+                        {
+                            throw new Exception("User bulunamadı. tenatID:" + tenatID);
 
+                        }
+                        else
+                        {
+                            ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(Last_OracleStudyKey);
+                            _InfStudyParameterRepository.Update(ParamterTimertenatID);
+                        }
+                        _Workspace.CommitChanges();
+                    }
 
 
                 }
@@ -213,12 +235,201 @@ namespace GT.DataService.Implementation
                 .Query(filter)
                 .ToArray();
         }
+
+
+
         public PagingResult<InfStudyViewModel> GetInfStudyList(Gridable<KosStudyFilter> parms)
         {
+
+
+
+
+
+
+
+
+
             var s = ConvertConditionFilter(parms);
-            return _InfStudyRepository.Query(s)
-                .GetGridQuery(parms);
+
+            var list  = _InfStudyRepository.Query(s)
+               .GetGridQuery(parms);
+
+
+            if (list !=null && list.List.Count > 0)
+            {
+                return list;
+
+            }
+            else
+            {
+
+
+
+                if (parms.Filter.AccessionNumberList != null)
+                {
+
+
+
+                    foreach (string acceno in parms.Filter.AccessionNumberList)
+                    {
+
+                        //SyncronizeInfinityStudyListSend(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
+                        SyncronizeInfinityStudyListSend(acceno);
+                    }
+
+                    var list_Update = _InfStudyRepository.Query(s)
+                   .GetGridQuery(parms);
+
+                    return list_Update;
+                }
+                else
+                {
+                    return list;
+                }
+
+
+
+            }
+
+
+            //return _InfStudyRepository.Query(s)
+            //    .GetGridQuery(parms);
         }
+
+
+
+
+
+
+
+
+
+
+
+        //public void SyncronizeInfinityStudyListSend(long tenantID, long lastID, System.DateTime? startTime, System.DateTime? endTime)
+        public void SyncronizeInfinityStudyListSend(string AccessionNo)
+        {
+            _InfOracleDataService = new InfOracleDataService(null);
+            _InfStudyDataService = new StudyKosDataService(null);
+            KosPahtDataService = new KosPahtDataService(null);
+
+            var filter = new DataService.infinity.Model.InfOracleFilter();
+            //filter.Infcreationstartdate = startTime;
+            //filter.Infcreationenddate = endTime;
+
+            //filter.Infcreationstartdate = new DateTime(startTime.Value.Year, startTime.Value.Month, startTime.Value.Day);
+            string AC = AccessionNo.Substring(0, 1 ).ToString();
+            long qtenantID = _InfStudyDataService.GetTenatIDOnekNoByAccession(AC);
+
+            //filter.Infstudypklast = lastID;
+
+            filter.Accession_no = AccessionNo;
+            var items =  _InfOracleDataService.ManuelGetInfOracleList(filter);
+            var list = new List<InfOraclePostgreStudyViewModel>();
+
+            var volumMap = "";
+
+            foreach (var item in items)
+            {
+
+                if (item.VolumePathname != null)
+                {
+
+                    var model = new InfOraclePostgreStudyViewModel();
+                    model.AccessionNo = item.AccessNo;
+                    model.TimeCreated = item.CreationDttm;
+                    model.FkTenant = qtenantID;
+                    model.FkUserCreated = 2; //Context.UserInfo.UserIDCurrent;
+                    model.PatientId = item.PatientId;
+                    model.Gender = item.PatientSex;
+                    model.StudyDescription = item.StudyDesc;
+                    model.InstitutionName = item.Institution;
+                    model.Modality = item.Modalities;
+                    model.AccessionNo = item.AccessNo;
+                    model.StudyInstanceuid = item.StudyInstanceUid;
+                    model.InstanceCount = 0;
+                    model.DateBirth = item.PatientBirthDttm.HasValue ? item.PatientBirthDttm.Value : DateTime.Now;
+                    model.StudyDate = item.StudyDttm.HasValue ? item.StudyDttm.Value : DateTime.Now;
+                    model.StoragePath = item.Pathname;
+                    model.PatinetNameSurname = item.PatientName;
+                    model.CihazDeviceSerialNumber = null;
+                    model.Desc1 = null;
+                    model.Desc2 = null;
+                    model.Desc3 = null;
+                    model.TimeCreated = DateTime.Now;
+                    model.TimeModified = null;
+                    model.Institution = item.Institution;
+                    model.SeriesCount = 0;
+                    model.SeriesKey = 0;
+                    model.InstanceKey = "";
+                    model.FileName = item.Filename;
+                    model.ValumeCode = item.VolumeCode;
+                    model.ValumeType = item.VolumeType;
+                    model.ValumeStat = item.VolumeStat;
+                    model.ValumePathname = item.VolumePathname;
+                    model.CreationDttm = item.CreationDttm.HasValue ? item.CreationDttm : DateTime.Now;
+                    model.OracleStudyKey = item.StudyKey;
+                    //model.FkKosEnumType = 2;
+                    model.InfMergeKey = item.InfMergeKey;
+                    model.SeriesInfo = item.SeriesInfo;
+
+                    if (item.VolumePathname != null)
+                    {
+
+                        if (item.VolumeCode != null)
+                        {
+                            try
+                            {
+                                volumMap = KosPahtDataService.GetTenantKosPaht(item.VolumeCode);
+                                model.DicomPhat = item.VolumePathname.Replace(item.VolumePathname, volumMap) + "/" + item.Pathname;
+                            }
+                            catch (Exception ex)
+                            {
+                                volumMap = KosPahtDataService.GetTenantKosPaht(item.VolumeCode);
+
+                                throw new NotImplementedException();
+                            }
+                        }
+                        else
+                        {
+                            model.DicomPhat = item.VolumePathname + "\\" + item.Pathname.Replace("/", "\\");
+
+                        }
+
+                    }
+                    else
+                    {
+                        model.DicomPhat = "";
+
+                    }
+
+                    string OrcleZeroImages = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.ZeroImageGeneratorName.ToString();
+
+                    if (item.SeriesInfo.Contains(OrcleZeroImages))
+                    {
+                        model.ZeroImg = 1;
+                        model.FkKosEnumType = 999;
+                    }
+                    else
+                    {
+                        model.ZeroImg = 0;
+                        model.FkKosEnumType = 10;
+                    }
+                    list.Add(model);
+                }
+
+
+            }
+           Save(list,0);
+
+
+        }
+
+
+
+
+
+
         public IEnumerable<MakeKosViewModel> GetMakeKosList(Gridable<KosStudyFilter> parms)
         {
 
@@ -234,7 +445,7 @@ namespace GT.DataService.Implementation
                
                         if (ParamterKosStudy == null)
                         {
-                            throw new Exception("User bulunamadı. tenatID:" + "");
+                            throw new Exception("Study Key  Bulunamadı : "  + StudyPk );
                         }
                         else
                         {
@@ -396,6 +607,13 @@ namespace GT.DataService.Implementation
         {
             var item = tenatCompositeRepository.Single(tenantID);
             return item.AccessionNoOnek;
+        }
+
+
+        public long GetTenatIDOnekNoByAccession(string acc)
+        {
+            var item = tenatCompositeRepository.SingleDb(acc);
+            return item.ID;
         }
 
         public InfStudyViewModel GetByID(int id)
