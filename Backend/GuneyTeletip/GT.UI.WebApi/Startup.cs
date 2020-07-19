@@ -23,6 +23,7 @@ using GT.Job.Implementation;
 using GT.Core.Settings;
 using System.IO;
 using Util.Logger;
+using Newtonsoft.Json.Converters;
 
 namespace GT.UI.WebApi
 {
@@ -64,6 +65,7 @@ namespace GT.UI.WebApi
                     ValidateAudience = false
                 };
             });
+            
             services.AddAuthorization();
         }
 
