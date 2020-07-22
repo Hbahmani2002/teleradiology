@@ -39,5 +39,13 @@ namespace GT.Repository.Implementation.Composite
             return Query()
                 .SingleOrDefault(o => o.ID == tenantID);
         }
+
+        public TenantSkrsCompositeViewModel SingleDb(string Acc)
+        {
+            return Query()
+                .SingleOrDefault(o => o.AccessionNoOnek == Acc);
+        }
+
+
     }
 }

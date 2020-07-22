@@ -28,7 +28,7 @@ namespace GT.Repository.Implementation
 
         public KosStudy GetByPkID(long StudyID)
         {
-            return Single(o => (o.Pk == StudyID) && (o.FkKosEnumType==40) );
+            return Single(o => (o.Pk == StudyID) );
         }
 
 

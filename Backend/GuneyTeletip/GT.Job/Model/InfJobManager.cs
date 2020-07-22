@@ -75,7 +75,7 @@ namespace GT.Job.Implementation
 
 
         }
-            private void RegisterJobs(KosStudyParameter item)
+        private void RegisterJobs(KosStudyParameter item)
         {
             Register(item.Name, item.IntervalMinute.Value * 60 * 1000, () =>
                 {

@@ -37,12 +37,12 @@ namespace GT.DataService.infinity.Conditions
             }
             if (filter.CreationStartDate.HasValue)
             {
-                exp = exp.And(o => o.CreationDttm >= filter.CreationStartDate.Value);
+                exp = exp.And(o => o.StudyDttm >= filter.CreationStartDate.Value);
             }
 
             if (filter.CreationEndDate.HasValue)
             {
-                exp = exp.And(o => o.CreationDttm <= filter.CreationEndDate.Value);
+                exp = exp.And(o => o.StudyDttm <= filter.CreationEndDate.Value);
 
 
             }

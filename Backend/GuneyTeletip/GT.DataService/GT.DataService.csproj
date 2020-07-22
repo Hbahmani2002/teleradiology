@@ -8,6 +8,7 @@
     <ProjectReference Include="..\Core.Persistance\Core.Persistance.csproj" />
     <ProjectReference Include="..\GT.Data.Controller\GT.Data.Controller.csproj" />
     <ProjectReference Include="..\GT.Data.Models\GT.Data.Models.csproj" />
+    <ProjectReference Include="..\GT.DataService.infinity\GT.DataService.infinity.csproj" />
     <ProjectReference Include="..\GT.Persistance\GT.Persistance.csproj" />
     <ProjectReference Include="..\GT.Repository\GT.Repository.csproj" />
   </ItemGroup>
