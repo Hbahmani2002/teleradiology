@@ -25,4 +25,7 @@ export class authenticationDataService {
   public getPermission(): Observable<boolean> {
     return this.apiDataService.callDataService('Authentication/GetPermission', undefined)
   }
+  public GetUser(): Observable<object> {
+    return this.apiDataService.callDataService('Authentication/GetUser', undefined)
+  }
 }

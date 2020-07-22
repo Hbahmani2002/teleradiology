@@ -19,19 +19,14 @@ namespace GT.UI.WebApi.Implementation.Controllers
     {
         [HttpGet]
         [Route("/FileOperation/Download")]
-        public IActionResult Download(Model model)
+        public IActionResult Download(long fileID)
         {
             var cx = GetBussinesContext();
             var service = new StudyKosDataService(cx);
-             var fileName = service.GetFileNameByID(model.fileID);
-            var filePath = FilePathSettings.GetFilePathFromFileName(model.fileID.ToString()+".xlsx");
+             var fileName = service.GetFileNameByID(fileID);
+            var filePath = FilePathSettings.GetFilePathFromFileName(fileID.ToString()+".xlsx");
             var contentType = "APPLICATION/octet-stream";
             return PhysicalFile(filePath, contentType, fileName);
         }
-    }
-
-    public class Model
-    {
-        public long fileID { get; set; }
     }
 }
