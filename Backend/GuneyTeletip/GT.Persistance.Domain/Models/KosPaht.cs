@@ -11,7 +11,6 @@ namespace GT.Persistance.Domain.Models
         public char PahtStat { get; set; }
         public string Pathname { get; set; }
         public string Hostname { get; set; }
-        public string ReplacePath { get; set; }
         public string Sharename { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
@@ -23,5 +22,6 @@ namespace GT.Persistance.Domain.Models
         public DateTime? TimeModified { get; set; }
         public long FkUserCreated { get; set; }
         public long FkUserModified { get; set; }
+        public string ReplacePath { get; set; }
     }
 }

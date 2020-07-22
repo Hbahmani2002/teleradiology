@@ -32,6 +32,8 @@ namespace GT.BAL.TeletipKos
 
             var studyDataService = new StudyKosDataService();
             var list = studyDataService.GetMakeKosList(filter);
+
+
             var resList = op.DoSingleBatch(list)
                 .Select(o => new OperationResultModel()
                 {

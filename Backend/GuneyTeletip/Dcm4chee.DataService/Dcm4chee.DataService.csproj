@@ -8,6 +8,7 @@
     <ProjectReference Include="..\Dcm4chee.Persistance\Dcm4chee.Persistance.csproj" />
     <ProjectReference Include="..\Dcm4chee.Repository\Dcm4chee.Repository.csproj" />
     <ProjectReference Include="..\GT.Data.Models\GT.Data.Models.csproj" />
+    <ProjectReference Include="..\Util.Grid\Util.Grid.csproj" />
   </ItemGroup>
 
 </Project>

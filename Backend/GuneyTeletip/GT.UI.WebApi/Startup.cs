@@ -23,6 +23,7 @@ using GT.Job.Implementation;
 using GT.Core.Settings;
 using System.IO;
 using Util.Logger;
+using Newtonsoft.Json.Converters;
 
 namespace GT.UI.WebApi
 {
@@ -38,11 +39,7 @@ namespace GT.UI.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-                options.JsonSerializerOptions.PropertyNamingPolicy = null;
-            });
+            services.AddControllers();
             TokenAuthentication(services);
 
         }
@@ -68,6 +65,7 @@ namespace GT.UI.WebApi
                     ValidateAudience = false
                 };
             });
+            
             services.AddAuthorization();
         }
 
@@ -101,31 +99,26 @@ namespace GT.UI.WebApi
             });
 
 
-            //try
-            //{
-
-
-            //    var settings = AppSettings.GetCurrent();
-            //    var ks = settings.DataServiceSettings;
-            //    var filePath = AppSettings.GetCurrent().Log.PATH_JobInfinity;
-            //    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-            //    var logger = new TextFileLogger(filePath);
-
-            //    var jobManager = InfJobManager.Create(logger);
-            //    jobManager.Start();
-            //}
-            //catch
-            //{ }
-
-
-            //BussinessJobs.StartAutomaticJobs();
+            try
+            {
+                var settings = AppSettings.GetCurrent();
+                var ks = settings.DataServiceSettings;
+                var filePath = AppSettings.GetCurrent().Log.PATH_JobInfinity;
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                var logger = new TextFileLogger(filePath);
+                var jobManager = InfJobManager.Create(logger);
+                jobManager.Start();
+            }
+            catch
+            { }
+            BussinessJobs.StartAutomaticJobs();
 
             //BussinessJobs.MakeKosJob.Start();
             //BussinessJobs.SendKosJob.Start();
 
         }
 
-   
+
 
         private void Exception(IApplicationBuilder app)
         {
