@@ -23,7 +23,8 @@ namespace GT.UI.WebApi.Implementation.Controllers
         {
             var cx = GetBussinesContext();
             var service = new StudyKosDataService(cx);
-            var fileName = service.GetFileNameByID(model.fileID);
+            // var fileName = service.GetFileNameByID(model.fileID);
+            var fileName ="";
             var filePath = FilePathSettings.GetFilePathFromFileName(fileName);
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             //response.Content = new StringContent(ftpPath + "-" + outputPath+"-");

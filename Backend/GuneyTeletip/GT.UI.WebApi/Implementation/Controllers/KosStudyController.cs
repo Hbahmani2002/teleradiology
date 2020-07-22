@@ -158,13 +158,14 @@ namespace GT.UI.WebApi.Controllers
                 parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var cx = GetBussinesContext();
             var service = new StudyKosDataService(cx);
-            var list= service.ExcelExport(parms);
-            var fileName = "ExcelExport.xlsx";
-            var fileIDName = FilePathSettings.GetFileIDName(fileName);
-            var fileNameID = service.GetFilePathID(fileIDName);
-            var fileNamePath = FilePathSettings.GetFilePathFromFileName(fileIDName);
-            ExcelFile.Write(list, fileNamePath);
-            return HttpMessageService.Ok(fileNameID);
+            //var list= service.ExcelExport(parms);
+            //var fileName = "ExcelExport.xlsx";
+            //var fileIDName = FilePathSettings.GetFileIDName(fileName);
+            //var fileNameID = service.GetFilePathID(fileIDName);
+            //var fileNamePath = FilePathSettings.GetFilePathFromFileName(fileIDName);
+            // ExcelFile.Write(list, fileNamePath);
+            // return HttpMessageService.Ok(fileNameID);
+            return null;
         }
 
         [HttpPost]
