@@ -19,25 +19,15 @@ namespace GT.UI.WebApi.Implementation.Controllers
     {
         [HttpGet]
         [Route("/FileOperation/Download")]
-        public HttpResponseMessage Download(Model model)
+        public IActionResult Download(Model model)
         {
             var cx = GetBussinesContext();
             var service = new StudyKosDataService(cx);
-            // var fileName = service.GetFileNameByID(model.fileID);
-            var fileName ="";
+             var fileName = service.GetFileNameByID(model.fileID);
             var filePath = FilePathSettings.GetFilePathFromFileName(fileName);
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-            //response.Content = new StringContent(ftpPath + "-" + outputPath+"-");
-            //return response;
-           // string mimeType = MimeMapping.GetMimeMapping(fileName);
-            response.Content = new StreamContent(new FileStream(filePath, FileMode.Open, FileAccess.Read));
-            //Attachment
-            //response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-            //NewTab
-            response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue(System.Net.Mime.DispositionTypeNames.Inline);
-            response.Content.Headers.ContentDisposition.FileName = fileName;
-            //response.Content.Headers.ContentType = new MediaTypeHeaderValue(mimeType);
-            return response;
+            var contentType = "APPLICATION/octet-stream";
+           // var fileName = "something.bin";
+            return PhysicalFile(filePath, contentType, model.fileID+".xlsx");
         }
     }
 

@@ -44,7 +44,7 @@ namespace GT.DataService.Implementation
         StudyOperationCountRepository studyOperationCount;
         GetorderStatusRepository getorderStatusRepository;
         KosDurumOrderCompositeRepository KosDurumOrderCompositeRepository;
-
+        AppFilePathRepository appFilePathRepository;
         InfOracleDataService _InfOracleDataService;
         StudyKosDataService _InfStudyDataService;
         KosPahtDataService KosPahtDataService;
@@ -78,9 +78,10 @@ namespace GT.DataService.Implementation
             studyOperationCount = new StudyOperationCountRepository(_Workspace);
             getorderStatusRepository = new GetorderStatusRepository(_Workspace);
             KosDurumOrderCompositeRepository = new KosDurumOrderCompositeRepository(_Workspace);
+            appFilePathRepository = new AppFilePathRepository(_Workspace);
 
 
-     
+
         }
 
         public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items,int otomatik)
@@ -240,20 +241,9 @@ namespace GT.DataService.Implementation
 
         public PagingResult<InfStudyViewModel> GetInfStudyList(Gridable<KosStudyFilter> parms)
         {
-
-
-
-
-
-
-
-
-
             var s = ConvertConditionFilter(parms);
-
             var list  = _InfStudyRepository.Query(s)
                .GetGridQuery(parms);
-
 
             if (list !=null && list.List.Count > 0)
             {
@@ -262,21 +252,13 @@ namespace GT.DataService.Implementation
             }
             else
             {
-
-
-
                 if (parms.Filter.AccessionNumberList != null)
                 {
-
-
-
                     foreach (string acceno in parms.Filter.AccessionNumberList)
                     {
-
                         //SyncronizeInfinityStudyListSend(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
                         SyncronizeInfinityStudyListSend(acceno);
                     }
-
                     var list_Update = _InfStudyRepository.Query(s)
                    .GetGridQuery(parms);
 
@@ -296,16 +278,26 @@ namespace GT.DataService.Implementation
             //    .GetGridQuery(parms);
         }
 
-
-
-
-
-
-
-
-
-
-
+        public List<InfStudyViewModel> ExcelExport(Gridable<KosStudyFilter> parms)
+        {
+            var s = ConvertConditionFilter(parms);
+            return _InfStudyRepository.Query(s).ToList();
+        }
+        public long GetFilePathID(string fileName)
+        {
+            var filePath = new AppFilePath();
+            filePath.Filename = fileName;
+            filePath.TimeCreated = DateTime.Now;
+            filePath.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
+            appFilePathRepository.Add(filePath);
+            _Workspace.CommitChanges();
+            return filePath.Pk;
+        }
+        public string GetFileNameByID(long fileID)
+        {
+            var filePath = appFilePathRepository.GetByID(fileID);
+            return filePath.Filename;
+        }
         //public void SyncronizeInfinityStudyListSend(long tenantID, long lastID, System.DateTime? startTime, System.DateTime? endTime)
         public void SyncronizeInfinityStudyListSend(string AccessionNo)
         {
