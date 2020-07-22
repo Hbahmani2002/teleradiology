@@ -162,7 +162,7 @@ namespace GT.UI.WebApi.Controllers
             var fileName = "ExcelExport.xlsx";
             var fileIDName = FilePathSettings.GetFileIDName(fileName);
             var fileNameID = service.GetFilePathID(fileIDName);
-            var fileNamePath = FilePathSettings.GetFilePathFromFileName(fileIDName);
+            var fileNamePath = FilePathSettings.GetFilePathFromFileName(fileNameID.ToString() + ".xlsx");
             ExcelFile.Write(list, fileNamePath);
             return HttpMessageService.Ok(fileNameID);
         }

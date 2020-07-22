@@ -24,10 +24,9 @@ namespace GT.UI.WebApi.Implementation.Controllers
             var cx = GetBussinesContext();
             var service = new StudyKosDataService(cx);
              var fileName = service.GetFileNameByID(model.fileID);
-            var filePath = FilePathSettings.GetFilePathFromFileName(fileName);
+            var filePath = FilePathSettings.GetFilePathFromFileName(model.fileID.ToString()+".xlsx");
             var contentType = "APPLICATION/octet-stream";
-           // var fileName = "something.bin";
-            return PhysicalFile(filePath, contentType, model.fileID+".xlsx");
+            return PhysicalFile(filePath, contentType, fileName);
         }
     }
 
