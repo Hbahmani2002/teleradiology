@@ -6,7 +6,7 @@
         {
             public class OracleSetting
             {
-                public int InfinityOracleTakeTop => 200;
+                public int InfinityOracleTakeTop => 500;
                 public string ZeroImageGeneratorName => "INFINITT::DCMCREATOR::::::";
             }
 
@@ -17,11 +17,11 @@
             }
 
 
-            public int MakeKosServiceItemPerBatch => 50;
+            public int MakeKosServiceItemPerBatch => 100;
 
             public int SendKosServiceItemPerBatch => 500;
 
-            public int OrderServiceItemPerBatch => 50;
+            public int OrderServiceItemPerBatch => 100;
 
             public int OrderStatusForAccessionNumberPerBatch => 10;
 

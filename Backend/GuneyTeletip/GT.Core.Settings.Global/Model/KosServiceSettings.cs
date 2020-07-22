@@ -22,7 +22,9 @@
                 public string Title => "DCM-113030";
                 public string TempDirectoryPath => "/gt/dicom/temp_kos";
                 public string DCM4CheeDirectoryPath => "/gt/app/teletip_kos/dcm4che-5.22.2/bin";
-                public string InstitutionFirmaKodu => "FKad6e6d67-7607-473f-83eb-6dbe516f91b3";
+                //public string InstitutionFirmaKodu => "FKad6e6d67-7607-473f-83eb-6dbe516f91b3";
+
+                public string InstitutionFirmaKodu => "FK6527c5ff-b301-45ec-b4df-2d09700dd61c";
             }
             public class SendKos
             {

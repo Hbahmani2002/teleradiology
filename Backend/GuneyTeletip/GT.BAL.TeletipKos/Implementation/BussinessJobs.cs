@@ -58,7 +58,7 @@ namespace GT.Job.Model.AutoJobs
                     {
 
                         try
-                        { 
+                        {
                             var fileName = $"{DateTime.Now.ToString("yyyyMMddhhmmss_ffff")}.log";
                             var filePath = Path.Combine(AppSettings.GetCurrent().Log.DIR_JobsLogMakeKos, fileName);
                             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
@@ -67,9 +67,9 @@ namespace GT.Job.Model.AutoJobs
                             Thread.Sleep(500);
                         }
 
-                        catch(Exception exm)
+                        catch (Exception exm)
                         {
-                            log.Save(AppLogDataService.LogType.OtomatikMakeKos, "Log File Path:" + exm.Message.ToString().Substring(0, 1000) );
+                            log.Save(AppLogDataService.LogType.OtomatikMakeKos, "Log File Path:" + exm.Message.ToString().Substring(0, 1000));
 
                         }
 

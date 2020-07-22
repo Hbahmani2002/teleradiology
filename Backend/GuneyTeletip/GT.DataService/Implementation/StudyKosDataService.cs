@@ -18,6 +18,7 @@ using static GT.Repository.Conditions.StudyOperationCountCondition;
 using GT.Core.Settings;
 using GT.DataService.Implementation;
 using GT.DataService.infinity.Implementation;
+using System.Collections;
 
 namespace GT.DataService.Implementation
 {
@@ -27,7 +28,7 @@ namespace GT.DataService.Implementation
     {
 
 
-  
+
 
 
         InfStudyRepository _InfStudyRepository;
@@ -56,7 +57,7 @@ namespace GT.DataService.Implementation
         }
 
 
- 
+
 
         public StudyKosDataService(IBussinessContext context, bool sqlLogging = false) : this(context, GTWorkspaceFactory.Create(sqlLogging))
         {
@@ -80,10 +81,21 @@ namespace GT.DataService.Implementation
             KosDurumOrderCompositeRepository = new KosDurumOrderCompositeRepository(_Workspace);
 
 
-     
+
         }
 
-        public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items,int otomatik)
+
+
+        public List<InfStudyViewModel> ExcelExport(Gridable<KosStudyFilter> parms)
+        {
+            var s = ConvertConditionFilter(parms);
+            return _InfStudyRepository.Query(s)
+                .ToList();
+        }
+
+
+
+        public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items, int otomatik)
         {
 
 
@@ -108,51 +120,51 @@ namespace GT.DataService.Implementation
                 var gelenKey = _InfStudyRepository.QueryOracleStudyKey(item.OracleStudyKey.Value);
                 var KosStudy = new KosStudy();
 
-                if (gelenKey==null)
+                if (gelenKey == null)
                 {
 
 
 
-                            tenatID = item.FkTenant.Value;
-                            KosStudy.FkTenant = item.FkTenant.Value;
-                            KosStudy.FkInfBatch = KosBatch.Pk;
-                            KosStudy.FkUserCreated = null;
-                            KosStudy.FkUserModified = null;
-                            KosStudy.PatientId = item.PatientId;
-                            KosStudy.Gender = item.Gender;
-                            KosStudy.StudyDescription = item.StudyDescription;
-                            KosStudy.InstitutionName = item.InstitutionName;
-                            KosStudy.Modality = item.Modality;
-                            KosStudy.AccessionNo = item.AccessionNo;
-                            KosStudy.StudyInstanceuid = item.StudyInstanceuid;
-                            KosStudy.InstanceCount = 0;
-                            KosStudy.DateBirth = item.DateBirth;
-                            KosStudy.StudyDate = item.StudyDate;
-                            KosStudy.StoragePath = item.StoragePath;
-                            KosStudy.ZeroImg = item.ZeroImg;
-                            KosStudy.PatinetNameSurname = item.PatinetNameSurname;
-                            KosStudy.CihazDeviceSerialNumber = "0";
-                            KosStudy.Desc1 = "";
-                            KosStudy.Desc2 = "";
-                            KosStudy.Desc3 = "";
-                            KosStudy.TimeCreated = DateTime.Now;
-                            KosStudy.TimeModified = DateTime.Now;
-                            KosStudy.Institution = "";
-                            KosStudy.SeriesCount = 0;
-                            KosStudy.SeriesKey = 0;
-                            KosStudy.InstanceKey = 0;
-                            KosStudy.FileName = item.FileName;
-                            KosStudy.VolumeCode = item.ValumeCode;
-                            KosStudy.VolumeType = item.ValumeType;
-                            KosStudy.VolumeStat = item.ValumeStat;
-                            KosStudy.VolumePathname = item.ValumePathname;
-                            KosStudy.CreationDttm = item.CreationDttm; ;
-                            KosStudy.OracleStudyKey = item.OracleStudyKey.Value;
-                            KosStudy.FkKosEnumType = item.FkKosEnumType;
-                            KosStudy.DicomDirPath = item.DicomPhat;
-                            Last_OracleStudyKey = item.OracleStudyKey.Value;
-                            _InfStudyRepository.Add(KosStudy);
-                         _Workspace.CommitChanges();
+                    tenatID = item.FkTenant.Value;
+                    KosStudy.FkTenant = item.FkTenant.Value;
+                    KosStudy.FkInfBatch = KosBatch.Pk;
+                    KosStudy.FkUserCreated = null;
+                    KosStudy.FkUserModified = null;
+                    KosStudy.PatientId = item.PatientId;
+                    KosStudy.Gender = item.Gender;
+                    KosStudy.StudyDescription = item.StudyDescription;
+                    KosStudy.InstitutionName = item.InstitutionName;
+                    KosStudy.Modality = item.Modality;
+                    KosStudy.AccessionNo = item.AccessionNo;
+                    KosStudy.StudyInstanceuid = item.StudyInstanceuid;
+                    KosStudy.InstanceCount = 0;
+                    KosStudy.DateBirth = item.DateBirth;
+                    KosStudy.StudyDate = item.StudyDate;
+                    KosStudy.StoragePath = item.StoragePath;
+                    KosStudy.ZeroImg = item.ZeroImg;
+                    KosStudy.PatinetNameSurname = item.PatinetNameSurname;
+                    KosStudy.CihazDeviceSerialNumber = "0";
+                    KosStudy.Desc1 = "";
+                    KosStudy.Desc2 = "";
+                    KosStudy.Desc3 = "";
+                    KosStudy.TimeCreated = DateTime.Now;
+                    KosStudy.TimeModified = DateTime.Now;
+                    KosStudy.Institution = "";
+                    KosStudy.SeriesCount = 0;
+                    KosStudy.SeriesKey = 0;
+                    KosStudy.InstanceKey = 0;
+                    KosStudy.FileName = item.FileName;
+                    KosStudy.VolumeCode = item.ValumeCode;
+                    KosStudy.VolumeType = item.ValumeType;
+                    KosStudy.VolumeStat = item.ValumeStat;
+                    KosStudy.VolumePathname = item.ValumePathname;
+                    KosStudy.CreationDttm = item.CreationDttm; ;
+                    KosStudy.OracleStudyKey = item.OracleStudyKey.Value;
+                    KosStudy.FkKosEnumType = item.FkKosEnumType;
+                    KosStudy.DicomDirPath = item.DicomPhat;
+                    Last_OracleStudyKey = item.OracleStudyKey.Value;
+                    _InfStudyRepository.Add(KosStudy);
+                    _Workspace.CommitChanges();
 
 
                     if (otomatik == 1)
@@ -193,7 +205,7 @@ namespace GT.DataService.Implementation
 
                 }
 
-                          
+
 
             }
 
@@ -247,17 +259,53 @@ namespace GT.DataService.Implementation
 
 
 
-
-
+            int[] intKume;
+            int eleman;
             var s = ConvertConditionFilter(parms);
 
-            var list  = _InfStudyRepository.Query(s)
+            var list = _InfStudyRepository.Query(s)
                .GetGridQuery(parms);
+            //var oracleList = list.List;
+            //var accList = parms.Filter.AccessionNumberList;
+            //var onlyOracle = accList.Where(o => !oracleList.Select(t=>t.AccessionNumber).Contains(o)).ToList();
+
+            //int adet = 0;
+            //int listadet = 0;
+            ////if (list != null)
+            //{
+
+            //    listadet = list.List.Count;
+            //    ArrayList arlistVar = new ArrayList();
+
+            //    for (int x = 0; x < listadet; x++)
+            //    {
+
+            //        adet = parms.Filter.AccessionNumberList.Length;
+            //        ArrayList arlistYok = new ArrayList();
+            //        for (int i = 0; i < adet; i++)
+            //        {
+
+            //            if (parms.Filter.AccessionNumberList[i].ToString() == list.List[x].AccessionNumber)
+            //            {
 
 
-            if (list !=null && list.List.Count > 0)
+            //                arlistVar.Add(list.List[x].AccessionNumber);
+            //            }
+            //            else
+            //            {
+            //                arlistYok.Add(parms.Filter.AccessionNumberList[i].ToString());
+
+            //            }
+
+            //        }
+
+            //    }
+            //}
+            if (list != null && list.List.Count > 0)
             {
+
                 return list;
+                
 
             }
             else
@@ -266,6 +314,13 @@ namespace GT.DataService.Implementation
 
 
                 if (parms.Filter.AccessionNumberList != null)
+                {
+
+                    return list;
+
+
+                }
+                else
                 {
 
 
@@ -281,10 +336,7 @@ namespace GT.DataService.Implementation
                    .GetGridQuery(parms);
 
                     return list_Update;
-                }
-                else
-                {
-                    return list;
+
                 }
 
 
@@ -318,13 +370,13 @@ namespace GT.DataService.Implementation
             //filter.Infcreationenddate = endTime;
 
             //filter.Infcreationstartdate = new DateTime(startTime.Value.Year, startTime.Value.Month, startTime.Value.Day);
-            string AC = AccessionNo.Substring(0, 1 ).ToString();
+            string AC = AccessionNo.Substring(0, 1).ToString();
             long qtenantID = _InfStudyDataService.GetTenatIDOnekNoByAccession(AC);
 
             //filter.Infstudypklast = lastID;
 
             filter.Accession_no = AccessionNo;
-            var items =  _InfOracleDataService.ManuelGetInfOracleList(filter);
+            var items = _InfOracleDataService.ManuelGetInfOracleList(filter);
             var list = new List<InfOraclePostgreStudyViewModel>();
 
             var volumMap = "";
@@ -420,7 +472,7 @@ namespace GT.DataService.Implementation
 
 
             }
-           Save(list,0);
+            Save(list, 0);
 
 
         }
@@ -436,25 +488,25 @@ namespace GT.DataService.Implementation
 
             if (parms.Filter.StudyIDList != null && parms.Filter.StudyIDList.Length > 0)
             {
- 
+
                 int i = 0;
                 foreach (var StudyPk in parms.Filter.StudyIDList)
                 {
                     var ParamterKosStudy = _InfStudyRepository.GetByPkID(StudyPk);
 
-               
-                        if (ParamterKosStudy == null)
-                        {
-                            throw new Exception("Study Key  Bulunamadı : "  + StudyPk );
-                        }
-                        else
-                        {
-                            ParamterKosStudy.FkKosEnumType = Convert.ToInt64(KosEnumType.KosOlusturulamamisOlanlar);
-                            _InfStudyRepository.Update(ParamterKosStudy);
-                        }
-                 
 
-                      
+                    if (ParamterKosStudy == null)
+                    {
+                        throw new Exception("Study Key  Bulunamadı : " + StudyPk);
+                    }
+                    else
+                    {
+                        ParamterKosStudy.FkKosEnumType = Convert.ToInt64(KosEnumType.KosOlusturulamamisOlanlar);
+                        _InfStudyRepository.Update(ParamterKosStudy);
+                    }
+
+
+
                     _Workspace.CommitChanges();
                     i = +1;
                 }
@@ -754,8 +806,8 @@ namespace GT.DataService.Implementation
             var s = new InfStudyConditionFilter
             {
 
-           
-   
+
+
                 HastaneIDList = filter.HastaneIDList,
                 AccessionNumberList = filter.AccessionNumberList,
                 BasTarih = filter.BasTarih,
@@ -766,15 +818,15 @@ namespace GT.DataService.Implementation
                 StudyInstanceUID = filter.StudyInstanceUID,
                 PatientID = filter.PatientID
             };
-             return KosDurumOrderCompositeRepository.Query(s).ToArray();
+            return KosDurumOrderCompositeRepository.Query(s).ToArray();
 
-      
 
-         
+
+
 
 
         }
-        
+
 
 
         public IEnumerable<KosDeleteViewModel> GetKosDeleteListGrid(Gridable<KosStudyFilter> parms)
@@ -846,7 +898,7 @@ namespace GT.DataService.Implementation
             Fail = 2,
             PartialSuccess
         }
-     
+
         public long Save_UpdateSentKosDurum(long kosStudyID, SentKosResult result, string statusMessage)
         {
             var newKosState = 0;
