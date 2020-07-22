@@ -34,9 +34,7 @@ export class LoginServices {
     return this.httpService.callPostService_Low(url, params, undefined).pipe(
       switchMap(res => {
         var data = apiResponseModel.parse(res);
-
         if (res) {
-        
           let token = data.data;
           this.tokenService.saveToken(token);
         }

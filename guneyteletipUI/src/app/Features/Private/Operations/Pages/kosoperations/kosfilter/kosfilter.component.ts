@@ -69,7 +69,7 @@ export class KosfilterComponent implements OnInit {
     let tcKimlikNoList = [];
     if (this.tcKimlikNo == "" || this.tcKimlikNo == undefined)
       return;
-    this.tcKimlikNo.split(" ").forEach(item => {
+    this.tcKimlikNo.split(/\s/g).forEach(item => {
       if (item.length == 11) {
         tcKimlikNoList.push(item);
       }
@@ -80,7 +80,7 @@ export class KosfilterComponent implements OnInit {
     let accessionNoList = [];
     if (this.accessionNo == "" || this.accessionNo == undefined)
       return;
-    this.accessionNo.split(" ").forEach(item => {
+    this.accessionNo.split(/\s/g).forEach(item => {
       if (item != "") {
        accessionNoList.push(item);
       }
@@ -121,6 +121,7 @@ export class KosfilterComponent implements OnInit {
     if (this.accessionNo != "" || this.accessionNo != undefined) {
       filter.accessionNumberList = [];
       filter.accessionNumberList = this.splitAccession();
+      debugger;
     }
     this.filterChanged.emit(filter);
   }
