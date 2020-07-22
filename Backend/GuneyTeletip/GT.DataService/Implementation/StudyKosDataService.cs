@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Transactions;
 using static GT.Repository.Conditions.InfStudyConditionFilter;
 using static GT.Repository.Conditions.StudyOperationCountCondition;
 
@@ -37,6 +38,7 @@ namespace GT.DataService.Implementation
         StudyOperationCountRepository studyOperationCount;
         GetorderStatusRepository getorderStatusRepository;
         KosDurumOrderCompositeRepository KosDurumOrderCompositeRepository;
+        AppFilePathRepository appFilePathRepository;
         public StudyKosDataService() : this(null, false)
         {
 
@@ -61,6 +63,7 @@ namespace GT.DataService.Implementation
             studyOperationCount = new StudyOperationCountRepository(_Workspace);
             getorderStatusRepository = new GetorderStatusRepository(_Workspace);
             KosDurumOrderCompositeRepository = new KosDurumOrderCompositeRepository(_Workspace);
+            appFilePathRepository = new AppFilePathRepository(_Workspace);
         }
 
         public void Save(IEnumerable<InfOraclePostgreStudyViewModel> items)
@@ -219,7 +222,21 @@ namespace GT.DataService.Implementation
             return _InfStudyRepository.Query(s)
                 .GetGridQuery(parms);
         }
-
+        public long GetFilePathID(string fileName)
+        {
+            var filePath = new AppFilePath();
+            filePath.TimeCreated = DateTime.Now;
+            filePath.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
+            filePath.Filename = fileName;
+            appFilePathRepository.Add(filePath);
+            _Workspace.CommitChanges();
+            return filePath.Pk;
+        }
+        public string GetFileNameByID(long id)
+        {
+            var filePath = appFilePathRepository.GetByID(id);
+            return filePath.Filename;
+        }
         public List<InfStudyViewModel> ExcelExport(Gridable<KosStudyFilter> parms)
         {
             var s = ConvertConditionFilter(parms);

@@ -52,7 +52,7 @@ namespace GT.Repository.Conditions
             if (filter.TeletipStatusIDList != null && filter.TeletipStatusIDList.Count() > 0)
             {
                 var arr = filter.TeletipStatusIDList.ToList();
-                exp = exp.And(o => arr.Contains(o.Teletipstatusid));
+                exp = exp.And(o => arr.Contains(o.Teletipstatusid.Value));
             }
             return exp;
         }

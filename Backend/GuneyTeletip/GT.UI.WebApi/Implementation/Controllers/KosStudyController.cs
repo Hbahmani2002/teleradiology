@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using GT.BAL.TeletipKos;
 using GT.BAL.TeletipKos.Model;
+using GT.Core.Settings.Global.Model;
 using GT.DataService.Implementation;
 using GT.DataService.Model;
 using GT.Repository.Models.Filter;
@@ -149,7 +150,7 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Kos/ExportExcel")]
-        public ServiceResult<string> ExportExcel(Gridable<KosStudyFilter> parms)
+        public ServiceResult<long> ExportExcel(Gridable<KosStudyFilter> parms)
         {
             if (parms.Filter.BasTarih.HasValue)
                 parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
@@ -158,9 +159,12 @@ namespace GT.UI.WebApi.Controllers
             var cx = GetBussinesContext();
             var service = new StudyKosDataService(cx);
             var list= service.ExcelExport(parms);
-            var fileName = "KosStudyLisy"+DateTime.Now.ToString("yyyyMMddhhmmss")+ ".xlsx";
-            ExcelFile.Write(list, fileName);
-            return HttpMessageService.Ok(fileName);
+            var fileName = "ExcelExport.xlsx";
+            var fileIDName = FilePathSettings.GetFileIDName(fileName);
+            var fileNameID = service.GetFilePathID(fileIDName);
+            var fileNamePath = FilePathSettings.GetFilePathFromFileName(fileIDName);
+            ExcelFile.Write(list, fileNamePath);
+            return HttpMessageService.Ok(fileNameID);
         }
 
         [HttpPost]

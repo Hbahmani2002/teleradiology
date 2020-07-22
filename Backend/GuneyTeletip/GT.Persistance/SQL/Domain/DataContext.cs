@@ -37,6 +37,7 @@
             //Configuration.ValidateOnSaveEnabled = validateOnSaveEnabled;
 
         }
+        public virtual DbSet<AppFilePath> AppFilePath { get; set; }
         public virtual DbSet<AppLog> AppLog { get; set; }
         public virtual DbSet<AppParameter> AppParameter { get; set; }
         public virtual DbSet<AppPermissionName> AppPermissionName { get; set; }
@@ -52,6 +53,7 @@
         public virtual DbSet<KosStudyHistory> KosStudyHistory { get; set; }
         public virtual DbSet<KosStudyJob> KosStudyJob { get; set; }
         public virtual DbSet<KosStudyParameter> KosStudyParameter { get; set; }
+        public virtual DbSet<KosStudyYedek> KosStudyYedek { get; set; }
         public virtual DbSet<StmGetorderStatusforAccessionnumberlist> StmGetorderStatusforAccessionnumberlist { get; set; }
         public virtual DbSet<StmTeletipStatus> StmTeletipStatus { get; set; }
         public virtual DbSet<StudyOperationCount> StudyOperationCount { get; set; }
@@ -71,7 +73,6 @@
         public virtual DbSet<XxxDicomData> XxxDicomData { get; set; }
         public virtual DbSet<XxxQueryRetrieveSettings> XxxQueryRetrieveSettings { get; set; }
         public virtual DbSet<XxxSkrsKurumKodlari> XxxSkrsKurumKodlari { get; set; }
-        public virtual DbSet<YyyInfPaht> YyyInfPaht { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -87,6 +88,32 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AppFilePath>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("file_path_pkey");
+
+                entity.ToTable("app_file_path");
+
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Filename)
+                    .HasColumnName("filename")
+                    .HasColumnType("character varying");
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
+
+                entity.Property(e => e.TimeDeleted).HasColumnName("time_deleted");
+
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
+            });
+
             modelBuilder.Entity<AppLog>(entity =>
             {
                 entity.HasKey(e => e.Pk)
@@ -205,7 +232,7 @@
                 entity.ToTable("const_modality");
 
                 entity.HasIndex(e => e.Name)
-                    .HasName("constraint_name_unique")
+                    .HasName("name_uni")
                     .IsUnique();
 
                 entity.Property(e => e.Pk)
@@ -426,6 +453,10 @@
 
                 entity.ToTable("kos_study");
 
+                entity.HasIndex(e => e.OracleStudyKey)
+                    .HasName("ix_kos_study_oracle_study_key")
+                    .IsUnique();
+
                 entity.Property(e => e.Pk).HasColumnName("pk");
 
                 entity.Property(e => e.AccessionNo)
@@ -500,9 +531,7 @@
                     .HasColumnName("modality")
                     .HasMaxLength(6);
 
-                entity.Property(e => e.OracleStudyKey)
-                    .HasColumnName("oracle_study_key")
-                    .HasColumnType("numeric");
+                entity.Property(e => e.OracleStudyKey).HasColumnName("oracle_study_key");
 
                 entity.Property(e => e.PatientId)
                     .HasColumnName("patient_id")
@@ -555,12 +584,6 @@
                     .HasMaxLength(2);
 
                 entity.Property(e => e.ZeroImg).HasColumnName("zero_img");
-
-                entity.HasOne(d => d.FkInfBatchNavigation)
-                    .WithMany(p => p.KosStudy)
-                    .HasForeignKey(d => d.FkInfBatch)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_inf_batch");
 
                 entity.HasOne(d => d.FkTenantNavigation)
                     .WithMany(p => p.KosStudy)
@@ -671,16 +694,149 @@
                 entity.Property(e => e.TimeStop).HasColumnName("time_stop");
             });
 
+            modelBuilder.Entity<KosStudyYedek>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("kos_study_yedek");
+
+                entity.Property(e => e.AccessionNo)
+                    .HasColumnName("accession_no")
+                    .HasMaxLength(32);
+
+                entity.Property(e => e.CihazDeviceSerialNumber)
+                    .HasColumnName("cihaz_device_serial_number")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.CreationDttm).HasColumnName("creation_dttm");
+
+                entity.Property(e => e.DateBirth).HasColumnName("date_birth");
+
+                entity.Property(e => e.Desc1)
+                    .HasColumnName("desc1")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.Desc2)
+                    .HasColumnName("desc2")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.Desc3)
+                    .HasColumnName("desc3")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.DicomDirPath)
+                    .HasColumnName("dicom_dir_path")
+                    .HasMaxLength(2048);
+
+                entity.Property(e => e.DicomKosPath)
+                    .HasColumnName("dicom_kos_path")
+                    .HasColumnType("character varying");
+
+                entity.Property(e => e.FailtMakeKosCount).HasColumnName("failt_make_kos_count");
+
+                entity.Property(e => e.FailtSentKosCount).HasColumnName("failt_sent_kos_count");
+
+                entity.Property(e => e.FileName)
+                    .HasColumnName("file_name")
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.FkInfBatch).HasColumnName("fk_inf_batch");
+
+                entity.Property(e => e.FkKosEnumType).HasColumnName("fk_kos_enum_type");
+
+                entity.Property(e => e.FkTenant).HasColumnName("fk_tenant");
+
+                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
+
+                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
+
+                entity.Property(e => e.Gender)
+                    .HasColumnName("gender")
+                    .HasMaxLength(8);
+
+                entity.Property(e => e.InfMergeKey).HasColumnName("inf_merge_key");
+
+                entity.Property(e => e.InstanceCount).HasColumnName("instance_count");
+
+                entity.Property(e => e.InstanceKey).HasColumnName("instance_key");
+
+                entity.Property(e => e.Institution)
+                    .HasColumnName("institution")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.InstitutionName)
+                    .HasColumnName("institution_name")
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Modality)
+                    .HasColumnName("modality")
+                    .HasMaxLength(6);
+
+                entity.Property(e => e.OracleStudyKey).HasColumnName("oracle_study_key");
+
+                entity.Property(e => e.PatientId)
+                    .HasColumnName("patient_id")
+                    .HasMaxLength(11);
+
+                entity.Property(e => e.PatinetNameSurname)
+                    .HasColumnName("patinet_name_surname")
+                    .HasMaxLength(80);
+
+                entity.Property(e => e.Pk).HasColumnName("pk");
+
+                entity.Property(e => e.SeriesCount).HasColumnName("series_count");
+
+                entity.Property(e => e.SeriesInfo)
+                    .HasColumnName("series_info")
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.SeriesKey).HasColumnName("series_key");
+
+                entity.Property(e => e.StoragePath)
+                    .HasColumnName("storage_path")
+                    .HasMaxLength(512);
+
+                entity.Property(e => e.StudyDate).HasColumnName("study_date");
+
+                entity.Property(e => e.StudyDescription)
+                    .HasColumnName("study_description")
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.StudyInstanceuid)
+                    .HasColumnName("study_instanceuid")
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
+
+                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
+
+                entity.Property(e => e.VolumeCode)
+                    .HasColumnName("volume_code")
+                    .HasMaxLength(4);
+
+                entity.Property(e => e.VolumePathname)
+                    .HasColumnName("volume_pathname")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.VolumeStat)
+                    .HasColumnName("volume_stat")
+                    .HasMaxLength(2);
+
+                entity.Property(e => e.VolumeType)
+                    .HasColumnName("volume_type")
+                    .HasMaxLength(2);
+
+                entity.Property(e => e.ZeroImg).HasColumnName("zero_img");
+            });
+
             modelBuilder.Entity<StmGetorderStatusforAccessionnumberlist>(entity =>
             {
                 entity.HasKey(e => e.Pk)
-                    .HasName("getorder_statusfor_accessionnumberlist_pkey");
+                    .HasName("stm_getorder_statusfor_accessionnumberlist_pkey");
 
                 entity.ToTable("stm_getorder_statusfor_accessionnumberlist");
 
-                entity.Property(e => e.Pk)
-                    .HasColumnName("pk")
-                    .HasDefaultValueSql("nextval('getorder_statusfor_accessionnumberlist_pk_seq'::regclass)");
+                entity.Property(e => e.Pk).HasColumnName("pk");
 
                 entity.Property(e => e.Accessionnumber)
                     .HasColumnName("accessionnumber")
@@ -785,27 +941,24 @@
 
             modelBuilder.Entity<StudyOperationCount>(entity =>
             {
-                entity.HasKey(e => e.FkStudy)
-                    .HasName("fk_study");
+                entity.HasKey(e => e.Pk)
+                    .HasName("study_operation_count _pkey");
 
                 entity.ToTable("study_operation_count ");
 
-                entity.Property(e => e.FkStudy)
-                    .HasColumnName("fk_study")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.Pk)
+                    .HasColumnName("pk")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.FkOperationEnumType).HasColumnName("fk_operation_enum_type");
+
+                entity.Property(e => e.FkStudy).HasColumnName("fk_study");
 
                 entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
 
                 entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
 
                 entity.Property(e => e.MakekosErrorTryCount).HasColumnName("makekos_error_try_count");
-
-                entity.Property(e => e.Pk)
-                    .HasColumnName("pk")
-                    .ValueGeneratedOnAdd()
-                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.SentkosErrorTryCount).HasColumnName("sentkos_error_try_count");
 
@@ -845,17 +998,11 @@
             modelBuilder.Entity<UsrTenant>(entity =>
             {
                 entity.HasKey(e => e.Pk)
-                    .HasName("tenat_pkey");
+                    .HasName("usr_tenant_pkey");
 
                 entity.ToTable("usr_tenant");
 
-                entity.HasIndex(e => e.TenantShortName)
-                    .HasName("tenant_short_name")
-                    .IsUnique();
-
-                entity.Property(e => e.Pk)
-                    .HasColumnName("pk")
-                    .HasDefaultValueSql("nextval('tenat_pk_seq'::regclass)");
+                entity.Property(e => e.Pk).HasColumnName("pk");
 
                 entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
 
@@ -935,7 +1082,7 @@
                     .WithMany(p => p.UsrTenantSkrs)
                     .HasForeignKey(d => d.FkTenant)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_tenat");
+                    .HasConstraintName("fk_tenant");
             });
 
             modelBuilder.Entity<UsrUserLogin>(entity =>
@@ -1680,63 +1827,7 @@
                 entity.Property(e => e.TenantId).HasColumnName("Tenant_Id");
             });
 
-            modelBuilder.Entity<YyyInfPaht>(entity =>
-            {
-                entity.HasKey(e => e.Pk)
-                    .HasName("inf_paht_pkey");
-
-                entity.ToTable("YYY_inf_paht");
-
-                entity.Property(e => e.Pk)
-                    .HasColumnName("pk")
-                    .HasDefaultValueSql("nextval('inf_paht_pk_seq'::regclass)");
-
-                entity.Property(e => e.FilePath).HasColumnName("file_path");
-
-                entity.Property(e => e.FkUserCreated).HasColumnName("fk_user_created");
-
-                entity.Property(e => e.FkUserModified).HasColumnName("fk_user_modified");
-
-                entity.Property(e => e.Hostname)
-                    .IsRequired()
-                    .HasColumnName("hostname");
-
-                entity.Property(e => e.KurumKodu).HasColumnName("kurum_kodu");
-
-                entity.Property(e => e.Modality).HasColumnName("modality");
-
-                entity.Property(e => e.PahtCode)
-                    .IsRequired()
-                    .HasColumnName("paht_code");
-
-                entity.Property(e => e.PahtStat).HasColumnName("paht_stat");
-
-                entity.Property(e => e.PahtType).HasColumnName("paht_type");
-
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasColumnName("password");
-
-                entity.Property(e => e.Pathname)
-                    .IsRequired()
-                    .HasColumnName("pathname");
-
-                entity.Property(e => e.RecordType).HasColumnName("record_type");
-
-                entity.Property(e => e.Sharename)
-                    .IsRequired()
-                    .HasColumnName("sharename");
-
-                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
-
-                entity.Property(e => e.TimeModified).HasColumnName("time_modified");
-
-                entity.Property(e => e.Username)
-                    .IsRequired()
-                    .HasColumnName("username");
-            });
-
-           // OnModelCreatingPartial(modelBuilder);
+            OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

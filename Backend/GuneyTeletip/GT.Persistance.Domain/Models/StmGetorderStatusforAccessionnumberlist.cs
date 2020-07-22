@@ -14,15 +14,15 @@ namespace GT.Persistance.Domain.Models
         public string Accessionnumber { get; set; }
         public string Citizenid { get; set; }
         public string Teletipstatus { get; set; }
-        public int Teletipstatusid { get; set; }
+        public int? Teletipstatusid { get; set; }
         public string Medulastatus { get; set; }
-        public int Medulastatusid { get; set; }
+        public int? Medulastatusid { get; set; }
         public string Wadostatus { get; set; }
-        public int Wadostatusid { get; set; }
+        public int? Wadostatusid { get; set; }
         public string Reportstatus { get; set; }
-        public int Reportstatusid { get; set; }
+        public int? Reportstatusid { get; set; }
         public string Dosestatus { get; set; }
-        public int Dosestatusid { get; set; }
+        public int? Dosestatusid { get; set; }
         public string Medulainstitutionid { get; set; }
         public string Sutcode { get; set; }
         public DateTime? Lastmedulasenddate { get; set; }
