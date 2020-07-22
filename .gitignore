@@ -313,5 +313,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-MEDLIFE.UI.WEBAPI/_Uploads/
+/Backend/GuneyTeletip/GT.UI.WebApi/upload
 _Uploads/
