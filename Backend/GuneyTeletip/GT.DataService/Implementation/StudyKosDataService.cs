@@ -45,7 +45,7 @@ namespace GT.DataService.Implementation
         StudyOperationCountRepository studyOperationCount;
         GetorderStatusRepository getorderStatusRepository;
         KosDurumOrderCompositeRepository KosDurumOrderCompositeRepository;
-
+        AppFilePathRepository appFilePathRepository;
         InfOracleDataService _InfOracleDataService;
         StudyKosDataService _InfStudyDataService;
         KosPahtDataService KosPahtDataService;
@@ -79,7 +79,7 @@ namespace GT.DataService.Implementation
             studyOperationCount = new StudyOperationCountRepository(_Workspace);
             getorderStatusRepository = new GetorderStatusRepository(_Workspace);
             KosDurumOrderCompositeRepository = new KosDurumOrderCompositeRepository(_Workspace);
-
+            appFilePathRepository = new AppFilePathRepository(_Workspace);
 
 
         }
@@ -1015,6 +1015,22 @@ namespace GT.DataService.Implementation
 
             _Workspace.CommitChanges();
             return kosStudy.Pk;
+        }
+
+        public long GetFilePathID(string fileName)
+        {
+            var filePath = new AppFilePath();
+            filePath.Filename = fileName;
+            filePath.TimeCreated = DateTime.Now;
+            filePath.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
+            appFilePathRepository.Add(filePath);
+            _Workspace.CommitChanges();
+            return filePath.Pk;
+        }
+        public string GetFileNameByID(long fileID)
+        {
+            var filePath = appFilePathRepository.GetByID(fileID);
+            return filePath.Filename;
         }
     }
 }
