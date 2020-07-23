@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace GT.Persistance.Domain.Models
 {
-    public partial class KosStudy
+    public partial class KosStudyYedek
     {
-        public long Pk { get; set; }
+        public long? Pk { get; set; }
         public long FkTenant { get; set; }
         public long FkInfBatch { get; set; }
         public long? FkUserCreated { get; set; }
@@ -41,13 +41,11 @@ namespace GT.Persistance.Domain.Models
         public string VolumeStat { get; set; }
         public string VolumePathname { get; set; }
         public DateTime? CreationDttm { get; set; }
-        public decimal? OracleStudyKey { get; set; }
+        public int? OracleStudyKey { get; set; }
         public long? FkKosEnumType { get; set; }
         public string DicomDirPath { get; set; }
         public string DicomKosPath { get; set; }
         public long? FailtMakeKosCount { get; set; }
         public long? FailtSentKosCount { get; set; }
-
-        public virtual UsrTenant FkTenantNavigation { get; set; }
     }
 }

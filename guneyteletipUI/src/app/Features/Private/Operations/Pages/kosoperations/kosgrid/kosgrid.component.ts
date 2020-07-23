@@ -5,6 +5,7 @@ import { infStudyFilter } from '../../../Models/infStudyFilter';
 import { ConfirmationdialogComponent } from 'src/app/Shared/Modals/confirmationdialog/confirmationdialog.component';
 import { OpenModal } from 'src/app/Shared/Models/openModal';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { FileService } from 'src/app/Shared/Services/FileServices/fileService';
 
 
 @Component({
@@ -20,13 +21,13 @@ export class KosgridComponent implements OnInit {
     this.gridKos.kosFilter = value;
     this.gridKos.onRefresh();
   }
-  constructor(private kosService: kosDataServices, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) { }
+  constructor(private fileService: FileService, private kosService: kosDataServices, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) { }
 
   ngOnInit() {
     console.log(this.gridKos.hasSelectedItem);
   }
   kosFilter: kosFilter = new kosFilter();
-  gridKos: KosListComponent_Models.GridUser = new KosListComponent_Models.GridUser(this.kosService, this.kosFilter,this.modalService,this.changeDetection);
+  gridKos: KosListComponent_Models.GridUser = new KosListComponent_Models.GridUser(this.fileService,this.kosService, this.kosFilter,this.modalService,this.changeDetection);
   
 }
 export class kosFilter {
@@ -47,7 +48,7 @@ namespace KosListComponent_Models {
     selectAll: boolean = false;
     selectPage: boolean = false;
 
-    constructor(private kosService: kosDataServices, public kosFilter: kosFilter, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) {
+    constructor(private fileService: FileService, private kosService: kosDataServices, public kosFilter: kosFilter, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) {
       super();
     }
 
@@ -187,7 +188,8 @@ namespace KosListComponent_Models {
     onClickExportExcel() {
       this.kosService.exportExcel(this.getFilter(1)).subscribe(o => {
         console.log(o);
-      });;
+        this.fileService.download(o);
+      });
     }
     onSorting(colName) {
       if (this.direction == 0) {
