@@ -100,15 +100,16 @@ namespace GT.DataService.Implementation
 
 
 
-
-            var KosBatch = new KosBatch();
-            KosBatch.TimeCreated = DateTime.Now;
-            KosBatch.FkUserCreated = 1;
-            _InfBatchRepository.Add(KosBatch);
-            _Workspace.CommitChanges();
-            long tenatID = 0;
-            decimal Last_OracleStudyKey = 0;
-
+            try
+            {
+                var KosBatch = new KosBatch();
+                KosBatch.TimeCreated = DateTime.Now;
+                KosBatch.FkUserCreated = 1;
+                _InfBatchRepository.Add(KosBatch);
+                _Workspace.CommitChanges();
+                long tenatID = 0;
+                decimal Last_OracleStudyKey = 0;
+         
 
 
             var list = new List<InfOraclePostgreStudyViewModel>();
@@ -208,7 +209,12 @@ namespace GT.DataService.Implementation
 
 
             }
+            }
+            catch (Exception ex)
+            {
 
+
+            }
 
         }
 
@@ -254,94 +260,108 @@ namespace GT.DataService.Implementation
         {
 
 
-
-
-
-
-
-            int[] intKume;
-            int eleman;
+            ArrayList myAL = new ArrayList();
             var s = ConvertConditionFilter(parms);
-
-            var list = _InfStudyRepository.Query(s)
-               .GetGridQuery(parms);
-            //var oracleList = list.List;
-            //var accList = parms.Filter.AccessionNumberList;
-            //var onlyOracle = accList.Where(o => !oracleList.Select(t=>t.AccessionNumber).Contains(o)).ToList();
-
-            //int adet = 0;
-            //int listadet = 0;
-            ////if (list != null)
-            //{
-
-            //    listadet = list.List.Count;
-            //    ArrayList arlistVar = new ArrayList();
-
-            //    for (int x = 0; x < listadet; x++)
-            //    {
-
-            //        adet = parms.Filter.AccessionNumberList.Length;
-            //        ArrayList arlistYok = new ArrayList();
-            //        for (int i = 0; i < adet; i++)
-            //        {
-
-            //            if (parms.Filter.AccessionNumberList[i].ToString() == list.List[x].AccessionNumber)
-            //            {
-
-
-            //                arlistVar.Add(list.List[x].AccessionNumber);
-            //            }
-            //            else
-            //            {
-            //                arlistYok.Add(parms.Filter.AccessionNumberList[i].ToString());
-
-            //            }
-
-            //        }
-
-            //    }
-            //}
-            if (list != null && list.List.Count > 0)
+           
+            if (parms.Filter.AccessionNumberList != null && parms.Filter.AccessionNumberList.Length > 0 )
             {
-
-                return list;
-                
+                parms.Paging.Count = parms.Filter.AccessionNumberList.Length;
 
             }
-            else
-            {
 
 
+                var list = _InfStudyRepository.Query(s)
+               .GetGridQuery(parms);
+            var oracleList = list.List;
+            var accList = parms.Filter.AccessionNumberList;
 
-                if (parms.Filter.AccessionNumberList != null)
-                {
-
-                    return list;
-
-
-                }
-                else
-                {
-
+                    if (accList != null)
+                    {
+   
+                        var onlyOracle = accList.Where(o => !oracleList.Select(t => t.AccessionNumber).Contains(o)).ToList();
 
 
-                    foreach (string acceno in parms.Filter.AccessionNumberList)
+                        if (onlyOracle != null && onlyOracle.Count > 0 && parms.Filter.AccessionNumberList != null)
+                        {
+
+
+                            try
+                            {
+
+                                foreach (string acceno in parms.Filter.AccessionNumberList)
+                                {
+                                    //SyncronizeInfinityStudyListSend(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
+                                    SyncronizeInfinityStudyListSend(acceno);
+                                }
+                                
+                            }
+                            catch (Exception ex)
+                            {
+                                return null;
+                                throw new Exception("Inf Study List bulunamadı. Hata-1001:" + ex.Message.ToString());
+                     
+                            }
+
+                           
+                          
+                        }
+                                var list_Update = _InfStudyRepository.Query(s)
+                                      .GetGridQuery(parms);
+                                return list_Update;
+                    }
+                    else
                     {
 
-                        //SyncronizeInfinityStudyListSend(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
-                        SyncronizeInfinityStudyListSend(acceno);
-                    }
+                            if (list != null && list.List.Count > 0)
+                            {
 
-                    var list_Update = _InfStudyRepository.Query(s)
-                   .GetGridQuery(parms);
-
-                    return list_Update;
-
-                }
+                              return  list;
 
 
-
+                            }
+                            else
+                            {
+                                throw new Exception("List bulunamadı. Hata-1002:" +" "+ list.List.Count.ToString() );
+                            }
+      
             }
+
+
+      
+
+            //if (list != null && list.List.Count > 0)
+            //{
+
+            //    return list;
+
+
+            //}
+            //else
+            //{
+
+            //    //if (parms.Filter.AccessionNumberList != null)
+            //    //{
+            //    //    try
+            //    //    {
+            //    //        foreach (string acceno in parms.Filter.AccessionNumberList)
+            //    //        {
+            //    //            //SyncronizeInfinityStudyListSend(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
+            //    //            SyncronizeInfinityStudyListSend(acceno);
+            //    //        }
+            //    //        var list_Update = _InfStudyRepository.Query(s)
+            //    //       .GetGridQuery(parms);
+            //    //        return list_Update;
+            //    //    }
+            //    //    catch (Exception ex)
+            //    //    { return list; }
+
+            //    //}
+            //    //else
+            //    //    return list;
+            //    //}
+            
+
+            //}
 
 
             //return _InfStudyRepository.Query(s)
