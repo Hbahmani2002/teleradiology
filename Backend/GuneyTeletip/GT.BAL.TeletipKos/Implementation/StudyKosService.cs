@@ -144,15 +144,15 @@ namespace GT.BAL.TeletipKos
 
             var studyDataService = new StudyKosDataService();
             var list = studyDataService.GetKosDeleteListGrid(filter);
-            var resList = op.DoSingleBatch(list)
-                .Select(o => new OperationResultModel()
-                {
-                    Id = 0,
-                    Status = o.IsSuccess ? 1 : 0,
-                    Description = o.Arguments + o.IsSuccess + o.Message
-                }).ToArray();
-            var res = new MultipleOperationResultModel(resList);
-            return res;
+            var resList = op.DoSingleBatch(list);
+            //    //.Select(o => new OperationResultModel()
+            //    //{
+            //    //    Id = 0,
+            //    //    Status = o.IsSuccess ? 1 : 0,
+            //    //    Description = o.Arguments + o.IsSuccess + o.Message
+            //    //}).ToArray();
+            //var res = new MultipleOperationResultModel(resList.ToList());
+            return null;
            
         }
 
