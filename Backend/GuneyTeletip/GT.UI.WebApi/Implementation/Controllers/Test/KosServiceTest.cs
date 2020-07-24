@@ -47,7 +47,25 @@ namespace GT.UI.WebApi.Controllers
             var manager = GetMakeKosManager(filePath);
 
             var res = manager.MakeKos(item.InputStudyDirectoryPath, item.OutputKosFilePath, "yakacik", "177302");
+            return HttpMessageService.Ok((object)new
+            {
+                res
+                //    JobID = jobID,
+                //JobLogFilePath = filePath
 
+            });
+
+        }
+
+        [Route("/KosServiceTest/MakeKosJsonTest")]
+        public ServiceResult<object> MakeKosJsonTest()
+        {
+            var settings = AppSettings.GetCurrent();
+            var id = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 6);
+            var jobID = DateTime.Now.ToString("yyyyMMddHHmmssffff") + "_" + id;
+            var filePath = Path.Combine(settings.Log.DIR_JobsLog, $"{jobID}.txt");
+            var manager = GetMakeKosManager(filePath);
+            var res = manager.MakeKosJSON();
             return HttpMessageService.Ok((object)new
             {
                 res
@@ -59,8 +77,7 @@ namespace GT.UI.WebApi.Controllers
         }
 
 
-   
-     
+
         //[HttpPost]
         [Route("/Kos/CreateKosBackgroundTest")]
         public ServiceResult<long> CreateKosBackground(KosStudyFilter parms)

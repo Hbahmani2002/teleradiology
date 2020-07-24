@@ -22,6 +22,35 @@ namespace GT.TeletipKos
             var processParameter = $"-jar {makeKosSettings.AppFilePath} {res} -o {output} {input}";
 
             var processResult = ProcessUtil.Start("java", processParameter);
+            
+            return processResult;
+        }
+        
+        public ProcessResult MakeKosJSON()
+        {
+            //var makeKosSettings = Settings;
+
+            //var output = outputKosFilePath;
+            //var input = inputStudyDirectoryPath;
+
+            //java - jar / mnt / DB / gt - server - volume / app / teletip_kos / MakeKOS_protekV2.jar--title "DCM-113030"
+            //    --location - uid "1.3.6.1.4.1.21367.2017.10.26.111"
+            //    --temp - tlocation "./"
+            //    --dcm - dcmlocation / mnt / DB / gt - server - volume / app / teletip_kos / dcm4che - 5.22.2 / bin
+            //    --dcmjson "/mnt/DB/gt-server-volume/test_java/MakeKosParametter.json" 
+            //    - o cikti.dcm / mnt / DB / gt - server - volume / app / teletip_kos / E37678675
+            var Title = "DCM-113030";
+            var locationuid = "1.3.6.1.4.1.21367.2017.10.26.111";
+            var tempLocation = "./";
+            var dcmLocation = "/mnt/DB/gt-server-volume/app/teletip_kos/dcm4che-5.22.2/bin";
+            var dcmJson = "/mnt/DB/gt-server-volume/test_java/MakeKosParametter.json";
+            var fileName = "test.dcm";
+            var filePath = "/mnt/DB/gt-server-volume/app/teletip_kos/E37678675";
+            var javaMakekos = "/mnt/DB/gt-server-volume/app/teletip_kos/MakeKOS_protekV2.jar";
+            var res = $@"--title {Title} --location -uid {locationuid} --temp{tempLocation} --dcm -dcmlocation{dcmLocation} --dcmjson{dcmJson}";
+            var processParameter = $"-jar {javaMakekos} {res} -o {fileName} {filePath}";
+
+            var processResult = ProcessUtil.Start("java", processParameter);
             return processResult;
         }
         private ProcessResult MakeKosOld(MakeKosParameter par)
