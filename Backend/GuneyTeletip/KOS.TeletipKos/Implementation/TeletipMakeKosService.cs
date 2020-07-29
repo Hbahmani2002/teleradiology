@@ -47,7 +47,7 @@ namespace GT.TeletipKos
             var fileName = "test.dcm";
             var filePath = "/mnt/DB/gt-server-volume/app/teletip_kos/E37678675";
             var javaMakekos = "/mnt/DB/gt-server-volume/app/teletip_kos/MakeKOS_protekV2.jar";
-            var res = $@"--title {Title} --location -uid {locationuid} --temp{tempLocation} --dcm -dcmlocation{dcmLocation} --dcmjson{dcmJson}";
+            var res = $@"--title {Title} --location -uid {locationuid} --temp -tlocation {tempLocation} --dcm -dcmlocation {dcmLocation} --dcmjson {dcmJson}";
             var processParameter = $"-jar {javaMakekos} {res} -o {fileName} {filePath}";
 
             var processResult = ProcessUtil.Start("java", processParameter);
