@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace App.Data.Service
+namespace AppAbc.Data.Service
 {
     public class AppLogDataService : BaseService
     {
@@ -25,6 +25,7 @@ namespace App.Data.Service
             OtomatikSentKos = 2,
             OtomatikStm = 3,
             BackGroundJobs = 10,
+            InfOrclHata = 20 ,
         }
         public long Save(LogType type, string desc)
         {
@@ -32,7 +33,7 @@ namespace App.Data.Service
             log.LogType = (int)type;
             log.TimeCreated = DateTime.Now;
             log.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
-            log.Desc1 = desc.Substring(0, 3999);
+            log.Desc1 = desc;
             appLog.Add(log);
             _Workspace.CommitChanges();
             return log.Pk;

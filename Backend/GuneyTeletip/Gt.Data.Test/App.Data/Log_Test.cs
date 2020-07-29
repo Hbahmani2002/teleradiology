@@ -1,4 +1,5 @@
 ﻿using App.Data.Service;
+using AppAbc.Data.Service;
 using GT.DataService.Implementation;
 using GT.DataService.Model;
 using GT.Repository.Models.Filter;
@@ -8,7 +9,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static App.Data.Service.AppLogDataService;
+using static AppAbc.Data.Service.AppLogDataService;
 
 namespace Gt.Data.Test
 {

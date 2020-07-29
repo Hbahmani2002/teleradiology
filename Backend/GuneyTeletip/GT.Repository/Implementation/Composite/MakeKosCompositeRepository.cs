@@ -20,7 +20,7 @@ namespace GT.Repository.Implementation.Composite
         }
         public IEnumerable<MakeKosViewModel> Query(InfStudyConditionFilter i, StudyOperationCountConditionFilter s)
         {
-            var exp1 = InfStudyCondition.Get(i);
+            var exp1 = InfStudyCondition.Get(i,1);
             var exp2 = StudyOperationCountCondition.Get(s);
             return Query(exp1, exp2);
 

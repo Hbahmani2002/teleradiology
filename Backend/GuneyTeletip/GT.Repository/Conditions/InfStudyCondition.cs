@@ -40,7 +40,7 @@ namespace GT.Repository.Conditions
     }
     public class InfStudyCondition
     {
-        public static Expression<Func<KosStudy, bool>> Get(InfStudyConditionFilter filter)
+        public static Expression<Func<KosStudy, bool>> Get(InfStudyConditionFilter filter,int run)
         {
             var exp = PredicateBuilder.True<KosStudy>();
             if (!string.IsNullOrEmpty(filter.Modality))
@@ -108,7 +108,13 @@ namespace GT.Repository.Conditions
                 exp = exp.And(o => arrs.Contains(o.Pk));
             }
 
-            //exp = exp.And(o => o.ZeroImg != 1);
+            if (run==1)
+            {
+                exp = exp.And(o => o.ZeroImg != 1);
+            }
+          
+
+         
 
             return exp;
         }

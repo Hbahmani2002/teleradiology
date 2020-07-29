@@ -38,7 +38,7 @@ namespace GT.Repository.Implementation
 
         public IQueryable<InfStudyViewModel> Query(InfStudyConditionFilter filter)
         {
-            var exp = InfStudyCondition.Get(filter);
+            var exp = InfStudyCondition.Get(filter,0);
             return Query(exp);
         }
 

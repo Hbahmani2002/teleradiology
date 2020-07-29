@@ -19,7 +19,7 @@ namespace GT.Repository.Implementation.Composite
         }
         public IQueryable<KosDurumViewModel> Query(InfStudyConditionFilter filter)
         {
-            var exp = InfStudyCondition.Get(filter);
+            var exp = InfStudyCondition.Get(filter,0);
             return Query(exp);
         }
         public IQueryable<KosDurumViewModel> Query(Expression<Func<KosStudy, bool>> exp)
