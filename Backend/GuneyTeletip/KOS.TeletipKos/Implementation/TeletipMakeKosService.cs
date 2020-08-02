@@ -1,5 +1,9 @@
 ﻿using GT.TeletipKos.Model;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Util.ProcessUtil;
 
 namespace GT.TeletipKos
@@ -11,7 +15,7 @@ namespace GT.TeletipKos
         {
             Settings = settings;
         }
-        public ProcessResult MakeKos(string inputStudyDirectoryPath,string outputKosFilePath,string institutionName,string institutionSKRS)
+        public ProcessResult MakeKos(string inputStudyDirectoryPath, string outputKosFilePath, string institutionName, string institutionSKRS)
         {
             var makeKosSettings = Settings;
 
@@ -22,10 +26,18 @@ namespace GT.TeletipKos
             var processParameter = $"-jar {makeKosSettings.AppFilePath} {res} -o {output} {input}";
 
             var processResult = ProcessUtil.Start("java", processParameter);
-            
+
             return processResult;
         }
-        
+        class InstanceItem
+        {
+            public string InstancePath { get; set; }
+
+            public InstanceItem(string instancePath)
+            {
+                InstancePath = instancePath;
+            }
+        }
         public ProcessResult MakeKosJSON()
         {
             //var makeKosSettings = Settings;
@@ -33,26 +45,55 @@ namespace GT.TeletipKos
             //var output = outputKosFilePath;
             //var input = inputStudyDirectoryPath;
 
-            //java - jar / mnt / DB / gt - server - volume / app / teletip_kos / MakeKOS_protekV2.jar--title "DCM-113030"
-            //    --location - uid "1.3.6.1.4.1.21367.2017.10.26.111"
-            //    --temp - tlocation "./"
-            //    --dcm - dcmlocation / mnt / DB / gt - server - volume / app / teletip_kos / dcm4che - 5.22.2 / bin
-            //    --dcmjson "/mnt/DB/gt-server-volume/test_java/MakeKosParametter.json" 
-            //    - o cikti.dcm / mnt / DB / gt - server - volume / app / teletip_kos / E37678675
+            //java - jar / gt / app / teletip_kos / MakeKOS_protekV2.jar
+            //--title DCM-113030
+            //--location - uid 1.3.6.1.4.1.21367.2017.10.26.111
+            //--temp - tlocation / gt / dicom / temp_kos / 
+            //--dcm - dcmlocation / gt / app / teletip_kos / dcm4che - 5.22.2 / bin
+            //--dcmjson / gt / test_java / MakeKosParametter.json 
+            //- o / gt / test_java / test.dcm / gt / app / teletip_kos / E37678675
+            var makeKosSettings = Settings;
+            var uniqeName = Guid.NewGuid().ToString().Replace("-", "");
+            //var dcmJson = $"/gt/test_java/MakeKosParametter_{uniqeName}.json";
+            var dcmJson = $"/gt/test_java/MakeKosParametter.json";
+            //var items = new InstanceItem[] {
+            //new InstanceItem(""),
+            //};
+            //var jsonString = CreateDCMJSON(items,);
+            //File.WriteAllText(dcmJson, jsonString);
             var Title = "DCM-113030";
             var locationuid = "1.3.6.1.4.1.21367.2017.10.26.111";
-            var tempLocation = "./";
-            var dcmLocation = "/mnt/DB/gt-server-volume/app/teletip_kos/dcm4che-5.22.2/bin";
-            var dcmJson = "/mnt/DB/gt-server-volume/test_java/MakeKosParametter.json";
-            var fileName = "test.dcm";
-            var filePath = "/mnt/DB/gt-server-volume/app/teletip_kos/E37678675";
-            var javaMakekos = "/mnt/DB/gt-server-volume/app/teletip_kos/MakeKOS_protekV2.jar";
-            var res = $@"--title {Title} --location -uid {locationuid} --temp -tlocation {tempLocation} --dcm -dcmlocation {dcmLocation} --dcmjson {dcmJson}";
-            var processParameter = $"-jar {javaMakekos} {res} -o {fileName} {filePath}";
+            var tempLocation = "/gt/dicom/temp_kos/";
+            var dcmLocation = "/gt/app/teletip_kos/dcm4che-5.22.2/bin";
+
+            var outputKosFilePath = "/gt/test_java/test.dcm";
+            var studyFolderPath = "/gt/app/teletip_kos/E37678675";
+            var javaMakekos = "/gt/app/teletip_kos/MakeKOS_protekV2.jar";
+            var res = $@"--title {Title} --location-uid {locationuid} --temp-tlocation {tempLocation} --dcm-dcmlocation {dcmLocation} --dcmjson {dcmJson}";
+            var processParameter = $"-jar \"{javaMakekos}\" {res} -o {outputKosFilePath} {studyFolderPath}";
+            //var processParameter = $" -jar \"{javaMakekos}\" ";
 
             var processResult = ProcessUtil.Start("java", processParameter);
+            if (File.Exists(dcmJson))
+            {
+                File.Delete(dcmJson);
+            }
+
             return processResult;
         }
+
+        private string CreateDCMJSON(InstanceItem[] items, string accNo, string patientID)
+        {
+            var jsonFormat = new
+            {
+                AccsNumber = accNo,
+                PatientId = patientID,
+                DcmList = items.Select(o => o.InstancePath).ToList()
+            };
+            var str = JsonConvert.SerializeObject(jsonFormat);
+            return str;
+        }
+
         private ProcessResult MakeKosOld(MakeKosParameter par)
         {
             //var res = $@"--title {par.Title} --institution-insname {par.InstitutionName}^^^SKRS{par.InstitutionSKRS}^^^{par.InstitutionFirmaKodu} --location-uid {par.LocationUid} --temp-tlocation {par.TempDirectoryPath.Replace('\\', '/')} --dcm-dcmlocation {par.DcmDirectoryPath.Replace('\\', '/')} --number-accession {par.AccessionNumber} --patient-sex {par.PatientSex} --patient-pid {par.PatientId} -o {par.OutputKosFilePath.Replace('\\', '/')} {par.InputStudyDirectoryPath.Replace('\\', '/')}";
