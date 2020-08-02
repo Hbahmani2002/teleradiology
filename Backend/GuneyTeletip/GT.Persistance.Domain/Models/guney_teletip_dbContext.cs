@@ -25,6 +25,7 @@ namespace GT.Persistance.Domain.Models
         public virtual DbSet<JobEnumtype> JobEnumtype { get; set; }
         public virtual DbSet<KosBatch> KosBatch { get; set; }
         public virtual DbSet<KosEnumtype> KosEnumtype { get; set; }
+        public virtual DbSet<KosInstance> KosInstance { get; set; }
         public virtual DbSet<KosOperationEnumType> KosOperationEnumType { get; set; }
         public virtual DbSet<KosPaht> KosPaht { get; set; }
         public virtual DbSet<KosStudy> KosStudy { get; set; }
@@ -32,6 +33,7 @@ namespace GT.Persistance.Domain.Models
         public virtual DbSet<KosStudyJob> KosStudyJob { get; set; }
         public virtual DbSet<KosStudyParameter> KosStudyParameter { get; set; }
         public virtual DbSet<KosStudyYedek> KosStudyYedek { get; set; }
+        public virtual DbSet<Oracle> Oracle { get; set; }
         public virtual DbSet<StmGetorderStatusforAccessionnumberlist> StmGetorderStatusforAccessionnumberlist { get; set; }
         public virtual DbSet<StmTeletipStatus> StmTeletipStatus { get; set; }
         public virtual DbSet<StudyOperationCount> StudyOperationCount { get; set; }
@@ -341,6 +343,70 @@ namespace GT.Persistance.Domain.Models
                 entity.Property(e => e.TimeModified).HasColumnName("time_modified");
             });
 
+            modelBuilder.Entity<KosInstance>(entity =>
+            {
+                entity.HasKey(e => e.Pk)
+                    .HasName("kos_instance_pkey");
+
+                entity.ToTable("kos_instance");
+
+                entity.Property(e => e.Pk).HasColumnName("pk");
+
+                entity.Property(e => e.AccessionNo)
+                    .HasColumnName("accession_no")
+                    .HasMaxLength(16);
+
+                entity.Property(e => e.InstitutionFilename)
+                    .HasColumnName("institution_filename")
+                    .HasMaxLength(512);
+
+                entity.Property(e => e.InstitutionPathname)
+                    .HasColumnName("institution_pathname")
+                    .HasMaxLength(512);
+
+                entity.Property(e => e.Modality)
+                    .HasColumnName("modality")
+                    .HasMaxLength(6);
+
+                entity.Property(e => e.OracleStudyKey).HasColumnName("oracle_study_key");
+
+                entity.Property(e => e.PatientId)
+                    .HasColumnName("patient_id")
+                    .HasMaxLength(11);
+
+                entity.Property(e => e.PatinetName)
+                    .HasColumnName("patinet_name")
+                    .HasMaxLength(80);
+
+                entity.Property(e => e.SeriInfo)
+                    .HasColumnName("seri_info")
+                    .HasMaxLength(1024);
+
+                entity.Property(e => e.SeriInstanceuid)
+                    .HasColumnName("seri_instanceuid")
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.SopInstanceuid)
+                    .HasColumnName("sop_instanceuid")
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.StudyInstanceuid)
+                    .HasColumnName("study_instanceuid")
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
+
+                entity.Property(e => e.TimeDelete).HasColumnName("time_delete");
+
+                entity.Property(e => e.UserFk).HasColumnName("user_fk");
+
+                entity.Property(e => e.UserFkLastModfiead).HasColumnName("user_fk_last_modfiead");
+
+                entity.Property(e => e.VolumePath)
+                    .HasColumnName("volume_path")
+                    .HasMaxLength(512);
+            });
+
             modelBuilder.Entity<KosOperationEnumType>(entity =>
             {
                 entity.HasKey(e => e.Pk)
@@ -510,7 +576,7 @@ namespace GT.Persistance.Domain.Models
 
                 entity.Property(e => e.PatientId)
                     .HasColumnName("patient_id")
-                    .HasMaxLength(11);
+                    .HasMaxLength(15);
 
                 entity.Property(e => e.PatinetNameSurname)
                     .HasColumnName("patinet_name_surname")
@@ -802,6 +868,17 @@ namespace GT.Persistance.Domain.Models
                     .HasMaxLength(2);
 
                 entity.Property(e => e.ZeroImg).HasColumnName("zero_img");
+            });
+
+            modelBuilder.Entity<Oracle>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("oracle");
+
+                entity.Property(e => e.Acce)
+                    .HasColumnName("ACCE")
+                    .HasMaxLength(255);
             });
 
             modelBuilder.Entity<StmGetorderStatusforAccessionnumberlist>(entity =>
