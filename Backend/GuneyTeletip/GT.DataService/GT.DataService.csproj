@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\App.Data.Service\App.Data.Service.csproj" />
     <ProjectReference Include="..\Core.Persistance\Core.Persistance.csproj" />
     <ProjectReference Include="..\GT.Data.Controller\GT.Data.Controller.csproj" />
     <ProjectReference Include="..\GT.Data.Models\GT.Data.Models.csproj" />

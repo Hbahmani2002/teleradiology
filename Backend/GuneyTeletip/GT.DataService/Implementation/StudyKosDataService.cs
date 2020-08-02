@@ -11,14 +11,12 @@ using GT.UTILS.GRID;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using static GT.Repository.Conditions.InfStudyConditionFilter;
-using static GT.Repository.Conditions.StudyOperationCountCondition;
 using GT.Core.Settings;
-using GT.DataService.Implementation;
 using GT.DataService.infinity.Implementation;
 using System.Collections;
+using AppAbc.Data.Service;
+using static GT.Repository.Conditions.InfStudyConditionFilter;
+using static GT.Repository.Conditions.StudyOperationCountCondition;
 
 namespace GT.DataService.Implementation
 {
@@ -49,7 +47,7 @@ namespace GT.DataService.Implementation
         InfOracleDataService _InfOracleDataService;
         StudyKosDataService _InfStudyDataService;
         KosPahtDataService KosPahtDataService;
-
+        AppLogDataService _AppLogDataService;
 
         public StudyKosDataService() : this(null, false)
         {
@@ -80,6 +78,7 @@ namespace GT.DataService.Implementation
             getorderStatusRepository = new GetorderStatusRepository(_Workspace);
             KosDurumOrderCompositeRepository = new KosDurumOrderCompositeRepository(_Workspace);
             appFilePathRepository = new AppFilePathRepository(_Workspace);
+        
 
 
         }
@@ -99,7 +98,7 @@ namespace GT.DataService.Implementation
         {
 
 
-
+           
             try
             {
                 var KosBatch = new KosBatch();
@@ -212,8 +211,10 @@ namespace GT.DataService.Implementation
             }
             catch (Exception ex)
             {
+                
 
-
+                _AppLogDataService.Save(AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata, ex.InnerException.Message.ToString());
+                throw new Exception("InfOrc Save. Hata-1004:" + " " + ex.Message.ToString());
             }
 
         }
@@ -297,7 +298,7 @@ namespace GT.DataService.Implementation
                             }
                             catch (Exception ex)
                             {
-                                return null;
+                                return list;
                                 throw new Exception("Inf Study List bulunamadı. Hata-1001:" + ex.Message.ToString());
                      
                             }
@@ -321,6 +322,7 @@ namespace GT.DataService.Implementation
                             }
                             else
                             {
+                                return list;
                                 throw new Exception("List bulunamadı. Hata-1002:" +" "+ list.List.Count.ToString() );
                             }
       

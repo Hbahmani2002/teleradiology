@@ -218,19 +218,20 @@ namespace GT.DataService.Implementation
             };
             return makeKosCompositeRepository.Query(s,sc).OrderBy(o => o.StudyID).Take(count).ToList();
         }
-        public List<SentKosViewModel> GetSentKosList(int count)
-        {
-            var s = new InfStudyConditionFilter
-            {
-                KosEnum = KosEnumType.KosOlusmusOlanlar,
-                KosWaitHour = true
-            };
-            var sc = new StudyOperationCountConditionFilter
-            {
-                SentKosCount = true
-            };
-            return kosStudyJobRepository.Query(s,sc).OrderBy(o => o.StudyID).Take(count).ToList();
-        }
+
+        //public List<SentKosViewModel> GetSentKosList(int count) 24.07.2020 ca kaldırdı
+        //{
+        //    var s = new InfStudyConditionFilter
+        //    {
+        //        KosEnum = KosEnumType.KosOlusmusOlanlar,
+        //        KosWaitHour = true
+        //    };
+        //    var sc = new StudyOperationCountConditionFilter
+        //    {
+        //        SentKosCount = true
+        //    };
+        //    return kosStudyJobRepository.Query(s,sc).OrderBy(o => o.StudyID).Take(count).ToList();
+        //}
         //public List<Repository.Models.View.OrderStatusForAccessionNumberViewModel> GetSTMInfoList(int count, string accessionNumberList)
         //{
         //    var g = new GetorderStatusConditionFilter

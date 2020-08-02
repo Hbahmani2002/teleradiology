@@ -19,7 +19,7 @@ namespace GT.Repository.Implementation.Composite
         }
         public IQueryable<KosDeleteViewModel> Query(InfStudyConditionFilter filter)
         {
-            var exp = InfStudyCondition.Get(filter);
+            var exp = InfStudyCondition.Get(filter,0);
             return Query(exp);
         }
         public IQueryable<KosDeleteViewModel> Query(Expression<Func<KosStudy, bool>> exp)
