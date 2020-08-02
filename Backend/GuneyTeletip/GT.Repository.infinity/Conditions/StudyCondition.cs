@@ -7,19 +7,15 @@ using System.Text;
 
 namespace GT.DataService.infinity.Conditions
 {
- 
-
     public class InfStudyConditionFilter
     {
         public string AccessionNo { get; set; }
+        public string PatientID { get; set; }
         public DateTime? CreationStartDate { get; set; }
-
         public DateTime? CreationEndDate { get; set; }
         public long? InfStudyPkLast { get; set; }
-
         public DateTime? StudyStartDate { get; set; }
     }
-
 
     public class InfStudyCondition
     {
@@ -30,32 +26,27 @@ namespace GT.DataService.infinity.Conditions
             {
                 exp = exp.And(o => o.AccessNo.Contains(filter.AccessionNo));
             }
+            if (!string.IsNullOrEmpty(filter.PatientID))
+            {
+                exp = exp.And(o => o.PatientId.Contains(filter.PatientID));
+            }
             if (filter.InfStudyPkLast.HasValue)
             {
                 exp = exp.And(o => o.StudyKey > filter.InfStudyPkLast.Value);
-
             }
             if (filter.CreationStartDate.HasValue)
             {
                 exp = exp.And(o => o.StudyDttm >= filter.CreationStartDate.Value);
             }
-
             if (filter.CreationEndDate.HasValue)
             {
                 exp = exp.And(o => o.StudyDttm <= filter.CreationEndDate.Value);
-
-
             }
-
             if (filter.StudyStartDate.HasValue)
             {
                 exp = exp.And(o => o.StudyDttm >= filter.StudyStartDate.Value);
             }
-
-          
-
             return exp;
         }
     }
-
 }
