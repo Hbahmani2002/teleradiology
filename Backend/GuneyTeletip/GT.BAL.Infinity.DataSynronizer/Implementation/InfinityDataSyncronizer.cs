@@ -5,6 +5,7 @@ using GT.Core.Settings;
 using GT.DataService.Implementation;
 using GT.DataService.infinity.Implementation;
 using GT.Persistance.Domain.Models;
+using GT.Repository.Implementation;
 using GT.Repository.infinity.Model.View;
 using GT.Repository.Models.View;
 using GT.SERVICE;
@@ -21,6 +22,7 @@ namespace GT.BAL.Infinity.DataSynronizer
         AppLogDataService _AppLogDataService;
 
         KosInstanceDataService _KosInstanceDataService;
+        InfStudyParameterRepository _InfStudyParameterRepository;
 
         public InfinityDataSyncronizer(IBussinessContext context) : base(context)
         {            
@@ -29,12 +31,16 @@ namespace GT.BAL.Infinity.DataSynronizer
              KosPahtDataService = new KosPahtDataService(null);
             _AppLogDataService = new AppLogDataService(null);
             _KosInstanceDataService = new KosInstanceDataService(null);
+
+            _InfStudyParameterRepository = new InfStudyParameterRepository(null);
         }
         public void SyncronizeInfinityStudyList(long tenantID, long lastID, System.DateTime? startTime, System.DateTime? endTime)
         {
             string Mesaj = "";
+            string InstancePhat = "";
             try
             {
+
 
                 var filter = new DataService.infinity.Model.InfOracleFilter();
                 filter.Infcreationstartdate = startTime;
@@ -101,41 +107,7 @@ namespace GT.BAL.Infinity.DataSynronizer
                                     model.CreationDttm = item.CreationDttm.HasValue ? item.CreationDttm : DateTime.Now;
                                     model.OracleStudyKey = item.StudyKey;
 
-                                    //ZEHRA CAGDAS
-                                    var kosfilter = new DataService.infinity.Model.KosInstanceViewFilter();
-
-                                    if (item.StudyKey!=null)
-                                    {
-                                        kosfilter.StudyKey = Convert.ToInt32(item.StudyKey);
-                        
-
-                                        var kositems = _KosInstanceDataService.KosInstanceOracleList(kosfilter);
-                                        var klist = new List<KosInstanceViewModel>();
-                                        foreach (var kitem in kositems)
-                                        {
-                                                var kmodel = new KosInstanceViewModel(); 
-                                                kmodel.PatientID = kitem.PatientID;
-                                                kmodel.PatientName = kitem.PatientName;
-                                                kmodel.StudyKey = kitem.StudyKey;
-                                                kmodel.StudyInstanceUID = kitem.StudyInstanceUID;
-                                                kmodel.SeriesInstanceUID = kitem.SeriesInstanceUID;
-                                                kmodel.SopInstanceUID = kitem.SopInstanceUID;
-                                                kmodel.Modalities = kitem.Modalities;
-                                                kmodel.AccessNo = kitem.AccessNo;
-                                                kmodel.SeriesInfo = kitem.SeriesInfo;
-                                                kmodel.InstanceLocPathName = "";
-                                                kmodel.VolumePathName = kitem.VolumePathName;
-                                                kmodel.FileName = kitem.FileName;
-                                  
                                    
-                                                klist.Add(kmodel);
-                                        }
-
-
-                                _KosInstanceDataService.Save(klist);
-
-                            }
-
 
 
 
@@ -162,6 +134,7 @@ namespace GT.BAL.Infinity.DataSynronizer
 
                                             volumMap = KosPahtDataService.GetTenantKosPaht(item.VolumeCode);
                                             model.DicomPhat = item.VolumePathname.Replace(item.VolumePathname, volumMap) + "/" + item.Pathname;
+                                            InstancePhat =  item.VolumePathname.Replace(item.VolumePathname, volumMap) + "/" + item.Pathname;
                                             }
                                             catch(Exception ex)
                                             {
@@ -173,7 +146,7 @@ namespace GT.BAL.Infinity.DataSynronizer
                                         else
                                         {
                                             model.DicomPhat = item.VolumePathname + "\\" + item.Pathname.Replace("/", "\\");
-
+                                            InstancePhat = item.VolumePathname + "\\" + item.Pathname.Replace("/", "\\");
                                         }
 
 
@@ -183,11 +156,57 @@ namespace GT.BAL.Infinity.DataSynronizer
                                     else
                                     {
                                         model.DicomPhat = "";
-
+                                        InstancePhat = "";
                                     }
 
 
-                                    string OrcleZeroImages = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.ZeroImageGeneratorName.ToString();
+
+                            ////ZEHRA CAGDAS
+                            var kosfilter = new DataService.infinity.Model.KosInstanceViewFilter();
+
+                            if (item.StudyKey != null)
+                            {
+                                kosfilter.StudyKey = Convert.ToInt32(item.StudyKey);
+                                kosfilter.SeriesInfo = "DCMCREATOR";
+
+
+
+
+                                var kositems = _KosInstanceDataService.KosInstanceOracleList(kosfilter);
+                                var klist = new List<KosInstanceViewModel>();
+                                foreach (var kitem in kositems)
+                                {
+                                    var kmodel = new KosInstanceViewModel();
+                                    kmodel.PatientID = kitem.PatientID;
+                                    kmodel.PatientName = kitem.PatientName;
+                                    kmodel.StudyKey = kitem.StudyKey;
+                                    kmodel.StudyInstanceUID = kitem.StudyInstanceUID;
+                                    kmodel.SeriesInstanceUID = kitem.SeriesInstanceUID;
+                                    kmodel.SopInstanceUID = kitem.SopInstanceUID;
+                                    kmodel.Modalities = kitem.Modalities;
+                                    kmodel.AccessNo = kitem.AccessNo;
+                                    kmodel.SeriesInfo = kitem.SeriesInfo;
+                                    kmodel.InstanceLocPathName = kitem.InstanceLocPathName;
+                                    kmodel.VolumePathName = kitem.VolumePathName;
+                                    kmodel.FileName = kitem.FileName;
+                                    kmodel.InstanceLocKey = kitem.InstanceLocKey;
+                                    kmodel.Instance_dcmdir_path = kitem.VolumePathName.Replace(kitem.VolumePathName, volumMap) + "/" + kitem.InstanceLocPathName + "/" + kitem.FileName;
+
+
+                                    klist.Add(kmodel);
+                                }
+
+
+                                _InfStudyDataService.SaveKosInstance(klist, 1);
+
+
+                            }
+
+
+
+
+
+                            string OrcleZeroImages = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.ZeroImageGeneratorName.ToString();
 
 
 

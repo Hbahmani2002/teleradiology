@@ -21,9 +21,9 @@ namespace GT.Repository.infinity.Conditions
             var exp = PredicateBuilder.True<Series>();
             if (!string.IsNullOrEmpty(filter.SeriesInfo))
             {
-                exp = exp.And(o => o.SeriesInfo.Contains(filter.SeriesInfo));
+                exp = exp.And(o => !o.SeriesInfo.Contains(filter.SeriesInfo));
             }
-
+  
             if (filter.StudyKey.HasValue)
             {
                 exp = exp.And(o => o.StudyKey == filter.StudyKey.Value);

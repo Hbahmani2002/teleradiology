@@ -22,5 +22,9 @@ namespace GT.Persistance.Domain.Models
         public DateTime? TimeDelete { get; set; }
         public long UserFk { get; set; }
         public long UserFkLastModfiead { get; set; }
+        public decimal? InstanceLocKey { get; set; }
+        public string Instance_dcmdir_path { get; set; }
+        
+
     }
 }

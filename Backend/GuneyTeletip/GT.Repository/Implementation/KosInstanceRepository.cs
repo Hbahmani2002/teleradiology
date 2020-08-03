@@ -14,6 +14,13 @@ namespace GT.Repository.Implementation
 
         }
 
+
+        public KosInstance  QueryOracleKosInstanceKey(decimal key)
+        {
+            return Single(o => o.InstanceLocKey == key);
+        }
+
+
         public override KosInstance GetByID(long id)
         {
             throw new NotImplementedException();

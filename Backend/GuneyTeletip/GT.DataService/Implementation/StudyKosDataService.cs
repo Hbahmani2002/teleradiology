@@ -110,10 +110,10 @@ namespace GT.DataService.Implementation
                 _Workspace.CommitChanges();
                 long tenatID = 0;
                 decimal Last_OracleStudyKey = 0;
-         
 
 
-            var list = new List<InfOraclePostgreStudyViewModel>();
+
+                var list = new List<InfOraclePostgreStudyViewModel>();
             foreach (InfOraclePostgreStudyViewModel item in items)
             {
 
@@ -172,11 +172,9 @@ namespace GT.DataService.Implementation
                     if (otomatik == 1)
                     {
                         var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(tenatID);
-
                         if (ParamterTimertenatID == null)
                         {
                             throw new Exception("User bulunamadı. tenatID:" + tenatID);
-
                         }
                         else
                         {
@@ -192,16 +190,14 @@ namespace GT.DataService.Implementation
                 {
 
                     var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(item.FkTenant.Value);
-
                     if (ParamterTimertenatID == null)
                     {
                         throw new Exception("User bulunamadı. tenatID:" + tenatID);
-
                     }
                     else
                     {
-                        ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(item.OracleStudyKey.Value);
-                        _InfStudyParameterRepository.Update(ParamterTimertenatID);
+                        ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(Last_OracleStudyKey);
+                       _InfStudyParameterRepository.Update(ParamterTimertenatID);
                     }
                     _Workspace.CommitChanges();
 
@@ -1070,9 +1066,12 @@ namespace GT.DataService.Implementation
                 var list = new List<KosInstanceViewModel>();
                 foreach (KosInstanceViewModel item in items)
                 {
+
+
+                    var gelenKey = _kosInstanceRepository.QueryOracleKosInstanceKey(item.InstanceLocKey.Value);
                     var KosInstance = new KosInstance();
 
-                    if (item.StudyKey == null)
+                    if (gelenKey == null)
                     {
                         KosInstance.PatientId = item.PatientID;
                         KosInstance.PatinetName = item.PatientName;
@@ -1083,41 +1082,31 @@ namespace GT.DataService.Implementation
                         KosInstance.Modality = item.Modalities;
                         KosInstance.AccessionNo = item.AccessNo;
                         KosInstance.SeriInfo = item.SeriesInfo;
-
                         KosInstance.VolumePath = item.VolumePathName;
                         KosInstance.InstitutionFilename = item.FileName;
-                        KosInstance.InstitutionPathname = "";
+                        KosInstance.InstitutionPathname = item.InstanceLocPathName;
                         KosInstance.UserFk = 1;
                         KosInstance.UserFkLastModfiead = 1;
                         KosInstance.TimeCreated = DateTime.Now;
                         KosInstance.TimeDelete = DateTime.Now;
+                        KosInstance.InstanceLocKey = item.InstanceLocKey;
+                        KosInstance.Instance_dcmdir_path = item.Instance_dcmdir_path;
 
                         _kosInstanceRepository.Add(KosInstance);
 
-
-                        _Workspace.CommitChanges();
-
-
-
-
                     }
-                    else
-                    {
-
-
-
-                    }
-
-
+              
+                  
 
                 }
+                _Workspace.CommitChanges();
             }
             catch (Exception ex)
             {
 
 
 
-                throw new Exception("InfOrc Save. Hata-1004:" + " " + ex.Message.ToString());
+                throw new Exception("InfOrc Save. Hata-1010:" + " " + ex.Message.ToString());
             }
 
         }

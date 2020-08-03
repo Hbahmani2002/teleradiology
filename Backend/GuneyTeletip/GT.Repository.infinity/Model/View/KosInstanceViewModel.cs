@@ -18,5 +18,10 @@ namespace GT.Repository.infinity.Model.View
         public string FileName { get; set; }
         public string InstanceLocPathName { get; set; }
         public string VolumePathName { get; set; }
+
+        public decimal? InstanceLocKey { get; set; }
+        public string Instance_dcmdir_path { get; set; }
+
+        
     }
 }

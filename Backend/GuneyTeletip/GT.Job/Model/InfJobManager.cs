@@ -11,12 +11,15 @@ using System.Linq;
 using Util.Job.Interface;
 using Util.Logger;
 
+
 namespace GT.Job.Implementation
 {
     public class InfJobManager : JobManager
     {
         private static InfJobManager _InfJobManager;
         private ILogger logger;
+        KosStudyParameterDataService _KosStudyParameterDataService;
+
 
         public static InfJobManager Create(ILogger logger)
         {
@@ -53,9 +56,13 @@ namespace GT.Job.Implementation
             try
             {
                 var jobs = this.GetJobs();
+                _KosStudyParameterDataService = new KosStudyParameterDataService(null);
+
+                _KosStudyParameterDataService.Save(jobs);
                 logger.LogInfo($"Jobs COUNT:{jobs.Count()}");
                 foreach (var item in jobs)
                 {
+
                     RegisterJobs(item);
                 }
                 StartJobs();
