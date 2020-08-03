@@ -17,6 +17,7 @@ using System.Collections;
 using AppAbc.Data.Service;
 using static GT.Repository.Conditions.InfStudyConditionFilter;
 using static GT.Repository.Conditions.StudyOperationCountCondition;
+using GT.Repository.infinity.Model.View;
 
 namespace GT.DataService.Implementation
 {
@@ -48,6 +49,7 @@ namespace GT.DataService.Implementation
         StudyKosDataService _InfStudyDataService;
         KosPahtDataService KosPahtDataService;
         AppLogDataService _AppLogDataService;
+        KosInstanceRepository _kosInstanceRepository;
 
         public StudyKosDataService() : this(null, false)
         {
@@ -78,7 +80,7 @@ namespace GT.DataService.Implementation
             getorderStatusRepository = new GetorderStatusRepository(_Workspace);
             KosDurumOrderCompositeRepository = new KosDurumOrderCompositeRepository(_Workspace);
             appFilePathRepository = new AppFilePathRepository(_Workspace);
-        
+            _kosInstanceRepository = new KosInstanceRepository(_Workspace);
 
 
         }
@@ -1053,6 +1055,71 @@ namespace GT.DataService.Implementation
         {
             var filePath = appFilePathRepository.GetByID(fileID);
             return filePath.Filename;
+        }
+        public void SaveKosInstance(IEnumerable<KosInstanceViewModel> items, int otomatik)
+        {
+
+
+
+            try
+            {
+
+
+
+
+                var list = new List<KosInstanceViewModel>();
+                foreach (KosInstanceViewModel item in items)
+                {
+                    var KosInstance = new KosInstance();
+
+                    if (item.StudyKey == null)
+                    {
+                        KosInstance.PatientId = item.PatientID;
+                        KosInstance.PatinetName = item.PatientName;
+                        KosInstance.OracleStudyKey = Convert.ToInt32(item.StudyKey);
+                        KosInstance.StudyInstanceuid = item.StudyInstanceUID;
+                        KosInstance.SeriInstanceuid = item.SeriesInstanceUID;
+                        KosInstance.SopInstanceuid = item.SopInstanceUID;
+                        KosInstance.Modality = item.Modalities;
+                        KosInstance.AccessionNo = item.AccessNo;
+                        KosInstance.SeriInfo = item.SeriesInfo;
+
+                        KosInstance.VolumePath = item.VolumePathName;
+                        KosInstance.InstitutionFilename = item.FileName;
+                        KosInstance.InstitutionPathname = "";
+                        KosInstance.UserFk = 1;
+                        KosInstance.UserFkLastModfiead = 1;
+                        KosInstance.TimeCreated = DateTime.Now;
+                        KosInstance.TimeDelete = DateTime.Now;
+
+                        _kosInstanceRepository.Add(KosInstance);
+
+
+                        _Workspace.CommitChanges();
+
+
+
+
+                    }
+                    else
+                    {
+
+
+
+                    }
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+
+
+                throw new Exception("InfOrc Save. Hata-1004:" + " " + ex.Message.ToString());
+            }
+
         }
     }
 }
