@@ -8,7 +8,7 @@ namespace GT.Persistance.Domain.Models
         public long Pk { get; set; }
         public string PatientId { get; set; }
         public string PatinetName { get; set; }
-        public int? OracleStudyKey { get; set; }
+        public long? OracleStudyKey { get; set; }
         public string StudyInstanceuid { get; set; }
         public string SeriInstanceuid { get; set; }
         public string SopInstanceuid { get; set; }

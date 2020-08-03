@@ -5,6 +5,7 @@ using GT.Core.Settings;
 using GT.DataService.Implementation;
 using GT.DataService.infinity.Implementation;
 using GT.Persistance.Domain.Models;
+using GT.Repository.infinity.Model.View;
 using GT.Repository.Models.View;
 using GT.SERVICE;
 using System;
@@ -19,15 +20,15 @@ namespace GT.BAL.Infinity.DataSynronizer
         KosPahtDataService KosPahtDataService;
         AppLogDataService _AppLogDataService;
 
+        KosInstanceDataService _KosInstanceDataService;
 
         public InfinityDataSyncronizer(IBussinessContext context) : base(context)
         {            
             _InfOracleDataService = new InfOracleDataService(null);
             _InfStudyDataService = new StudyKosDataService(null);
-            KosPahtDataService = new KosPahtDataService(null);
+             KosPahtDataService = new KosPahtDataService(null);
             _AppLogDataService = new AppLogDataService(null);
-
-
+            _KosInstanceDataService = new KosInstanceDataService(null);
         }
         public void SyncronizeInfinityStudyList(long tenantID, long lastID, System.DateTime? startTime, System.DateTime? endTime)
         {
@@ -99,6 +100,46 @@ namespace GT.BAL.Infinity.DataSynronizer
                                     model.ValumePathname = item.VolumePathname;
                                     model.CreationDttm = item.CreationDttm.HasValue ? item.CreationDttm : DateTime.Now;
                                     model.OracleStudyKey = item.StudyKey;
+
+                                    //ZEHRA CAGDAS
+                                    var kosfilter = new DataService.infinity.Model.KosInstanceViewFilter();
+
+                                    if (item.StudyKey!=null)
+                                    {
+                                        kosfilter.StudyKey = Convert.ToInt32(item.StudyKey);
+                        
+
+                                        var kositems = _KosInstanceDataService.KosInstanceOracleList(kosfilter);
+                                        var klist = new List<KosInstanceViewModel>();
+                                        foreach (var kitem in kositems)
+                                        {
+                                                var kmodel = new KosInstanceViewModel(); 
+                                                kmodel.PatientID = kitem.PatientID;
+                                                kmodel.PatientName = kitem.PatientName;
+                                                kmodel.StudyKey = kitem.StudyKey;
+                                                kmodel.StudyInstanceUID = kitem.StudyInstanceUID;
+                                                kmodel.SeriesInstanceUID = kitem.SeriesInstanceUID;
+                                                kmodel.SopInstanceUID = kitem.SopInstanceUID;
+                                                kmodel.Modalities = kitem.Modalities;
+                                                kmodel.AccessNo = kitem.AccessNo;
+                                                kmodel.SeriesInfo = kitem.SeriesInfo;
+                                                kmodel.InstanceLocPathName = "";
+                                                kmodel.VolumePathName = kitem.VolumePathName;
+                                                kmodel.FileName = kitem.FileName;
+                                  
+                                   
+                                                klist.Add(kmodel);
+                                        }
+
+
+                                _KosInstanceDataService.Save(klist);
+
+                            }
+
+
+
+
+
                                     //model.FkKosEnumType = 2;
                                     model.InfMergeKey = item.InfMergeKey;
                                     model.SeriesInfo = item.SeriesInfo;
@@ -176,12 +217,9 @@ namespace GT.BAL.Infinity.DataSynronizer
             }
             catch(Exception ex)
             {
-                _AppLogDataService = new AppLogDataService();
-                _AppLogDataService.Save(AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata, "Hata - 1003: " + " " + Mesaj + " " + ex.InnerException.Message.ToString());
-                throw new Exception("InfOrc SyncronizeInfinityStudyList. Hata-1003:" + " " + ex.Message.ToString());
-
-
-
+                //_AppLogDataService = new AppLogDataService();
+                //_AppLogDataService.Save(AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata, "Hata - 1003: " + " " + Mesaj + " " + ex.InnerException.Message.ToString());
+                //throw new Exception("InfOrc SyncronizeInfinityStudyList. Hata-1003:" + " " + ex.Message.ToString());
 
             }
             Mesaj = "";

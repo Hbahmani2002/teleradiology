@@ -10,6 +10,9 @@ namespace GT.Repository.infinity.Conditions
     public class SeriesConditionFilter
     {
         public string SeriesInfo { get; set; }
+
+
+        public long? StudyKey { get; set; }
     }
     public class SeriesCondition
     {
@@ -20,6 +23,13 @@ namespace GT.Repository.infinity.Conditions
             {
                 exp = exp.And(o => o.SeriesInfo.Contains(filter.SeriesInfo));
             }
+
+            if (filter.StudyKey.HasValue)
+            {
+                exp = exp.And(o => o.StudyKey == filter.StudyKey.Value);
+            }
+
+
             return exp;
         }
 

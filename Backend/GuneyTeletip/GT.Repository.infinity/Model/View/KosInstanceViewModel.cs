@@ -16,7 +16,7 @@ namespace GT.Repository.infinity.Model.View
         public string Modalities { get; set; }
         public string SeriesInfo { get; set; }
         public string FileName { get; set; }
-        public string InstanceLogPathName { get; set; }
+        public string InstanceLocPathName { get; set; }
         public string VolumePathName { get; set; }
     }
 }

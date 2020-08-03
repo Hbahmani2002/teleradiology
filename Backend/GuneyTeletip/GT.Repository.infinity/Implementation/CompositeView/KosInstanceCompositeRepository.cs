@@ -27,7 +27,7 @@ namespace GT.Repository.infinity.Implementation.CompositeView
         public IQueryable<KosInstanceViewModel> Query(Expression<Func<Study, bool>> exp1,
             Expression<Func<Series, bool>> exp2)
         {
-            var study = _AbstractWorkspace.Query<Study>(exp1);
+            var study = _AbstractWorkspace.Query<Study>();
             var series = _AbstractWorkspace.Query<Series>(exp2);
             var instance = _AbstractWorkspace.Query<Instance>();
             var instanceLoc = _AbstractWorkspace.Query<Instanceloc>();

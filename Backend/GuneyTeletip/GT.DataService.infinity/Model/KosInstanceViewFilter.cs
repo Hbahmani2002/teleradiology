@@ -8,5 +8,12 @@ namespace GT.DataService.infinity.Model
     {
         public string PatientID { get; set; }
         public string SeriesInfo { get; set; }
+
+        public string StudyUID { get; set; }
+
+        public long? StudyKey { get; set; }
+
+
+
     }
 }
