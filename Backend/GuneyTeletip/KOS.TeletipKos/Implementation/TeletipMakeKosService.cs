@@ -8,7 +8,7 @@ using Util.ProcessUtil;
 
 namespace GT.TeletipKos
 {
-    public class TeletipMakeKosService
+    public partial class TeletipMakeKosService
     {
         public TeletipKosServiceSetting.MakeKosServiceSettings Settings { get; }
         public TeletipMakeKosService(TeletipKosServiceSetting.MakeKosServiceSettings settings)
@@ -29,16 +29,34 @@ namespace GT.TeletipKos
 
             return processResult;
         }
-        class InstanceItem
+        public ProcessResult MakeKosJSON(MakeKosInstanceItem[] dicomFilePathList, string outputKosFilePath, string institutionName, string institutionSKRS, string override_gender = null, string override_age = null, string override_accNo = null, string override_patientID = null)
         {
-            public string InstancePath { get; set; }
+            var Title = Settings.Title;
+            var locationuid = Settings.LocationUID;
+            var tempLocation = Settings.TempDirectory;
+            var dcmLocation = Settings.DCM4CheeDirectory;
 
-            public InstanceItem(string instancePath)
+            var javaMakekos = Settings.App_Ver_JSON_FilePath;
+
+            var uniqeName = Guid.NewGuid().ToString().Replace("-", "");
+            var dcmJson = Path.Combine(Settings.TempDirectory, "make_kos_json", $"MakeKosParametter_{uniqeName}.json");
+            var jsonParameters = CreateDCMJSON(dicomFilePathList, override_accNo, override_patientID);
+            File.WriteAllText(dcmJson, jsonParameters);
+
+
+            var res = $@"--title {Title} --location-uid {locationuid} --temp-tlocation {tempLocation} --dcm-dcmlocation {dcmLocation} --dcmjson {dcmJson}";
+            var processParameter = $"-jar \"{javaMakekos}\" {res} -o {outputKosFilePath}";
+            //var processParameter = $" -jar \"{javaMakekos}\" ";
+
+            var processResult = ProcessUtil.Start("java", processParameter);
+            if (File.Exists(dcmJson))
             {
-                InstancePath = instancePath;
+                File.Delete(dcmJson);
             }
+
+            return processResult;
         }
-        public ProcessResult MakeKosJSON()
+        public ProcessResult MakeKosJSON_Test()
         {
             //var makeKosSettings = Settings;
 
@@ -82,7 +100,7 @@ namespace GT.TeletipKos
             return processResult;
         }
 
-        private string CreateDCMJSON(InstanceItem[] items, string accNo, string patientID)
+        private string CreateDCMJSON(MakeKosInstanceItem[] items, string accNo, string patientID)
         {
             var jsonFormat = new
             {
