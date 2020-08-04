@@ -12,6 +12,7 @@
     <ProjectReference Include="..\GT.DataService.infinity\GT.DataService.infinity.csproj" />
     <ProjectReference Include="..\GT.Persistance\GT.Persistance.csproj" />
     <ProjectReference Include="..\GT.Repository\GT.Repository.csproj" />
+    <ProjectReference Include="..\KOS.TeletipKos\KOS.TeletipKos.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,6 +11,7 @@ using GT.Repository.Implementation;
 using Gt.PERSISTANCE;
 using GT.SERVICE;
 using GT.UI.WebApi.Controllers;
+using GT.TeletipKos;
 
 namespace STM.Service.Test
 {
@@ -193,5 +194,20 @@ namespace STM.Service.Test
 
         }
 
+        [Test]
+        public void MakeKosJSON()
+        {
+            TeletipMakeKosService TeletipMakeKosService;
+            var makeKosSetting = TeletipKosServiceSetting.GetCurrent().MakeKosSettings;
+            TeletipMakeKosService = new TeletipMakeKosService(makeKosSetting);
+            var dicomFilePathList = new MakeKosInstanceItem[]
+            {
+                new MakeKosInstanceItem("app/teletip_kos/E37678675/I01360665861.dcm")
+            };
+            var outputKosFilePath = "test_java/test.dcm";
+            var accesNo = "C458733711";
+            var patientID = "43603099026";
+            var res = TeletipMakeKosService.MakeKosJSON(dicomFilePathList, outputKosFilePath, "", "", null, null, accesNo, patientID);
+        }
     }
 }

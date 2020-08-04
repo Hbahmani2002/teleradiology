@@ -76,6 +76,38 @@ namespace GT.UI.WebApi.Controllers
 
         }
 
+        [Route("/KosServiceTest/MakeKosJson")]
+        public ServiceResult<object> MakeKosJson()
+        {
+            var settings = AppSettings.GetCurrent();
+            var id = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 6);
+            var jobID = DateTime.Now.ToString("yyyyMMddHHmmssffff") + "_" + id;
+            var filePath = Path.Combine(settings.Log.DIR_JobsLog, $"{jobID}.txt");
+            var manager = GetMakeKosManager(filePath);
+
+            var service = new StudyKosDataService();
+            var list = service.GetMakeKosWithIntanceList();
+            var outputKosFilePath = "test_java/test.dcm";
+            ProcessResult res = null;
+            foreach (var item in list)
+            {
+                var dicomFilePathList = new MakeKosInstanceItem[list.Count()];
+                var i = 0;
+                foreach (var dicomInstance in item.DicomInstanceList)
+                {
+                    dicomFilePathList[i] = new MakeKosInstanceItem(dicomInstance);
+                }
+                res = manager.MakeKosJSON(dicomFilePathList, outputKosFilePath, "", "", null, null, item.AccessionNumber, item.PatientId);
+            }
+            
+            return HttpMessageService.Ok((object)new
+            {
+                res
+                //    JobID = jobID,
+                //JobLogFilePath = filePath
+
+            });
+        }
 
 
         //[HttpPost]
