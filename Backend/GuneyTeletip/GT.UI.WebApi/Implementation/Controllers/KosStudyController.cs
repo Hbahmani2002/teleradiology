@@ -39,7 +39,7 @@ namespace GT.UI.WebApi.Controllers
             if (parms.Filter.BitTarih.HasValue)
                 parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var sd = new StudyKosService(GetBussinesContext());
-            var job = sd.CreateKos(parms);
+            var job = sd.CreateKosJson(parms);
             return HttpMessageService.Ok(job);
         }
 
