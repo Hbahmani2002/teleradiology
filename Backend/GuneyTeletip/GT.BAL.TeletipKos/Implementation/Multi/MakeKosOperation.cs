@@ -64,7 +64,13 @@ namespace GT.Job.Implementation
         private ProcessResult MakeKos(MakeKosViewModel item)
         {
             var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
-            var res = TeletipMakeKosService.MakeKos(item.InputStudyDirectoryPath, outputPath, item.InstitutionName, item.InstitutionSKRS);
+            var dicomFilePathList = new List<MakeKosInstanceItem>();
+            foreach (var dicomInstance in item.DicomInstanceList)
+            {
+                dicomFilePathList.Add( new MakeKosInstanceItem(dicomInstance));
+            }
+            var res = TeletipMakeKosService.MakeKosJSON(dicomFilePathList.ToArray(), outputPath, item.InstitutionName, item.InstitutionSKRS,null,null,item.AccessionNumber,item.PatientId);
+            //var res = TeletipMakeKosService.MakeKos(item.InputStudyDirectoryPath, outputPath, item.InstitutionName, item.InstitutionSKRS);
             var studyDataService = new StudyKosDataService();
             var sb = new StringBuilder();
             sb.AppendLine(res.Message);

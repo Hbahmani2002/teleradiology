@@ -560,7 +560,7 @@ namespace GT.DataService.Implementation
             return makeKosCompositeRepository.Query(s, sc).OrderBy(o => o.StudyID).Take(count).ToList();
         }
 
-        public List<MakeKosViewModel> GetMakeKosWithIntanceList()
+        public List<MakeKosViewModel> GetMakeKosWithIntanceList(int count)
         {
             var s = new InfStudyConditionFilter
             {

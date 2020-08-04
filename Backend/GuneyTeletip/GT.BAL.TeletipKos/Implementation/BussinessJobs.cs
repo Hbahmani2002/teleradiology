@@ -51,7 +51,7 @@ namespace GT.Job.Model.AutoJobs
                     {
                         var globalSettings = AppSettings.GetCurrent();
                         var studyDataService = new StudyKosDataService();
-                        var items = studyDataService.GetMakeKosList(globalSettings.DataServiceSettings.MakeKosServiceItemPerBatch);
+                        var items = studyDataService.GetMakeKosWithIntanceList(globalSettings.DataServiceSettings.MakeKosServiceItemPerBatch);
                         var mc = new MakeKosOperation();
                         mc.DoSingleBatch(items, o, ac);
                     }
