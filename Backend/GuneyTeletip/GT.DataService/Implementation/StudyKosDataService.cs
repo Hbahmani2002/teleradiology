@@ -18,6 +18,7 @@ using AppAbc.Data.Service;
 using static GT.Repository.Conditions.InfStudyConditionFilter;
 using static GT.Repository.Conditions.StudyOperationCountCondition;
 using GT.Repository.infinity.Model.View;
+using GT.TeletipKos;
 
 namespace GT.DataService.Implementation
 {
@@ -81,7 +82,6 @@ namespace GT.DataService.Implementation
             KosDurumOrderCompositeRepository = new KosDurumOrderCompositeRepository(_Workspace);
             appFilePathRepository = new AppFilePathRepository(_Workspace);
             _kosInstanceRepository = new KosInstanceRepository(_Workspace);
-
 
         }
 
@@ -558,6 +558,29 @@ namespace GT.DataService.Implementation
                 MakeKosCount = true,
             };
             return makeKosCompositeRepository.Query(s, sc).OrderBy(o => o.StudyID).Take(count).ToList();
+        }
+
+        public List<MakeKosViewModel> GetMakeKosWithIntanceList()
+        {
+            var s = new InfStudyConditionFilter
+            {
+                KosEnum = KosEnumType.KosOlusturulamamisOlanlar,
+                KosWaitHour = true
+            };
+            var sc = new StudyOperationCountConditionFilter
+            {
+                MakeKosCount = true,
+            };
+            var list=makeKosCompositeRepository.Query(s, sc).ToList();
+           
+            foreach (var item in list)
+            {
+                var filter = new { kosStudyID = item.StudyID };
+                var pathList = _kosInstanceRepository.GetByStudyID(item.StudyID).OrderBy(o => o.OracleStudyKey)
+                    .ToList().Select(o=>o.InstitutionPathname).ToArray();
+                item.DicomInstanceList = pathList;
+            }
+            return list;
         }
 
         public List<SentKosViewModel> GetSentKosList(int count)

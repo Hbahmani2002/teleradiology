@@ -54,7 +54,6 @@ namespace GT.Repository.Implementation.Composite
                           InstitutionName=t.TenantShortName,
                           InstitutionSKRS=s.KurumSkrsKodu,
                           StudyID=k.Pk,
-                          
                        };
 
             return list;

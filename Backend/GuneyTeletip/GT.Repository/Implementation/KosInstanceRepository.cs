@@ -25,5 +25,9 @@ namespace GT.Repository.Implementation
         {
             throw new NotImplementedException();
         }
+        public IEnumerable<KosInstance> GetByStudyID(long studyId)
+        {
+            return Query(o => o.OracleStudyKey == studyId);
+        }
     }
 }
