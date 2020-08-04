@@ -37,6 +37,7 @@ namespace GT.Repository.Implementation.Composite
             var userSkrs = _AbstractWorkspace.Query<UsrTenantSkrs>();
             var failCount = _AbstractWorkspace.Query<StudyOperationCount>(exp2);
             var kosTenat = _AbstractWorkspace.Query<UsrTenant>();
+
             var list = from k in kosStudy
                        join us in userSkrs on k.FkTenant equals us.FkTenant
                        join t in kosTenat on us.FkTenant equals t.Pk
