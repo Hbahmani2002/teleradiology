@@ -65,7 +65,7 @@ namespace GT.UI.WebApi.Controllers
             var jobID = DateTime.Now.ToString("yyyyMMddHHmmssffff") + "_" + id;
             var filePath = Path.Combine(settings.Log.DIR_JobsLog, $"{jobID}.txt");
             var manager = GetMakeKosManager(filePath);
-            var res = manager.MakeKosJSON();
+            var res = manager.MakeKosJSON_Test();
             return HttpMessageService.Ok((object)new
             {
                 res
