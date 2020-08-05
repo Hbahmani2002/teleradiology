@@ -50,6 +50,7 @@ namespace GT.BAL.Infinity.DataSynronizer
 
 
                 filter.Infstudypklast = lastID;
+                filter.SeriesInfo = "DCMCREATOR";
 
                 filter.Accession_no = _InfStudyDataService.GetAccessionOnekNoByTenantID(tenantID);
                 var items = _InfOracleDataService.GetInfOracleList(filter);
@@ -172,7 +173,7 @@ namespace GT.BAL.Infinity.DataSynronizer
 
 
 
-                            //    var kositems = _KosInstanceDataService.KosInstanceOracleList(kosfilter);
+                               // var kositems = _KosInstanceDataService.KosInstanceOracleList(kosfilter);
                             //    var klist = new List<KosInstanceViewModel>();
                             //    foreach (var kitem in kositems)
                             //    {

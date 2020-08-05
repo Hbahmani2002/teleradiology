@@ -19,12 +19,12 @@ namespace GT.Repository.infinity.Implementation.CompositeView
 
         }
 
-        public IQueryable<InfOracleViewModel> Query(Expression<Func<Study, bool>> exp)
+        public IQueryable<InfOracleViewModel> Query(Expression<Func<Study, bool>> exp, Expression<Func<Series, bool>> exp1)
         {
 
 
             var infstudy = _AbstractWorkspace.Query<Study>(exp);
-            var infseries = _AbstractWorkspace.Query<Series>();
+            var infseries = _AbstractWorkspace.Query<Series>(exp1);
             var infinstance = _AbstractWorkspace.Query<Instance>();
             var infinstanceLoc = _AbstractWorkspace.Query<Instanceloc>();
             var infvolume = _AbstractWorkspace.Query<Volume>();
@@ -93,10 +93,11 @@ namespace GT.Repository.infinity.Implementation.CompositeView
 
         }
 
-        public IQueryable<InfOracleViewModel> Query(InfStudyConditionFilter f)
+        public IQueryable<InfOracleViewModel> Query(InfStudyConditionFilter f, InfSerieConditionFilter s)
         {
             var exp = InfStudyCondition.Get(f);
-            return Query(exp);
+            var exp1 = InfSeriesCondition.Get(s);
+            return Query(exp,exp1);
 
         }
 

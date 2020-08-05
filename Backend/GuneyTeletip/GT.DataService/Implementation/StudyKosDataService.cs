@@ -125,8 +125,6 @@ namespace GT.DataService.Implementation
                 if (gelenKey == null)
                 {
 
-
-
                     tenatID = item.FkTenant.Value;
                     KosStudy.FkTenant = item.FkTenant.Value;
                     KosStudy.FkInfBatch = KosBatch.Pk;
@@ -196,7 +194,7 @@ namespace GT.DataService.Implementation
                     }
                     else
                     {
-                        ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(Last_OracleStudyKey);
+                        ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(item.OracleStudyKey);
                        _InfStudyParameterRepository.Update(ParamterTimertenatID);
                     }
                     _Workspace.CommitChanges();
@@ -209,9 +207,9 @@ namespace GT.DataService.Implementation
             }
             catch (Exception ex)
             {
-                
 
-                _AppLogDataService.Save(AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata, ex.InnerException.Message.ToString());
+
+                _AppLogDataService.Save(AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata, ex.InnerException.Message.ToString() );
                 throw new Exception("InfOrc Save. Hata-1004:" + " " + ex.Message.ToString());
             }
 
