@@ -17,7 +17,7 @@ namespace GT.Core.Settings.Global.Model
             var path = Path.GetFullPath(relativePath, Environment.CurrentDirectory);
             return path;
         }
-        public static string DIR_User => FullPath("upload/_User");
+        public static string DIR_User => FullPath("../upload/_User");
         public static string Seperator = "_GEN_";
 
         public static string GetFilePathFromFileName(string fileName)

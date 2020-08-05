@@ -34,7 +34,7 @@ namespace Gt.Data.Test
         [Test]
         public void GetKosDurumIst()
         {
-              var list = service.GetKosDurumIst();
+              //var list = service.GetKosDurumIst();
         }
 
     }

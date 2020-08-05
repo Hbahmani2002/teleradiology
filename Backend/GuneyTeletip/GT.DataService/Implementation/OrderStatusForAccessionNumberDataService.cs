@@ -340,10 +340,6 @@ namespace GT.DataService.Implementation
             }).ToList();
         }
 
-        public List<KosDurumIstModel> GetKosDurumIst()
-        {
-            return kosDurumIstCompositeRepository.Query().ToList();
-        }
         public IEnumerable<KosDeleteViewModel> GetKosDeleteList(KosStudyFilter filter)
         {
             if (filter == null)
