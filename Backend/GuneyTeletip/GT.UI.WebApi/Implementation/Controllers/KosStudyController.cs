@@ -114,7 +114,6 @@ namespace GT.UI.WebApi.Controllers
             var sd = new StudyKosService(GetBussinesContext());
             var job = sd.DeleteKos(parms);
             return HttpMessageService.Ok(job);
-
         }
 
 

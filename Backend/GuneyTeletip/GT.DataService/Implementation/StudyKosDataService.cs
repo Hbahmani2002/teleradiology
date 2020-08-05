@@ -886,7 +886,30 @@ namespace GT.DataService.Implementation
         public IEnumerable<KosDeleteViewModel> GetKosDeleteListGrid(Gridable<KosStudyFilter> parms)
         {
             InfStudyConditionFilter s = ConvertConditionFilter(parms);
-            s.KosEnum = KosEnumType.KosGonderilipEslesenler;
+
+
+
+            string EslesmeDurumuList = Convert.ToInt32( parms.Filter.EslesmeDurumuList[0]).ToString();
+
+            if (EslesmeDurumuList != null)
+            {
+                switch (EslesmeDurumuList)
+                {
+                    case "999":
+                        s.KosEnum = KosEnumType.ZeroImg;
+                        break;
+                    case "60":
+                        s.KosEnum = KosEnumType.KosGonderilipEslesenler;
+                        break;
+
+                }
+            }
+            else
+            {
+                s.KosEnum = KosEnumType.KosGonderilipEslesenler;
+
+            }
+
             s.KosWaitHour = true;
             var sc = new StudyOperationCountConditionFilter
             {
