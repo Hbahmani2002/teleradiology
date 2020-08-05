@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { parameters } from '../../Consts/parameters';
+import { ApiDataService } from '../Api/apiDataService';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FileService {
+export class FileService{
 
+  constructor(private apiDataService: ApiDataService) { }
   public download(fileID, newTab: number = 1) {
     if (!fileID)
       return;
@@ -26,5 +28,8 @@ export class FileService {
   }
   private downloadUrlWindow(url) {
     window.open(url, 'Download');
+  }
+  public Download(fileID:number) {
+     this.apiDataService.callDataService('/FileOperation/Download', fileID);
   }
 }

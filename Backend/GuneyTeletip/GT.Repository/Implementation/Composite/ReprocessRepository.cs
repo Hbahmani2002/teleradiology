@@ -33,7 +33,7 @@ namespace GT.Repository.Implementation.Composite
                         select new ReprocessViewModel
                         {
                             AccessionNumber=s.AccessionNo,
-                            MedulaInstitutionId=g.Medulainstitutionid,
+                            MedulaInstitutionID=g.Medulainstitutionid,
                             StudyID=s.Pk
                         };
             return query;
