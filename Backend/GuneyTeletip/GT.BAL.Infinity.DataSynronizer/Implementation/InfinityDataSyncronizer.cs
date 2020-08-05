@@ -237,9 +237,9 @@ namespace GT.BAL.Infinity.DataSynronizer
             }
             catch(Exception ex)
             {
-                //_AppLogDataService = new AppLogDataService();
-                //_AppLogDataService.Save(AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata, "Hata - 1003: " + " " + Mesaj + " " + ex.InnerException.Message.ToString());
-                //throw new Exception("InfOrc SyncronizeInfinityStudyList. Hata-1003:" + " " + ex.Message.ToString());
+                _AppLogDataService = new AppLogDataService();
+                _AppLogDataService.Save(AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata, "Hata - 1003: " + " " + Mesaj + " - " + ex.Message.ToString());
+                throw new Exception("InfOrc SyncronizeInfinityStudyList. Hata-1003:" + " " + ex.Message.ToString());
 
             }
             Mesaj = "";

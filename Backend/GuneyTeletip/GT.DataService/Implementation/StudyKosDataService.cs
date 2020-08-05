@@ -53,6 +53,8 @@ namespace GT.DataService.Implementation
         KosInstanceRepository _kosInstanceRepository;
         ReprocessRepository reprocessRepository;
 
+        string CekilenVeri = "";
+
         public StudyKosDataService() : this(null, false)
         {
 
@@ -112,6 +114,7 @@ namespace GT.DataService.Implementation
                 long tenatID = 0;
                 decimal Last_OracleStudyKey = 0;
 
+             
 
 
                 var list = new List<InfOraclePostgreStudyViewModel>();
@@ -119,7 +122,7 @@ namespace GT.DataService.Implementation
             {
 
 
-
+                    CekilenVeri = "PatientId : " + item.PatientId + " -StudyKey :  " + item.OracleStudyKey + " -AccessionNo : " + item.AccessionNo;
                 var gelenKey = _InfStudyRepository.QueryOracleStudyKey(item.OracleStudyKey.Value);
                 var KosStudy = new KosStudy();
 
@@ -131,7 +134,7 @@ namespace GT.DataService.Implementation
                     KosStudy.FkInfBatch = KosBatch.Pk;
                     KosStudy.FkUserCreated = null;
                     KosStudy.FkUserModified = null;
-                    KosStudy.PatientId = item.PatientId;
+                    KosStudy.PatientId = "111111111111111111111111111111111111111111111";
                     KosStudy.Gender = item.Gender;
                     KosStudy.StudyDescription = item.StudyDescription;
                     KosStudy.InstitutionName = item.InstitutionName;
@@ -208,12 +211,12 @@ namespace GT.DataService.Implementation
             }
             catch (Exception ex)
             {
+                _AppLogDataService = new AppLogDataService();
 
-
-                _AppLogDataService.Save(AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata, ex.InnerException.Message.ToString() );
-                throw new Exception("InfOrc Save. Hata-1004:" + " " + ex.Message.ToString());
+                _AppLogDataService.Save(AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata, CekilenVeri + " - "+ ex.InnerException.Message.ToString() );
+                //throw new Exception("InfOrc Save. Hata-1004:" + " " + ex.Message.ToString());
             }
-
+            CekilenVeri = "";
         }
 
 
@@ -887,6 +890,10 @@ namespace GT.DataService.Implementation
 
 
 
+            if (parms.Filter.EslesmeDurumuList !=null )
+            { 
+
+
             string EslesmeDurumuList = Convert.ToInt32( parms.Filter.EslesmeDurumuList[0]).ToString();
 
             if (EslesmeDurumuList != null)
@@ -907,6 +914,15 @@ namespace GT.DataService.Implementation
                 s.KosEnum = KosEnumType.KosGonderilipEslesenler;
 
             }
+            }
+
+            else
+            {
+                s.KosEnum = KosEnumType.KosGonderilipEslesenler;
+
+
+            }
+
 
             s.KosWaitHour = true;
             var sc = new StudyOperationCountConditionFilter
