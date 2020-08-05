@@ -1168,11 +1168,19 @@ namespace GT.DataService.Implementation
 
         }
 
-        public ReprocessViewModel[] GetReprocessList(int count)
+        public ReprocessViewModel[] GetReprocessList(Gridable<KosStudyFilter> parms,int count=10)
         {
             var s = new InfStudyConditionFilter
             {
-                KosEnum=KosEnumType.KosGonderilipEslesmeyenler
+                KosEnum=parms.Filter.KosEnum,
+                AccessionNumberList=parms.Filter.AccessionNumberList,
+                BasTarih=parms.Filter.BasTarih,
+                BitTarih=parms.Filter.BitTarih,
+                EslesmeDurumuList=parms.Filter.EslesmeDurumuList,
+                PkList=parms.Filter.StudyIDList,
+                HastaneIDList=parms.Filter.HastaneIDList,
+                ModalityList=parms.Filter.ModaliteList,
+                TcList=parms.Filter.TCList
             };
             return reprocessRepository.Query(s).OrderBy(o => o.AccessionNumber).Take(count).ToArray();
         }
