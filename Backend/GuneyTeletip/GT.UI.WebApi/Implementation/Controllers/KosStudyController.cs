@@ -196,7 +196,7 @@ namespace GT.UI.WebApi.Controllers
         }
         [HttpPost]
         [Route("/Kos/ReprocessKosBackground")]
-        public ServiceResult<long> ReprocessKosBackground(Gridable<KosStudyFilter> parms)
+        public ServiceResult<IEnumerable<Job.Implementation.OperationResult<Job.Implementation.ReprocessStudyOperationResult>>> ReprocessKosBackground(Gridable<KosStudyFilter> parms)
         {
             if (parms.Filter.BasTarih.HasValue)
                 parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
@@ -204,8 +204,8 @@ namespace GT.UI.WebApi.Controllers
                 parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var cx = GetBussinesContext();
             var service = new StudyKosService(cx);
-            var job = service.ReprocessKosBackground(parms.Filter);
-            return HttpMessageService.Ok(job.JobID);
+            var res = service.ReProcessKos(parms);
+            return HttpMessageService.Ok(res);
         }
 
 
