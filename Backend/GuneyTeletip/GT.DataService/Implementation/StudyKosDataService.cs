@@ -51,6 +51,7 @@ namespace GT.DataService.Implementation
         KosPahtDataService KosPahtDataService;
         AppLogDataService _AppLogDataService;
         KosInstanceRepository _kosInstanceRepository;
+        ReprocessRepository reprocessRepository;
 
         public StudyKosDataService() : this(null, false)
         {
@@ -82,7 +83,7 @@ namespace GT.DataService.Implementation
             KosDurumOrderCompositeRepository = new KosDurumOrderCompositeRepository(_Workspace);
             appFilePathRepository = new AppFilePathRepository(_Workspace);
             _kosInstanceRepository = new KosInstanceRepository(_Workspace);
-
+            reprocessRepository = new ReprocessRepository(_Workspace);
         }
 
 
@@ -789,9 +790,19 @@ namespace GT.DataService.Implementation
             }).ToList();
         }
 
-        public List<KosDurumIstModel> GetKosDurumIst()
+        public List<KosDurumIstModel> GetKosDurumIst(Gridable<KosStudyFilter> parms)
         {
-            return kosDurumIstCompositeRepository.Query().ToList();
+            var s = new InfStudyConditionFilter
+            {
+                AccessionNumberList = parms.Filter.AccessionNumberList,
+                BasTarih = parms.Filter.BasTarih,
+                BitTarih = parms.Filter.BitTarih,
+                EslesmeDurumuList = parms.Filter.EslesmeDurumuList,
+                HastaneIDList = parms.Filter.HastaneIDList,
+                ModalityList = parms.Filter.ModaliteList,
+                TcList = parms.Filter.TCList
+            };
+            return kosDurumIstCompositeRepository.Query(s).ToList();
         }
 
         public IEnumerable<MakeKosViewModel> GetKosDurum(Gridable<KosStudyFilter> parms)
@@ -1133,5 +1144,15 @@ namespace GT.DataService.Implementation
             }
 
         }
+
+        public ReprocessViewModel[] GetReprocessList(int count)
+        {
+            var s = new InfStudyConditionFilter
+            {
+                KosEnum=KosEnumType.KosGonderilipEslesmeyenler
+            };
+            return reprocessRepository.Query(s).OrderBy(o => o.AccessionNumber).Take(count).ToArray();
+        }
+
     }
 }

@@ -30,17 +30,12 @@
               {
                 "input": "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
               },
-
               {
                 "input": "node_modules/ngx-toastr/toastr.css"
               },
-
-
               "src/styles.css",
               "src/assets/fonts/font.css",
               "./node_modules/font-awesome/css/font-awesome.css"
-
-
             ],
             "scripts": []
           },
@@ -135,5 +130,8 @@
       }
     }
   },
-  "defaultProject": "guneyteletipUI"
+  "defaultProject": "guneyteletipUI",
+  "cli": {
+    "analytics": "e44caf01-f596-420f-8938-db558ff08b1e"
+  }
 }

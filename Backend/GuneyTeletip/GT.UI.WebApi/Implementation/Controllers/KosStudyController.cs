@@ -257,11 +257,11 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Kos/GetKosDurumIst")]
-        public ServiceResult<List<KosDurumIstModel>> GetKosDurumIst()
+        public ServiceResult<List<KosDurumIstModel>> GetKosDurumIst(Gridable<KosStudyFilter> parms)
         {
             var cx = GetBussinesContext();
             var service = new StudyKosDataService(cx);
-            return HttpMessageService.Ok(service.GetKosDurumIst());
+            return HttpMessageService.Ok(service.GetKosDurumIst(parms));
         }
 
         [HttpPost]
