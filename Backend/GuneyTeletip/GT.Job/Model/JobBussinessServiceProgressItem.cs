@@ -5,14 +5,16 @@ using System.Threading;
 
 namespace GT.Job.Implementation
 {
+    //TODO DO Inherit from BatchProgessItem
     public class JobBussinessServiceProgressItem : IDisposable
     {
         public long JobID { get; }
-        ThrottleTimer ThrottleTimer;
+
+        private ThrottleTimer ThrottleTimer;
         internal int maxMiliSecond => 2000;
         public JobBussinessServiceProgressItem(long jobID, int success, int error)
         {
-            this.JobID = jobID;
+            JobID = jobID;
             Success = success;
             Error = error;
             ThrottleTimer = new ThrottleTimer(o =>
@@ -54,10 +56,11 @@ namespace GT.Job.Implementation
         private void DataProgress()
         {
             Debug.WriteLine($"Tasklist Progress JobId:{JobID}");
-            var dataService = new JobDataService(null);
+            JobDataService dataService = new JobDataService(null);
             dataService.Save_UpdateProgress(JobID, DateTime.Now, Success, Error);
         }
-        object _syn = new object();
+
+        private readonly object _syn = new object();
         public void Dispose()
         {
             lock (_syn)
