@@ -162,48 +162,48 @@ namespace GT.BAL.Infinity.DataSynronizer
 
 
 
-                            ////Instance çeken yer.
-                            //var kosfilter = new DataService.infinity.Model.KosInstanceViewFilter();
+                            //Instance çeken yer.
+                            var kosfilter = new DataService.infinity.Model.KosInstanceViewFilter();
 
-                            //if (item.StudyKey != null)
-                            //{
-                            //    kosfilter.StudyKey = Convert.ToInt32(item.StudyKey);
-                            //    kosfilter.SeriesInfo = "DCMCREATOR";
-
-
+                            if (item.StudyKey != null)
+                            {
+                                kosfilter.StudyKey = Convert.ToInt32(item.StudyKey);
+                                kosfilter.SeriesInfo = "DCMCREATOR";
 
 
-                               // var kositems = _KosInstanceDataService.KosInstanceOracleList(kosfilter);
-                            //    var klist = new List<KosInstanceViewModel>();
-                            //    foreach (var kitem in kositems)
-                            //    {
-                            //        var kmodel = new KosInstanceViewModel();
-                            //        kmodel.PatientID = kitem.PatientID;
-                            //        kmodel.PatientName = kitem.PatientName;
-                            //        kmodel.StudyKey = kitem.StudyKey;
-                            //        kmodel.StudyInstanceUID = kitem.StudyInstanceUID;
-                            //        kmodel.SeriesInstanceUID = kitem.SeriesInstanceUID;
-                            //        kmodel.SopInstanceUID = kitem.SopInstanceUID;
-                            //        kmodel.Modalities = kitem.Modalities;
-                            //        kmodel.AccessNo = kitem.AccessNo;
-                            //        kmodel.SeriesInfo = kitem.SeriesInfo;
-                            //        kmodel.InstanceLocPathName = kitem.InstanceLocPathName;
-                            //        kmodel.VolumePathName = kitem.VolumePathName;
-                            //        kmodel.FileName = kitem.FileName;
-                            //        kmodel.InstanceLocKey = kitem.InstanceLocKey;
-                            //        kmodel.Instance_dcmdir_path = kitem.VolumePathName.Replace(kitem.VolumePathName, volumMap) + "/" + kitem.InstanceLocPathName + "/" + kitem.FileName;
 
 
-                            //        klist.Add(kmodel);
-                            //    }
+                                var kositems = _KosInstanceDataService.KosInstanceOracleList(kosfilter);
+                                var klist = new List<KosInstanceViewModel>();
+                                foreach (var kitem in kositems)
+                                {
+                                    var kmodel = new KosInstanceViewModel();
+                                    kmodel.PatientID = kitem.PatientID;
+                                    kmodel.PatientName = kitem.PatientName;
+                                    kmodel.StudyKey = kitem.StudyKey;
+                                    kmodel.StudyInstanceUID = kitem.StudyInstanceUID;
+                                    kmodel.SeriesInstanceUID = kitem.SeriesInstanceUID;
+                                    kmodel.SopInstanceUID = kitem.SopInstanceUID;
+                                    kmodel.Modalities = kitem.Modalities;
+                                    kmodel.AccessNo = kitem.AccessNo;
+                                    kmodel.SeriesInfo = kitem.SeriesInfo;
+                                    kmodel.InstanceLocPathName = kitem.InstanceLocPathName;
+                                    kmodel.VolumePathName = kitem.VolumePathName;
+                                    kmodel.FileName = kitem.FileName;
+                                    kmodel.InstanceLocKey = kitem.InstanceLocKey;
+                                    kmodel.Instance_dcmdir_path = kitem.VolumePathName.Replace(kitem.VolumePathName, volumMap) + "/" + kitem.InstanceLocPathName + "/" + kitem.FileName;
 
 
-                            //    _InfStudyDataService.SaveKosInstance(klist, 1);
+                                    klist.Add(kmodel);
+                                }
 
 
-                            //}
+                                _InfStudyDataService.SaveKosInstance(klist, 1);
 
-                            ////Instance çeken yer. bitti
+
+                            }
+
+                            //Instance çeken yer. bitti
 
 
 

@@ -60,16 +60,16 @@ namespace GT.DataService.infinity.Implementation
                 
 
 
-          var gelenList= gelenInf
-                .Where(o=>( o.StudyDttm >= filter.Infcreationstartdate ) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no))   )
-                .OrderBy(o => o.StudyKey )
-                .Skip(0)
-                .Take(20000)
-                .ToList();
+          //var gelenList= gelenInf
+          //      .Where(o=>( o.StudyDttm >= filter.Infcreationstartdate ) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no))   )
+          //      .OrderBy(o => o.StudyKey )
+          //      .Skip(0)
+          //      .Take(20000)
+          //      .ToList();
 
-            var list = gelenList.Count;
+  
 
-            var gelenList1 = gelenInf
+            var gelenList = gelenInf
            .Where(o => (o.StudyDttm >= filter.Infcreationstartdate) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no)) && (!o.SeriesInfo.Contains(filter.SeriesInfo)))
            .OrderBy(o => o.StudyKey)
            .Skip(0)
@@ -112,7 +112,7 @@ namespace GT.DataService.infinity.Implementation
 
 
             var gelenList = gelenInf
-                  .Where(o =>  (o.AccessNo == filter.Accession_no) && (!o.SeriesInfo.Contains(filter.SeriesInfo)) )
+                  .Where(o =>  (o.AccessNo == filter.Accession_no))
                   .OrderBy(o => o.StudyKey)
                   .Skip(0)
                   .Take(500)
