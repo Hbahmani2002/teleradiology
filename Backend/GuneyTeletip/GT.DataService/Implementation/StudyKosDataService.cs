@@ -84,6 +84,7 @@ namespace GT.DataService.Implementation
             appFilePathRepository = new AppFilePathRepository(_Workspace);
             _kosInstanceRepository = new KosInstanceRepository(_Workspace);
             reprocessRepository = new ReprocessRepository(_Workspace);
+            _AppLogDataService = new AppLogDataService();
         }
 
 
@@ -209,8 +210,9 @@ namespace GT.DataService.Implementation
             catch (Exception ex)
             {
 
-
-                _AppLogDataService.Save(AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata, ex.InnerException.Message.ToString() );
+                var hata = AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata;
+                var message = ex.InnerException==null?"Error":ex.InnerException.Message.ToString();
+                _AppLogDataService.Save(hata,message);
                 throw new Exception("InfOrc Save. Hata-1004:" + " " + ex.Message.ToString());
             }
 

@@ -32,9 +32,15 @@ namespace Gt.Data.Test
         }
 
         [Test]
-        public void GetKosDurumIst()
+        public void Save()
         {
-              //var list = service.GetKosDurumIst();
+            var items = new List<InfOraclePostgreStudyViewModel>();
+            var item = new InfOraclePostgreStudyViewModel
+            {
+                PatientId= "111111111111111111111111111111111111111111111"
+            };
+            items.Add(item);
+            service.Save(items, 0);
         }
 
     }
