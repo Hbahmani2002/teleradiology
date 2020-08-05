@@ -9,7 +9,9 @@ namespace GT.DataService.infinity.Model
         public string Accession_no { get; set; }
         public DateTime? Infcreationstartdate { get; set; }
         public DateTime? Infcreationenddate { get; set; }
-        public long? Infstudypklast { get; set; } 
+        public long? Infstudypklast { get; set; }
+        public string SeriesInfo { get; set; }
+       
 
     }
 

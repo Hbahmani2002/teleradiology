@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 
 namespace GT.DataService.infinity.Implementation
 {
@@ -47,23 +48,34 @@ namespace GT.DataService.infinity.Implementation
 
             };
 
+            var s = new InfSerieConditionFilter
+            {
+                SeriesInfo = "DCMCREATOR"
+            };
 
             int TakeTop = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.InfinityOracleTakeTop;
 
 
-            var gelenInf = _InfOracleCompositeRepository.Query(f);
+            var gelenInf = _InfOracleCompositeRepository.Query(f,s);
                 
-            //var list = gelenInf.ToList();
+
 
           var gelenList= gelenInf
-                .Where(o=>( o.StudyDttm >= filter.Infcreationstartdate ) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no)) ) 
+                .Where(o=>( o.StudyDttm >= filter.Infcreationstartdate ) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no))   )
                 .OrderBy(o => o.StudyKey )
                 .Skip(0)
                 .Take(20000)
-                .ToList(); 
+                .ToList();
 
+            var list = gelenList.Count;
 
-       
+            var gelenList1 = gelenInf
+           .Where(o => (o.StudyDttm >= filter.Infcreationstartdate) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no)) && (!o.SeriesInfo.Contains(filter.SeriesInfo)))
+           .OrderBy(o => o.StudyKey)
+           .Skip(0)
+           .Take(20000)
+           .ToList();
+
 
             return gelenList;
 
@@ -86,16 +98,21 @@ namespace GT.DataService.infinity.Implementation
 
             };
 
+            var s = new InfSerieConditionFilter
+            {
+                SeriesInfo = "DCMCREATOR"
+            };
+
 
             int TakeTop = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.InfinityOracleTakeTop;
 
 
-            var gelenInf = _InfOracleCompositeRepository.Query(f);
+            var gelenInf = _InfOracleCompositeRepository.Query(f,s);
 
 
 
             var gelenList = gelenInf
-                  .Where(o =>  (o.AccessNo == filter.Accession_no))
+                  .Where(o =>  (o.AccessNo == filter.Accession_no) && (!o.SeriesInfo.Contains(filter.SeriesInfo)) )
                   .OrderBy(o => o.StudyKey)
                   .Skip(0)
                   .Take(500)

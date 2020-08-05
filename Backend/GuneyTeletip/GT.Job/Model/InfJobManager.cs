@@ -56,9 +56,9 @@ namespace GT.Job.Implementation
             try
             {
                 var jobs = this.GetJobs();
-                _KosStudyParameterDataService = new KosStudyParameterDataService(null);
+                //_KosStudyParameterDataService = new KosStudyParameterDataService(null);
 
-                _KosStudyParameterDataService.Save(jobs);
+                //_KosStudyParameterDataService.Save(jobs);
                 logger.LogInfo($"Jobs COUNT:{jobs.Count()}");
                 foreach (var item in jobs)
                 {

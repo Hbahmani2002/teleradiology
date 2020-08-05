@@ -15,8 +15,16 @@ namespace GT.DataService.infinity.Conditions
         public DateTime? CreationEndDate { get; set; }
         public long? InfStudyPkLast { get; set; }
         public DateTime? StudyStartDate { get; set; }
+
+        public string SeriesInfo { get; set; }
     }
 
+
+    public class InfSerieConditionFilter
+    {
+  
+        public string SeriesInfo { get; set; }
+    }
     public class InfStudyCondition
     {
         public static Expression<Func<Study, bool>> Get(InfStudyConditionFilter filter)
@@ -44,9 +52,29 @@ namespace GT.DataService.infinity.Conditions
             }
             if (filter.StudyStartDate.HasValue)
             {
-                exp = exp.And(o => o.StudyDttm >= filter.StudyStartDate.Value);
+               exp = exp.And(o => o.StudyDttm >= filter.StudyStartDate.Value);
             }
+
+
             return exp;
         }
     }
+
+
+    public class InfSeriesCondition
+    {
+        public static Expression<Func<Series, bool>> Get(InfSerieConditionFilter filter)
+        {
+            var exp = PredicateBuilder.True<Series>();
+            if (!string.IsNullOrEmpty(filter.SeriesInfo))
+            {
+                exp = exp.And(o => !o.SeriesInfo.Contains(filter.SeriesInfo));
+            }
+       
+
+
+            return exp;
+        }
+    }
+
 }
