@@ -86,7 +86,7 @@ namespace GT.UI.WebApi.Controllers
             var manager = GetMakeKosManager(filePath);
 
             var service = new StudyKosDataService();
-            var list = service.GetMakeKosWithIntanceList(50);
+            var list = service.GetMakeKosWithIntanceList(10);
             var outputKosFilePath = "test_java/test.dcm";
             ProcessResult res = null;
             foreach (var item in list)

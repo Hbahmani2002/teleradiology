@@ -64,13 +64,7 @@ namespace GT.Job.Implementation
         private ProcessResult MakeKos(MakeKosViewModel item)
         {
             var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
-            var dicomFilePathList = new List<MakeKosInstanceItem>();
-            foreach (var dicomInstance in item.DicomInstanceList)
-            {
-                dicomFilePathList.Add( new MakeKosInstanceItem(dicomInstance));
-            }
-            var res = TeletipMakeKosService.MakeKosJSON(dicomFilePathList.ToArray(), outputPath, item.InstitutionName, item.InstitutionSKRS,null,null,item.AccessionNumber,item.PatientId);
-            //var res = TeletipMakeKosService.MakeKos(item.InputStudyDirectoryPath, outputPath, item.InstitutionName, item.InstitutionSKRS);
+            var res = TeletipMakeKosService.MakeKos(item.InputStudyDirectoryPath, outputPath, item.InstitutionName, item.InstitutionSKRS);
             var studyDataService = new StudyKosDataService();
             var sb = new StringBuilder();
             sb.AppendLine(res.Message);
@@ -85,10 +79,27 @@ namespace GT.Job.Implementation
         {
             var resultCollection = new ConcurrentBag<ProcessResult>();
             ParallelLoopResult result = Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, item =>
-            {                
+            {
                 var res = MakeKos(item);
                 resultCollection.Add(res);
             });
+            return resultCollection.ToArray();
+        }
+
+        public IEnumerable<ProcessResult> DoSingleBatchJSON(IEnumerable<MakeKosViewModel> items)
+        {
+            var resultCollection = new ConcurrentBag<ProcessResult>();
+            foreach (var item in items)
+            {
+                var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
+                var dicomFilePathList = new List<MakeKosInstanceItem>();
+                foreach (var dicomInstance in item.DicomInstanceList)
+                {
+                    dicomFilePathList.Add(new MakeKosInstanceItem(dicomInstance));
+                }
+                var res = TeletipMakeKosService.MakeKosJSON(dicomFilePathList.ToArray(), outputPath, item.InstitutionName, item.InstitutionSKRS, null, null, item.AccessionNumber, item.PatientId);
+                resultCollection.Add(res);
+            }
             return resultCollection.ToArray();
         }
 

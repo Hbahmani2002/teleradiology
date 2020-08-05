@@ -45,6 +45,25 @@ namespace GT.BAL.TeletipKos
             return res;
         }
 
+        public MultipleOperationResultModel CreateKosJson(Gridable<KosStudyFilter> filter)
+        {
+            var op = new MakeKosOperation();
+
+            var studyDataService = new StudyKosDataService();
+            var list = studyDataService.GetMakeKosList(filter);
+
+
+            var resList = op.DoSingleBatchJSON(list)
+                .Select(o => new OperationResultModel()
+                {
+                    Id = 0,
+                    Status = o.IsSuccess ? 1 : 0,
+                    Description = o.Arguments + o.IsSuccess + o.Message
+                }).ToArray();
+            var res = new MultipleOperationResultModel(resList);
+            return res;
+        }
+
 
         public MultipleOperationResultModel SendKos(Gridable<KosStudyFilter> filter)
         {

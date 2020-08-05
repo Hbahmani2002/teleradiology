@@ -58,11 +58,6 @@ namespace GT.TeletipKos
         }
         public ProcessResult MakeKosJSON_Test()
         {
-            //var makeKosSettings = Settings;
-
-            //var output = outputKosFilePath;
-            //var input = inputStudyDirectoryPath;
-
             //java - jar / gt / app / teletip_kos / MakeKOS_protekV2.jar
             //--title DCM-113030
             //--location - uid 1.3.6.1.4.1.21367.2017.10.26.111
@@ -72,13 +67,7 @@ namespace GT.TeletipKos
             //- o / gt / test_java / test.dcm / gt / app / teletip_kos / E37678675
             var makeKosSettings = Settings;
             var uniqeName = Guid.NewGuid().ToString().Replace("-", "");
-            //var dcmJson = $"/gt/test_java/MakeKosParametter_{uniqeName}.json";
             var dcmJson = $"/gt/test_java/MakeKosParametter.json";
-            //var items = new InstanceItem[] {
-            //new InstanceItem(""),
-            //};
-            //var jsonString = CreateDCMJSON(items,);
-            //File.WriteAllText(dcmJson, jsonString);
             var Title = "DCM-113030";
             var locationuid = "1.3.6.1.4.1.21367.2017.10.26.111";
             var tempLocation = "/gt/dicom/temp_kos/";
@@ -89,7 +78,6 @@ namespace GT.TeletipKos
             var javaMakekos = "/gt/app/teletip_kos/MakeKOS_protekV2.jar";
             var res = $@"--title {Title} --location-uid {locationuid} --temp-tlocation {tempLocation} --dcm-dcmlocation {dcmLocation} --dcmjson {dcmJson}";
             var processParameter = $"-jar \"{javaMakekos}\" {res} -o {outputKosFilePath} {studyFolderPath}";
-            //var processParameter = $" -jar \"{javaMakekos}\" ";
 
             var processResult = ProcessUtil.Start("java", processParameter);
             if (File.Exists(dcmJson))
