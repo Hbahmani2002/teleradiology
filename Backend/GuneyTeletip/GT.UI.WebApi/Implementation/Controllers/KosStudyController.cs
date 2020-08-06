@@ -207,6 +207,14 @@ namespace GT.UI.WebApi.Controllers
         [Route("/Kos/ReprocessKos")]
         public ServiceResult<long> ReprocessKos(Gridable<KosStudyFilter> parms)
         {
+
+
+
+
+
+
+
+
             return HttpMessageService.Ok(999L);
         }
         [HttpPost]
