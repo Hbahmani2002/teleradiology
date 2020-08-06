@@ -192,7 +192,7 @@ namespace KosListComponent_Models {
     onClickExportExcel() {
       this.kosService.exportExcel(this.getFilter(1)).subscribe(o => {
         console.log(o);
-        this.fileService.Download(o);
+        this.fileService.download(o);
       });
     }
     onSorting(colName) {

@@ -4,8 +4,9 @@ import { kosDataServices } from '../../../Services/kosDataServices';
 import { userDataServices } from 'src/app/Features/Private/Definitions/Services/userDataServices';
 import { kosFilter } from '../kosgrid/kosgrid.component';
 import { ddlSettings } from './ddlSettings';
-
-
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { defineLocale, trLocale } from 'ngx-bootstrap/chronos';
+defineLocale('tr', trLocale);
 @Component({
   selector: 'app-kosfilter',
   templateUrl: './kosfilter.component.html',
@@ -34,10 +35,12 @@ export class KosfilterComponent implements OnInit {
   public accessionNo: string;
   public accessionNoList: string[] = [];
 
-  constructor(private kosService: kosDataServices, private userService: userDataServices) {
+  constructor(private kosService: kosDataServices, private userService: userDataServices, private localeService: BsLocaleService) {
   }
   ngOnInit() {
-   
+
+    this.localeService.use('tr');
+
     this.ddlTenantSettings = this.ddlSettings.ddlTenantSettings;
     this.ddlModalitySettings = this.ddlSettings.ddlModalitySettings;
     this.ddlEnumSettings = this.ddlSettings.ddlEnumSettings;
@@ -121,7 +124,6 @@ export class KosfilterComponent implements OnInit {
     if (this.accessionNo != "" || this.accessionNo != undefined) {
       filter.accessionNumberList = [];
       filter.accessionNumberList = this.splitAccession();
-      debugger;
     }
     this.filterChanged.emit(filter);
   }

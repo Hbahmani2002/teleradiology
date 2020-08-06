@@ -6,15 +6,23 @@ export class authenticationDataService {
   constructor(private apiDataService: ApiDataService) {
 
   }
-  public isLoggedIn() {
+  public isLoggedIn(forUserNeame?: boolean) {
+    if (forUserNeame == true) {
+      return this.getPermission().pipe(
+        switchMap(res => {
+          return of(res);
+        }),
+        catchError(err => {
+          return of(undefined);
+        })
+      );
+    }
     return this.getPermission().pipe(
       switchMap(res => {
         return of(true);
       })
       ,
-
       catchError(err => {
-       
         return of(false);
       })
       //result is success
