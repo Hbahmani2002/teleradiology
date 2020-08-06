@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { kosDataServices } from '../../../Services/kosDataServices';
 import { kosDurumIstModel } from '../../../Models/kosDurumIstModel';
+import { infStudyFilter } from '../../../Models/infStudyFilter';
+import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 
 @Component({
   selector: 'app-kosstatistic',
@@ -9,8 +11,18 @@ import { kosDurumIstModel } from '../../../Models/kosDurumIstModel';
 })
 export class KosstatisticComponent implements OnInit {
 
+  @Input() set filter(value: any) {
+    if (value == null || value == undefined)
+      return;
+    this.kosFilter = value;
+    this.onRefresh();
+  }
+
   public isCollapsed: boolean = false;
   public isCollapsed1: boolean = true;
+
+  public kosFilter: infStudyFilter = new infStudyFilter(); 
+
   kosDurumModel= Array<kosDurumIstModel>();
   constructor(private kosService: kosDataServices) { }
 
@@ -18,7 +30,7 @@ export class KosstatisticComponent implements OnInit {
     this.onRefresh();
   }
   onRefresh() {
-    this.kosService.GetKosDurumIst().subscribe(data => {
+    this.kosService.GetKosDurumIst(this.kosFilter).subscribe(data => {
       console.log(data);
       this.kosDurumModel = data;
     });

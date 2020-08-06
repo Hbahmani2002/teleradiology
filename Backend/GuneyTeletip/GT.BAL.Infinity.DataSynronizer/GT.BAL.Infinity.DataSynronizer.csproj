@@ -10,6 +10,7 @@
     <ProjectReference Include="..\GT.DataService.infinity\GT.DataService.infinity.csproj" />
     <ProjectReference Include="..\GT.DataService\GT.DataService.csproj" />
     <ProjectReference Include="..\GT.Repository\GT.Repository.csproj" />
+    <ProjectReference Include="..\Util.Logger\Util.Logger.csproj" />
   </ItemGroup>
 
   <ItemGroup>

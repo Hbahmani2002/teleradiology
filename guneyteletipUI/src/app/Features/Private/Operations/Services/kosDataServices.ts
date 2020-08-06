@@ -22,6 +22,10 @@ export class kosDataServices {
     console.log(model);
     return this.apiDataService.callDataService('Kos/CreateKos', model);
   }
+  public instanceCreateKos(model: Grid.GridInputModel<infStudyFilter>): Observable<any> {
+    console.log(model);
+    return this.apiDataService.callDataService('Kos/CreateKosInstance', model);
+  }
   public createKosBg(model: infStudyFilter): Observable<number> {
     return this.apiDataService.callDataService('Kos/CreateKosBackground', model);
   }
@@ -56,7 +60,7 @@ export class kosDataServices {
   //-----------------------
 
 
-  public exportExcel(model: Grid.GridInputModel<infStudyFilter>): Observable<string> {
+  public exportExcel(model: Grid.GridInputModel<infStudyFilter>): Observable<number> {
     return this.apiDataService.callDataService('Kos/ExportExcel', model);
   }
   public getModalityList(): Observable<Array<kosEnumTypeViewModel>> {
@@ -71,8 +75,8 @@ export class kosDataServices {
   public GetEnumTypeList(): Observable<Array<kosEnumTypeViewModel>> {
     return this.apiDataService.callDataService('Kos/GetEnumTypeList',undefined);
   }
-  public GetKosDurumIst(filter: infStudyFilter): Observable<Array<kosDurumIstModel>> {
-    return this.apiDataService.callDataService('Kos/GetKosDurumIst', filter);
+  public GetKosDurumIst(model: infStudyFilter): Observable<Array<kosDurumIstModel>> {
+    return this.apiDataService.callDataService('Kos/GetKosDurumIst',model);
   }
   public UpdateKosDurum(model: updateKosDurumModel): Observable<number> {
     return this.apiDataService.callDataService('Kos/UpdateKosDurum', model);
