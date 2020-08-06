@@ -18,7 +18,7 @@ namespace GT.BAL.Test
         [Test]
         public void UC7_2()
         {
-            long[] studyIDList = new long[] { 59046, 59045 };
+            long[] studyIDList = new long[] { 889366, 889364 };
             StudyKosService sk = new StudyKosService(new BussinessContext(new UserContextModel(0)));
 
             DataService.Model.KosStudyFilter filter = new DataService.Model.KosStudyFilter() { StudyIDList = studyIDList };

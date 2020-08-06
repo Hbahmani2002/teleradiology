@@ -271,15 +271,15 @@ namespace GT.UI.WebApi.Controllers
 
         [HttpPost]
         [Route("/Kos/GetKosDurumIst")]
-        public ServiceResult<List<KosDurumIstModel>> GetKosDurumIst(Gridable<KosStudyFilter> parms)
+        public ServiceResult<List<KosDurumIstModel>> GetKosDurumIst(KosStudyFilter filter)
         {
-            if (parms.Filter.BasTarih.HasValue)
-                parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
-            if (parms.Filter.BitTarih.HasValue)
-                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
+            if (filter.BasTarih.HasValue)
+                filter.BasTarih = filter.BasTarih.Value.AddHours(3);
+            if (filter.BitTarih.HasValue)
+                filter.BitTarih = filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var cx = GetBussinesContext();
             var service = new StudyKosDataService(cx);
-            return HttpMessageService.Ok(service.GetKosDurumIst(parms));
+            return HttpMessageService.Ok(service.GetKosDurumIst(filter));
         }
 
         [HttpPost]
