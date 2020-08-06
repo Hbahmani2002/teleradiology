@@ -13,6 +13,7 @@ import { authenticationDataService } from '../../Services/Data/authenticationDat
 export class SidetestComponent implements OnInit {
   public collapse: boolean = false;
   public collapse1: boolean = false;
+  userName: string;
   modal: OpenModal = new OpenModal(this.modalService, this.changeDetection);
   constructor(private logoutService: LogoutService, private modalService: BsModalService, private changeDetection: ChangeDetectorRef, private authservice: authenticationDataService) { }
 
@@ -33,9 +34,9 @@ export class SidetestComponent implements OnInit {
     }
   }
   getUserInfo() {
-    this.authservice.GetUser().subscribe(info => {
-      debugger;
+    this.authservice.isLoggedIn(true).subscribe(info => {
       console.log(info);
+      this.userName = info.userName;
     });
   }
   logout() {

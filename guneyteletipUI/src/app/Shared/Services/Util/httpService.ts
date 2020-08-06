@@ -20,11 +20,19 @@ export class httpService {
 
   constructor(private http: HttpClient) {}
 
-  public callGetService_Low(url: string, ): Observable<any> {
+  public callGetService_Low(url: string, token: string): Observable<any> {
     /*
      ##validation
     headeroptions
     */
+    /*const httpOptions = {      
+      headers: new HttpHeaders({
+        //'Content-Type': 'application/json',
+        //'Accept': 'application/octet-stream',
+        "Authorization": 'Bearer ' + token,
+      }),            
+      responseType: 'blob' as 'blob',
+    };*/
     return this.http.get(url);
   }
   public callPostService_Low(url: string, params: any, httpOptions: any = undefined): Observable<any> {
