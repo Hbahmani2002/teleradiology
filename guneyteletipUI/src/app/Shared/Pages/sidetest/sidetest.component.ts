@@ -3,6 +3,7 @@ import { LogoutService } from '../../Services/Util/logoutService';
 import { ConfirmationdialogComponent } from '../../Modals/confirmationdialog/confirmationdialog.component';
 import { OpenModal } from '../../Models/openModal';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { authenticationDataService } from '../../Services/Data/authenticationDataService';
 
 @Component({
   selector: 'app-sidetest',
@@ -13,9 +14,10 @@ export class SidetestComponent implements OnInit {
   public collapse: boolean = false;
   public collapse1: boolean = false;
   modal: OpenModal = new OpenModal(this.modalService, this.changeDetection);
-  constructor(private logoutService: LogoutService, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) { }
+  constructor(private logoutService: LogoutService, private modalService: BsModalService, private changeDetection: ChangeDetectorRef, private authservice: authenticationDataService) { }
 
   ngOnInit() {
+    this.getUserInfo();
   }
   toggle() {
     if (this.collapse == true) {
@@ -29,6 +31,12 @@ export class SidetestComponent implements OnInit {
     if (!this.collapse) {
       this.toggle();
     }
+  }
+  getUserInfo() {
+    this.authservice.GetUser().subscribe(info => {
+      debugger;
+      console.log(info);
+    });
   }
   logout() {
     const initialState = {

@@ -29,7 +29,8 @@ export class FileService{
   private downloadUrlWindow(url) {
     window.open(url, 'Download');
   }
-  public Download(fileID:number) {
-     this.apiDataService.callDataService('/FileOperation/Download', fileID);
+  public Download(fileID: number) {
+    debugger;
+    this.apiDataService.callDataService('FileOperation/Download', { "FileID" : fileID }).subscribe();
   }
 }

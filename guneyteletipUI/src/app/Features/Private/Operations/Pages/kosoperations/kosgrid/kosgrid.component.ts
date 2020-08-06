@@ -91,6 +91,13 @@ namespace KosListComponent_Models {
       return this.filter;
     };
 
+    onClickInstanceCreateKos() {
+      this.kosService.instanceCreateKos(this.getFilter(1)).subscribe(o => {
+        console.log(o);
+        this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
+      });
+    }
+
     onClickCreateKos() {
       if (this.selectAll) {
         let filter = this.getFilter(1).filter;
@@ -182,13 +189,10 @@ namespace KosListComponent_Models {
     }
 
 
-
-
-
     onClickExportExcel() {
       this.kosService.exportExcel(this.getFilter(1)).subscribe(o => {
         console.log(o);
-        this.fileService.download(o);
+        this.fileService.Download(o);
       });
     }
     onSorting(colName) {

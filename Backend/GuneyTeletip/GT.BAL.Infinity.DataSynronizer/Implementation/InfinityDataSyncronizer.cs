@@ -11,6 +11,9 @@ using GT.Repository.Models.View;
 using GT.SERVICE;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using Util.Logger;
+
 
 namespace GT.BAL.Infinity.DataSynronizer
 {
@@ -23,6 +26,10 @@ namespace GT.BAL.Infinity.DataSynronizer
 
         KosInstanceDataService _KosInstanceDataService;
         InfStudyParameterRepository _InfStudyParameterRepository;
+
+
+        string hataMesajInstance = "";
+        string hataMesajInfStundy = "";
 
         public InfinityDataSyncronizer(IBussinessContext context) : base(context)
         {            
@@ -40,6 +47,8 @@ namespace GT.BAL.Infinity.DataSynronizer
             string InstancePhat = "";
             try
             {
+
+
 
 
                 var filter = new DataService.infinity.Model.InfOracleFilter();
@@ -72,7 +81,9 @@ namespace GT.BAL.Infinity.DataSynronizer
 
                                 if (item.VolumePathname != null)
                                 {
-                       
+
+                                     hataMesajInfStundy =  " tenantID : " + tenantID + " StudyKey :" + item.StudyKey + "PatientId : " + item.PatientId;
+
                                     var model = new InfOraclePostgreStudyViewModel();
                                     model.AccessionNo = item.AccessNo;
                                     model.TimeCreated = item.CreationDttm;
@@ -162,46 +173,53 @@ namespace GT.BAL.Infinity.DataSynronizer
 
 
 
-                            //Instance çeken yer.
-                            var kosfilter = new DataService.infinity.Model.KosInstanceViewFilter();
+                            ////Instance çeken yer.
+                            ///
+                                        try
+                                        {
+                                                    var kosfilter = new DataService.infinity.Model.KosInstanceViewFilter();
+                                                    hataMesajInstance = tenantID + "" + item.StudyKey + "" + item.PatientId;
 
-                            if (item.StudyKey != null)
-                            {
-                                kosfilter.StudyKey = Convert.ToInt32(item.StudyKey);
-                                kosfilter.SeriesInfo = "DCMCREATOR";
+                                                    if (item.StudyKey != null)
+                                                    {
+                                                        kosfilter.StudyKey = Convert.ToInt32(item.StudyKey);
+                                                        kosfilter.SeriesInfo = "DCMCREATOR";
+                                                        var kositems = _KosInstanceDataService.KosInstanceOracleList(kosfilter);
+                                                        var klist = new List<KosInstanceViewModel>();
+                                                        foreach (var kitem in kositems)
+                                                        {
+                                                            var kmodel = new KosInstanceViewModel();
+                                                            kmodel.PatientID = kitem.PatientID;
+                                                            kmodel.PatientName = kitem.PatientName;
+                                                            kmodel.StudyKey = kitem.StudyKey;
+                                                            kmodel.StudyInstanceUID = kitem.StudyInstanceUID;
+                                                            kmodel.SeriesInstanceUID = kitem.SeriesInstanceUID;
+                                                            kmodel.SopInstanceUID = kitem.SopInstanceUID;
+                                                            kmodel.Modalities = kitem.Modalities;
+                                                            kmodel.AccessNo = kitem.AccessNo;
+                                                            kmodel.SeriesInfo = kitem.SeriesInfo;
+                                                            kmodel.InstanceLocPathName = kitem.InstanceLocPathName;
+                                                            kmodel.VolumePathName = kitem.VolumePathName;
+                                                            kmodel.FileName = kitem.FileName;
+                                                            kmodel.InstanceLocKey = kitem.InstanceLocKey;
+                                                            kmodel.Instance_dcmdir_path = kitem.VolumePathName.Replace(kitem.VolumePathName, volumMap) + "/" + kitem.InstanceLocPathName + "/" + kitem.FileName;
 
+                                                            klist.Add(kmodel);
+                                                        }
+                                                        _InfStudyDataService.SaveKosInstance(klist, 1);
 
+                                                    }
+                                        } catch (Exception es)
+                                        {
 
+                                
+                                                var hata2 = AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata;
+                                                var message2 = es.Message == null ? "Error Instance -1009" : es.Message.ToString();
+                                                _AppLogDataService.Save(hata2, message2 + " - "+ hataMesajInstance);
+                                                hataMesajInstance = "";
 
-                                var kositems = _KosInstanceDataService.KosInstanceOracleList(kosfilter);
-                                var klist = new List<KosInstanceViewModel>();
-                                foreach (var kitem in kositems)
-                                {
-                                    var kmodel = new KosInstanceViewModel();
-                                    kmodel.PatientID = kitem.PatientID;
-                                    kmodel.PatientName = kitem.PatientName;
-                                    kmodel.StudyKey = kitem.StudyKey;
-                                    kmodel.StudyInstanceUID = kitem.StudyInstanceUID;
-                                    kmodel.SeriesInstanceUID = kitem.SeriesInstanceUID;
-                                    kmodel.SopInstanceUID = kitem.SopInstanceUID;
-                                    kmodel.Modalities = kitem.Modalities;
-                                    kmodel.AccessNo = kitem.AccessNo;
-                                    kmodel.SeriesInfo = kitem.SeriesInfo;
-                                    kmodel.InstanceLocPathName = kitem.InstanceLocPathName;
-                                    kmodel.VolumePathName = kitem.VolumePathName;
-                                    kmodel.FileName = kitem.FileName;
-                                    kmodel.InstanceLocKey = kitem.InstanceLocKey;
-                                    kmodel.Instance_dcmdir_path = kitem.VolumePathName.Replace(kitem.VolumePathName, volumMap) + "/" + kitem.InstanceLocPathName + "/" + kitem.FileName;
+                                        }
 
-
-                                    klist.Add(kmodel);
-                                }
-
-
-                                _InfStudyDataService.SaveKosInstance(klist, 1);
-
-
-                            }
 
                             //Instance çeken yer. bitti
 
@@ -237,13 +255,16 @@ namespace GT.BAL.Infinity.DataSynronizer
             }
             catch(Exception ex)
             {
-                _AppLogDataService = new AppLogDataService();
-                _AppLogDataService.Save(AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata, "Hata - 1003: " + " " + Mesaj + " - " + ex.Message.ToString());
-                throw new Exception("InfOrc SyncronizeInfinityStudyList. Hata-1003:" + " " + ex.Message.ToString());
+              
 
+                var hata = AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata;
+                var message = ex.Message == null ? "Error -1003" : ex.Message.ToString();
+                _AppLogDataService.Save(hata, message + " tenantID :" + tenantID);
+                //throw new Exception("InfOrc SyncronizeInfinityStudyList. Hata-1003:" + " " + ex.Message.ToString());
+ 
             }
             Mesaj = "";
-
+            hataMesajInstance = "";
         }
     }
 }
