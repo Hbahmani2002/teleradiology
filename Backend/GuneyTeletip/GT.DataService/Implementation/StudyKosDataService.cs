@@ -53,6 +53,8 @@ namespace GT.DataService.Implementation
         KosInstanceRepository _kosInstanceRepository;
         ReprocessRepository reprocessRepository;
 
+        string CekimBilgi = "";
+        string CekimInstanseBilgi = "";
         public StudyKosDataService() : this(null, false)
         {
 
@@ -119,9 +121,10 @@ namespace GT.DataService.Implementation
             foreach (InfOraclePostgreStudyViewModel item in items)
             {
 
+                   CekimBilgi = "PatientId : " + item.PatientId + " StudyKey : " + item.OracleStudyKey + " AccessionNo : " + item.AccessionNo;
 
 
-                var gelenKey = _InfStudyRepository.QueryOracleStudyKey(item.OracleStudyKey.Value);
+                    var gelenKey = _InfStudyRepository.QueryOracleStudyKey(item.OracleStudyKey.Value);
                 var KosStudy = new KosStudy();
 
                 if (gelenKey == null)
@@ -212,8 +215,8 @@ namespace GT.DataService.Implementation
 
                 var hata = AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata;
                 var message = ex.InnerException==null?"Error":ex.InnerException.Message.ToString();
-                _AppLogDataService.Save(hata,message);
-                throw new Exception("InfOrc Save. Hata-1004:" + " " + ex.Message.ToString());
+                _AppLogDataService.Save(hata, "Hata-1004 CekimBilgi : " + CekimBilgi + " - " +  message);
+                //throw new Exception("InfOrc Save. Hata-1004:" + " " + ex.Message.ToString());
             }
 
         }
@@ -1093,22 +1096,7 @@ namespace GT.DataService.Implementation
             _Workspace.CommitChanges();
             return kosStudy.Pk;
         }
-
-        public long GetFilePathID(string fileName)
-        {
-            var filePath = new AppFilePath();
-            filePath.Filename = fileName;
-            filePath.TimeCreated = DateTime.Now;
-            filePath.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
-            appFilePathRepository.Add(filePath);
-            _Workspace.CommitChanges();
-            return filePath.Pk;
-        }
-        public string GetFileNameByID(long fileID)
-        {
-            var filePath = appFilePathRepository.GetByID(fileID);
-            return filePath.Filename;
-        }
+        
         public void SaveKosInstance(IEnumerable<KosInstanceViewModel> items, int otomatik)
         {
 
@@ -1124,7 +1112,7 @@ namespace GT.DataService.Implementation
                 foreach (KosInstanceViewModel item in items)
                 {
 
-
+                    CekimInstanseBilgi = "InstanceLocKey : " + item.InstanceLocKey.Value + " StudyKey : " + item.StudyKey + " PatientID :" + item.PatientID + " StudyInstanceUID :" + item.StudyInstanceUID;
                     var gelenKey = _kosInstanceRepository.QueryOracleKosInstanceKey(item.InstanceLocKey.Value);
                     var KosInstance = new KosInstance();
 
@@ -1160,10 +1148,10 @@ namespace GT.DataService.Implementation
             }
             catch (Exception ex)
             {
-
-
-
-                throw new Exception("InfOrc Save. Hata-1010:" + " " + ex.Message.ToString());
+                var hata = AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata;
+                var message = ex.InnerException == null ? "Error 10 " : ex.InnerException.Message.ToString();
+                _AppLogDataService.Save(hata, message +" - "+ CekimInstanseBilgi);
+                //throw new Exception("InfOrc Save. Hata-1010:" + " " + ex.Message.ToString());
             }
 
         }
