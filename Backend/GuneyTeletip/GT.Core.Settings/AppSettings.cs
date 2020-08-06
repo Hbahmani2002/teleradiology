@@ -64,7 +64,7 @@ namespace GT.Core.Settings
         {
             //vvvvvv
             DatabaseSetting = new DatabaseSettings(
-               "Host=85.95.238.211;Database=guney_teletip_db;Username=Postgres;Password=protek..psql..2020;Port=9002",
+               "Host=85.95.238.211;Database=guney_teletip_db;Username=postgres;Password=protek..psql..2020;Port=9002",
                "User Id=test_user;Password=protek_oracle_2020;Data Source=85.95.238.211:9003/xe;",
                "Host=85.95.238.210;Database=pacsdb;Username=pacs;Password=pacs;Port=5432"
                );

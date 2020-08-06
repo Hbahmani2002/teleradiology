@@ -1,18 +1,14 @@
-﻿using App.Data.Service;
-using GT.BAL.TeletipKos.Model;
+﻿using GT.BAL.TeletipKos.Model;
 using GT.Core.Settings;
 using GT.DataService.Implementation;
 using GT.DataService.Model;
 using GT.Job.Implementation;
 using GT.Job.Model.AutoJobs;
 using GT.Repository.Models.View;
+using GT.Repository.Models.View.Composite;
 using GT.SERVICE;
 using GT.UTILS.GRID;
-using Microsoft.EntityFrameworkCore.Internal;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Util.Extensions;
 
@@ -20,7 +16,7 @@ namespace GT.BAL.TeletipKos
 {
     public class StudyKosService
     {
-        StudyKosDataService _InfStudyDataService;
+        private readonly StudyKosDataService _InfStudyDataService;
         public StudyKosService(IBussinessContext context)
         {
             _InfStudyDataService = new StudyKosDataService(context);
@@ -82,40 +78,22 @@ namespace GT.BAL.TeletipKos
             return res;
         }
 
-
-        //public MultipleOperationResultModel CreateKosBackground1(KosStudyFilter filter)
-        //{
-
-        //    var list = GetStudyKos(filter);
-        //    CreateKos(list);
-
-        //}
-
-
-
-        public MultipleOperationResultModel MakeKos(KosStudyFilter filter)
-        {
-            var list = GetStudyKos(filter);
-            foreach (var item in list)
-            {
-
-            }
-            return RandomDataGenerator.CreateRandom<MultipleOperationResultModel>(1).FirstOrDefault();
-        }
         public JobBussinessService.JobServiceItem CreateKosBackground(KosStudyFilter filter)
         {
 
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
                 var globalSettings = AppSettings.GetCurrent();
-                var studyDataService = new StudyKosDataService();     
+                var studyDataService = new StudyKosDataService();
                 while (true)
                 {
 
-   
+
                     var items = studyDataService.GetMakeKosList(50);
                     if (items.Count == 0)
+                    {
                         return;
+                    }
 
                     var mc = new MakeKosOperation();
                     mc.DoSingleBatch(items, o, ac);
@@ -138,10 +116,12 @@ namespace GT.BAL.TeletipKos
                 var studyDataService = new StudyKosDataService();
                 while (true)
                 {
-                   
+
                     var items = studyDataService.GetSentKosList(100);
                     if (items.Count == 0)
+                    {
                         return;
+                    }
 
                     var mc = new SendKosOperation();
                     mc.DoSingleBatch(items, o, ac);
@@ -155,7 +135,7 @@ namespace GT.BAL.TeletipKos
 
 
 
-   
+
 
         public MultipleOperationResultModel DeleteKos(Gridable<KosStudyFilter> filter)
         {
@@ -164,15 +144,9 @@ namespace GT.BAL.TeletipKos
             var studyDataService = new StudyKosDataService();
             var list = studyDataService.GetKosDeleteListGrid(filter);
             var resList = op.DoSingleBatch(list);
-            //    //.Select(o => new OperationResultModel()
-            //    //{
-            //    //    Id = 0,
-            //    //    Status = o.IsSuccess ? 1 : 0,
-            //    //    Description = o.Arguments + o.IsSuccess + o.Message
-            //    //}).ToArray();
-            //var res = new MultipleOperationResultModel(resList.ToList());
-            return null;
            
+            return null;
+
         }
 
 
@@ -201,95 +175,36 @@ namespace GT.BAL.TeletipKos
                 var items = studyDataService.GetKosDurumOrderList(filter);
 
                 var mc = new STMOrderStatusForAccessionNumberListOperation(0);
-                mc.StmOrderList(items,o,ac);
+                mc.StmOrderList(items, o, ac);
 
 
-             
+
 
             });
             job.Start();
             return job;
         }
 
-     
 
-        public void ReprocessKos(KosStudyFilter filter)
+
+        public IEnumerable<OperationResult<ReprocessStudyOperationResult>> ReProcessKos(Gridable<KosStudyFilter> filter)
         {
-            var list = GetStudyKos(filter);
-            foreach (var item in list)
+            var studyDataService = new StudyKosDataService();
+            var list = studyDataService.GetReprocessList(filter);
+
+            var model = list.Select(o => new ReprocessViewModel
             {
+                AccessionNumber = o.AccessionNumber,
+                MedulaInstitutionID = o.MedulaInstitutionID,
+                StudyID = o.StudyID
+            }).ToArray();
 
-            }
-            throw new NotImplementedException();
+            var opManager = new ReProcessStudyOperation();
+            var multiRes = opManager.DoBatch(model);
+            return multiRes;
         }
 
-        public JobBussinessService.JobServiceItem ReprocessKosBackground(KosStudyFilter filter)
-        {
-            var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
-            {
-                var globalSettings = AppSettings.GetCurrent();
-            });
-            job.Start();
-            return job;
-        }
 
-        //public void UpdateReadKos(KosStudyFilter filter)
-        public MultipleOperationResultModel UpdateReadKos(Gridable<KosStudyFilter> filter)
-        {
-
-
-
-            ////var globalSettings = AppSettings.GetCurrent();
-            ////var studyDataService = new StudyKosDataService();
-            ////var items = studyDataService.GetKosDurumIst(filter);
-            ////var mc = new STMOrderStatusForAccessionNumberListOperation();
-            ////mc.DoSingleBatch(items, o, ac);
-
-
-
-            //var op = new STMOrderStatusForAccessionNumberListOperation();
-
-            //var studyDataService = new StudyKosDataService();
-            //var list = studyDataService.GetKosDurum(filter);
-            //var resList = op.DoSingleBatch(list)
-            //    .Select(o => new OperationResultModel()
-            //    {
-            //        Id = 0,
-            //        Status = o.IsSuccess ? 1 : 0,
-            //        Description = o.Arguments + o.IsSuccess + o.Message
-            //    }).ToArray();
-            //var res = new MultipleOperationResultModel(resList);
-            //return res;
-
-
-
-
-            //var list = GetStudyKos(filter);
-            //foreach (var item in list)
-            //{
-
-            //}
-            throw new NotImplementedException();
-        }
-
-        public void UpdateReadKosBackground(KosStudyFilter filter)
-        {
-            var list = GetStudyKos(filter);
-            foreach (var item in list)
-            {
-
-            }
-            throw new NotImplementedException();
-        }
-
-        public void ExportExcel(KosStudyFilter filter, string filePath)
-        {
-            var list = GetStudyKos(filter);
-            foreach (var item in list)
-            {
-
-            }
-        }
 
         private IEnumerable<InfStudyViewModel> GetStudyKos(KosStudyFilter filter)
         {

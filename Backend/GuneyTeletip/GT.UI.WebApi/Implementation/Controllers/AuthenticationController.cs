@@ -52,15 +52,10 @@ namespace GT.UI.WebApi.Controllers
 
         // GET api/<controller>
         [Route("/Authentication/GetUser")]
-        public object GetUser()
+        public string GetUser()
         {
             var identity = this.User.Identities.FirstOrDefault();
-            return new
-            {
-                UserName = identity.Name,
-                Extra = string.Join(",",
-                identity.Claims.Select(o => $"{o.Type}:{o.Value}"))
-            };
+            return identity.Name;
         }
     }
 }
