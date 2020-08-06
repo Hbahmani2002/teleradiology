@@ -22,6 +22,10 @@ export class kosDataServices {
     console.log(model);
     return this.apiDataService.callDataService('Kos/CreateKos', model);
   }
+  public instanceCreateKos(model: Grid.GridInputModel<infStudyFilter>): Observable<any> {
+    console.log(model);
+    return this.apiDataService.callDataService('Kos/CreateKosInstance', model);
+  }
   public createKosBg(model: infStudyFilter): Observable<number> {
     return this.apiDataService.callDataService('Kos/CreateKosBackground', model);
   }

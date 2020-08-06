@@ -42,12 +42,12 @@ export class TestpageComponent implements OnInit {
       console.log(o);
     });
   }
-  getistatistic() {
+  /*getistatistic() {
 
     this.kosService.GetKosDurumIst().subscribe(o => {
       console.log(o);
     });
-  }
+  }*/
   getKosHistoryByStudyId() {
     var input = new kosHistoryModel();
     var model = new Grid.GridInputModel(input);

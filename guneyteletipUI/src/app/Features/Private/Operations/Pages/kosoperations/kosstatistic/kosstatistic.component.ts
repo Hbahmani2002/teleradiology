@@ -14,7 +14,6 @@ export class KosstatisticComponent implements OnInit {
   @Input() set filter(value: any) {
     if (value == null || value == undefined)
       return;
-    debugger;
     this.kosFilter = value;
     this.onRefresh();
   }
