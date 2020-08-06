@@ -18,7 +18,7 @@ namespace GT.UI.WebApi.Implementation
         public static string GenerateJwtToken(long ID, string userName)
         {
             // generate token that is valid for 7 days
-            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenHandler = new JwtSecurityTokenHandler();            
             var key = Encoding.ASCII.GetBytes(GlobalAppSettings.GetCurrent().WebAppSettings.TokenMasterKey);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -30,7 +30,7 @@ namespace GT.UI.WebApi.Implementation
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var token = tokenHandler.CreateToken(tokenDescriptor);            
             return tokenHandler.WriteToken(token);
         }
 
@@ -41,6 +41,18 @@ namespace GT.UI.WebApi.Implementation
             //TODO Son Görülme Tarihi
             var id = identity.Claims.SingleOrDefault(o => o.Type == ClaimTypes.NameIdentifier).Value;
             var userName = identity.Claims.SingleOrDefault(o => o.Type == ClaimTypes.Name).Value;
+            return new UserTokenModel() { UserName = userName, ID = long.Parse(id) };
+        }
+
+        public static UserTokenModel GetTokenValues(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var securityToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
+            var identity = securityToken;
+            
+            var id = identity.Claims.SingleOrDefault(o => o.Type == ClaimTypes.NameIdentifier).Value;
+            var userName = identity.Claims.SingleOrDefault(o => o.Type == ClaimTypes.Name).Value;
+
             return new UserTokenModel() { UserName = userName, ID = long.Parse(id) };
         }
     }

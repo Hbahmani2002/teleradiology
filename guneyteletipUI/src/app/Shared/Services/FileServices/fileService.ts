@@ -7,11 +7,11 @@ import { ApiDataService } from '../Api/apiDataService';
 })
 export class FileService{
 
-  constructor(private apiDataService: ApiDataService) { }
+  constructor(private apiDataService: ApiDataService ) { }
   public download(fileID, newTab: number = 1) {
     if (!fileID)
       return;
-    var url = parameters.serverAddress + "FileOperation/Download?fileID=" + fileID;
+    var url = parameters.serverAddress + "FileOperation/Download/" + fileID;
     console.log("Download statrting..." + url);
     if (newTab == 1)
       this.downloadUrlWindow(url);
@@ -27,10 +27,12 @@ export class FileService{
     document.body.appendChild(iframe);
   }
   private downloadUrlWindow(url) {
+    debugger;
     window.open(url, 'Download');
   }
   public Download(fileID: number) {
-    debugger;
-    this.apiDataService.callDataService('FileOperation/Download', { "FileID" : fileID }).subscribe();
+    this.apiDataService.callDataServiceGet('FileOperation/Download/' + fileID).subscribe(resp => {
+      console.log(resp);
+    });
   }
 }

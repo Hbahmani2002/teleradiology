@@ -39,24 +39,9 @@ namespace GT.UI.WebApi.Controllers
             if (parms.Filter.BitTarih.HasValue)
                 parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var sd = new StudyKosService(GetBussinesContext());
-            var job = sd.CreateKos(parms);
-            return HttpMessageService.Ok(job);
-        }
-
-
-        [HttpPost]
-        [Route("/Kos/CreateKosInstance")]
-        public ServiceResult<MultipleOperationResultModel> CreateKosInstance(Gridable<KosStudyFilter> parms)
-        {
-            if (parms.Filter.BasTarih.HasValue)
-                parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
-            if (parms.Filter.BitTarih.HasValue)
-                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
-            var sd = new StudyKosService(GetBussinesContext());
             var job = sd.CreateKosJson(parms);
             return HttpMessageService.Ok(job);
         }
-
 
 
         [HttpPost]
@@ -172,10 +157,11 @@ namespace GT.UI.WebApi.Controllers
                 parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var cx = GetBussinesContext();
             var service = new StudyKosDataService(cx);
+            var fileservice = new FileOperationDataService(cx);
             var list = service.ExcelExport(parms);
             var fileName = "ExcelExport.xlsx";
             var fileIDName = FilePathSettings.GetFileIDName(fileName);
-            var fileNameID = service.GetFilePathID(fileIDName);
+            var fileNameID = fileservice.GetFilePathID(fileIDName);
             var fileNamePath = FilePathSettings.GetFilePathFromFileName(fileNameID.ToString() + ".xlsx");
             ExcelFile.Write(list, fileNamePath);
             return HttpMessageService.Ok(fileNameID);

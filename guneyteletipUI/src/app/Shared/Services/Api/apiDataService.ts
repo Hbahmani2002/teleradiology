@@ -32,6 +32,22 @@ export class ApiDataService {
     );
     ;
   }
+  public callDataServiceGet(serviceNameWithQueryString: string): Observable<any> {
+    let token = this.tokenService.getToken();
+    let serverAdress = parameters.serverAddress;
+    let serviceUrl = serverAdress + serviceNameWithQueryString;
+
+    return this.httpService.callGetService_Low(serviceUrl ,token).pipe(
+      switchMap(res => {
+        return this.onSuccessData(res);
+      }),
+      catchError(err => {
+        //this.onFail(err);
+        throw err;
+      })
+    );
+    ;
+  }
 
   private onFail(err: any): any {
     var erData = err.error
