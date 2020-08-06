@@ -20,5 +20,9 @@
     <ProjectReference Include="..\Util.Excel\Util.Excel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="upload\_User\" />
+  </ItemGroup>
+
 
 </Project>

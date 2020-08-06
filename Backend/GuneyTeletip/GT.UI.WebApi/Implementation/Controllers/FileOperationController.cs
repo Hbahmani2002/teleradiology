@@ -19,14 +19,15 @@ namespace GT.UI.WebApi.Implementation.Controllers
     public class FileOperationController: AuthenticatedBaseController
     {
         [HttpGet]
-        [Route("/FileOperation/Download")]
-        public IActionResult Download(FileOpreationModel model)
+        [Route("/FileOperation/Download/{fileID}")]
+        public IActionResult Download(long fileID)
         {
             var cx = GetBussinesContext();
-            var service = new StudyKosDataService(cx);
-             var fileName = service.GetFileNameByID(model.FileID);
-            var filePath = FilePathSettings.GetFilePathFromFileName(model.FileID.ToString()+".xlsx");
-            var contentType = "APPLICATION/octet-stream";
+            var service = new FileOperationDataService(cx);
+            var fileName = service.GetFileNameByID(fileID);
+            var uzanti = Path.GetExtension(fileName);
+            var filePath = FilePathSettings.GetFilePathFromFileName(fileID.ToString())+ uzanti;
+            var contentType = "application/octet-stream";
             return PhysicalFile(filePath, contentType, fileName);
         }
     }

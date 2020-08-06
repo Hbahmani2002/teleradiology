@@ -1093,22 +1093,7 @@ namespace GT.DataService.Implementation
             _Workspace.CommitChanges();
             return kosStudy.Pk;
         }
-
-        public long GetFilePathID(string fileName)
-        {
-            var filePath = new AppFilePath();
-            filePath.Filename = fileName;
-            filePath.TimeCreated = DateTime.Now;
-            filePath.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
-            appFilePathRepository.Add(filePath);
-            _Workspace.CommitChanges();
-            return filePath.Pk;
-        }
-        public string GetFileNameByID(long fileID)
-        {
-            var filePath = appFilePathRepository.GetByID(fileID);
-            return filePath.Filename;
-        }
+        
         public void SaveKosInstance(IEnumerable<KosInstanceViewModel> items, int otomatik)
         {
 

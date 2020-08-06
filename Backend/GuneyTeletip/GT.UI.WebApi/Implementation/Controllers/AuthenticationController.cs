@@ -50,12 +50,5 @@ namespace GT.UI.WebApi.Controllers
             return HttpMessageService.Ok(list);
         }
 
-        // GET api/<controller>
-        [Route("/Authentication/GetUser")]
-        public string GetUser()
-        {
-            var identity = this.User.Identities.FirstOrDefault();
-            return identity.Name;
-        }
     }
 }
