@@ -24,5 +24,7 @@
     <Folder Include="upload\_User\" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/ansible-playbook" /></VisualStudio></ProjectExtensions>
+
 
 </Project>
