@@ -111,8 +111,10 @@ namespace GT.UI.WebApi
                 var jobManager = InfJobManager.Create(logger);
                 jobManager.Start();
             }
-            catch
-            { }
+            catch(Exception ex)
+            { 
+
+            }
 
             BussinessJobs.StartAutomaticJobs();
 
