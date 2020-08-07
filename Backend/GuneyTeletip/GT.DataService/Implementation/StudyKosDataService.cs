@@ -892,26 +892,26 @@ namespace GT.DataService.Implementation
 
 
 
-            string EslesmeDurumuList = Convert.ToInt32( parms.Filter.EslesmeDurumuList[0]).ToString();
+            //string EslesmeDurumuList = Convert.ToInt32( parms.Filter.EslesmeDurumuList[0]).ToString();
 
-            if (EslesmeDurumuList != null)
-            {
-                switch (EslesmeDurumuList)
-                {
-                    case "999":
-                        s.KosEnum = KosEnumType.ZeroImg;
-                        break;
-                    case "60":
-                        s.KosEnum = KosEnumType.KosGonderilipEslesenler;
-                        break;
+            //if (EslesmeDurumuList != null)
+            //{
+            //    switch (EslesmeDurumuList)
+            //    {
+            //        case "999":
+            //            s.KosEnum = KosEnumType.ZeroImg;
+            //            break;
+            //        case "60":
+            //            s.KosEnum = KosEnumType.KosGonderilipEslesenler;
+            //            break;
 
-                }
-            }
-            else
-            {
-                s.KosEnum = KosEnumType.KosGonderilipEslesenler;
+            //    }
+            //}
+            //else
+            //{
+            //    s.KosEnum = KosEnumType.KosGonderilipEslesenler;
 
-            }
+            //}
 
             s.KosWaitHour = true;
             var sc = new StudyOperationCountConditionFilter
