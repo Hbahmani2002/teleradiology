@@ -203,20 +203,72 @@ namespace GT.UI.WebApi.Controllers
             return HttpMessageService.Ok(service.GetModalityList());
         }
 
+
+
+
+
+
+        [HttpPost]
+        [Route("/Kos/ReprocessKosCa")]
+        public ServiceResult<MultipleOperationResultModel> ReprocessKosCa(Gridable<KosStudyFilter> parms)
+        {
+            if (parms.Filter.BasTarih.HasValue)
+                parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
+            if (parms.Filter.BitTarih.HasValue)
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
+            var sd = new StudyKosService(GetBussinesContext());
+            var job = sd.ReProcessKos(parms);
+            return null;
+        }
+
+
+        //[HttpPost]
+        //[Route("/Kos/ReprocessKos")]
+        //public ServiceResult<long> ReprocessKos(Gridable<KosStudyFilter> parms)
+        //{
+
+
+
+        //    //long[] studyIDList = new long[] { 920525, 920524 };
+        //    //StudyKosService sk = new StudyKosService(new BussinessContext(new UserContextModel(0)));
+
+        //    //DataService.Model.KosStudyFilter filter = new DataService.Model.KosStudyFilter() { StudyIDList = studyIDList };
+        //    //UTILS.GRID.Gridable<DataService.Model.KosStudyFilter> gridFilter = new UTILS.GRID.Gridable<DataService.Model.KosStudyFilter>() { Filter = filter };
+        //    //System.Collections.Generic.IEnumerable<Job.Implementation.OperationResult<Job.Implementation.ReprocessStudyOperationResult>> res = sk.ReProcessKos(gridFilter);
+
+
+        //    if (parms.Filter.BasTarih.HasValue)
+        //        parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
+        //    if (parms.Filter.BitTarih.HasValue)
+        //        parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
+        //    var sd = new StudyKosService(GetBussinesContext());
+        //    var res = sd.ReProcessKos(parms);
+        //    return HttpMessageService.Ok(res);
+
+
+
+        //    //return HttpMessageService.Ok(999L);
+        //}
+
+
         [HttpPost]
         [Route("/Kos/ReprocessKos")]
-        public ServiceResult<long> ReprocessKos(Gridable<KosStudyFilter> parms)
+        public ServiceResult<IEnumerable<Job.Implementation.OperationResult<Job.Implementation.ReprocessStudyOperationResult>>> ReprocessKos(Gridable<KosStudyFilter> parms)
         {
 
+          
 
-
-
-
-
-
-
-            return HttpMessageService.Ok(999L);
+                if (parms.Filter.BasTarih.HasValue)
+                parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
+            if (parms.Filter.BitTarih.HasValue)
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
+            var sd = new StudyKosService(GetBussinesContext());
+            var res = sd.ReProcessKos(parms);
+            return HttpMessageService.Ok(res);
         }
+
+
+
         [HttpPost]
         [Route("/Kos/ReprocessKosBackground")]
         public ServiceResult<IEnumerable<Job.Implementation.OperationResult<Job.Implementation.ReprocessStudyOperationResult>>> ReprocessKosBackground(Gridable<KosStudyFilter> parms)

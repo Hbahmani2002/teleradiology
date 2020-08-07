@@ -23,6 +23,8 @@ namespace Teletip.SorgulamaServis
         private STMServiceParameter ServiceName_RemoveKos = new STMServiceParameter("RemoveKos", httpMethod: "POST");
         private STMServiceParameter ServiceName_GetPreviousStudies = new STMServiceParameter("GetPreviousStudies");
 
+        private STMServiceParameter ServiceName_ReProcessStudy = new STMServiceParameter("ReProcessStudy", httpMethod: "POST");
+
         //public STMServiceParamter ServiceName_ReProcessStudy = new STMServiceParamter("ReProcessStudy");
 
         private string BaseAddress { get; set; }

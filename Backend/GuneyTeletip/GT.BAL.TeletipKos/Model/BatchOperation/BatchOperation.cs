@@ -1,6 +1,11 @@
-﻿using System.Collections.Concurrent;
+﻿using GT.Repository.Models.View.Composite;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Teletip.SorgulamaServis;
+using Util.ProcessUtil;
 
 namespace GT.Job.Implementation
 {
@@ -19,7 +24,14 @@ namespace GT.Job.Implementation
             Settings = new OperationSettings(4, 4);
         }
 
-        public IEnumerable<TOperationResult> DoBatch(IEnumerable<TOperationInput> items, System.Threading.CancellationTokenSource cancelToken = null, BatchProgressItem progressAction = null)
+
+
+
+
+
+
+
+        public IEnumerable<TOperationResult> DoBatch(IEnumerable<TOperationInput> items, System.Threading.CancellationTokenSource cancelToken=null , BatchProgressItem progressAction = null )
         {
             ConcurrentBag<TOperationResult> result = new ConcurrentBag<TOperationResult>();
             Parallel.ForEach(items, new ParallelOptions() { MaxDegreeOfParallelism = Settings.ParallelTask }, item =>
@@ -35,6 +47,8 @@ namespace GT.Job.Implementation
                 try
                 {
                     res = DoSingle(item);
+
+                    //var res = STMService.GetOrderStatusForAccessionNumberList(int.Parse(item.), AccessionNumber);
                     result.Add(res);
                 }
                 catch (System.Exception ex)
@@ -44,6 +58,9 @@ namespace GT.Job.Implementation
                         IsSuccess = false,
                         StackTrace = ex.ToString()
                     };
+                    result.Add(res);
+
+                    throw new Exception($"Servis Sonucu Hatalı ServiceName:{res}", ex);
                 }
                 if (progressAction != null)
                 {
