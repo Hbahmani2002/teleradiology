@@ -175,50 +175,50 @@ namespace GT.BAL.Infinity.DataSynronizer
 
                             ////Instance çeken yer.
                             ///
-                                        try
-                                        {
-                                                    var kosfilter = new DataService.infinity.Model.KosInstanceViewFilter();
-                                                    hataMesajInstance = tenantID + "" + item.StudyKey + "" + item.PatientId;
+                                        //try
+                                        //{
+                                        //            var kosfilter = new DataService.infinity.Model.KosInstanceViewFilter();
+                                        //            hataMesajInstance = tenantID + "" + item.StudyKey + "" + item.PatientId;
 
-                                                    if (item.StudyKey != null)
-                                                    {
-                                                        kosfilter.StudyKey = Convert.ToInt32(item.StudyKey);
-                                                        kosfilter.SeriesInfo = "DCMCREATOR";
-                                                        var kositems = _KosInstanceDataService.KosInstanceOracleList(kosfilter);
-                                                        var klist = new List<KosInstanceViewModel>();
-                                                        foreach (var kitem in kositems)
-                                                        {
-                                                            var kmodel = new KosInstanceViewModel();
-                                                            kmodel.PatientID = kitem.PatientID;
-                                                            kmodel.PatientName = kitem.PatientName;
-                                                            kmodel.StudyKey = kitem.StudyKey;
-                                                            kmodel.StudyInstanceUID = kitem.StudyInstanceUID;
-                                                            kmodel.SeriesInstanceUID = kitem.SeriesInstanceUID;
-                                                            kmodel.SopInstanceUID = kitem.SopInstanceUID;
-                                                            kmodel.Modalities = kitem.Modalities;
-                                                            kmodel.AccessNo = kitem.AccessNo;
-                                                            kmodel.SeriesInfo = kitem.SeriesInfo;
-                                                            kmodel.InstanceLocPathName = kitem.InstanceLocPathName;
-                                                            kmodel.VolumePathName = kitem.VolumePathName;
-                                                            kmodel.FileName = kitem.FileName;
-                                                            kmodel.InstanceLocKey = kitem.InstanceLocKey;
-                                                            kmodel.Instance_dcmdir_path = kitem.VolumePathName.Replace(kitem.VolumePathName, volumMap) + "/" + kitem.InstanceLocPathName + "/" + kitem.FileName;
+                                        //            if (item.StudyKey != null)
+                                        //            {
+                                        //                kosfilter.StudyKey = Convert.ToInt32(item.StudyKey);
+                                        //                kosfilter.SeriesInfo = "DCMCREATOR";
+                                        //                var kositems = _KosInstanceDataService.KosInstanceOracleList(kosfilter);
+                                        //                var klist = new List<KosInstanceViewModel>();
+                                        //                foreach (var kitem in kositems)
+                                        //                {
+                                        //                    var kmodel = new KosInstanceViewModel();
+                                        //                    kmodel.PatientID = kitem.PatientID;
+                                        //                    kmodel.PatientName = kitem.PatientName;
+                                        //                    kmodel.StudyKey = kitem.StudyKey;
+                                        //                    kmodel.StudyInstanceUID = kitem.StudyInstanceUID;
+                                        //                    kmodel.SeriesInstanceUID = kitem.SeriesInstanceUID;
+                                        //                    kmodel.SopInstanceUID = kitem.SopInstanceUID;
+                                        //                    kmodel.Modalities = kitem.Modalities;
+                                        //                    kmodel.AccessNo = kitem.AccessNo;
+                                        //                    kmodel.SeriesInfo = kitem.SeriesInfo;
+                                        //                    kmodel.InstanceLocPathName = kitem.InstanceLocPathName;
+                                        //                    kmodel.VolumePathName = kitem.VolumePathName;
+                                        //                    kmodel.FileName = kitem.FileName;
+                                        //                    kmodel.InstanceLocKey = kitem.InstanceLocKey;
+                                        //                    kmodel.Instance_dcmdir_path = kitem.VolumePathName.Replace(kitem.VolumePathName, volumMap) + "/" + kitem.InstanceLocPathName + "/" + kitem.FileName;
 
-                                                            klist.Add(kmodel);
-                                                        }
-                                                        _InfStudyDataService.SaveKosInstance(klist, 1);
+                                        //                    klist.Add(kmodel);
+                                        //                }
+                                        //                _InfStudyDataService.SaveKosInstance(klist, 1);
 
-                                                    }
-                                        } catch (Exception es)
-                                        {
+                                        //            }
+                                        //} catch (Exception es)
+                                        //{
 
                                 
-                                                var hata2 = AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata;
-                                                var message2 = es.Message == null ? "Error Instance -1009" : es.Message.ToString();
-                                                _AppLogDataService.Save(hata2, message2 + " - "+ hataMesajInstance);
-                                                hataMesajInstance = "";
+                                        //        var hata2 = AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata;
+                                        //        var message2 = es.Message == null ? "Error Instance -1009" : es.Message.ToString();
+                                        //        _AppLogDataService.Save(hata2, message2 + " - "+ hataMesajInstance);
+                                        //        hataMesajInstance = "";
 
-                                        }
+                                        //}
 
 
                             //Instance çeken yer. bitti
