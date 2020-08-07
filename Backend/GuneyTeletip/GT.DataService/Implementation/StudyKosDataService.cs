@@ -564,12 +564,21 @@ namespace GT.DataService.Implementation
             return makeKosCompositeRepository.Query(s, sc).OrderBy(o => o.StudyID).Take(count).ToList();
         }
 
-        public List<MakeKosViewModel> GetMakeKosWithIntanceList(int count)
+        public List<MakeKosViewModel> GetMakeKosWithIntanceList(Gridable<KosStudyFilter>? parms,int count)
         {
             var s = new InfStudyConditionFilter
             {
                 KosEnum = KosEnumType.KosOlusturulamamisOlanlar,
-                KosWaitHour = true
+                KosWaitHour = true,
+                AccessionNumberList=parms.Filter.AccessionNumberList,
+                BasTarih=parms.Filter.BasTarih,
+                BitTarih=parms.Filter.BitTarih,
+                EslesmeDurumuList=parms.Filter.EslesmeDurumuList,
+                HastaneIDList=parms.Filter.HastaneIDList,
+                ModalityList=parms.Filter.ModaliteList,
+                PkList=parms.Filter.StudyIDList,
+                TcList=parms.Filter.TCList,
+                StudyInstanceUID=parms.Filter.StudyInstanceUID
             };
             var sc = new StudyOperationCountConditionFilter
             {
@@ -582,6 +591,7 @@ namespace GT.DataService.Implementation
                 var filter = new { kosStudyID = item.StudyID };
                 var pathList = _kosInstanceRepository.GetByStudyID(item.StudyID).OrderBy(o => o.OracleStudyKey)
                     .ToList().Select(o=>o.InstitutionPathname).ToArray();
+
                 item.DicomInstanceList = pathList;
             }
             return list;

@@ -24,16 +24,17 @@ using GT.Core.Settings;
 using System.IO;
 using Util.Logger;
 using Newtonsoft.Json.Converters;
-
-
+using AppAbc.Data.Service;
 
 namespace GT.UI.WebApi
 {
     public class Startup
     {
+        AppLogDataService _AppLogDataService;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            _AppLogDataService = new AppLogDataService();
         }
 
         public IConfiguration Configuration { get; }
@@ -111,8 +112,12 @@ namespace GT.UI.WebApi
                 var jobManager = InfJobManager.Create(logger);
                 jobManager.Start();
             }
-            catch(Exception ex)
-            { 
+            catch (Exception ex)
+            {
+
+                var hata = AppAbc.Data.Service.AppLogDataService.LogType.JobHata;
+                var message = ex.InnerException.Message == null ? "Error -2001" : ex.InnerException.Message.ToString();
+                _AppLogDataService.Save(hata, message);
 
             }
 

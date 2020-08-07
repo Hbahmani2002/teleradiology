@@ -93,6 +93,8 @@ namespace GT.Job.Implementation
             {
                 var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
                 var dicomFilePathList = new List<MakeKosInstanceItem>();
+                if (item.DicomInstanceList == null || item.DicomInstanceList.Count() <= 0)
+                    continue;
                 foreach (var dicomInstance in item.DicomInstanceList)
                 {
                     dicomFilePathList.Add(new MakeKosInstanceItem(dicomInstance));
