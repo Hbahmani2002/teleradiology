@@ -579,7 +579,6 @@ namespace GT.DataService.Implementation
            
             foreach (var item in list)
             {
-                var filter = new { kosStudyID = item.StudyID };
                 var pathList = _kosInstanceRepository.GetByStudyID(item.StudyID).OrderBy(o => o.OracleStudyKey)
                     .ToList().Select(o=>o.InstitutionPathname).ToArray();
                 item.DicomInstanceList = pathList;

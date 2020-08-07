@@ -46,7 +46,7 @@ namespace GT.BAL.TeletipKos
             var op = new MakeKosOperation();
 
             var studyDataService = new StudyKosDataService();
-            var list = studyDataService.GetMakeKosList(filter);
+            var list = studyDataService.GetMakeKosWithIntanceList(10);
 
 
             var resList = op.DoSingleBatchJSON(list)
