@@ -26,6 +26,7 @@ namespace AppAbc.Data.Service
             OtomatikStm = 3,
             BackGroundJobs = 10,
             InfOrclHata = 20 ,
+            JobHata = 30,
         }
         public long Save(LogType type, string desc)
         {
