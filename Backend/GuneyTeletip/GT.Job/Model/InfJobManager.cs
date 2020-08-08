@@ -30,13 +30,6 @@ namespace GT.Job.Implementation
             _InfJobManager = new InfJobManager(logger);
             return _InfJobManager;
         }
-
-
-
-
-
-      
-
         private InfJobManager(ILogger logger)
         {
             if (logger == null)
@@ -57,14 +50,13 @@ namespace GT.Job.Implementation
             {
                 var jobs = this.GetJobs();
                 //_KosStudyParameterDataService = new KosStudyParameterDataService(null);
-
                 //_KosStudyParameterDataService.Save(jobs);
                 logger.LogInfo($"Jobs COUNT:{jobs.Count()}");
                 foreach (var item in jobs)
                 {
 
                     RegisterJobs(item);
-                }
+                }                
                 StartJobs();
             }
             catch (Exception ex)

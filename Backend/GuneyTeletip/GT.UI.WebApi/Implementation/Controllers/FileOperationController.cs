@@ -16,14 +16,13 @@ namespace GT.UI.WebApi.Implementation.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class FileOperationController: AuthenticatedBaseController
+    public class FileOperationController: ControllerBase
     {
         [HttpGet]
         [Route("/FileOperation/Download/{fileID}")]
         public IActionResult Download(long fileID)
         {
-            var cx = GetBussinesContext();
-            var service = new FileOperationDataService(cx);
+            var service = new FileOperationDataService(null);
             var fileName = service.GetFileNameByID(fileID);
             var uzanti = Path.GetExtension(fileName);
             var filePath = FilePathSettings.GetFilePathFromFileName(fileID.ToString())+ uzanti;

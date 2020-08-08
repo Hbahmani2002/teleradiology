@@ -44,8 +44,7 @@ namespace GT.UI.WebApi.Controllers
             {
                 return null;
             }
-           var list= LoginJWTService.GetTokenValues(identity);
-           
+           var list= LoginJWTService.GetTokenValues(identity);           
 
             return HttpMessageService.Ok(list);
         }

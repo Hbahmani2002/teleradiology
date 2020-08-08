@@ -46,7 +46,7 @@ namespace GT.BAL.TeletipKos
             var op = new MakeKosOperation();
 
             var studyDataService = new StudyKosDataService();
-            var list = studyDataService.GetMakeKosList(filter);
+            var list = studyDataService.GetMakeKosWithIntanceList(filter,10);
 
 
             var resList = op.DoSingleBatchJSON(list)
@@ -184,6 +184,25 @@ namespace GT.BAL.TeletipKos
             job.Start();
             return job;
         }
+
+
+        public IEnumerable<OperationResult<ReprocessStudyOperationResult>> ReProcessKos2(Gridable<KosStudyFilter> filter)
+        {
+            var studyDataService = new StudyKosDataService();
+            var list = studyDataService.GetReprocessList(filter);
+
+            var model = list.Select(o => new ReprocessViewModel
+            {
+                AccessionNumber = o.AccessionNumber,
+                MedulaInstitutionID = o.MedulaInstitutionID,
+                StudyID = o.StudyID
+            }).ToArray();
+
+            var opManager = new ReProcessStudyOperation();
+            var multiRes = opManager.DoBatch(model);
+            return multiRes;
+        }
+
 
 
 

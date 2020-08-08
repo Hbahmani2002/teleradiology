@@ -50,7 +50,7 @@ namespace GT.BAL.Test
         {
             var ex = AppSettings.GetCurrent().ConfigFileException;
             var dc = new InfinityDataSyncronizer(null);
-            dc.SyncronizeInfinityStudyList(9, 0, new DateTime(2020, 07, 01), new DateTime(2020, 07, 02));
+            dc.SyncronizeInfinityStudyList(5, 0, new DateTime(2020, 08, 07), new DateTime(2020, 08, 08));
 
 
 
