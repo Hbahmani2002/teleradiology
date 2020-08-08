@@ -52,12 +52,13 @@ namespace KosListComponent_Models {
       super();
     }
 
-    openConfirmationDialog(message) {
+    openConfirmationDialog(message, reproccessList?) {
       const initialState = {
         modalTitle: "Bilgilendirme",
         message: message,
         button1Text: "Tamam",
-        dangerButtonEnable: false
+        dangerButtonEnable: false,
+        reproccessList: reproccessList,
       };
       this.modal.openModal(ConfirmationdialogComponent, initialState).subscribe((result) => {
         console.log(result.reason);
@@ -182,8 +183,9 @@ namespace KosListComponent_Models {
       }
       else {
         this.kosService.reprocessKos(this.getFilter(1)).subscribe(o => {
+          debugger;
           console.log(o);
-          this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
+          this.openConfirmationDialog(undefined, o);
         });
       }
     }
