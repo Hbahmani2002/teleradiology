@@ -20,11 +20,13 @@ namespace GT.Repository.Implementation
             return Single(o => o.InstanceLocKey == key);
         }
 
-
         public override KosInstance GetByID(long id)
         {
-            throw new NotImplementedException();
+            return Single(o => o.OracleStudyKey == id);
         }
+
+
+  
         public IEnumerable<KosInstance> GetByStudyID(long studyId)
         {
             return Query(o => o.OracleStudyKey == studyId);
