@@ -251,14 +251,19 @@ namespace GT.DataService.Implementation
 
         public int DeleteInstanse(long StudyKey)
         {
-            var InfInstance = _kosInstanceRepository.GetByID(StudyKey);
+            var InfInstanceList = _kosInstanceRepository.GetByStudyID(StudyKey);
 
-            if (InfInstance == null)
+            if (InfInstanceList == null)
             {
                 throw new Exception("Kullanıcı veya kullanıcı Rolü bulunamadı");
             }
 
-            _kosInstanceRepository.Delete(InfInstance);
+            foreach (var item in InfInstanceList)
+            {
+                _kosInstanceRepository.Delete(item);
+
+            }
+
 
             _Workspace.CommitChanges();
             return 0;
@@ -393,7 +398,7 @@ namespace GT.DataService.Implementation
             {
 
                 Delete(item.ID);
-                DeleteInstanse( Convert.ToInt32(item.OracleStudyKey));
+                DeleteInstanse( Convert.ToInt32( item.OracleStudyKey) );
 
             }
             var list_Update = _InfStudyRepository.Query(s)
