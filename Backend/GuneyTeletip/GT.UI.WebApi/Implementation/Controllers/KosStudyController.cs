@@ -256,15 +256,32 @@ namespace GT.UI.WebApi.Controllers
         public ServiceResult<IEnumerable<Job.Implementation.OperationResult<Job.Implementation.ReprocessStudyOperationResult>>> ReprocessKos(Gridable<KosStudyFilter> parms)
         {
 
-          
-
-                if (parms.Filter.BasTarih.HasValue)
+            if (parms.Filter.BasTarih.HasValue)
                 parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
             if (parms.Filter.BitTarih.HasValue)
                 parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var sd = new StudyKosService(GetBussinesContext());
             var res = sd.ReProcessKos(parms);
             return HttpMessageService.Ok(res);
+        }
+
+
+
+    
+
+
+
+        [HttpPost]
+        [Route("/Kos/StudyDataDelete")]
+        public ServiceResult<PagingResult<InfStudyViewModel>> StudyDataDelete(Gridable<KosStudyFilter> parms)
+        {
+            if (parms.Filter.BasTarih.HasValue)
+                parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
+            if (parms.Filter.BitTarih.HasValue)
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
+            var cx = GetBussinesContext();
+            var service = new StudyKosDataService(cx);
+            return HttpMessageService.Ok(service.GetStudyDataDeleteList(parms));
         }
 
 

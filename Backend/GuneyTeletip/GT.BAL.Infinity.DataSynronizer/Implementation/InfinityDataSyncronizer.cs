@@ -173,16 +173,16 @@ namespace GT.BAL.Infinity.DataSynronizer
 
 
 
-                                    ////Instance çeken yer.
-                                    ///
-                                    if (SyncronizeInfinityInstanceList(item, tenantID,volumMap) == false)
-                                        continue;
-                                
-                                    //Instance çeken yer. bitti
+                            ////Instance çeken yer.
+                            ///
+                            //if (SyncronizeInfinityInstanceList(item, tenantID, volumMap) == false)
+                            //    continue;
+
+                            //Instance çeken yer. bitti
 
 
 
-                                    string OrcleZeroImages = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.ZeroImageGeneratorName.ToString();
+                            string OrcleZeroImages = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.ZeroImageGeneratorName.ToString();
 
 
 

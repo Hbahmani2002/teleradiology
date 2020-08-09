@@ -186,25 +186,6 @@ namespace GT.BAL.TeletipKos
         }
 
 
-        public IEnumerable<OperationResult<ReprocessStudyOperationResult>> ReProcessKos2(Gridable<KosStudyFilter> filter)
-        {
-            var studyDataService = new StudyKosDataService();
-            var list = studyDataService.GetReprocessList(filter);
-
-            var model = list.Select(o => new ReprocessViewModel
-            {
-                AccessionNumber = o.AccessionNumber,
-                MedulaInstitutionID = o.MedulaInstitutionID,
-                StudyID = o.StudyID
-            }).ToArray();
-
-            var opManager = new ReProcessStudyOperation();
-            var multiRes = opManager.DoBatch(model);
-            return multiRes;
-        }
-
-
-
 
         public IEnumerable<OperationResult<ReprocessStudyOperationResult>> ReProcessKos(Gridable<KosStudyFilter> filter)
         {
@@ -223,6 +204,24 @@ namespace GT.BAL.TeletipKos
             return multiRes;
         }
 
+
+
+        public IEnumerable<OperationResult<ReprocessStudyOperationResult>> StudyDelete(Gridable<KosStudyFilter> filter)
+        {
+            var studyDataService = new StudyKosDataService();
+            var list = studyDataService.GetReprocessList(filter);
+
+            var model = list.Select(o => new ReprocessViewModel
+            {
+                AccessionNumber = o.AccessionNumber,
+                MedulaInstitutionID = o.MedulaInstitutionID,
+                StudyID = o.StudyID
+            }).ToArray();
+
+            var opManager = new ReProcessStudyOperation();
+            var multiRes = opManager.DoBatch(model);
+            return multiRes;
+        }
 
 
         private IEnumerable<InfStudyViewModel> GetStudyKos(KosStudyFilter filter)

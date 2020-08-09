@@ -53,6 +53,13 @@ namespace GT.DataService.Implementation
         KosInstanceRepository _kosInstanceRepository;
         ReprocessRepository reprocessRepository;
 
+        KosInstanceDataService _KosInstanceDataService;
+   
+
+
+        string hataMesajInstance = "";
+        string hataMesajInfStundy = "";
+
         string CekimBilgi = "";
         string CekimInstanseBilgi = "";
         public StudyKosDataService() : this(null, false)
@@ -87,6 +94,7 @@ namespace GT.DataService.Implementation
             _kosInstanceRepository = new KosInstanceRepository(_Workspace);
             reprocessRepository = new ReprocessRepository(_Workspace);
             _AppLogDataService = new AppLogDataService();
+            _KosInstanceDataService = new KosInstanceDataService(null);
         }
 
 
@@ -224,6 +232,40 @@ namespace GT.DataService.Implementation
 
 
 
+        public int Delete(long StudyKey)
+        {
+            var InfStudy = _InfStudyRepository.GetByID(StudyKey);
+           
+            if (InfStudy == null)
+            {
+                throw new Exception("Kullanıcı veya kullanıcı Rolü bulunamadı");
+            }
+
+            _InfStudyRepository.Delete(InfStudy);
+           
+            _Workspace.CommitChanges();
+            return 0;
+        }
+
+
+
+        public int DeleteInstanse(long StudyKey)
+        {
+            var InfInstance = _kosInstanceRepository.GetByID(StudyKey);
+
+            if (InfInstance == null)
+            {
+                throw new Exception("Kullanıcı veya kullanıcı Rolü bulunamadı");
+            }
+
+            _kosInstanceRepository.Delete(InfInstance);
+
+            _Workspace.CommitChanges();
+            return 0;
+        }
+
+
+
         public int Save_Update(string tenatID)
         {
             //var InfStudyParameter = new InfStudyParameterRepository();
@@ -271,7 +313,6 @@ namespace GT.DataService.Implementation
                 parms.Paging.Count = parms.Filter.AccessionNumberList.Length;
 
             }
-
 
                 var list = _InfStudyRepository.Query(s)
                .GetGridQuery(parms);
@@ -330,51 +371,39 @@ namespace GT.DataService.Implementation
       
             }
 
-
-      
-
-            //if (list != null && list.List.Count > 0)
-            //{
-
-            //    return list;
-
-
-            //}
-            //else
-            //{
-
-            //    //if (parms.Filter.AccessionNumberList != null)
-            //    //{
-            //    //    try
-            //    //    {
-            //    //        foreach (string acceno in parms.Filter.AccessionNumberList)
-            //    //        {
-            //    //            //SyncronizeInfinityStudyListSend(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
-            //    //            SyncronizeInfinityStudyListSend(acceno);
-            //    //        }
-            //    //        var list_Update = _InfStudyRepository.Query(s)
-            //    //       .GetGridQuery(parms);
-            //    //        return list_Update;
-            //    //    }
-            //    //    catch (Exception ex)
-            //    //    { return list; }
-
-            //    //}
-            //    //else
-            //    //    return list;
-            //    //}
-            
-
-            //}
-
-
-            //return _InfStudyRepository.Query(s)
-            //    .GetGridQuery(parms);
         }
 
 
 
+        public PagingResult<InfStudyViewModel> GetStudyDataDeleteList(Gridable<KosStudyFilter> parms)
+        {
 
+
+            ArrayList myAL = new ArrayList();
+            var s = ConvertConditionFilter(parms);
+
+       
+
+            var list = _InfStudyRepository.Query(s)
+           .GetGridQuery(parms);
+            var oracleList = list.List;
+
+
+            foreach (var item in oracleList)
+            {
+
+                Delete(item.ID);
+                DeleteInstanse( Convert.ToInt32(item.OracleStudyKey));
+
+            }
+            var list_Update = _InfStudyRepository.Query(s)
+               .GetGridQuery(parms);
+            return list_Update;
+            throw new Exception("List bulunamadı. Hata-1002:" + " " + list.List.Count.ToString());
+
+
+
+        }
 
 
 
@@ -479,6 +508,10 @@ namespace GT.DataService.Implementation
 
                     }
 
+
+                    if (SyncronizeInfinityInstanceList(item, qtenantID, volumMap) == false)
+                        continue;
+
                     string OrcleZeroImages = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.ZeroImageGeneratorName.ToString();
 
                     if (item.SeriesInfo.Contains(OrcleZeroImages))
@@ -503,7 +536,52 @@ namespace GT.DataService.Implementation
 
 
 
+        public bool SyncronizeInfinityInstanceList(InfOracleViewModel item, long tenantID, string volumMap)
+        {
+            try
+            {
+                var kosfilter = new DataService.infinity.Model.KosInstanceViewFilter();
+                hataMesajInstance = tenantID + "" + item.StudyKey + "" + item.PatientId;
 
+                if (item.StudyKey != null)
+                {
+                    kosfilter.StudyKey = Convert.ToInt32(item.StudyKey);
+                    kosfilter.SeriesInfo = "DCMCREATOR";
+                    var kositems = _KosInstanceDataService.KosInstanceOracleList(kosfilter);
+                    var klist = new List<KosInstanceViewModel>();
+                    foreach (var kitem in kositems)
+                    {
+                        var kmodel = new KosInstanceViewModel();
+                        kmodel.PatientID = kitem.PatientID;
+                        kmodel.PatientName = kitem.PatientName;
+                        kmodel.StudyKey = kitem.StudyKey;
+                        kmodel.StudyInstanceUID = kitem.StudyInstanceUID;
+                        kmodel.SeriesInstanceUID = kitem.SeriesInstanceUID;
+                        kmodel.SopInstanceUID = kitem.SopInstanceUID;
+                        kmodel.Modalities = kitem.Modalities;
+                        kmodel.AccessNo = kitem.AccessNo;
+                        kmodel.SeriesInfo = kitem.SeriesInfo;
+                        kmodel.InstanceLocPathName = kitem.InstanceLocPathName;
+                        kmodel.VolumePathName = kitem.VolumePathName;
+                        kmodel.FileName = kitem.FileName;
+                        kmodel.InstanceLocKey = kitem.InstanceLocKey;
+                        kmodel.Instance_dcmdir_path = kitem.VolumePathName.Replace(kitem.VolumePathName, volumMap) + "/" + kitem.InstanceLocPathName + "/" + kitem.FileName;
+
+                        klist.Add(kmodel);
+                    }
+                    _InfStudyDataService.SaveKosInstance(klist, 1);
+                }
+                return true;
+            }
+            catch (Exception es)
+            {
+                var hata2 = AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata;
+                var message2 = es.Message == null ? "Error Instance -1009" : es.Message.ToString();
+                _AppLogDataService.Save(hata2, message2 + " - " + hataMesajInstance);
+                hataMesajInstance = "";
+                return false;
+            }
+        }
 
 
         public IEnumerable<MakeKosViewModel> GetMakeKosList(Gridable<KosStudyFilter> parms)

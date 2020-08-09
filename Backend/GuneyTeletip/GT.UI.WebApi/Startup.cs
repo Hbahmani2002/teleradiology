@@ -116,12 +116,12 @@ namespace GT.UI.WebApi
             {
 
                 var hata = AppAbc.Data.Service.AppLogDataService.LogType.JobHata;
-                var message = ex.InnerException.Message == null ? "Error -2001" : ex.InnerException.Message.ToString();
+                var message = ex.InnerException.Message == null ? "Error -20021" : ex.InnerException.Message.ToString();
                 _AppLogDataService.Save(hata, message);
 
             }
 
-            BussinessJobs.StartAutomaticJobs();
+            //BussinessJobs.StartAutomaticJobs();
 
             //BussinessJobs.MakeKosJob.Start();
             //BussinessJobs.SendKosJob.Start();
