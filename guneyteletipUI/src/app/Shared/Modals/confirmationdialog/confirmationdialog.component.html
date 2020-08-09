@@ -6,7 +6,13 @@
   </button>
 </div>
 <div class="modal-body">
-  <p>{{message}}</p>
+  <p *ngIf="messageVisible">{{message}}</p>
+  <div *ngIf="!messageVisible">
+    <ul *ngFor="let item of reproccesData">
+      <li>{{item}}</li>
+    </ul>
+  </div>
+
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-primary" (click)="onCancel()">{{button1Text}}</button>

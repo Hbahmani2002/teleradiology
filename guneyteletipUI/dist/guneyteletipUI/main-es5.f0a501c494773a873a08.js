@@ -393,7 +393,7 @@ module.exports = "<div class=\"bg-dark border-right\" id=\"sidebar-wrapper\">\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"modal-header\">\r\n  <h4 class=\"modal-title pull-left\">{{modalTitle}}</h4>\r\n  <button type=\"button\" class=\"close pull-right\" aria-label=\"Close\" (click)=\"modal.onClose('carpi')\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n</div>\r\n<div class=\"modal-body\">\r\n  <p>{{message}}</p>\r\n</div>\r\n<div class=\"modal-footer\">\r\n  <button type=\"button\" class=\"btn btn-primary\" (click)=\"onCancel()\">{{button1Text}}</button>\r\n  <button *ngIf=\"dangerButtonEnable\" type=\"button\" class=\"btn btn-danger\" (click)=\"onConfirm()\">{{button2Text}}</button>\r\n</div>\r\n"
+module.exports = "\r\n<div class=\"modal-header\">\r\n  <h4 class=\"modal-title pull-left\">{{modalTitle}}</h4>\r\n  <button type=\"button\" class=\"close pull-right\" aria-label=\"Close\" (click)=\"modal.onClose('carpi')\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n</div>\r\n<div class=\"modal-body\">\r\n  <p *ngIf=\"messageVisible\">{{message}}</p>\r\n  <div *ngIf=\"!messageVisible\">\r\n    <ul *ngFor=\"let item of reproccesData\">\r\n      <li>{{item}}</li>\r\n    </ul>\r\n  </div>\r\n\r\n</div>\r\n<div class=\"modal-footer\">\r\n  <button type=\"button\" class=\"btn btn-primary\" (click)=\"onCancel()\">{{button1Text}}</button>\r\n  <button *ngIf=\"dangerButtonEnable\" type=\"button\" class=\"btn btn-danger\" (click)=\"onConfirm()\">{{button2Text}}</button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -2429,12 +2429,13 @@ var KosListComponent_Models;
             _this.filter = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__["Grid"].GridInputModel(new _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_4__["infStudyFilter"]());
             return _this;
         }
-        GridUser.prototype.openConfirmationDialog = function (message) {
+        GridUser.prototype.openConfirmationDialog = function (message, reproccessList) {
             var initialState = {
                 modalTitle: "Bilgilendirme",
                 message: message,
                 button1Text: "Tamam",
-                dangerButtonEnable: false
+                dangerButtonEnable: false,
+                reproccessList: reproccessList,
             };
             this.modal.openModal(src_app_Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmationdialogComponent"], initialState).subscribe(function (result) {
                 console.log(result.reason);
@@ -2551,8 +2552,9 @@ var KosListComponent_Models;
             }
             else {
                 this.kosService.reprocessKos(this.getFilter(1)).subscribe(function (o) {
+                    debugger;
                     console.log(o);
-                    _this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
+                    _this.openConfirmationDialog(undefined, o);
                 });
             }
         };
@@ -3962,9 +3964,9 @@ var parameters = {
     cookieDay: 2,
     homePageAdress: '',
     loginPageAdress: '',
-    //serverAddress: "http://10.202.108.127:8080/",
+    serverAddress: "http://10.202.108.127:8080/",
     //serverAddress: "http://localhost:54387/",
-    serverAddress: "https://api_gt_test.proteksaglik.com/",
+    //serverAddress: "https://api_gt_test.proteksaglik.com/",
     loginServiceName: 'Authentication/GetPermission',
     loginStatusServiceName: 'Authentication/Token'
 };
@@ -4220,10 +4222,17 @@ var ConfirmationdialogComponent = /** @class */ (function () {
         this.button1Text = "İptal";
         this.button2Text = "Uygula";
         this.dangerButtonEnable = true;
+        this.reproccessList = [];
+        this.reproccesData = [];
+        this.messageVisible = true;
         this.output = undefined; // modal'ın açıldığı sayfada modal kapandıktan sonra aktarılacak veri 
         this.modal = new _Models_openModal__WEBPACK_IMPORTED_MODULE_3__["OpenModal"](this.modalService, this.changeDetection);
     }
     ConfirmationdialogComponent.prototype.ngOnInit = function () {
+        if (this.message == undefined) {
+            this.messageVisible = false;
+            this.reproccesData = this.reproccessList[0].data.accNoAffectedList;
+        }
     };
     ConfirmationdialogComponent.prototype.onConfirm = function () {
         this.output = 'confirm';
@@ -5762,4 +5771,4 @@ module.exports = __webpack_require__(/*! C:\Users\Protek\source\repos\protek.gun
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
-//# sourceMappingURL=main-es5.75ffe84a697652f9db45.js.map
+//# sourceMappingURL=main-es5.f0a501c494773a873a08.js.map
