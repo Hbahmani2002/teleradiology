@@ -33,6 +33,9 @@ export class kosDataServices {
   public deleteKos(model: Grid.GridInputModel<infStudyFilter>): Observable<any> {
     return this.apiDataService.callDataService('Kos/DeleteKos', model);
   }
+  public deleteFromData(model: Grid.GridInputModel<infStudyFilter>): Observable<any> {
+    return this.apiDataService.callDataService('Kos/StudyDataDelete', model);
+  }
   public deleteKosBg(model:infStudyFilter): Observable<number> {
     return this.apiDataService.callDataService('Kos/DeleteKosBackground', model);
   }

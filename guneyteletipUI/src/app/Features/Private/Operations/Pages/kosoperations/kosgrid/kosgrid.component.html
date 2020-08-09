@@ -6,6 +6,7 @@
   <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickUpdateReadKos()" class="btn btn-primary smalbutton" tooltip="Seçilenlerin KOS Durumlarını Teletıp'tan oku"><fa name="get-pocket"></fa></button>
   <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickReprocessKos()" class="btn btn-secondary smalbutton" tooltip="Reprocess Kos"><fa name="reply"></fa></button>
   <button (click)="gridKos.onClickExportExcel()" class="btn btn-primary smalbutton" tooltip="Excel'e çevir"><fa name="table"></fa></button>
+  <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickDeleteFromData()" class="btn btn-danger smalbutton" tooltip="Seçilenleri Data'dan sil"><fa name="trash"></fa></button>
 </div>
 
 <div class="card mt-2 shadow bg-white rounded-0">

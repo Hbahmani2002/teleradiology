@@ -151,7 +151,13 @@ namespace KosListComponent_Models {
         });
       }
     }
-
+    onClickDeleteFromData() {
+      console.log("onClickDeleteFromData");
+      this.kosService.deleteFromData(this.getFilter(1)).subscribe(o => {
+        console.log(o);
+        this.openConfirmationDialog("İşlem tamamlandı.");
+      });
+    }
 
     onClickUpdateReadKos() {
       
