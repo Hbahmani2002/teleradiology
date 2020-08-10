@@ -54,6 +54,7 @@ namespace GT.Repository.Implementation.Composite
                           InstitutionName=t.TenantShortName,
                           InstitutionSKRS=s.KurumSkrsKodu,
                           StudyID=k.Pk,
+                          oracle_study_key = k.OracleStudyKey.Value,
                        };
 
             return list;

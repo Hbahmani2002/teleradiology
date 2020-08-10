@@ -31,5 +31,11 @@ namespace GT.Repository.Implementation
         {
             return Query(o => o.OracleStudyKey == studyId);
         }
+
+        public IEnumerable<KosInstance> GetByKosStudyInstanceID(decimal studyId)
+        {
+            return Query(o => o.OracleStudyKey == studyId);
+        }
+
     }
 }
