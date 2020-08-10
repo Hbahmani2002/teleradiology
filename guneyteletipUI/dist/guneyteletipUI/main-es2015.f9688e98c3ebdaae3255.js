@@ -195,7 +195,7 @@ module.exports = "<!--filter is a component, created by Protek Developer Team. Y
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"m-0\">\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickInstanceCreateKos()\" class=\"btn btn-primary smalbutton\" tooltip=\"Instance Koş Oluştur\"><fa name=\"plus-circle\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickCreateKos()\" class=\"btn btn-info smalbutton\" tooltip=\"Koş Oluştur\"><fa name=\"plus-circle\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickSendKos()\" class=\"btn btn-info smalbutton\" tooltip=\"Seçilenlerin KOS'larını Gönder\"><fa name=\"share-square\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickDeleteKos()\" class=\"btn btn-danger smalbutton\" tooltip=\"Seçilenlerin KOS'larını Teletıp'tan sil\"><fa name=\"trash\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickUpdateReadKos()\" class=\"btn btn-primary smalbutton\" tooltip=\"Seçilenlerin KOS Durumlarını Teletıp'tan oku\"><fa name=\"get-pocket\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickReprocessKos()\" class=\"btn btn-secondary smalbutton\" tooltip=\"Reprocess Kos\"><fa name=\"reply\"></fa></button>\r\n  <button (click)=\"gridKos.onClickExportExcel()\" class=\"btn btn-primary smalbutton\" tooltip=\"Excel'e çevir\"><fa name=\"table\"></fa></button>\r\n</div>\r\n\r\n<div class=\"card mt-2 shadow bg-white rounded-0\">\r\n  <div class=\"card-header pr-1 pt-1 pb-1 pl-2\">\r\n    <fa name=\"list\" class=\"align-middle\"></fa>\r\n    Kayıt Listesi > [Toplam:{{gridKos.data.totalCount}}/Seçili:{{gridKos.selectedItems.length}}/Tıklanan:{{gridKos.clickedItem!=undefined?1:0}}]\r\n    <div class=\"pull-right align-middle\">\r\n      <select [(ngModel)]=\"gridKos.model.paging.count\" (change)=\"gridKos.onRefresh()\">\r\n        <option *ngFor=\"let c of gridKos.pager\" [ngValue]=\"c\">{{c}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n  <div class=\"card-body p-0 table-responsive\">\r\n    <table #filterSection class=\"table table-hover m-0 medlifeGrid\">\r\n      <thead>\r\n        <tr>\r\n          <th scope=\"col\" class=\"p-0\" style=\"width: 25px;\">\r\n            <input type=\"checkbox\" class=\"m-1\" (click)=\"gridKos.gridSelect($event,'selectPage')\" [(ngModel)]=\"gridKos.selectPage\" title=\"Sayfayı Seç\">\r\n            <input type=\"checkbox\" class=\"m-1\" (click)=\"gridKos.gridSelect($event,'selectAll')\" [(ngModel)]=\"gridKos.selectAll\" title=\"Tümünü Seç\">\r\n          </th>\r\n\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('id')\">ID<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('hastaNo')\">Hasta No<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('patientName')\">Hasta İsmi<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('accessionNumber')\">Accession No<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('modality')\">Modalite<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('creationDttm')\">Oluşturma Tarihi<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('studyDate')\">Study Date<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr (click)=\"gridKos.onClickItem(item)\" *ngFor=\"let item of gridKos.data.list\" [class]=\"gridKos.getRowClass(item)\">\r\n          <td class=\"p-0\">\r\n            <input type=\"checkbox\"  class=\"m-1\" [checked]=\"gridKos.isSelected(item)\"\r\n                   (change)=\"gridKos.onSelectItem(item)\" [disabled] =\"gridKos.selectAll\">\r\n          </td>\r\n          <td class=\"p-0\">{{item.id}}</td>\r\n          <td class=\"p-0\">{{item.hastaNo}}</td>\r\n          <td class=\"p-0\">{{item.patientName}}</td>\r\n          <td class=\"p-0\">{{item.accessionNumber}}</td>\r\n          <td class=\"p-0\">{{item.modality}}</td>\r\n          <td class=\"p-0\">{{item.creationDttm | date : 'dd.MM.yyyy'}}</td>\r\n          <td class=\"p-0\">{{item.studyDate | date : 'dd.MM.yyyy'}}</td>\r\n        </tr>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n  <div class=\"row justify-content-center mt-2\">\r\n    <div class=\"col-sm-7 pagination-sm  justify-content-center pageNumber\">\r\n      <pagination class=\"justify-content-center mb-0\" [boundaryLinks]=\"true\" [totalItems]=\"gridKos.data.totalCount\" [maxSize]=\"4\" [(ngModel)]=\"gridKos.model.paging.pageNumber\" [itemsPerPage]=\"gridKos.model.paging.count\" (pageChanged)=\"gridKos.onPageChanged($event)\" previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"&laquo;\" lastText=\"&raquo;\">\r\n      </pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n"
+module.exports = "<div class=\"m-0\">\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickInstanceCreateKos()\" class=\"btn btn-primary smalbutton\" tooltip=\"Instance Koş Oluştur\"><fa name=\"plus-circle\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickCreateKos()\" class=\"btn btn-info smalbutton\" tooltip=\"Koş Oluştur\"><fa name=\"plus-circle\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickSendKos()\" class=\"btn btn-info smalbutton\" tooltip=\"Seçilenlerin KOS'larını Gönder\"><fa name=\"share-square\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickDeleteKos()\" class=\"btn btn-danger smalbutton\" tooltip=\"Seçilenlerin KOS'larını Teletıp'tan sil\"><fa name=\"trash\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickUpdateReadKos()\" class=\"btn btn-primary smalbutton\" tooltip=\"Seçilenlerin KOS Durumlarını Teletıp'tan oku\"><fa name=\"get-pocket\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickReprocessKos()\" class=\"btn btn-secondary smalbutton\" tooltip=\"Reprocess Kos\"><fa name=\"reply\"></fa></button>\r\n  <button (click)=\"gridKos.onClickExportExcel()\" class=\"btn btn-primary smalbutton\" tooltip=\"Excel'e çevir\"><fa name=\"table\"></fa></button>\r\n  <button [disabled]=\"!gridKos.selectAll &&  !gridKos.selectedItems.length > 0\" (click)=\"gridKos.onClickDeleteFromData()\" class=\"btn btn-danger smalbutton\" tooltip=\"Seçilenleri Data'dan sil\"><fa name=\"trash\"></fa></button>\r\n</div>\r\n\r\n<div class=\"card mt-2 shadow bg-white rounded-0\">\r\n  <div class=\"card-header pr-1 pt-1 pb-1 pl-2\">\r\n    <fa name=\"list\" class=\"align-middle\"></fa>\r\n    Kayıt Listesi > [Toplam:{{gridKos.data.totalCount}}/Seçili:{{gridKos.selectedItems.length}}/Tıklanan:{{gridKos.clickedItem!=undefined?1:0}}]\r\n    <div class=\"pull-right align-middle\">\r\n      <select [(ngModel)]=\"gridKos.model.paging.count\" (change)=\"gridKos.onRefresh()\">\r\n        <option *ngFor=\"let c of gridKos.pager\" [ngValue]=\"c\">{{c}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n  <div class=\"card-body p-0 table-responsive\">\r\n    <table #filterSection class=\"table table-hover m-0 medlifeGrid\">\r\n      <thead>\r\n        <tr>\r\n          <th scope=\"col\" class=\"p-0\" style=\"width: 25px;\">\r\n            <input type=\"checkbox\" class=\"m-1\" (click)=\"gridKos.gridSelect($event,'selectPage')\" [(ngModel)]=\"gridKos.selectPage\" title=\"Sayfayı Seç\">\r\n            <input type=\"checkbox\" class=\"m-1\" (click)=\"gridKos.gridSelect($event,'selectAll')\" [(ngModel)]=\"gridKos.selectAll\" title=\"Tümünü Seç\">\r\n          </th>\r\n\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('id')\">ID<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('hastaNo')\">Hasta No<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('patientName')\">Hasta İsmi<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('accessionNumber')\">Accession No<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('modality')\">Modalite<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('creationDttm')\">Oluşturma Tarihi<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n          <th scope=\"col\" class=\"p-0\" (click)=\"gridKos.onSorting('studyDate')\">Study Date<fa name=\"sort\" class=\"ml-1\"></fa></th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr (click)=\"gridKos.onClickItem(item)\" *ngFor=\"let item of gridKos.data.list\" [class]=\"gridKos.getRowClass(item)\">\r\n          <td class=\"p-0\">\r\n            <input type=\"checkbox\"  class=\"m-1\" [checked]=\"gridKos.isSelected(item)\"\r\n                   (change)=\"gridKos.onSelectItem(item)\" [disabled] =\"gridKos.selectAll\">\r\n          </td>\r\n          <td class=\"p-0\">{{item.id}}</td>\r\n          <td class=\"p-0\">{{item.hastaNo}}</td>\r\n          <td class=\"p-0\">{{item.patientName}}</td>\r\n          <td class=\"p-0\">{{item.accessionNumber}}</td>\r\n          <td class=\"p-0\">{{item.modality}}</td>\r\n          <td class=\"p-0\">{{item.creationDttm | date : 'dd.MM.yyyy'}}</td>\r\n          <td class=\"p-0\">{{item.studyDate | date : 'dd.MM.yyyy'}}</td>\r\n        </tr>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n  <div class=\"row justify-content-center mt-2\">\r\n    <div class=\"col-sm-7 pagination-sm  justify-content-center pageNumber\">\r\n      <pagination class=\"justify-content-center mb-0\" [boundaryLinks]=\"true\" [totalItems]=\"gridKos.data.totalCount\" [maxSize]=\"4\" [(ngModel)]=\"gridKos.model.paging.pageNumber\" [itemsPerPage]=\"gridKos.model.paging.count\" (pageChanged)=\"gridKos.onPageChanged($event)\" previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"&laquo;\" lastText=\"&raquo;\">\r\n      </pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -441,24 +441,22 @@ module.exports = ".divscroll{\r\n  overflow: auto;\r\n  scrollbar-3dlight-color:
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardComponent", function() { return DashboardComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
-var DashboardComponent = /** @class */ (function () {
-    function DashboardComponent() {
+let DashboardComponent = class DashboardComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    DashboardComponent.prototype.ngOnInit = function () {
-    };
-    DashboardComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-dashboard',
-            template: __webpack_require__(/*! raw-loader!./dashboard.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Dashboard/Pages/dashboard/dashboard.component.html"),
-            styles: [__webpack_require__(/*! ./dashboard.component.css */ "./src/app/Features/Private/Dashboard/Pages/dashboard/dashboard.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], DashboardComponent);
-    return DashboardComponent;
-}());
+};
+DashboardComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-dashboard',
+        template: __webpack_require__(/*! raw-loader!./dashboard.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Dashboard/Pages/dashboard/dashboard.component.html"),
+        styles: [__webpack_require__(/*! ./dashboard.component.css */ "./src/app/Features/Private/Dashboard/Pages/dashboard/dashboard.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], DashboardComponent);
 
 
 
@@ -486,9 +484,9 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditroleComponent", function() { return EditroleComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var src_app_Shared_Models_openModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Shared/Models/openModal */ "./src/app/Shared/Models/openModal.ts");
-/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm2015/ngx-bootstrap-modal.js");
 /* harmony import */ var _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Services/roleDataServices */ "./src/app/Features/Private/Definitions/Services/roleDataServices.ts");
 /* harmony import */ var _Models_saveRoleModel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Models/saveRoleModel */ "./src/app/Features/Private/Definitions/Models/saveRoleModel.ts");
 
@@ -497,8 +495,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var EditroleComponent = /** @class */ (function () {
-    function EditroleComponent(bsModalRef, modalService, changeDetection, roleService) {
+let EditroleComponent = class EditroleComponent {
+    constructor(bsModalRef, modalService, changeDetection, roleService) {
         this.bsModalRef = bsModalRef;
         this.modalService = modalService;
         this.changeDetection = changeDetection;
@@ -506,7 +504,7 @@ var EditroleComponent = /** @class */ (function () {
         this.modal = new src_app_Shared_Models_openModal__WEBPACK_IMPORTED_MODULE_2__["OpenModal"](this.modalService, this.changeDetection);
         this.saveRolModel = new _Models_saveRoleModel__WEBPACK_IMPORTED_MODULE_5__["saveRoleModel"]();
     }
-    EditroleComponent.prototype.ngOnInit = function () {
+    ngOnInit() {
         console.log(this.roleID);
         if (this.roleID == undefined) {
             this.idVisible = false;
@@ -515,36 +513,34 @@ var EditroleComponent = /** @class */ (function () {
             this.idVisible = true;
             this.saveRolModel.id = this.roleID;
         }
-    };
-    EditroleComponent.prototype.getRoleByID = function () {
-    };
-    EditroleComponent.prototype.save = function () {
-        var _this = this;
+    }
+    getRoleByID() {
+    }
+    save() {
         console.log(this.saveRolModel);
-        this.roleService.save(this.saveRolModel).subscribe(function (o) {
+        this.roleService.save(this.saveRolModel).subscribe(o => {
             console.log(o);
-            _this.modal.onClose('save');
+            this.modal.onClose('save');
         });
-    };
-    EditroleComponent.prototype.cancel = function (reason) {
+    }
+    cancel(reason) {
         this.modal.onClose(reason);
-    };
-    EditroleComponent.ctorParameters = function () { return [
-        { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] },
-        { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
-        { type: _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_4__["roleDataServices"] }
-    ]; };
-    EditroleComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-editrole',
-            template: __webpack_require__(/*! raw-loader!./editrole.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Modals/editrole/editrole.component.html"),
-            styles: [__webpack_require__(/*! ./editrole.component.css */ "./src/app/Features/Private/Definitions/Modals/editrole/editrole.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_4__["roleDataServices"]])
-    ], EditroleComponent);
-    return EditroleComponent;
-}());
+    }
+};
+EditroleComponent.ctorParameters = () => [
+    { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] },
+    { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
+    { type: _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_4__["roleDataServices"] }
+];
+EditroleComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-editrole',
+        template: __webpack_require__(/*! raw-loader!./editrole.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Modals/editrole/editrole.component.html"),
+        styles: [__webpack_require__(/*! ./editrole.component.css */ "./src/app/Features/Private/Definitions/Modals/editrole/editrole.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_4__["roleDataServices"]])
+], EditroleComponent);
 
 
 
@@ -572,8 +568,8 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EdituserComponent", function() { return EdituserComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm2015/ngx-bootstrap-modal.js");
 /* harmony import */ var src_app_Shared_Models_openModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/Shared/Models/openModal */ "./src/app/Shared/Models/openModal.ts");
 /* harmony import */ var _Services_userDataServices__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Services/userDataServices */ "./src/app/Features/Private/Definitions/Services/userDataServices.ts");
 /* harmony import */ var _Models_userUIModel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Models/userUIModel */ "./src/app/Features/Private/Definitions/Models/userUIModel.ts");
@@ -585,8 +581,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var EdituserComponent = /** @class */ (function () {
-    function EdituserComponent(bsModalRef, modalService, changeDetection, userService) {
+let EdituserComponent = class EdituserComponent {
+    constructor(bsModalRef, modalService, changeDetection, userService) {
         this.bsModalRef = bsModalRef;
         this.modalService = modalService;
         this.changeDetection = changeDetection;
@@ -596,20 +592,18 @@ var EdituserComponent = /** @class */ (function () {
         this.idDisabled = true;
         this.userUI = new _Models_userUIModel__WEBPACK_IMPORTED_MODULE_5__["userUIModel"]();
     }
-    EdituserComponent.prototype.ngOnInit = function () {
-        var _this = this;
+    ngOnInit() {
         if (this.userId == undefined) {
             this.idDisabled = false;
         }
         else {
             this.userUI.userID = this.userId;
-            this.userService.getByID(this.userUI).subscribe(function (userData) {
-                _this.userModel = userData;
+            this.userService.getByID(this.userUI).subscribe(userData => {
+                this.userModel = userData;
             });
         }
-    };
-    EdituserComponent.prototype.onSave = function () {
-        var _this = this;
+    }
+    onSave() {
         if (this.userModel.recordState) {
             this.userModel.recordState = 1;
         }
@@ -617,28 +611,27 @@ var EdituserComponent = /** @class */ (function () {
             this.userModel.recordState = 0;
         }
         console.log(this.userModel);
-        this.userService.save(this.userModel).subscribe(function (data) {
+        this.userService.save(this.userModel).subscribe(data => {
             console.log(data);
-            _this.modal.onClose("save");
+            this.modal.onClose("save");
         });
         //this.modal.onClose("save");
-    };
-    EdituserComponent.ctorParameters = function () { return [
-        { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] },
-        { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalService"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
-        { type: _Services_userDataServices__WEBPACK_IMPORTED_MODULE_4__["userDataServices"] }
-    ]; };
-    EdituserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'edituser',
-            template: __webpack_require__(/*! raw-loader!./edituser.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Modals/edituser/edituser.component.html"),
-            styles: [__webpack_require__(/*! ./edituser.component.css */ "./src/app/Features/Private/Definitions/Modals/edituser/edituser.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _Services_userDataServices__WEBPACK_IMPORTED_MODULE_4__["userDataServices"]])
-    ], EdituserComponent);
-    return EdituserComponent;
-}());
+    }
+};
+EdituserComponent.ctorParameters = () => [
+    { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] },
+    { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalService"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
+    { type: _Services_userDataServices__WEBPACK_IMPORTED_MODULE_4__["userDataServices"] }
+];
+EdituserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'edituser',
+        template: __webpack_require__(/*! raw-loader!./edituser.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Modals/edituser/edituser.component.html"),
+        styles: [__webpack_require__(/*! ./edituser.component.css */ "./src/app/Features/Private/Definitions/Modals/edituser/edituser.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _Services_userDataServices__WEBPACK_IMPORTED_MODULE_4__["userDataServices"]])
+], EdituserComponent);
 
 
 
@@ -654,12 +647,8 @@ var EdituserComponent = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "roleViewModel", function() { return roleViewModel; });
-var roleViewModel = /** @class */ (function () {
-    function roleViewModel() {
-    }
-    return roleViewModel;
-}());
-
+class roleViewModel {
+}
 
 
 /***/ }),
@@ -674,12 +663,8 @@ var roleViewModel = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveRolUIModel", function() { return saveRolUIModel; });
-var saveRolUIModel = /** @class */ (function () {
-    function saveRolUIModel() {
-    }
-    return saveRolUIModel;
-}());
-
+class saveRolUIModel {
+}
 
 
 /***/ }),
@@ -694,12 +679,8 @@ var saveRolUIModel = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveTenantUIModel", function() { return saveTenantUIModel; });
-var saveTenantUIModel = /** @class */ (function () {
-    function saveTenantUIModel() {
-    }
-    return saveTenantUIModel;
-}());
-
+class saveTenantUIModel {
+}
 
 
 /***/ }),
@@ -714,12 +695,8 @@ var saveTenantUIModel = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserSaveModel", function() { return UserSaveModel; });
-var UserSaveModel = /** @class */ (function () {
-    function UserSaveModel() {
-    }
-    return UserSaveModel;
-}());
-
+class UserSaveModel {
+}
 
 
 /***/ }),
@@ -734,12 +711,8 @@ var UserSaveModel = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userUIModel", function() { return userUIModel; });
-var userUIModel = /** @class */ (function () {
-    function userUIModel() {
-    }
-    return userUIModel;
-}());
-
+class userUIModel {
+}
 
 
 /***/ }),
@@ -754,12 +727,8 @@ var userUIModel = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userViewFilter", function() { return userViewFilter; });
-var userViewFilter = /** @class */ (function () {
-    function userViewFilter() {
-    }
-    return userViewFilter;
-}());
-
+class userViewFilter {
+}
 
 
 /***/ }),
@@ -774,12 +743,8 @@ var userViewFilter = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "roleModel", function() { return roleModel; });
-var roleModel = /** @class */ (function () {
-    function roleModel() {
-    }
-    return roleModel;
-}());
-
+class roleModel {
+}
 
 
 /***/ }),
@@ -794,12 +759,8 @@ var roleModel = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveRoleModel", function() { return saveRoleModel; });
-var saveRoleModel = /** @class */ (function () {
-    function saveRoleModel() {
-    }
-    return saveRoleModel;
-}());
-
+class saveRoleModel {
+}
 
 
 /***/ }),
@@ -814,12 +775,8 @@ var saveRoleModel = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserSaveModel", function() { return UserSaveModel; });
-var UserSaveModel = /** @class */ (function () {
-    function UserSaveModel() {
-    }
-    return UserSaveModel;
-}());
-
+class UserSaveModel {
+}
 
 
 /***/ }),
@@ -834,12 +791,8 @@ var UserSaveModel = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userUIModel", function() { return userUIModel; });
-var userUIModel = /** @class */ (function () {
-    function userUIModel() {
-    }
-    return userUIModel;
-}());
-
+class userUIModel {
+}
 
 
 /***/ }),
@@ -866,30 +819,28 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoleComponent", function() { return RoleComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _rolefilter_rolefilter_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./rolefilter/rolefilter.component */ "./src/app/Features/Private/Definitions/Pages/role/rolefilter/rolefilter.component.ts");
 
 
 
-var RoleComponent = /** @class */ (function () {
-    function RoleComponent() {
+let RoleComponent = class RoleComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    RoleComponent.prototype.ngOnInit = function () {
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_rolefilter_rolefilter_component__WEBPACK_IMPORTED_MODULE_2__["RolefilterComponent"], { static: false }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _rolefilter_rolefilter_component__WEBPACK_IMPORTED_MODULE_2__["RolefilterComponent"])
-    ], RoleComponent.prototype, "roleFilterComponent", void 0);
-    RoleComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-role',
-            template: __webpack_require__(/*! raw-loader!./role.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/role/role.component.html"),
-            styles: [__webpack_require__(/*! ./role.component.css */ "./src/app/Features/Private/Definitions/Pages/role/role.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], RoleComponent);
-    return RoleComponent;
-}());
+};
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_rolefilter_rolefilter_component__WEBPACK_IMPORTED_MODULE_2__["RolefilterComponent"], { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _rolefilter_rolefilter_component__WEBPACK_IMPORTED_MODULE_2__["RolefilterComponent"])
+], RoleComponent.prototype, "roleFilterComponent", void 0);
+RoleComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-role',
+        template: __webpack_require__(/*! raw-loader!./role.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/role/role.component.html"),
+        styles: [__webpack_require__(/*! ./role.component.css */ "./src/app/Features/Private/Definitions/Pages/role/role.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], RoleComponent);
 
 
 
@@ -917,27 +868,25 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RolefilterComponent", function() { return RolefilterComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
-var RolefilterComponent = /** @class */ (function () {
-    function RolefilterComponent() {
+let RolefilterComponent = class RolefilterComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    RolefilterComponent.prototype.ngOnInit = function () {
-    };
-    RolefilterComponent.prototype.onFilter = function () {
+    onFilter() {
         this.roleNameOutput = this.roleName;
-    };
-    RolefilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-rolefilter',
-            template: __webpack_require__(/*! raw-loader!./rolefilter.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/role/rolefilter/rolefilter.component.html"),
-            styles: [__webpack_require__(/*! ./rolefilter.component.css */ "./src/app/Features/Private/Definitions/Pages/role/rolefilter/rolefilter.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], RolefilterComponent);
-    return RolefilterComponent;
-}());
+    }
+};
+RolefilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-rolefilter',
+        template: __webpack_require__(/*! raw-loader!./rolefilter.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/role/rolefilter/rolefilter.component.html"),
+        styles: [__webpack_require__(/*! ./rolefilter.component.css */ "./src/app/Features/Private/Definitions/Pages/role/rolefilter/rolefilter.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], RolefilterComponent);
 
 
 
@@ -966,10 +915,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RolegridComponent", function() { return RolegridComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "roleFilter", function() { return roleFilter; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _Modals_editrole_editrole_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Modals/editrole/editrole.component */ "./src/app/Features/Private/Definitions/Modals/editrole/editrole.component.ts");
 /* harmony import */ var src_app_Shared_Models_openModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/Shared/Models/openModal */ "./src/app/Shared/Models/openModal.ts");
-/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm2015/ngx-bootstrap-modal.js");
 /* harmony import */ var src_app_Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/Shared/Modals/confirmationdialog/confirmationdialog.component */ "./src/app/Shared/Modals/confirmationdialog/confirmationdialog.component.ts");
 /* harmony import */ var src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/Shared/Models/UIControls/grid-control */ "./src/app/Shared/Models/UIControls/grid-control.ts");
 /* harmony import */ var _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../Services/roleDataServices */ "./src/app/Features/Private/Definitions/Services/roleDataServices.ts");
@@ -985,8 +934,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var RolegridComponent = /** @class */ (function () {
-    function RolegridComponent(modalService, changeDetection, roleService) {
+let RolegridComponent = class RolegridComponent {
+    constructor(modalService, changeDetection, roleService) {
         this.modalService = modalService;
         this.changeDetection = changeDetection;
         this.roleService = roleService;
@@ -1001,96 +950,87 @@ var RolegridComponent = /** @class */ (function () {
         this.gridRole = new RoleListComponent_Models.GridRole(this.roleService, this.roleFilter);
         this.rolModel = new _Models_roleModel__WEBPACK_IMPORTED_MODULE_9__["roleModel"]();
     }
-    RolegridComponent.prototype.ngOnInit = function () {
+    ngOnInit() {
         this.gridRole.onRefresh();
-    };
-    RolegridComponent.prototype.openEditRoleModal = function (type) {
-        var _this = this;
+    }
+    openEditRoleModal(type) {
         if (type == 'ekle') {
-            var initialState = {
+            const initialState = {
                 modalTitle: "Rol Ekle",
                 roleId: undefined
             };
-            this.modal.openModal(_Modals_editrole_editrole_component__WEBPACK_IMPORTED_MODULE_2__["EditroleComponent"], initialState).subscribe(function (reason) {
+            this.modal.openModal(_Modals_editrole_editrole_component__WEBPACK_IMPORTED_MODULE_2__["EditroleComponent"], initialState).subscribe(reason => {
                 if (reason.reason == 'save') {
-                    _this.gridRole.onRefresh();
+                    this.gridRole.onRefresh();
                 }
             });
         }
         else if ('düzenle') {
-            var initialState = {
+            const initialState = {
                 modalTitle: "Rol Düzenle",
                 roleID: this.gridRole.clickedItem.roleID
             };
-            this.modal.openModal(_Modals_editrole_editrole_component__WEBPACK_IMPORTED_MODULE_2__["EditroleComponent"], initialState).subscribe(function (reason) {
+            this.modal.openModal(_Modals_editrole_editrole_component__WEBPACK_IMPORTED_MODULE_2__["EditroleComponent"], initialState).subscribe(reason => {
                 if (reason.reason == 'save') {
-                    _this.gridRole.onRefresh();
+                    this.gridRole.onRefresh();
                 }
             });
         }
-    };
-    RolegridComponent.prototype.openConfirmationDialog = function () {
-        var _this = this;
-        var initialState = {
+    }
+    openConfirmationDialog() {
+        const initialState = {
             modalTitle: "UYARI!",
             message: "Rolü silmek istediğinize emin misiniz?"
         };
-        this.modal.openModal(src_app_Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmationdialogComponent"], initialState).subscribe(function (reason) {
+        this.modal.openModal(src_app_Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmationdialogComponent"], initialState).subscribe(reason => {
             if (reason.reason == 'ok') {
-                _this.rolModel.rolID = _this.gridRole.clickedItem.roleID;
-                _this.roleService.Delete(_this.rolModel).subscribe(function (o) {
+                this.rolModel.rolID = this.gridRole.clickedItem.roleID;
+                this.roleService.Delete(this.rolModel).subscribe(o => {
                     console.log(o);
-                    _this.gridRole.onRefresh();
+                    this.gridRole.onRefresh();
                 });
             }
         });
-    };
-    RolegridComponent.ctorParameters = function () { return [
-        { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_4__["BsModalService"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
-        { type: _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_7__["roleDataServices"] }
-    ]; };
-    RolegridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-rolegrid',
-            template: __webpack_require__(/*! raw-loader!./rolegrid.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/role/rolegrid/rolegrid.component.html"),
-            styles: [__webpack_require__(/*! ./rolegrid.component.css */ "./src/app/Features/Private/Definitions/Pages/role/rolegrid/rolegrid.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_4__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_7__["roleDataServices"]])
-    ], RolegridComponent);
-    return RolegridComponent;
-}());
-
-var roleFilter = /** @class */ (function () {
-    function roleFilter() {
     }
-    return roleFilter;
-}());
+};
+RolegridComponent.ctorParameters = () => [
+    { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_4__["BsModalService"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
+    { type: _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_7__["roleDataServices"] }
+];
+RolegridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-rolegrid',
+        template: __webpack_require__(/*! raw-loader!./rolegrid.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/role/rolegrid/rolegrid.component.html"),
+        styles: [__webpack_require__(/*! ./rolegrid.component.css */ "./src/app/Features/Private/Definitions/Pages/role/rolegrid/rolegrid.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_4__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_7__["roleDataServices"]])
+], RolegridComponent);
 
+class roleFilter {
+}
 var RoleListComponent_Models;
 (function (RoleListComponent_Models) {
-    var GridRole = /** @class */ (function (_super) {
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](GridRole, _super);
-        function GridRole(roleService, roleFilter) {
-            var _this = _super.call(this) || this;
-            _this.roleService = roleService;
-            _this.roleFilter = roleFilter;
-            _this.direction = 0;
-            _this.filter = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_6__["Grid"].GridInputModel(new _Models_RoleViewModel__WEBPACK_IMPORTED_MODULE_8__["roleViewModel"]); //role filter gelecek
-            return _this;
+    class GridRole extends src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_6__["Grid"].GridControl {
+        constructor(roleService, roleFilter) {
+            super();
+            this.roleService = roleService;
+            this.roleFilter = roleFilter;
+            this.direction = 0;
+            this.filter = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_6__["Grid"].GridInputModel(new _Models_RoleViewModel__WEBPACK_IMPORTED_MODULE_8__["roleViewModel"]); //role filter gelecek
         }
-        GridRole.prototype.getFilter = function () {
+        getFilter() {
             this.filter.paging.pageNumber = this.model.paging.pageNumber;
             this.filter.paging.count = this.model.paging.count;
             this.filter.sorting = this.model.sorting;
-            var item = this.filter.filter;
+            let item = this.filter.filter;
             var o = this.roleFilter;
             item.roleID = o.id;
             item.roleName = o.roleName;
             return this.filter;
-        };
+        }
         ;
-        GridRole.prototype.onSorting = function (colName) {
+        onSorting(colName) {
             if (this.direction == 0) {
                 this.direction = 1;
             }
@@ -1100,23 +1040,21 @@ var RoleListComponent_Models;
             this.model.sorting.colName = colName;
             this.model.sorting.direction = this.direction;
             this.onRefresh();
-        };
-        GridRole.prototype.onRefresh = function () {
-            var _this = this;
+        }
+        onRefresh() {
             var item = this.getFilter();
             var filter = item.filter;
-            this.roleService.GetRoleList(item).subscribe(function (o) {
-                _this.data.list = o["list"];
-                _this.data.totalCount = o["totalCount"];
-                console.log(_this.data);
+            this.roleService.GetRoleList(item).subscribe(o => {
+                this.data.list = o["list"];
+                this.data.totalCount = o["totalCount"];
+                console.log(this.data);
             });
-        };
-        GridRole.ctorParameters = function () { return [
-            { type: _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_7__["roleDataServices"] },
-            { type: roleFilter }
-        ]; };
-        return GridRole;
-    }(src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_6__["Grid"].GridControl));
+        }
+    }
+    GridRole.ctorParameters = () => [
+        { type: _Services_roleDataServices__WEBPACK_IMPORTED_MODULE_7__["roleDataServices"] },
+        { type: roleFilter }
+    ];
     RoleListComponent_Models.GridRole = GridRole;
 })(RoleListComponent_Models || (RoleListComponent_Models = {}));
 
@@ -1145,24 +1083,22 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoletabsComponent", function() { return RoletabsComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
-var RoletabsComponent = /** @class */ (function () {
-    function RoletabsComponent() {
+let RoletabsComponent = class RoletabsComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    RoletabsComponent.prototype.ngOnInit = function () {
-    };
-    RoletabsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-roletabs',
-            template: __webpack_require__(/*! raw-loader!./roletabs.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/role/roletabs/roletabs.component.html"),
-            styles: [__webpack_require__(/*! ./roletabs.component.css */ "./src/app/Features/Private/Definitions/Pages/role/roletabs/roletabs.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], RoletabsComponent);
-    return RoletabsComponent;
-}());
+};
+RoletabsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-roletabs',
+        template: __webpack_require__(/*! raw-loader!./roletabs.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/role/roletabs/roletabs.component.html"),
+        styles: [__webpack_require__(/*! ./roletabs.component.css */ "./src/app/Features/Private/Definitions/Pages/role/roletabs/roletabs.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], RoletabsComponent);
 
 
 
@@ -1190,33 +1126,31 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserComponent", function() { return UserComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _usergrid_usergrid_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./usergrid/usergrid.component */ "./src/app/Features/Private/Definitions/Pages/user/usergrid/usergrid.component.ts");
 
 
 
-var UserComponent = /** @class */ (function () {
-    function UserComponent() {
+let UserComponent = class UserComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    UserComponent.prototype.ngOnInit = function () {
-    };
-    UserComponent.prototype.getFilter = function (event) {
+    getFilter(event) {
         this.filterValue = event;
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_usergrid_usergrid_component__WEBPACK_IMPORTED_MODULE_2__["UsergridComponent"], { static: false }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _usergrid_usergrid_component__WEBPACK_IMPORTED_MODULE_2__["UsergridComponent"])
-    ], UserComponent.prototype, "userGridComponent", void 0);
-    UserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-user',
-            template: __webpack_require__(/*! raw-loader!./user.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/user/user.component.html"),
-            styles: [__webpack_require__(/*! ./user.component.css */ "./src/app/Features/Private/Definitions/Pages/user/user.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], UserComponent);
-    return UserComponent;
-}());
+    }
+};
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_usergrid_usergrid_component__WEBPACK_IMPORTED_MODULE_2__["UsergridComponent"], { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _usergrid_usergrid_component__WEBPACK_IMPORTED_MODULE_2__["UsergridComponent"])
+], UserComponent.prototype, "userGridComponent", void 0);
+UserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-user',
+        template: __webpack_require__(/*! raw-loader!./user.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/user/user.component.html"),
+        styles: [__webpack_require__(/*! ./user.component.css */ "./src/app/Features/Private/Definitions/Pages/user/user.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], UserComponent);
 
 
 
@@ -1244,37 +1178,36 @@ module.exports = ".label {\r\n  font-weight: bold;\r\n  font-size: large;\r\n  m
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserfilterComponent", function() { return UserfilterComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
-var UserfilterComponent = /** @class */ (function () {
-    function UserfilterComponent() {
+let UserfilterComponent = class UserfilterComponent {
+    constructor() {
         this.username = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.isCollapsed = false;
         this.userName = "";
     }
-    UserfilterComponent.prototype.ngOnInit = function () {
-    };
-    UserfilterComponent.prototype.onFilter = function () {
+    ngOnInit() {
+    }
+    onFilter() {
         this.username.emit(this.userName);
-    };
-    UserfilterComponent.prototype.onClearFilter = function () {
+    }
+    onClearFilter() {
         this.userName = "";
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], UserfilterComponent.prototype, "username", void 0);
-    UserfilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-userfilter',
-            template: __webpack_require__(/*! raw-loader!./userfilter.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/user/userfilter/userfilter.component.html"),
-            styles: [__webpack_require__(/*! ./userfilter.component.css */ "./src/app/Features/Private/Definitions/Pages/user/userfilter/userfilter.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], UserfilterComponent);
-    return UserfilterComponent;
-}());
+    }
+};
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+], UserfilterComponent.prototype, "username", void 0);
+UserfilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-userfilter',
+        template: __webpack_require__(/*! raw-loader!./userfilter.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/user/userfilter/userfilter.component.html"),
+        styles: [__webpack_require__(/*! ./userfilter.component.css */ "./src/app/Features/Private/Definitions/Pages/user/userfilter/userfilter.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], UserfilterComponent);
 
 
 
@@ -1303,9 +1236,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsergridComponent", function() { return UsergridComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userFilter", function() { return userFilter; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _Modals_edituser_edituser_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Modals/edituser/edituser.component */ "./src/app/Features/Private/Definitions/Modals/edituser/edituser.component.ts");
-/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm2015/ngx-bootstrap-modal.js");
 /* harmony import */ var src_app_Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/Shared/Modals/confirmationdialog/confirmationdialog.component */ "./src/app/Shared/Modals/confirmationdialog/confirmationdialog.component.ts");
 /* harmony import */ var src_app_Shared_Models_openModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/Shared/Models/openModal */ "./src/app/Shared/Models/openModal.ts");
 /* harmony import */ var src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/Shared/Models/UIControls/grid-control */ "./src/app/Shared/Models/UIControls/grid-control.ts");
@@ -1324,8 +1257,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var UsergridComponent = /** @class */ (function () {
-    function UsergridComponent(modalService, changeDetection, userService) {
+let UsergridComponent = class UsergridComponent {
+    constructor(modalService, changeDetection, userService) {
         this.modalService = modalService;
         this.changeDetection = changeDetection;
         this.userService = userService;
@@ -1335,114 +1268,101 @@ var UsergridComponent = /** @class */ (function () {
         this.gridUser = new UserListComponent_Models.GridUser(this.userService, this.userFilter);
         this.selectedUserModel = new _Models_userSaveModel__WEBPACK_IMPORTED_MODULE_10__["UserSaveModel"]();
     }
-    Object.defineProperty(UsergridComponent.prototype, "filterValue", {
-        set: function (value) {
-            if (value == null || value == undefined)
-                return;
-            this.gridUser.userFilter.UserName = value;
-            this.gridUser.onRefresh();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    UsergridComponent.prototype.ngOnInit = function () {
+    set filterValue(value) {
+        if (value == null || value == undefined)
+            return;
+        this.gridUser.userFilter.UserName = value;
         this.gridUser.onRefresh();
-    };
-    UsergridComponent.prototype.openEditUserModal = function (type) {
-        var _this = this;
+    }
+    ngOnInit() {
+        this.gridUser.onRefresh();
+    }
+    openEditUserModal(type) {
         if (type == 'ekle') {
-            var initialState = {
+            const initialState = {
                 modalTitle: "Kullanıcı Ekle",
                 userId: undefined,
             };
-            this.modal.openModal(_Modals_edituser_edituser_component__WEBPACK_IMPORTED_MODULE_2__["EdituserComponent"], initialState).subscribe(function (data) {
+            this.modal.openModal(_Modals_edituser_edituser_component__WEBPACK_IMPORTED_MODULE_2__["EdituserComponent"], initialState).subscribe((data) => {
                 console.log(data.reason);
                 if (data.reason == 'save') {
-                    _this.gridUser.onRefresh();
+                    this.gridUser.onRefresh();
                 }
             });
         }
         else if ('düzenle') {
-            var initialState = {
+            const initialState = {
                 modalTitle: "Kullanıcı Düzenle",
                 userId: this.gridUser.clickedItem.id
             };
-            this.modal.openModal(_Modals_edituser_edituser_component__WEBPACK_IMPORTED_MODULE_2__["EdituserComponent"], initialState).subscribe(function (data) {
+            this.modal.openModal(_Modals_edituser_edituser_component__WEBPACK_IMPORTED_MODULE_2__["EdituserComponent"], initialState).subscribe((data) => {
                 console.log(data.reason);
                 if (data.reason == 'save') {
-                    _this.gridUser.onRefresh();
+                    this.gridUser.onRefresh();
                 }
             });
         }
-    };
-    UsergridComponent.prototype.openConfirmationDialog = function () {
-        var _this = this;
-        var initialState = {
+    }
+    openConfirmationDialog() {
+        const initialState = {
             modalTitle: "UYARI!",
             message: "Kullanıcıyı silmek istediğinize emin misiniz?"
         };
-        this.modal.openModal(src_app_Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_4__["ConfirmationdialogComponent"], initialState).subscribe(function (result) {
+        this.modal.openModal(src_app_Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_4__["ConfirmationdialogComponent"], initialState).subscribe((result) => {
             console.log(result.reason);
             console.log(result.outputData);
             if (result.reason == 'ok') {
-                _this.userUIModel.userID = _this.gridUser.clickedItem.pk;
-                _this.userService.delete(_this.userUIModel).subscribe(function (o) {
+                this.userUIModel.userID = this.gridUser.clickedItem.pk;
+                this.userService.delete(this.userUIModel).subscribe(o => {
                     console.log(o);
-                    _this.gridUser.onRefresh();
+                    this.gridUser.onRefresh();
                 });
             }
         });
-    };
-    UsergridComponent.ctorParameters = function () { return [
-        { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
-        { type: _Services_userDataServices__WEBPACK_IMPORTED_MODULE_7__["userDataServices"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], UsergridComponent.prototype, "filterValue", null);
-    UsergridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-usergrid',
-            template: __webpack_require__(/*! raw-loader!./usergrid.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/user/usergrid/usergrid.component.html"),
-            styles: [__webpack_require__(/*! ./usergrid.component.css */ "./src/app/Features/Private/Definitions/Pages/user/usergrid/usergrid.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _Services_userDataServices__WEBPACK_IMPORTED_MODULE_7__["userDataServices"]])
-    ], UsergridComponent);
-    return UsergridComponent;
-}());
-
-var userFilter = /** @class */ (function () {
-    function userFilter() {
     }
-    return userFilter;
-}());
+};
+UsergridComponent.ctorParameters = () => [
+    { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
+    { type: _Services_userDataServices__WEBPACK_IMPORTED_MODULE_7__["userDataServices"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+], UsergridComponent.prototype, "filterValue", null);
+UsergridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-usergrid',
+        template: __webpack_require__(/*! raw-loader!./usergrid.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/user/usergrid/usergrid.component.html"),
+        styles: [__webpack_require__(/*! ./usergrid.component.css */ "./src/app/Features/Private/Definitions/Pages/user/usergrid/usergrid.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _Services_userDataServices__WEBPACK_IMPORTED_MODULE_7__["userDataServices"]])
+], UsergridComponent);
 
+class userFilter {
+}
 var UserListComponent_Models;
 (function (UserListComponent_Models) {
-    var GridUser = /** @class */ (function (_super) {
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](GridUser, _super);
-        function GridUser(userService, userFilter) {
-            var _this = _super.call(this) || this;
-            _this.userService = userService;
-            _this.userFilter = userFilter;
-            _this.direction = 0;
-            _this.filter = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_6__["Grid"].GridInputModel(new _Models_UserViewFilter__WEBPACK_IMPORTED_MODULE_8__["userViewFilter"]());
-            return _this;
+    class GridUser extends src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_6__["Grid"].GridControl {
+        constructor(userService, userFilter) {
+            super();
+            this.userService = userService;
+            this.userFilter = userFilter;
+            this.direction = 0;
+            this.filter = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_6__["Grid"].GridInputModel(new _Models_UserViewFilter__WEBPACK_IMPORTED_MODULE_8__["userViewFilter"]());
         }
-        GridUser.prototype.getFilter = function () {
+        getFilter() {
             this.filter.paging.pageNumber = this.model.paging.pageNumber;
             this.filter.paging.count = this.model.paging.count;
             this.filter.sorting = this.model.sorting;
-            var item = this.filter.filter;
+            let item = this.filter.filter;
             var o = this.userFilter;
             item.UserName = o.UserName;
             return this.filter;
-        };
+        }
         ;
-        GridUser.prototype.onSorting = function (colName) {
+        onSorting(colName) {
             if (this.direction == 0) {
                 this.direction = 1;
             }
@@ -1452,23 +1372,21 @@ var UserListComponent_Models;
             this.model.sorting.colName = colName;
             this.model.sorting.direction = this.direction;
             this.onRefresh();
-        };
-        GridUser.prototype.onRefresh = function () {
-            var _this = this;
+        }
+        onRefresh() {
             var item = this.getFilter();
             var filter = item.filter;
-            this.userService.getUserList(item).subscribe(function (o) {
-                _this.data.list = o["list"];
-                _this.data.totalCount = o["totalCount"];
-                console.log(_this.data.list);
+            this.userService.getUserList(item).subscribe(o => {
+                this.data.list = o["list"];
+                this.data.totalCount = o["totalCount"];
+                console.log(this.data.list);
             });
-        };
-        GridUser.ctorParameters = function () { return [
-            { type: _Services_userDataServices__WEBPACK_IMPORTED_MODULE_7__["userDataServices"] },
-            { type: userFilter }
-        ]; };
-        return GridUser;
-    }(src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_6__["Grid"].GridControl));
+        }
+    }
+    GridUser.ctorParameters = () => [
+        { type: _Services_userDataServices__WEBPACK_IMPORTED_MODULE_7__["userDataServices"] },
+        { type: userFilter }
+    ];
     UserListComponent_Models.GridUser = GridUser;
 })(UserListComponent_Models || (UserListComponent_Models = {}));
 
@@ -1497,7 +1415,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsertabsComponent", function() { return UsertabsComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _Services_userDataServices__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Services/userDataServices */ "./src/app/Features/Private/Definitions/Services/userDataServices.ts");
 /* harmony import */ var _Models_UserUIModel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Models/UserUIModel */ "./src/app/Features/Private/Definitions/Models/UserUIModel.ts");
 /* harmony import */ var src_app_Features_Private_Operations_Pages_kosoperations_kosfilter_ddlSettings__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/Features/Private/Operations/Pages/kosoperations/kosfilter/ddlSettings */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosfilter/ddlSettings.ts");
@@ -1510,8 +1428,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var UsertabsComponent = /** @class */ (function () {
-    function UsertabsComponent(userService) {
+let UsertabsComponent = class UsertabsComponent {
+    constructor(userService) {
         this.userService = userService;
         this.ddlSettings = new src_app_Features_Private_Operations_Pages_kosoperations_kosfilter_ddlSettings__WEBPACK_IMPORTED_MODULE_4__["ddlSettings"]();
         this.userModel = new _Models_UserUIModel__WEBPACK_IMPORTED_MODULE_3__["userUIModel"]();
@@ -1524,93 +1442,83 @@ var UsertabsComponent = /** @class */ (function () {
         this.ddlRoleSelectedItem = [];
         this.ddlRoleDisabled = true;
     }
-    Object.defineProperty(UsertabsComponent.prototype, "clickedItem", {
-        set: function (value) {
-            if (value == undefined)
-                return;
-            console.log(value);
-            this.saveRole.UserID = value;
-            this.userModel.userID = value;
-            this.saveTenat.userID = value;
-            this.getDdlRoleSelectedItems();
-            this.getDdlTenantSelectedItems();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    UsertabsComponent.prototype.ngOnInit = function () {
+    set clickedItem(value) {
+        if (value == undefined)
+            return;
+        console.log(value);
+        this.saveRole.UserID = value;
+        this.userModel.userID = value;
+        this.saveTenat.userID = value;
+        this.getDdlRoleSelectedItems();
+        this.getDdlTenantSelectedItems();
+    }
+    ngOnInit() {
         this.ddlTenantSettings = this.ddlSettings.ddlTenantSettings;
         this.ddlRoleSettings = this.ddlSettings.ddlRoleSettings;
         this.getDdlRoleData();
         this.getDdlTenantData();
-    };
-    UsertabsComponent.prototype.getDdlRoleData = function () {
-        var _this = this;
-        this.userService.getRolList().subscribe(function (data) {
-            _this.ddlRoleData = data;
+    }
+    getDdlRoleData() {
+        this.userService.getRolList().subscribe(data => {
+            this.ddlRoleData = data;
             console.log(data);
         });
-    };
-    UsertabsComponent.prototype.getDdlTenantData = function () {
-        var _this = this;
-        this.userService.getTenantList().subscribe(function (data) {
-            _this.ddlTenantData = data;
+    }
+    getDdlTenantData() {
+        this.userService.getTenantList().subscribe(data => {
+            this.ddlTenantData = data;
             console.log(data);
         });
-    };
-    UsertabsComponent.prototype.getDdlTenantSelectedItems = function () {
-        var _this = this;
-        this.userService.GetTenantListByUserID(this.userModel).subscribe(function (data) {
-            _this.ddlTenantSelectedItem = data;
+    }
+    getDdlTenantSelectedItems() {
+        this.userService.GetTenantListByUserID(this.userModel).subscribe(data => {
+            this.ddlTenantSelectedItem = data;
             console.log(data);
         });
-    };
-    UsertabsComponent.prototype.getDdlRoleSelectedItems = function () {
-        var _this = this;
-        this.userService.getRoleByID(this.userModel).subscribe(function (data) {
-            _this.ddlRoleSelectedItem = data;
+    }
+    getDdlRoleSelectedItems() {
+        this.userService.getRoleByID(this.userModel).subscribe(data => {
+            this.ddlRoleSelectedItem = data;
         });
-    };
-    UsertabsComponent.prototype.onSaveRole = function () {
+    }
+    onSaveRole() {
         if (this.ddlRoleDisabled) {
             this.saveRole.RolID = this.ddlRoleSelectedItem[0].roleID;
             console.log(this.saveRole);
-            this.userService.saveRol(this.saveRole).subscribe(function (o) {
+            this.userService.saveRol(this.saveRole).subscribe(o => {
                 console.log(o);
             });
         }
-    };
-    UsertabsComponent.prototype.onSaveTenant = function () {
-        var _this = this;
+    }
+    onSaveTenant() {
         if (this.ddlRoleDisabled) {
             this.saveTenat.tenantIDList = [];
-            this.ddlTenantSelectedItem.forEach(function (item) {
-                _this.saveTenat.tenantIDList.push(item.id);
+            this.ddlTenantSelectedItem.forEach(item => {
+                this.saveTenat.tenantIDList.push(item.id);
             });
             console.log(this.saveTenat);
-            this.userService.saveTenant(this.saveTenat).subscribe(function (o) {
+            this.userService.saveTenant(this.saveTenat).subscribe(o => {
                 console.log(o);
             });
         }
-    };
-    UsertabsComponent.ctorParameters = function () { return [
-        { type: _Services_userDataServices__WEBPACK_IMPORTED_MODULE_2__["userDataServices"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], UsertabsComponent.prototype, "clickedItem", null);
-    UsertabsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-usertabs',
-            template: __webpack_require__(/*! raw-loader!./usertabs.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/user/usertabs/usertabs.component.html"),
-            styles: [__webpack_require__(/*! ./usertabs.component.css */ "./src/app/Features/Private/Definitions/Pages/user/usertabs/usertabs.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_userDataServices__WEBPACK_IMPORTED_MODULE_2__["userDataServices"]])
-    ], UsertabsComponent);
-    return UsertabsComponent;
-}());
+    }
+};
+UsertabsComponent.ctorParameters = () => [
+    { type: _Services_userDataServices__WEBPACK_IMPORTED_MODULE_2__["userDataServices"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+], UsertabsComponent.prototype, "clickedItem", null);
+UsertabsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-usertabs',
+        template: __webpack_require__(/*! raw-loader!./usertabs.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Definitions/Pages/user/usertabs/usertabs.component.html"),
+        styles: [__webpack_require__(/*! ./usertabs.component.css */ "./src/app/Features/Private/Definitions/Pages/user/usertabs/usertabs.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_userDataServices__WEBPACK_IMPORTED_MODULE_2__["userDataServices"]])
+], UsertabsComponent);
 
 
 
@@ -1628,34 +1536,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "roleDataServices", function() { return roleDataServices; });
 /* harmony import */ var src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Shared/Services/Api/apiDataService */ "./src/app/Shared/Services/Api/apiDataService.ts");
 
-var roleDataServices = /** @class */ (function () {
-    function roleDataServices(apiDataService) {
+class roleDataServices {
+    constructor(apiDataService) {
         this.apiDataService = apiDataService;
     }
-    roleDataServices.prototype.GetRoleList = function (model) {
+    GetRoleList(model) {
         return this.apiDataService.callDataService('Role/GetRoleList', model);
-    };
-    roleDataServices.prototype.save = function (model) {
+    }
+    save(model) {
         return this.apiDataService.callDataService('Role/Save', model);
-    };
-    roleDataServices.prototype.Delete = function (model) {
+    }
+    Delete(model) {
         return this.apiDataService.callDataService('Role/Delete', model);
-    };
-    roleDataServices.prototype.GetPermissionList = function () {
+    }
+    GetPermissionList() {
         return this.apiDataService.callDataService('Role/GetPermissionList', undefined);
-    };
-    roleDataServices.prototype.GetPermissionListByRoleID = function (model) {
+    }
+    GetPermissionListByRoleID(model) {
         return this.apiDataService.callDataService('Role/GetPermissionListByRoleID', model);
-    };
-    roleDataServices.prototype.SavePermission = function (model) {
+    }
+    SavePermission(model) {
         return this.apiDataService.callDataService('Role/SavePermission', model);
-    };
-    roleDataServices.ctorParameters = function () { return [
-        { type: src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__["ApiDataService"] }
-    ]; };
-    return roleDataServices;
-}());
-
+    }
+}
+roleDataServices.ctorParameters = () => [
+    { type: src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__["ApiDataService"] }
+];
 
 
 /***/ }),
@@ -1672,46 +1578,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userDataServices", function() { return userDataServices; });
 /* harmony import */ var src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Shared/Services/Api/apiDataService */ "./src/app/Shared/Services/Api/apiDataService.ts");
 
-var userDataServices = /** @class */ (function () {
-    function userDataServices(apiDataService) {
+class userDataServices {
+    constructor(apiDataService) {
         this.apiDataService = apiDataService;
     }
-    userDataServices.prototype.getUserList = function (model) {
+    getUserList(model) {
         return this.apiDataService.callDataService('User/GetUserList', model);
-    };
-    userDataServices.prototype.save = function (model) {
+    }
+    save(model) {
         return this.apiDataService.callDataService('User/Save', model);
-    };
-    userDataServices.prototype.getByID = function (model) {
+    }
+    getByID(model) {
         return this.apiDataService.callDataService('User/GetByID', model);
-    };
-    userDataServices.prototype.delete = function (model) {
+    }
+    delete(model) {
         return this.apiDataService.callDataService('User/Delete', model);
-    };
-    userDataServices.prototype.getRolList = function () {
+    }
+    getRolList() {
         return this.apiDataService.callDataService('User/GetRolList', undefined);
-    };
-    userDataServices.prototype.getRoleByID = function (model) {
+    }
+    getRoleByID(model) {
         return this.apiDataService.callDataService('User/GetRoleByID', model);
-    };
-    userDataServices.prototype.saveRol = function (model) {
+    }
+    saveRol(model) {
         return this.apiDataService.callDataService('User/SaveRol', model);
-    };
-    userDataServices.prototype.getTenantList = function () {
+    }
+    getTenantList() {
         return this.apiDataService.callDataService('User/GetTenantList', undefined);
-    };
-    userDataServices.prototype.saveTenant = function (model) {
+    }
+    saveTenant(model) {
         return this.apiDataService.callDataService('User/SaveTenant', model);
-    };
-    userDataServices.prototype.GetTenantListByUserID = function (model) {
+    }
+    GetTenantListByUserID(model) {
         return this.apiDataService.callDataService('User/GetTenantListByUserID', model);
-    };
-    userDataServices.ctorParameters = function () { return [
-        { type: src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__["ApiDataService"] }
-    ]; };
-    return userDataServices;
-}());
-
+    }
+}
+userDataServices.ctorParameters = () => [
+    { type: src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__["ApiDataService"] }
+];
 
 
 /***/ }),
@@ -1726,12 +1630,8 @@ var userDataServices = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetorderStatusViewFilter", function() { return GetorderStatusViewFilter; });
-var GetorderStatusViewFilter = /** @class */ (function () {
-    function GetorderStatusViewFilter() {
-    }
-    return GetorderStatusViewFilter;
-}());
-
+class GetorderStatusViewFilter {
+}
 
 
 /***/ }),
@@ -1746,12 +1646,8 @@ var GetorderStatusViewFilter = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "kosHistoryModel", function() { return kosHistoryModel; });
-var kosHistoryModel = /** @class */ (function () {
-    function kosHistoryModel() {
-    }
-    return kosHistoryModel;
-}());
-
+class kosHistoryModel {
+}
 
 
 /***/ }),
@@ -1766,12 +1662,8 @@ var kosHistoryModel = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "infStudyFilter", function() { return infStudyFilter; });
-var infStudyFilter = /** @class */ (function () {
-    function infStudyFilter() {
-    }
-    return infStudyFilter;
-}());
-
+class infStudyFilter {
+}
 
 
 /***/ }),
@@ -1786,12 +1678,8 @@ var infStudyFilter = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "infStudyViewModel", function() { return infStudyViewModel; });
-var infStudyViewModel = /** @class */ (function () {
-    function infStudyViewModel() {
-    }
-    return infStudyViewModel;
-}());
-
+class infStudyViewModel {
+}
 
 
 /***/ }),
@@ -1806,12 +1694,8 @@ var infStudyViewModel = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "jobViewFilter", function() { return jobViewFilter; });
-var jobViewFilter = /** @class */ (function () {
-    function jobViewFilter() {
-    }
-    return jobViewFilter;
-}());
-
+class jobViewFilter {
+}
 
 
 /***/ }),
@@ -1826,12 +1710,8 @@ var jobViewFilter = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "kosModel", function() { return kosModel; });
-var kosModel = /** @class */ (function () {
-    function kosModel() {
-    }
-    return kosModel;
-}());
-
+class kosModel {
+}
 
 
 /***/ }),
@@ -1858,30 +1738,29 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JobsComponent", function() { return JobsComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _jobsgrid_jobsgrid_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./jobsgrid/jobsgrid.component */ "./src/app/Features/Private/Operations/Pages/jobs/jobsgrid/jobsgrid.component.ts");
 
 
 
-var JobsComponent = /** @class */ (function () {
-    function JobsComponent() {
+let JobsComponent = class JobsComponent {
+    constructor() {
         this.filterData = new _jobsgrid_jobsgrid_component__WEBPACK_IMPORTED_MODULE_2__["jobFilter"]();
     }
-    JobsComponent.prototype.ngOnInit = function () {
-    };
-    JobsComponent.prototype.filter = function (filter) {
+    ngOnInit() {
+    }
+    filter(filter) {
         this.filterData = filter;
-    };
-    JobsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-jobs',
-            template: __webpack_require__(/*! raw-loader!./jobs.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/jobs/jobs.component.html"),
-            styles: [__webpack_require__(/*! ./jobs.component.css */ "./src/app/Features/Private/Operations/Pages/jobs/jobs.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], JobsComponent);
-    return JobsComponent;
-}());
+    }
+};
+JobsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-jobs',
+        template: __webpack_require__(/*! raw-loader!./jobs.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/jobs/jobs.component.html"),
+        styles: [__webpack_require__(/*! ./jobs.component.css */ "./src/app/Features/Private/Operations/Pages/jobs/jobs.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], JobsComponent);
 
 
 
@@ -1909,26 +1788,26 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JobsfilterComponent", function() { return JobsfilterComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _jobsgrid_jobsgrid_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../jobsgrid/jobsgrid.component */ "./src/app/Features/Private/Operations/Pages/jobs/jobsgrid/jobsgrid.component.ts");
 
 
 
-var JobsfilterComponent = /** @class */ (function () {
-    function JobsfilterComponent() {
+let JobsfilterComponent = class JobsfilterComponent {
+    constructor() {
         this.filterChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.filterData = new _jobsgrid_jobsgrid_component__WEBPACK_IMPORTED_MODULE_2__["jobFilter"]();
     }
-    JobsfilterComponent.prototype.ngOnInit = function () {
-    };
-    JobsfilterComponent.prototype.onFilter = function () {
-        var filter = new _jobsgrid_jobsgrid_component__WEBPACK_IMPORTED_MODULE_2__["jobFilter"]();
-        var jobIdList = [];
+    ngOnInit() {
+    }
+    onFilter() {
+        let filter = new _jobsgrid_jobsgrid_component__WEBPACK_IMPORTED_MODULE_2__["jobFilter"]();
+        let jobIdList = [];
         filter.dateRange = this.filterData.dateRange;
         if (this.filterData.jobIdList == "" || this.filterData.jobIdList == undefined) {
         }
         else {
-            this.filterData.jobIdList.split(" ").forEach(function (item) {
+            this.filterData.jobIdList.split(" ").forEach(item => {
                 if (item != "") {
                     jobIdList.push(item);
                 }
@@ -1937,21 +1816,20 @@ var JobsfilterComponent = /** @class */ (function () {
         filter.jobIdList = jobIdList;
         filter.type = this.filterData.type;
         this.filterChanged.emit(filter);
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], JobsfilterComponent.prototype, "filterChanged", void 0);
-    JobsfilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-jobsfilter',
-            template: __webpack_require__(/*! raw-loader!./jobsfilter.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/jobs/jobsfilter/jobsfilter.component.html"),
-            styles: [__webpack_require__(/*! ./jobsfilter.component.css */ "./src/app/Features/Private/Operations/Pages/jobs/jobsfilter/jobsfilter.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], JobsfilterComponent);
-    return JobsfilterComponent;
-}());
+    }
+};
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+], JobsfilterComponent.prototype, "filterChanged", void 0);
+JobsfilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-jobsfilter',
+        template: __webpack_require__(/*! raw-loader!./jobsfilter.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/jobs/jobsfilter/jobsfilter.component.html"),
+        styles: [__webpack_require__(/*! ./jobsfilter.component.css */ "./src/app/Features/Private/Operations/Pages/jobs/jobsfilter/jobsfilter.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], JobsfilterComponent);
 
 
 
@@ -1980,7 +1858,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JobsgridComponent", function() { return JobsgridComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "jobFilter", function() { return jobFilter; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Shared/Models/UIControls/grid-control */ "./src/app/Shared/Models/UIControls/grid-control.ts");
 /* harmony import */ var _Services_jobDataServices__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Services/jobDataServices */ "./src/app/Features/Private/Operations/Services/jobDataServices.ts");
 /* harmony import */ var _Models_jobViewFilter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../Models/jobViewFilter */ "./src/app/Features/Private/Operations/Models/jobViewFilter.ts");
@@ -1989,76 +1867,67 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var JobsgridComponent = /** @class */ (function () {
-    function JobsgridComponent(jobServices) {
+let JobsgridComponent = class JobsgridComponent {
+    constructor(jobServices) {
         this.jobServices = jobServices;
         this.jobFilter = new jobFilter();
         this.gridJobs = new JobListComponent_Models.GridJob(this.jobServices, this.jobFilter);
     }
-    Object.defineProperty(JobsgridComponent.prototype, "filter", {
-        set: function (value) {
-            this.gridJobs.jobFilter = value;
-            this.gridJobs.onRefresh();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    JobsgridComponent.prototype.ngOnInit = function () {
-    };
-    JobsgridComponent.ctorParameters = function () { return [
-        { type: _Services_jobDataServices__WEBPACK_IMPORTED_MODULE_3__["jobDataServices"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], JobsgridComponent.prototype, "filter", null);
-    JobsgridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-jobsgrid',
-            template: __webpack_require__(/*! raw-loader!./jobsgrid.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/jobs/jobsgrid/jobsgrid.component.html"),
-            styles: [__webpack_require__(/*! ./jobsgrid.component.css */ "./src/app/Features/Private/Operations/Pages/jobs/jobsgrid/jobsgrid.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_jobDataServices__WEBPACK_IMPORTED_MODULE_3__["jobDataServices"]])
-    ], JobsgridComponent);
-    return JobsgridComponent;
-}());
+    set filter(value) {
+        this.gridJobs.jobFilter = value;
+        this.gridJobs.onRefresh();
+    }
+    ngOnInit() {
+    }
+};
+JobsgridComponent.ctorParameters = () => [
+    { type: _Services_jobDataServices__WEBPACK_IMPORTED_MODULE_3__["jobDataServices"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+], JobsgridComponent.prototype, "filter", null);
+JobsgridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-jobsgrid',
+        template: __webpack_require__(/*! raw-loader!./jobsgrid.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/jobs/jobsgrid/jobsgrid.component.html"),
+        styles: [__webpack_require__(/*! ./jobsgrid.component.css */ "./src/app/Features/Private/Operations/Pages/jobs/jobsgrid/jobsgrid.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_jobDataServices__WEBPACK_IMPORTED_MODULE_3__["jobDataServices"]])
+], JobsgridComponent);
 
-var jobFilter = /** @class */ (function () {
-    function jobFilter() {
+class jobFilter {
+    constructor() {
         this.dateRange = [];
     }
-    return jobFilter;
-}());
-
+}
 var JobListComponent_Models;
 (function (JobListComponent_Models) {
-    var GridJob = /** @class */ (function (_super) {
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](GridJob, _super);
-        function GridJob(jobService, jobFilter) {
-            var _this = _super.call(this) || this;
-            _this.jobService = jobService;
-            _this.jobFilter = jobFilter;
-            _this.direction = 0;
-            _this.selectAll = false;
-            _this.selectPage = false;
-            _this.filter = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__["Grid"].GridInputModel(new _Models_jobViewFilter__WEBPACK_IMPORTED_MODULE_4__["jobViewFilter"]());
-            return _this;
+    class GridJob extends src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__["Grid"].GridControl {
+        constructor(jobService, jobFilter) {
+            super();
+            this.jobService = jobService;
+            this.jobFilter = jobFilter;
+            this.direction = 0;
+            this.selectAll = false;
+            this.selectPage = false;
+            this.filter = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__["Grid"].GridInputModel(new _Models_jobViewFilter__WEBPACK_IMPORTED_MODULE_4__["jobViewFilter"]());
         }
-        GridJob.prototype.getFilter = function () {
+        getFilter() {
             this.filter.paging.pageNumber = this.model.paging.pageNumber;
             this.filter.paging.count = this.model.paging.count;
             this.filter.sorting = this.model.sorting;
-            var item = this.filter.filter;
+            let item = this.filter.filter;
             var o = this.jobFilter;
             item.jobidList = o.jobIdList;
             item.enumType = o.type;
             item.basTarih = o.dateRange[0];
             item.bitTarih = o.dateRange[1];
             return this.filter;
-        };
+        }
         ;
-        GridJob.prototype.onSorting = function (colName) {
+        onSorting(colName) {
             if (this.direction == 0) {
                 this.direction = 1;
             }
@@ -2068,24 +1937,22 @@ var JobListComponent_Models;
             this.model.sorting.colName = colName;
             this.model.sorting.direction = this.direction;
             this.onRefresh();
-        };
-        GridJob.prototype.onRefresh = function () {
-            var _this = this;
+        }
+        onRefresh() {
             var item = this.getFilter();
             var filter = item.filter;
             console.log(item);
-            this.jobService.getJobList(item).subscribe(function (o) {
-                _this.data.list = o["list"];
-                _this.data.totalCount = o["totalCount"];
-                console.log(_this.data.list);
+            this.jobService.getJobList(item).subscribe(o => {
+                this.data.list = o["list"];
+                this.data.totalCount = o["totalCount"];
+                console.log(this.data.list);
             });
-        };
-        GridJob.ctorParameters = function () { return [
-            { type: _Services_jobDataServices__WEBPACK_IMPORTED_MODULE_3__["jobDataServices"] },
-            { type: jobFilter }
-        ]; };
-        return GridJob;
-    }(src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__["Grid"].GridControl));
+        }
+    }
+    GridJob.ctorParameters = () => [
+        { type: _Services_jobDataServices__WEBPACK_IMPORTED_MODULE_3__["jobDataServices"] },
+        { type: jobFilter }
+    ];
     JobListComponent_Models.GridJob = GridJob;
 })(JobListComponent_Models || (JobListComponent_Models = {}));
 
@@ -2102,8 +1969,8 @@ var JobListComponent_Models;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ddlSettings", function() { return ddlSettings; });
-var ddlSettings = /** @class */ (function () {
-    function ddlSettings() {
+class ddlSettings {
+    constructor() {
         this.ddlTenantSettings = {};
         this.ddlModalitySettings = {};
         this.ddlEnumSettings = {};
@@ -2139,9 +2006,7 @@ var ddlSettings = /** @class */ (function () {
             textField: 'roleName',
         };
     }
-    return ddlSettings;
-}());
-
+}
 
 
 /***/ }),
@@ -2168,13 +2033,13 @@ module.exports = ".label {\r\n  font-weight: bold;\r\n  font-size: large;\r\n  m
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KosfilterComponent", function() { return KosfilterComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Services/kosDataServices */ "./src/app/Features/Private/Operations/Services/kosDataServices.ts");
 /* harmony import */ var src_app_Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/Features/Private/Definitions/Services/userDataServices */ "./src/app/Features/Private/Definitions/Services/userDataServices.ts");
 /* harmony import */ var _kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../kosgrid/kosgrid.component */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosgrid/kosgrid.component.ts");
 /* harmony import */ var _ddlSettings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ddlSettings */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosfilter/ddlSettings.ts");
-/* harmony import */ var ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap/datepicker */ "./node_modules/ngx-bootstrap/datepicker/fesm5/ngx-bootstrap-datepicker.js");
-/* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "./node_modules/ngx-bootstrap/chronos/fesm5/ngx-bootstrap-chronos.js");
+/* harmony import */ var ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap/datepicker */ "./node_modules/ngx-bootstrap/datepicker/fesm2015/ngx-bootstrap-datepicker.js");
+/* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "./node_modules/ngx-bootstrap/chronos/fesm2015/ngx-bootstrap-chronos.js");
 
 
 
@@ -2184,8 +2049,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_7__["defineLocale"])('tr', ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_7__["trLocale"]);
-var KosfilterComponent = /** @class */ (function () {
-    function KosfilterComponent(kosService, userService, localeService) {
+let KosfilterComponent = class KosfilterComponent {
+    constructor(kosService, userService, localeService) {
         this.kosService = kosService;
         this.userService = userService;
         this.localeService = localeService;
@@ -2201,7 +2066,7 @@ var KosfilterComponent = /** @class */ (function () {
         this.tcKimlikNoList = [];
         this.accessionNoList = [];
     }
-    KosfilterComponent.prototype.ngOnInit = function () {
+    ngOnInit() {
         this.localeService.use('tr');
         this.ddlTenantSettings = this.ddlSettings.ddlTenantSettings;
         this.ddlModalitySettings = this.ddlSettings.ddlModalitySettings;
@@ -2209,67 +2074,64 @@ var KosfilterComponent = /** @class */ (function () {
         this.getTenantList();
         this.getModalityList();
         this.getEnumList();
-    };
-    KosfilterComponent.prototype.getTenantList = function () {
-        var _this = this;
-        this.userService.getTenantList().subscribe(function (data) {
-            _this.ddlTenantData = data;
-            console.log(_this.ddlTenantData);
+    }
+    getTenantList() {
+        this.userService.getTenantList().subscribe(data => {
+            this.ddlTenantData = data;
+            console.log(this.ddlTenantData);
         });
-    };
-    KosfilterComponent.prototype.getModalityList = function () {
-        var _this = this;
-        this.kosService.getModalityList().subscribe(function (data) {
-            _this.ddlModalityData = data;
-            console.log(_this.ddlModalityData);
+    }
+    getModalityList() {
+        this.kosService.getModalityList().subscribe(data => {
+            this.ddlModalityData = data;
+            console.log(this.ddlModalityData);
         });
-    };
-    KosfilterComponent.prototype.getEnumList = function () {
-        var _this = this;
-        this.kosService.GetEnumTypeList().subscribe(function (data) {
-            _this.ddlEnumData = data;
+    }
+    getEnumList() {
+        this.kosService.GetEnumTypeList().subscribe(data => {
+            this.ddlEnumData = data;
             console.log(data);
         });
-    };
-    KosfilterComponent.prototype.splitTC = function () {
-        var tcKimlikNoList = [];
+    }
+    splitTC() {
+        let tcKimlikNoList = [];
         if (this.tcKimlikNo == "" || this.tcKimlikNo == undefined)
             return;
-        this.tcKimlikNo.split(/\s/g).forEach(function (item) {
+        this.tcKimlikNo.split(/\s/g).forEach(item => {
             if (item.length == 11) {
                 tcKimlikNoList.push(item);
             }
         });
         return tcKimlikNoList;
-    };
-    KosfilterComponent.prototype.splitAccession = function () {
-        var accessionNoList = [];
+    }
+    splitAccession() {
+        let accessionNoList = [];
         if (this.accessionNo == "" || this.accessionNo == undefined)
             return;
-        this.accessionNo.split(/\s/g).forEach(function (item) {
+        this.accessionNo.split(/\s/g).forEach(item => {
             if (item != "") {
                 accessionNoList.push(item);
             }
         });
         return accessionNoList;
-    };
-    KosfilterComponent.prototype.onFilter = function () {
-        var filter = new _kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_4__["kosFilter"]();
+    }
+    onFilter() {
+        let filter = new _kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_4__["kosFilter"]();
         if (this.ddlTenantSelectedItems.length != 0) {
             filter.hastaneIDList = [];
-            this.ddlTenantSelectedItems.forEach(function (item) {
+            this.ddlTenantSelectedItems.forEach(item => {
                 filter.hastaneIDList.push(item.id);
             });
         }
         if (this.ddlModalitySelectedItems.length != 0) {
             filter.modaliteList = [];
-            this.ddlModalitySelectedItems.forEach(function (item) {
+            this.ddlModalitySelectedItems.forEach(item => {
                 filter.modaliteList.push(item.name);
             });
         }
         if (this.ddlEnumSelectedItems.length != 0) {
             filter.EslesmeDurumuList = [];
-            this.ddlEnumSelectedItems.forEach(function (item) {
+            this.ddlEnumSelectedItems.forEach(item => {
                 filter.EslesmeDurumuList.push(item.id);
             });
         }
@@ -2288,34 +2150,33 @@ var KosfilterComponent = /** @class */ (function () {
             filter.accessionNumberList = this.splitAccession();
         }
         this.filterChanged.emit(filter);
-    };
-    KosfilterComponent.prototype.onClearFilter = function () {
+    }
+    onClearFilter() {
         this.ddlTenantSelectedItems = [];
         this.ddlModalitySelectedItems = [];
         this.ddlEnumSelectedItems = [];
         this.dateRange = undefined;
         this.tcKimlikNo = undefined;
         this.accessionNo = undefined;
-    };
-    KosfilterComponent.ctorParameters = function () { return [
-        { type: _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__["kosDataServices"] },
-        { type: src_app_Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_3__["userDataServices"] },
-        { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], KosfilterComponent.prototype, "filterChanged", void 0);
-    KosfilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-kosfilter',
-            template: __webpack_require__(/*! raw-loader!./kosfilter.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/kosoperations/kosfilter/kosfilter.component.html"),
-            styles: [__webpack_require__(/*! ./kosfilter.component.css */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosfilter/kosfilter.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__["kosDataServices"], src_app_Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_3__["userDataServices"], ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"]])
-    ], KosfilterComponent);
-    return KosfilterComponent;
-}());
+    }
+};
+KosfilterComponent.ctorParameters = () => [
+    { type: _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__["kosDataServices"] },
+    { type: src_app_Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_3__["userDataServices"] },
+    { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+], KosfilterComponent.prototype, "filterChanged", void 0);
+KosfilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-kosfilter',
+        template: __webpack_require__(/*! raw-loader!./kosfilter.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/kosoperations/kosfilter/kosfilter.component.html"),
+        styles: [__webpack_require__(/*! ./kosfilter.component.css */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosfilter/kosfilter.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__["kosDataServices"], src_app_Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_3__["userDataServices"], ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"]])
+], KosfilterComponent);
 
 
 
@@ -2344,13 +2205,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KosgridComponent", function() { return KosgridComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "kosFilter", function() { return kosFilter; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Shared/Models/UIControls/grid-control */ "./src/app/Shared/Models/UIControls/grid-control.ts");
 /* harmony import */ var _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Services/kosDataServices */ "./src/app/Features/Private/Operations/Services/kosDataServices.ts");
 /* harmony import */ var _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../Models/infStudyFilter */ "./src/app/Features/Private/Operations/Models/infStudyFilter.ts");
 /* harmony import */ var src_app_Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/Shared/Modals/confirmationdialog/confirmationdialog.component */ "./src/app/Shared/Modals/confirmationdialog/confirmationdialog.component.ts");
 /* harmony import */ var src_app_Shared_Models_openModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/Shared/Models/openModal */ "./src/app/Shared/Models/openModal.ts");
-/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm2015/ngx-bootstrap-modal.js");
 /* harmony import */ var src_app_Shared_Services_FileServices_fileService__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/Shared/Services/FileServices/fileService */ "./src/app/Shared/Services/FileServices/fileService.ts");
 
 
@@ -2361,8 +2222,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var KosgridComponent = /** @class */ (function () {
-    function KosgridComponent(fileService, kosService, modalService, changeDetection) {
+let KosgridComponent = class KosgridComponent {
+    constructor(fileService, kosService, modalService, changeDetection) {
         this.fileService = fileService;
         this.kosService = kosService;
         this.modalService = modalService;
@@ -2370,87 +2231,76 @@ var KosgridComponent = /** @class */ (function () {
         this.kosFilter = new kosFilter();
         this.gridKos = new KosListComponent_Models.GridUser(this.fileService, this.kosService, this.kosFilter, this.modalService, this.changeDetection);
     }
-    Object.defineProperty(KosgridComponent.prototype, "filter", {
-        set: function (value) {
-            if (value == null || value == undefined)
-                return;
-            this.gridKos.kosFilter = value;
-            this.gridKos.onRefresh();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    KosgridComponent.prototype.ngOnInit = function () {
-        console.log(this.gridKos.hasSelectedItem);
-    };
-    KosgridComponent.ctorParameters = function () { return [
-        { type: src_app_Shared_Services_FileServices_fileService__WEBPACK_IMPORTED_MODULE_8__["FileService"] },
-        { type: _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_3__["kosDataServices"] },
-        { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], KosgridComponent.prototype, "filter", null);
-    KosgridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-kosgrid',
-            template: __webpack_require__(/*! raw-loader!./kosgrid.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/kosoperations/kosgrid/kosgrid.component.html"),
-            styles: [__webpack_require__(/*! ./kosgrid.component.css */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosgrid/kosgrid.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_Shared_Services_FileServices_fileService__WEBPACK_IMPORTED_MODULE_8__["FileService"], _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_3__["kosDataServices"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
-    ], KosgridComponent);
-    return KosgridComponent;
-}());
-
-var kosFilter = /** @class */ (function () {
-    function kosFilter() {
+    set filter(value) {
+        if (value == null || value == undefined)
+            return;
+        this.gridKos.kosFilter = value;
+        this.gridKos.onRefresh();
     }
-    return kosFilter;
-}());
+    ngOnInit() {
+        console.log(this.gridKos.hasSelectedItem);
+    }
+};
+KosgridComponent.ctorParameters = () => [
+    { type: src_app_Shared_Services_FileServices_fileService__WEBPACK_IMPORTED_MODULE_8__["FileService"] },
+    { type: _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_3__["kosDataServices"] },
+    { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+], KosgridComponent.prototype, "filter", null);
+KosgridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-kosgrid',
+        template: __webpack_require__(/*! raw-loader!./kosgrid.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/kosoperations/kosgrid/kosgrid.component.html"),
+        styles: [__webpack_require__(/*! ./kosgrid.component.css */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosgrid/kosgrid.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_Shared_Services_FileServices_fileService__WEBPACK_IMPORTED_MODULE_8__["FileService"], _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_3__["kosDataServices"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+], KosgridComponent);
 
+class kosFilter {
+}
 var KosListComponent_Models;
 (function (KosListComponent_Models) {
-    var GridUser = /** @class */ (function (_super) {
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](GridUser, _super);
-        function GridUser(fileService, kosService, kosFilter, modalService, changeDetection) {
-            var _this = _super.call(this) || this;
-            _this.fileService = fileService;
-            _this.kosService = kosService;
-            _this.kosFilter = kosFilter;
-            _this.modalService = modalService;
-            _this.changeDetection = changeDetection;
-            _this.modal = new src_app_Shared_Models_openModal__WEBPACK_IMPORTED_MODULE_6__["OpenModal"](_this.modalService, _this.changeDetection);
-            _this.direction = 0;
-            _this.selectAll = false;
-            _this.selectPage = false;
-            _this.filter = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__["Grid"].GridInputModel(new _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_4__["infStudyFilter"]());
-            return _this;
+    class GridUser extends src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__["Grid"].GridControl {
+        constructor(fileService, kosService, kosFilter, modalService, changeDetection) {
+            super();
+            this.fileService = fileService;
+            this.kosService = kosService;
+            this.kosFilter = kosFilter;
+            this.modalService = modalService;
+            this.changeDetection = changeDetection;
+            this.modal = new src_app_Shared_Models_openModal__WEBPACK_IMPORTED_MODULE_6__["OpenModal"](this.modalService, this.changeDetection);
+            this.direction = 0;
+            this.selectAll = false;
+            this.selectPage = false;
+            this.filter = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__["Grid"].GridInputModel(new _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_4__["infStudyFilter"]());
         }
-        GridUser.prototype.openConfirmationDialog = function (message, reproccessList) {
-            var initialState = {
+        openConfirmationDialog(message, reproccessList) {
+            const initialState = {
                 modalTitle: "Bilgilendirme",
                 message: message,
                 button1Text: "Tamam",
                 dangerButtonEnable: false,
                 reproccessList: reproccessList,
             };
-            this.modal.openModal(src_app_Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmationdialogComponent"], initialState).subscribe(function (result) {
+            this.modal.openModal(src_app_Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmationdialogComponent"], initialState).subscribe((result) => {
                 console.log(result.reason);
                 console.log(result.outputData);
             });
-        };
-        GridUser.prototype.getFilter = function (type) {
-            var list = [];
+        }
+        getFilter(type) {
+            let list = [];
             this.filter.paging.pageNumber = this.model.paging.pageNumber;
             this.filter.paging.count = this.model.paging.count;
             this.filter.sorting = this.model.sorting;
-            var item = this.filter.filter;
+            let item = this.filter.filter;
             var o = this.kosFilter;
             if (type != 2) {
-                this.selectedItems.forEach(function (item) {
+                this.selectedItems.forEach(item => {
                     list.push(item.id);
                 });
             }
@@ -2463,109 +2313,109 @@ var KosListComponent_Models;
             item.tcList = o.tcList;
             item.accessionNumberList = o.accessionNumberList;
             return this.filter;
-        };
+        }
         ;
-        GridUser.prototype.onClickInstanceCreateKos = function () {
-            var _this = this;
-            this.kosService.instanceCreateKos(this.getFilter(1)).subscribe(function (o) {
+        onClickInstanceCreateKos() {
+            this.kosService.instanceCreateKos(this.getFilter(1)).subscribe(o => {
                 console.log(o);
-                _this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
+                this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
             });
-        };
-        GridUser.prototype.onClickCreateKos = function () {
-            var _this = this;
+        }
+        onClickCreateKos() {
             if (this.selectAll) {
-                var filter = this.getFilter(1).filter;
+                let filter = this.getFilter(1).filter;
                 filter = new _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_4__["infStudyFilter"]();
-                this.kosService.createKosBg(filter).subscribe(function (o) {
+                this.kosService.createKosBg(filter).subscribe(o => {
                     console.log(o);
-                    _this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o);
+                    this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o);
                 });
             }
             else {
-                this.kosService.createKos(this.getFilter(1)).subscribe(function (o) {
+                this.kosService.createKos(this.getFilter(1)).subscribe(o => {
                     console.log(o);
-                    _this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
+                    this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
                 });
             }
-        };
-        GridUser.prototype.onClickSendKos = function () {
-            var _this = this;
+        }
+        onClickSendKos() {
             if (this.selectAll) {
-                var filter = this.getFilter(1).filter;
+                let filter = this.getFilter(1).filter;
                 filter = new _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_4__["infStudyFilter"]();
-                this.kosService.sendKosBg(filter).subscribe(function (o) {
+                this.kosService.sendKosBg(filter).subscribe(o => {
                     console.log(o);
-                    _this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o);
+                    this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o);
                 });
             }
             else {
-                this.kosService.sendKos(this.getFilter(1)).subscribe(function (o) {
+                this.kosService.sendKos(this.getFilter(1)).subscribe(o => {
                     console.log(o);
-                    _this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
+                    this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
                 });
             }
-        };
-        GridUser.prototype.onClickDeleteKos = function () {
-            var _this = this;
+        }
+        onClickDeleteKos() {
             if (this.selectAll) {
-                var filter = this.getFilter(1).filter;
+                let filter = this.getFilter(1).filter;
                 filter = new _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_4__["infStudyFilter"]();
-                this.kosService.deleteKosBg(filter).subscribe(function (o) {
+                this.kosService.deleteKosBg(filter).subscribe(o => {
                     console.log(o);
-                    _this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o);
+                    this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o);
                 });
             }
             else {
-                this.kosService.deleteKos(this.getFilter(1)).subscribe(function (o) {
+                this.kosService.deleteKos(this.getFilter(1)).subscribe(o => {
                     console.log(o);
-                    _this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
+                    this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
                 });
             }
-        };
-        GridUser.prototype.onClickUpdateReadKos = function () {
-            var _this = this;
+        }
+        onClickDeleteFromData() {
+            console.log("onClickDeleteFromData");
+            this.kosService.deleteFromData(this.getFilter(1)).subscribe(o => {
+                console.log(o);
+                this.openConfirmationDialog("İşlem tamamlandı.");
+            });
+        }
+        onClickUpdateReadKos() {
             if (this.selectAll) {
-                var filter = this.getFilter(1).filter;
+                let filter = this.getFilter(1).filter;
                 filter = new _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_4__["infStudyFilter"]();
-                this.kosService.updateReadKosBg(filter).subscribe(function (o) {
+                this.kosService.updateReadKosBg(filter).subscribe(o => {
                     console.log(o);
-                    _this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o);
+                    this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o);
                 });
             }
             else {
-                this.kosService.updateReadKos(this.getFilter(1)).subscribe(function (o) {
+                this.kosService.updateReadKos(this.getFilter(1)).subscribe(o => {
                     console.log(o);
-                    _this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
+                    this.openConfirmationDialog("Başarılı : " + o.totalSuccess + " Başarısız : " + o.totalFail);
                 });
             }
-        };
-        GridUser.prototype.onClickReprocessKos = function () {
-            var _this = this;
+        }
+        onClickReprocessKos() {
             if (this.selectAll) {
-                var filter = this.getFilter(1).filter;
+                let filter = this.getFilter(1).filter;
                 filter = new _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_4__["infStudyFilter"]();
-                this.kosService.reprocessKosBg(filter).subscribe(function (o) {
+                this.kosService.reprocessKosBg(filter).subscribe(o => {
                     console.log(o);
-                    _this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o);
+                    this.openConfirmationDialog("Arka plan iş takibi için ID'niz : " + o);
                 });
             }
             else {
-                this.kosService.reprocessKos(this.getFilter(1)).subscribe(function (o) {
+                this.kosService.reprocessKos(this.getFilter(1)).subscribe(o => {
                     debugger;
                     console.log(o);
-                    _this.openConfirmationDialog(undefined, o);
+                    this.openConfirmationDialog(undefined, o);
                 });
             }
-        };
-        GridUser.prototype.onClickExportExcel = function () {
-            var _this = this;
-            this.kosService.exportExcel(this.getFilter(1)).subscribe(function (o) {
+        }
+        onClickExportExcel() {
+            this.kosService.exportExcel(this.getFilter(1)).subscribe(o => {
                 console.log(o);
-                _this.fileService.download(o);
+                this.fileService.download(o);
             });
-        };
-        GridUser.prototype.onSorting = function (colName) {
+        }
+        onSorting(colName) {
             if (this.direction == 0) {
                 this.direction = 1;
             }
@@ -2575,20 +2425,19 @@ var KosListComponent_Models;
             this.model.sorting.colName = colName;
             this.model.sorting.direction = this.direction;
             this.onRefresh();
-        };
-        GridUser.prototype.onRefresh = function () {
-            var _this = this;
+        }
+        onRefresh() {
             var item = this.getFilter(2);
             var filter = item.filter;
             console.log(item);
-            this.kosService.getKosList(item).subscribe(function (o) {
-                _this.data.list = o["list"];
-                _this.data.totalCount = o["totalCount"];
-                console.log(_this.data.list);
+            this.kosService.getKosList(item).subscribe(o => {
+                this.data.list = o["list"];
+                this.data.totalCount = o["totalCount"];
+                console.log(this.data.list);
                 filter.StudyIDList = [];
             });
-        };
-        GridUser.prototype.gridSelect = function (event, type) {
+        }
+        gridSelect(event, type) {
             if (type == 'selectPage') {
                 if (event.srcElement.checked) {
                     this.selectAll = false;
@@ -2606,16 +2455,15 @@ var KosListComponent_Models;
                 }
             }
             else { }
-        };
-        GridUser.ctorParameters = function () { return [
-            { type: src_app_Shared_Services_FileServices_fileService__WEBPACK_IMPORTED_MODULE_8__["FileService"] },
-            { type: _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_3__["kosDataServices"] },
-            { type: kosFilter },
-            { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"] },
-            { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] }
-        ]; };
-        return GridUser;
-    }(src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__["Grid"].GridControl));
+        }
+    }
+    GridUser.ctorParameters = () => [
+        { type: src_app_Shared_Services_FileServices_fileService__WEBPACK_IMPORTED_MODULE_8__["FileService"] },
+        { type: _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_3__["kosDataServices"] },
+        { type: kosFilter },
+        { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] }
+    ];
     KosListComponent_Models.GridUser = GridUser;
 })(KosListComponent_Models || (KosListComponent_Models = {}));
 
@@ -2644,40 +2492,39 @@ module.exports = "\r\n.marginClass {\r\n  margin-top: 1.6rem;\r\n}\r\n.selected{
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KosoperationsComponent", function() { return KosoperationsComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Definitions/Services/userDataServices */ "./src/app/Features/Private/Definitions/Services/userDataServices.ts");
 /* harmony import */ var _kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./kosgrid/kosgrid.component */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosgrid/kosgrid.component.ts");
 
 
 
 
-var KosoperationsComponent = /** @class */ (function () {
-    function KosoperationsComponent(userService) {
+let KosoperationsComponent = class KosoperationsComponent {
+    constructor(userService) {
         this.userService = userService;
         this.filterData = new _kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_3__["kosFilter"]();
     }
-    KosoperationsComponent.prototype.ngOnInit = function () {
-    };
-    KosoperationsComponent.prototype.filter = function (filter) {
+    ngOnInit() {
+    }
+    filter(filter) {
         this.filterData = filter;
-    };
-    KosoperationsComponent.ctorParameters = function () { return [
-        { type: _Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_2__["userDataServices"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_3__["KosgridComponent"], { static: false }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_3__["KosgridComponent"])
-    ], KosoperationsComponent.prototype, "kosGridComponent", void 0);
-    KosoperationsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-kosoperations',
-            template: __webpack_require__(/*! raw-loader!./kosoperations.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/kosoperations/kosoperations.component.html"),
-            styles: [__webpack_require__(/*! ./kosoperations.component.css */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosoperations.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_2__["userDataServices"]])
-    ], KosoperationsComponent);
-    return KosoperationsComponent;
-}());
+    }
+};
+KosoperationsComponent.ctorParameters = () => [
+    { type: _Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_2__["userDataServices"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_3__["KosgridComponent"], { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_3__["KosgridComponent"])
+], KosoperationsComponent.prototype, "kosGridComponent", void 0);
+KosoperationsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-kosoperations',
+        template: __webpack_require__(/*! raw-loader!./kosoperations.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/kosoperations/kosoperations.component.html"),
+        styles: [__webpack_require__(/*! ./kosoperations.component.css */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosoperations.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_2__["userDataServices"]])
+], KosoperationsComponent);
 
 
 
@@ -2705,59 +2552,53 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KosstatisticComponent", function() { return KosstatisticComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Services/kosDataServices */ "./src/app/Features/Private/Operations/Services/kosDataServices.ts");
 /* harmony import */ var _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Models/infStudyFilter */ "./src/app/Features/Private/Operations/Models/infStudyFilter.ts");
 
 
 
 
-var KosstatisticComponent = /** @class */ (function () {
-    function KosstatisticComponent(kosService) {
+let KosstatisticComponent = class KosstatisticComponent {
+    constructor(kosService) {
         this.kosService = kosService;
         this.isCollapsed = false;
         this.isCollapsed1 = true;
         this.kosFilter = new _Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_3__["infStudyFilter"]();
         this.kosDurumModel = Array();
     }
-    Object.defineProperty(KosstatisticComponent.prototype, "filter", {
-        set: function (value) {
-            if (value == null || value == undefined)
-                return;
-            this.kosFilter = value;
-            this.onRefresh();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    KosstatisticComponent.prototype.ngOnInit = function () {
+    set filter(value) {
+        if (value == null || value == undefined)
+            return;
+        this.kosFilter = value;
         this.onRefresh();
-    };
-    KosstatisticComponent.prototype.onRefresh = function () {
-        var _this = this;
-        this.kosService.GetKosDurumIst(this.kosFilter).subscribe(function (data) {
+    }
+    ngOnInit() {
+        this.onRefresh();
+    }
+    onRefresh() {
+        this.kosService.GetKosDurumIst(this.kosFilter).subscribe(data => {
             console.log(data);
-            _this.kosDurumModel = data;
+            this.kosDurumModel = data;
         });
-    };
-    KosstatisticComponent.ctorParameters = function () { return [
-        { type: _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__["kosDataServices"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], KosstatisticComponent.prototype, "filter", null);
-    KosstatisticComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-kosstatistic',
-            template: __webpack_require__(/*! raw-loader!./kosstatistic.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/kosoperations/kosstatistic/kosstatistic.component.html"),
-            styles: [__webpack_require__(/*! ./kosstatistic.component.css */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosstatistic/kosstatistic.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__["kosDataServices"]])
-    ], KosstatisticComponent);
-    return KosstatisticComponent;
-}());
+    }
+};
+KosstatisticComponent.ctorParameters = () => [
+    { type: _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__["kosDataServices"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+], KosstatisticComponent.prototype, "filter", null);
+KosstatisticComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-kosstatistic',
+        template: __webpack_require__(/*! raw-loader!./kosstatistic.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/kosoperations/kosstatistic/kosstatistic.component.html"),
+        styles: [__webpack_require__(/*! ./kosstatistic.component.css */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosstatistic/kosstatistic.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__["kosDataServices"]])
+], KosstatisticComponent);
 
 
 
@@ -2785,7 +2626,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KosdetailComponent", function() { return KosdetailComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _Models_kosModel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../Models/kosModel */ "./src/app/Features/Private/Operations/Models/kosModel.ts");
 /* harmony import */ var _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../Services/kosDataServices */ "./src/app/Features/Private/Operations/Services/kosDataServices.ts");
 /* harmony import */ var _Models_infStudyViewModel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../Models/infStudyViewModel */ "./src/app/Features/Private/Operations/Models/infStudyViewModel.ts");
@@ -2794,47 +2635,41 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var KosdetailComponent = /** @class */ (function () {
-    function KosdetailComponent(kosService) {
+let KosdetailComponent = class KosdetailComponent {
+    constructor(kosService) {
         this.kosService = kosService;
         this.kosModel = new _Models_kosModel__WEBPACK_IMPORTED_MODULE_2__["kosModel"]();
         this.kosDetailModel = new _Models_infStudyViewModel__WEBPACK_IMPORTED_MODULE_4__["infStudyViewModel"]();
     }
-    Object.defineProperty(KosdetailComponent.prototype, "kosId", {
-        set: function (value) {
-            var _this = this;
-            if (value == null || value == undefined)
-                return;
-            console.log(value);
-            this.kosModel.id = value;
-            this.kosService.GetByID(this.kosModel).subscribe(function (data) {
-                console.log(data);
-                _this.kosDetailModel = data;
-            });
-        },
-        enumerable: true,
-        configurable: true
-    });
-    KosdetailComponent.prototype.ngOnInit = function () {
-    };
-    KosdetailComponent.ctorParameters = function () { return [
-        { type: _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_3__["kosDataServices"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], KosdetailComponent.prototype, "kosId", null);
-    KosdetailComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-kosdetail',
-            template: __webpack_require__(/*! raw-loader!./kosdetail.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/kosoperations/kostabs/kosdetail/kosdetail.component.html"),
-            styles: [__webpack_require__(/*! ./kosdetail.component.css */ "./src/app/Features/Private/Operations/Pages/kosoperations/kostabs/kosdetail/kosdetail.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_3__["kosDataServices"]])
-    ], KosdetailComponent);
-    return KosdetailComponent;
-}());
+    set kosId(value) {
+        if (value == null || value == undefined)
+            return;
+        console.log(value);
+        this.kosModel.id = value;
+        this.kosService.GetByID(this.kosModel).subscribe(data => {
+            console.log(data);
+            this.kosDetailModel = data;
+        });
+    }
+    ngOnInit() {
+    }
+};
+KosdetailComponent.ctorParameters = () => [
+    { type: _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_3__["kosDataServices"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+], KosdetailComponent.prototype, "kosId", null);
+KosdetailComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-kosdetail',
+        template: __webpack_require__(/*! raw-loader!./kosdetail.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/kosoperations/kostabs/kosdetail/kosdetail.component.html"),
+        styles: [__webpack_require__(/*! ./kosdetail.component.css */ "./src/app/Features/Private/Operations/Pages/kosoperations/kostabs/kosdetail/kosdetail.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_3__["kosDataServices"]])
+], KosdetailComponent);
 
 
 
@@ -2863,7 +2698,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KosdetailgridComponent", function() { return KosdetailgridComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "kosDetailFilter", function() { return kosDetailFilter; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../Services/kosDataServices */ "./src/app/Features/Private/Operations/Services/kosDataServices.ts");
 /* harmony import */ var src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/Shared/Models/UIControls/grid-control */ "./src/app/Shared/Models/UIControls/grid-control.ts");
 /* harmony import */ var _Models_KosHistoryModel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../Models/KosHistoryModel */ "./src/app/Features/Private/Operations/Models/KosHistoryModel.ts");
@@ -2872,68 +2707,57 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var KosdetailgridComponent = /** @class */ (function () {
-    function KosdetailgridComponent(kosService) {
+let KosdetailgridComponent = class KosdetailgridComponent {
+    constructor(kosService) {
         this.kosService = kosService;
         this.detailFilter = new kosDetailFilter();
         this.gridKosDetail = new KosDetailComponent_Models.GridKosDetail(this.kosService, this.detailFilter);
     }
-    Object.defineProperty(KosdetailgridComponent.prototype, "kosId", {
-        set: function (value) {
-            if (value == null || value == undefined)
-                return;
-            console.log(value);
-            this.gridKosDetail.detailFilter.id = value;
-            this.gridKosDetail.onRefresh();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    KosdetailgridComponent.prototype.ngOnInit = function () {
-        //this.gridKosDetail.onRefresh();
-    };
-    KosdetailgridComponent.ctorParameters = function () { return [
-        { type: _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__["kosDataServices"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], KosdetailgridComponent.prototype, "kosId", null);
-    KosdetailgridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-kosdetailgrid',
-            template: __webpack_require__(/*! raw-loader!./kosdetailgrid.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/kosoperations/kostabs/kosdetailgrid/kosdetailgrid.component.html"),
-            styles: [__webpack_require__(/*! ./kosdetailgrid.component.css */ "./src/app/Features/Private/Operations/Pages/kosoperations/kostabs/kosdetailgrid/kosdetailgrid.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__["kosDataServices"]])
-    ], KosdetailgridComponent);
-    return KosdetailgridComponent;
-}());
-
-var kosDetailFilter = /** @class */ (function () {
-    function kosDetailFilter() {
+    set kosId(value) {
+        if (value == null || value == undefined)
+            return;
+        console.log(value);
+        this.gridKosDetail.detailFilter.id = value;
+        this.gridKosDetail.onRefresh();
     }
-    return kosDetailFilter;
-}());
+    ngOnInit() {
+        //this.gridKosDetail.onRefresh();
+    }
+};
+KosdetailgridComponent.ctorParameters = () => [
+    { type: _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__["kosDataServices"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+], KosdetailgridComponent.prototype, "kosId", null);
+KosdetailgridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-kosdetailgrid',
+        template: __webpack_require__(/*! raw-loader!./kosdetailgrid.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/kosoperations/kostabs/kosdetailgrid/kosdetailgrid.component.html"),
+        styles: [__webpack_require__(/*! ./kosdetailgrid.component.css */ "./src/app/Features/Private/Operations/Pages/kosoperations/kostabs/kosdetailgrid/kosdetailgrid.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__["kosDataServices"]])
+], KosdetailgridComponent);
 
+class kosDetailFilter {
+}
 var KosDetailComponent_Models;
 (function (KosDetailComponent_Models) {
-    var GridKosDetail = /** @class */ (function (_super) {
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](GridKosDetail, _super);
-        function GridKosDetail(kosService, detailFilter) {
-            var _this = _super.call(this) || this;
-            _this.kosService = kosService;
-            _this.detailFilter = detailFilter;
-            _this.direction = 0;
-            _this.filter = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_3__["Grid"].GridInputModel(new _Models_KosHistoryModel__WEBPACK_IMPORTED_MODULE_4__["kosHistoryModel"]());
-            return _this;
+    class GridKosDetail extends src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_3__["Grid"].GridControl {
+        constructor(kosService, detailFilter) {
+            super();
+            this.kosService = kosService;
+            this.detailFilter = detailFilter;
+            this.direction = 0;
+            this.filter = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_3__["Grid"].GridInputModel(new _Models_KosHistoryModel__WEBPACK_IMPORTED_MODULE_4__["kosHistoryModel"]());
         }
-        GridKosDetail.prototype.getFilter = function () {
+        getFilter() {
             this.filter.paging.pageNumber = this.model.paging.pageNumber;
             this.filter.paging.count = this.model.paging.count;
             this.filter.sorting = this.model.sorting;
-            var item = this.filter.filter;
+            let item = this.filter.filter;
             var o = this.detailFilter;
             item.enumType = o.enumType;
             item.id = o.id;
@@ -2944,8 +2768,8 @@ var KosDetailComponent_Models;
             item.userIDCreated = o.userIDCreated;
             item.userIDModified = o.userIDModified;
             return this.filter;
-        };
-        GridKosDetail.prototype.onSorting = function (colName) {
+        }
+        onSorting(colName) {
             if (this.direction == 0) {
                 this.direction = 1;
             }
@@ -2955,24 +2779,22 @@ var KosDetailComponent_Models;
             this.model.sorting.colName = colName;
             this.model.sorting.direction = this.direction;
             this.onRefresh();
-        };
-        GridKosDetail.prototype.onRefresh = function () {
-            var _this = this;
+        }
+        onRefresh() {
             var item = this.getFilter();
             var filter = item.filter;
             console.log(item);
-            this.kosService.GetKosHistoryByStudyID(item).subscribe(function (o) {
-                _this.data.list = o["list"];
-                _this.data.totalCount = o["totalCount"];
-                console.log(_this.data.list);
+            this.kosService.GetKosHistoryByStudyID(item).subscribe(o => {
+                this.data.list = o["list"];
+                this.data.totalCount = o["totalCount"];
+                console.log(this.data.list);
             });
-        };
-        GridKosDetail.ctorParameters = function () { return [
-            { type: _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__["kosDataServices"] },
-            { type: kosDetailFilter }
-        ]; };
-        return GridKosDetail;
-    }(src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_3__["Grid"].GridControl));
+        }
+    }
+    GridKosDetail.ctorParameters = () => [
+        { type: _Services_kosDataServices__WEBPACK_IMPORTED_MODULE_2__["kosDataServices"] },
+        { type: kosDetailFilter }
+    ];
     KosDetailComponent_Models.GridKosDetail = GridKosDetail;
 })(KosDetailComponent_Models || (KosDetailComponent_Models = {}));
 
@@ -3001,39 +2823,33 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KostabsComponent", function() { return KostabsComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
-var KostabsComponent = /** @class */ (function () {
-    function KostabsComponent() {
+let KostabsComponent = class KostabsComponent {
+    constructor() { }
+    set kosId(value) {
+        if (value == null || value == undefined)
+            return;
+        this.kosID = value;
+        console.log(value);
     }
-    Object.defineProperty(KostabsComponent.prototype, "kosId", {
-        set: function (value) {
-            if (value == null || value == undefined)
-                return;
-            this.kosID = value;
-            console.log(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    KostabsComponent.prototype.ngOnInit = function () {
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], KostabsComponent.prototype, "kosId", null);
-    KostabsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-kostabs',
-            template: __webpack_require__(/*! raw-loader!./kostabs.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/kosoperations/kostabs/kostabs.component.html"),
-            styles: [__webpack_require__(/*! ./kostabs.component.css */ "./src/app/Features/Private/Operations/Pages/kosoperations/kostabs/kostabs.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], KostabsComponent);
-    return KostabsComponent;
-}());
+    ngOnInit() {
+    }
+};
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+], KostabsComponent.prototype, "kosId", null);
+KostabsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-kostabs',
+        template: __webpack_require__(/*! raw-loader!./kostabs.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/kosoperations/kostabs/kostabs.component.html"),
+        styles: [__webpack_require__(/*! ./kostabs.component.css */ "./src/app/Features/Private/Operations/Pages/kosoperations/kostabs/kostabs.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], KostabsComponent);
 
 
 
@@ -3061,7 +2877,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StmfilterComponent", function() { return StmfilterComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _kosoperations_kosfilter_ddlSettings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../kosoperations/kosfilter/ddlSettings */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosfilter/ddlSettings.ts");
 /* harmony import */ var src_app_Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/Features/Private/Definitions/Services/userDataServices */ "./src/app/Features/Private/Definitions/Services/userDataServices.ts");
 /* harmony import */ var _Services_stmDataServices__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../Services/stmDataServices */ "./src/app/Features/Private/Operations/Services/stmDataServices.ts");
@@ -3072,8 +2888,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var StmfilterComponent = /** @class */ (function () {
-    function StmfilterComponent(stmService, userService) {
+let StmfilterComponent = class StmfilterComponent {
+    constructor(stmService, userService) {
         this.stmService = stmService;
         this.userService = userService;
         this.filterChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
@@ -3084,37 +2900,35 @@ var StmfilterComponent = /** @class */ (function () {
         this.ddlEnumSelectedItems = [];
         this.isCollapsed = false;
     }
-    StmfilterComponent.prototype.ngOnInit = function () {
+    ngOnInit() {
         this.ddlTenantSettings = this.ddlSettings.ddlTenantSettings;
         this.ddlEnumSettings = this.ddlSettings.ddlEnumSettings;
         this.getTenantList();
         this.getEnumList();
-    };
-    StmfilterComponent.prototype.getTenantList = function () {
-        var _this = this;
-        this.userService.getTenantList().subscribe(function (data) {
-            _this.ddlTenantData = data;
-            console.log(_this.ddlTenantData);
+    }
+    getTenantList() {
+        this.userService.getTenantList().subscribe(data => {
+            this.ddlTenantData = data;
+            console.log(this.ddlTenantData);
         });
-    };
-    StmfilterComponent.prototype.getEnumList = function () {
-        var _this = this;
-        this.stmService.GetTeletipStatusList().subscribe(function (data) {
-            _this.ddlEnumData = data;
+    }
+    getEnumList() {
+        this.stmService.GetTeletipStatusList().subscribe(data => {
+            this.ddlEnumData = data;
             console.log(data);
         });
-    };
-    StmfilterComponent.prototype.onFilter = function () {
-        var filter = new _stmgrid_stmgrid_component__WEBPACK_IMPORTED_MODULE_5__["stmFilter"]();
+    }
+    onFilter() {
+        let filter = new _stmgrid_stmgrid_component__WEBPACK_IMPORTED_MODULE_5__["stmFilter"]();
         if (this.ddlTenantSelectedItems.length != 0) {
             filter.hastaneIDList = [];
-            this.ddlTenantSelectedItems.forEach(function (item) {
+            this.ddlTenantSelectedItems.forEach(item => {
                 filter.hastaneIDList.push(item.id);
             });
         }
         if (this.ddlEnumSelectedItems.length != 0) {
             filter.teletipStatusIDList = [];
-            this.ddlEnumSelectedItems.forEach(function (item) {
+            this.ddlEnumSelectedItems.forEach(item => {
                 filter.teletipStatusIDList.push(item.id);
             });
         }
@@ -3129,42 +2943,41 @@ var StmfilterComponent = /** @class */ (function () {
             filter.accessionNumberList = this.splitAccession();
         }
         this.filterChanged.emit(filter);
-    };
-    StmfilterComponent.prototype.onClearFilter = function () {
+    }
+    onClearFilter() {
         this.ddlTenantSelectedItems = [];
         this.ddlEnumSelectedItems = [];
         this.dateRange = undefined;
         this.accessionNo = "";
-    };
-    StmfilterComponent.prototype.splitAccession = function () {
-        var accessionNoList = [];
+    }
+    splitAccession() {
+        let accessionNoList = [];
         if (this.accessionNo == "" || this.accessionNo == undefined)
             return;
-        this.accessionNo.split(" ").forEach(function (item) {
+        this.accessionNo.split(" ").forEach(item => {
             if (item != "") {
                 accessionNoList.push(item);
             }
         });
         return accessionNoList;
-    };
-    StmfilterComponent.ctorParameters = function () { return [
-        { type: _Services_stmDataServices__WEBPACK_IMPORTED_MODULE_4__["stmDataServices"] },
-        { type: src_app_Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_3__["userDataServices"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], StmfilterComponent.prototype, "filterChanged", void 0);
-    StmfilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-stmfilter',
-            template: __webpack_require__(/*! raw-loader!./stmfilter.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component.html"),
-            styles: [__webpack_require__(/*! ./stmfilter.component.css */ "./src/app/Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_stmDataServices__WEBPACK_IMPORTED_MODULE_4__["stmDataServices"], src_app_Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_3__["userDataServices"]])
-    ], StmfilterComponent);
-    return StmfilterComponent;
-}());
+    }
+};
+StmfilterComponent.ctorParameters = () => [
+    { type: _Services_stmDataServices__WEBPACK_IMPORTED_MODULE_4__["stmDataServices"] },
+    { type: src_app_Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_3__["userDataServices"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+], StmfilterComponent.prototype, "filterChanged", void 0);
+StmfilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-stmfilter',
+        template: __webpack_require__(/*! raw-loader!./stmfilter.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component.html"),
+        styles: [__webpack_require__(/*! ./stmfilter.component.css */ "./src/app/Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_stmDataServices__WEBPACK_IMPORTED_MODULE_4__["stmDataServices"], src_app_Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_3__["userDataServices"]])
+], StmfilterComponent);
 
 
 
@@ -3193,7 +3006,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StmgridComponent", function() { return StmgridComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stmFilter", function() { return stmFilter; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Shared/Models/UIControls/grid-control */ "./src/app/Shared/Models/UIControls/grid-control.ts");
 /* harmony import */ var _Services_stmDataServices__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Services/stmDataServices */ "./src/app/Features/Private/Operations/Services/stmDataServices.ts");
 /* harmony import */ var _Models_GetorderStatusViewFilter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../Models/GetorderStatusViewFilter */ "./src/app/Features/Private/Operations/Models/GetorderStatusViewFilter.ts");
@@ -3202,69 +3015,58 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var StmgridComponent = /** @class */ (function () {
-    function StmgridComponent(stmService) {
+let StmgridComponent = class StmgridComponent {
+    constructor(stmService) {
         this.stmService = stmService;
         this.stmFilter = new stmFilter();
         this.gridStm = new StmComponent_Models.GridStm(this.stmService, this.stmFilter);
     }
-    Object.defineProperty(StmgridComponent.prototype, "filter", {
-        set: function (value) {
-            if (value == null || value == undefined)
-                return;
-            console.log(value);
-            this.gridStm.stmFilter = value;
-            this.gridStm.onRefresh();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    StmgridComponent.prototype.ngOnInit = function () {
-    };
-    StmgridComponent.ctorParameters = function () { return [
-        { type: _Services_stmDataServices__WEBPACK_IMPORTED_MODULE_3__["stmDataServices"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], StmgridComponent.prototype, "filter", null);
-    StmgridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-stmgrid',
-            template: __webpack_require__(/*! raw-loader!./stmgrid.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component.html"),
-            styles: [__webpack_require__(/*! ./stmgrid.component.css */ "./src/app/Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_stmDataServices__WEBPACK_IMPORTED_MODULE_3__["stmDataServices"]])
-    ], StmgridComponent);
-    return StmgridComponent;
-}());
-
-var stmFilter = /** @class */ (function () {
-    function stmFilter() {
+    set filter(value) {
+        if (value == null || value == undefined)
+            return;
+        console.log(value);
+        this.gridStm.stmFilter = value;
+        this.gridStm.onRefresh();
     }
-    return stmFilter;
-}());
+    ngOnInit() {
+    }
+};
+StmgridComponent.ctorParameters = () => [
+    { type: _Services_stmDataServices__WEBPACK_IMPORTED_MODULE_3__["stmDataServices"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+], StmgridComponent.prototype, "filter", null);
+StmgridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-stmgrid',
+        template: __webpack_require__(/*! raw-loader!./stmgrid.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component.html"),
+        styles: [__webpack_require__(/*! ./stmgrid.component.css */ "./src/app/Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_stmDataServices__WEBPACK_IMPORTED_MODULE_3__["stmDataServices"]])
+], StmgridComponent);
 
+class stmFilter {
+}
 var StmComponent_Models;
 (function (StmComponent_Models) {
-    var GridStm = /** @class */ (function (_super) {
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](GridStm, _super);
-        function GridStm(stmService, stmFilter) {
-            var _this = _super.call(this) || this;
-            _this.stmService = stmService;
-            _this.stmFilter = stmFilter;
-            _this.direction = 0;
-            _this.selectAll = false;
-            _this.selectPage = false;
-            _this.filter = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__["Grid"].GridInputModel(new _Models_GetorderStatusViewFilter__WEBPACK_IMPORTED_MODULE_4__["GetorderStatusViewFilter"]());
-            return _this;
+    class GridStm extends src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__["Grid"].GridControl {
+        constructor(stmService, stmFilter) {
+            super();
+            this.stmService = stmService;
+            this.stmFilter = stmFilter;
+            this.direction = 0;
+            this.selectAll = false;
+            this.selectPage = false;
+            this.filter = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__["Grid"].GridInputModel(new _Models_GetorderStatusViewFilter__WEBPACK_IMPORTED_MODULE_4__["GetorderStatusViewFilter"]());
         }
-        GridStm.prototype.getFilter = function () {
+        getFilter() {
             this.filter.paging.pageNumber = this.model.paging.pageNumber;
             this.filter.paging.count = this.model.paging.count;
             this.filter.sorting = this.model.sorting;
-            var item = this.filter.filter;
+            let item = this.filter.filter;
             var o = this.stmFilter;
             item.basTar = o.basTar;
             item.bitTar = o.bitTar;
@@ -3272,9 +3074,9 @@ var StmComponent_Models;
             item.hastaneIDList = o.hastaneIDList;
             item.teletipStatusIDList = o.teletipStatusIDList;
             return this.filter;
-        };
+        }
         ;
-        GridStm.prototype.onSorting = function (colName) {
+        onSorting(colName) {
             if (this.direction == 0) {
                 this.direction = 1;
             }
@@ -3284,19 +3086,18 @@ var StmComponent_Models;
             this.model.sorting.colName = colName;
             this.model.sorting.direction = this.direction;
             this.onRefresh();
-        };
-        GridStm.prototype.onRefresh = function () {
-            var _this = this;
+        }
+        onRefresh() {
             var item = this.getFilter();
             var filter = item.filter;
             console.log(item);
-            this.stmService.GetorderStatusList(item).subscribe(function (o) {
-                _this.data.list = o["list"];
-                _this.data.totalCount = o["totalCount"];
-                console.log(_this.data.list);
+            this.stmService.GetorderStatusList(item).subscribe(o => {
+                this.data.list = o["list"];
+                this.data.totalCount = o["totalCount"];
+                console.log(this.data.list);
             });
-        };
-        GridStm.prototype.gridSelect = function (event, type) {
+        }
+        gridSelect(event, type) {
             if (type == 'selectPage') {
                 if (event.srcElement.checked) {
                     this.selectAll = false;
@@ -3314,13 +3115,12 @@ var StmComponent_Models;
                 }
             }
             else { }
-        };
-        GridStm.ctorParameters = function () { return [
-            { type: _Services_stmDataServices__WEBPACK_IMPORTED_MODULE_3__["stmDataServices"] },
-            { type: stmFilter }
-        ]; };
-        return GridStm;
-    }(src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_2__["Grid"].GridControl));
+        }
+    }
+    GridStm.ctorParameters = () => [
+        { type: _Services_stmDataServices__WEBPACK_IMPORTED_MODULE_3__["stmDataServices"] },
+        { type: stmFilter }
+    ];
     StmComponent_Models.GridStm = GridStm;
 })(StmComponent_Models || (StmComponent_Models = {}));
 
@@ -3349,30 +3149,29 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TeletipstmComponent", function() { return TeletipstmComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _kosoperations_kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../kosoperations/kosgrid/kosgrid.component */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosgrid/kosgrid.component.ts");
 
 
 
-var TeletipstmComponent = /** @class */ (function () {
-    function TeletipstmComponent() {
+let TeletipstmComponent = class TeletipstmComponent {
+    constructor() {
         this.filterData = new _kosoperations_kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_2__["kosFilter"]();
     }
-    TeletipstmComponent.prototype.ngOnInit = function () {
-    };
-    TeletipstmComponent.prototype.filter = function (filter) {
+    ngOnInit() {
+    }
+    filter(filter) {
         this.filterData = filter;
-    };
-    TeletipstmComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-teletipstm',
-            template: __webpack_require__(/*! raw-loader!./teletipstm.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/teletipstm/teletipstm.component.html"),
-            styles: [__webpack_require__(/*! ./teletipstm.component.css */ "./src/app/Features/Private/Operations/Pages/teletipstm/teletipstm.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], TeletipstmComponent);
-    return TeletipstmComponent;
-}());
+    }
+};
+TeletipstmComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-teletipstm',
+        template: __webpack_require__(/*! raw-loader!./teletipstm.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Private/Operations/Pages/teletipstm/teletipstm.component.html"),
+        styles: [__webpack_require__(/*! ./teletipstm.component.css */ "./src/app/Features/Private/Operations/Pages/teletipstm/teletipstm.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], TeletipstmComponent);
 
 
 
@@ -3390,19 +3189,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "jobDataServices", function() { return jobDataServices; });
 /* harmony import */ var src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Shared/Services/Api/apiDataService */ "./src/app/Shared/Services/Api/apiDataService.ts");
 
-var jobDataServices = /** @class */ (function () {
-    function jobDataServices(apiDataService) {
+class jobDataServices {
+    constructor(apiDataService) {
         this.apiDataService = apiDataService;
     }
-    jobDataServices.prototype.getJobList = function (model) {
+    getJobList(model) {
         return this.apiDataService.callDataService('job/GetJobList', model);
-    };
-    jobDataServices.ctorParameters = function () { return [
-        { type: src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__["ApiDataService"] }
-    ]; };
-    return jobDataServices;
-}());
-
+    }
+}
+jobDataServices.ctorParameters = () => [
+    { type: src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__["ApiDataService"] }
+];
 
 
 /***/ }),
@@ -3419,81 +3216,82 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "kosDataServices", function() { return kosDataServices; });
 /* harmony import */ var src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Shared/Services/Api/apiDataService */ "./src/app/Shared/Services/Api/apiDataService.ts");
 
-var kosDataServices = /** @class */ (function () {
-    function kosDataServices(apiDataService) {
+class kosDataServices {
+    constructor(apiDataService) {
         this.apiDataService = apiDataService;
     }
-    kosDataServices.prototype.getKosList = function (model) {
+    getKosList(model) {
         return this.apiDataService.callDataService('Kos/GetKosList', model);
-    };
+    }
     //------------------------
-    kosDataServices.prototype.createKos = function (model) {
+    createKos(model) {
         console.log(model);
         return this.apiDataService.callDataService('Kos/CreateKos', model);
-    };
-    kosDataServices.prototype.instanceCreateKos = function (model) {
+    }
+    instanceCreateKos(model) {
         console.log(model);
         return this.apiDataService.callDataService('Kos/CreateKosInstance', model);
-    };
-    kosDataServices.prototype.createKosBg = function (model) {
+    }
+    createKosBg(model) {
         return this.apiDataService.callDataService('Kos/CreateKosBackground', model);
-    };
+    }
     //-------------------------
-    kosDataServices.prototype.deleteKos = function (model) {
+    deleteKos(model) {
         return this.apiDataService.callDataService('Kos/DeleteKos', model);
-    };
-    kosDataServices.prototype.deleteKosBg = function (model) {
+    }
+    deleteFromData(model) {
+        return this.apiDataService.callDataService('Kos/StudyDataDelete', model);
+    }
+    deleteKosBg(model) {
         return this.apiDataService.callDataService('Kos/DeleteKosBackground', model);
-    };
+    }
     //--------------------------
-    kosDataServices.prototype.reprocessKos = function (model) {
+    reprocessKos(model) {
         return this.apiDataService.callDataService('Kos/ReprocessKos', model);
-    };
-    kosDataServices.prototype.reprocessKosBg = function (model) {
+    }
+    reprocessKosBg(model) {
         return this.apiDataService.callDataService('Kos/ReprocessKosBackground', model);
-    };
+    }
     //----------------------- //UpdateReadKos servisi kaldırıldı ve yerine  StmGetOrderStatusForAccessionNumberlist servisi eklendi.
-    kosDataServices.prototype.updateReadKos = function (model) {
+    updateReadKos(model) {
         return this.apiDataService.callDataService('Kos/UpdateReadKos', model);
-    };
-    kosDataServices.prototype.updateReadKosBg = function (model) {
+    }
+    updateReadKosBg(model) {
         return this.apiDataService.callDataService('Kos/StmGetOrderStatusForAccessionNumberlistBackground', model);
-    };
+    }
     //-----------------------
-    kosDataServices.prototype.sendKos = function (model) {
+    sendKos(model) {
         return this.apiDataService.callDataService('Kos/SendKos', model);
-    };
-    kosDataServices.prototype.sendKosBg = function (model) {
+    }
+    sendKosBg(model) {
         return this.apiDataService.callDataService('Kos/SendKosBackground', model);
-    };
+    }
     //-----------------------
-    kosDataServices.prototype.exportExcel = function (model) {
+    exportExcel(model) {
         return this.apiDataService.callDataService('Kos/ExportExcel', model);
-    };
-    kosDataServices.prototype.getModalityList = function () {
+    }
+    getModalityList() {
         return this.apiDataService.callDataService('Kos/getModalityList', undefined);
-    };
-    kosDataServices.prototype.GetByID = function (model) {
+    }
+    GetByID(model) {
         return this.apiDataService.callDataService('Kos/GetByID', model);
-    };
-    kosDataServices.prototype.GetKosHistoryByStudyID = function (model) {
+    }
+    GetKosHistoryByStudyID(model) {
         return this.apiDataService.callDataService('Kos/GetKosHistoryByStudyID', model);
-    };
-    kosDataServices.prototype.GetEnumTypeList = function () {
+    }
+    GetEnumTypeList() {
         return this.apiDataService.callDataService('Kos/GetEnumTypeList', undefined);
-    };
-    kosDataServices.prototype.GetKosDurumIst = function (model) {
+    }
+    GetKosDurumIst(model) {
         return this.apiDataService.callDataService('Kos/GetKosDurumIst', model);
-    };
-    kosDataServices.prototype.UpdateKosDurum = function (model) {
+    }
+    UpdateKosDurum(model) {
         return this.apiDataService.callDataService('Kos/UpdateKosDurum', model);
-    };
-    kosDataServices.ctorParameters = function () { return [
-        { type: src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__["ApiDataService"] }
-    ]; };
-    return kosDataServices;
-}());
-
+    }
+}
+kosDataServices.ctorParameters = () => [
+    { type: src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__["ApiDataService"] }
+];
 
 
 /***/ }),
@@ -3510,22 +3308,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stmDataServices", function() { return stmDataServices; });
 /* harmony import */ var src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Shared/Services/Api/apiDataService */ "./src/app/Shared/Services/Api/apiDataService.ts");
 
-var stmDataServices = /** @class */ (function () {
-    function stmDataServices(apiDataService) {
+class stmDataServices {
+    constructor(apiDataService) {
         this.apiDataService = apiDataService;
     }
-    stmDataServices.prototype.GetorderStatusList = function (model) {
+    GetorderStatusList(model) {
         return this.apiDataService.callDataService('GetorderStatus/GetGetorderStatusList', model);
-    };
-    stmDataServices.prototype.GetTeletipStatusList = function () {
+    }
+    GetTeletipStatusList() {
         return this.apiDataService.callDataService('GetorderStatus/GetTeletipStatusList', undefined);
-    };
-    stmDataServices.ctorParameters = function () { return [
-        { type: src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__["ApiDataService"] }
-    ]; };
-    return stmDataServices;
-}());
-
+    }
+}
+stmDataServices.ctorParameters = () => [
+    { type: src_app_Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__["ApiDataService"] }
+];
 
 
 /***/ }),
@@ -3552,45 +3348,43 @@ module.exports = ".textClass {\n  font-family: 'dsLight' !important;\n}\r\n\r\n:
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _Services_LoginService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Services/LoginService */ "./src/app/Features/Public/Login/Services/LoginService.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 
 
 
 
-var LoginComponent = /** @class */ (function () {
-    function LoginComponent(loginService, routing) {
+let LoginComponent = class LoginComponent {
+    constructor(loginService, routing) {
         this.loginService = loginService;
         this.routing = routing;
     }
-    LoginComponent.prototype.ngOnInit = function () {
-    };
-    LoginComponent.prototype.login = function () {
-        var _this = this;
-        this.loginService.login(this.userName, this.password).subscribe(function (o) {
+    ngOnInit() {
+    }
+    login() {
+        this.loginService.login(this.userName, this.password).subscribe(o => {
             if (o != _Services_LoginService__WEBPACK_IMPORTED_MODULE_2__["LoginEnumResult"].ok) {
-                _this.alertMessage = o.error.Message;
+                this.alertMessage = o.error.Message;
                 return;
             }
             console.log("loginned");
-            _this.routing.navigate(["operations/kos"]);
+            this.routing.navigate(["operations/kos"]);
         });
-    };
-    LoginComponent.ctorParameters = function () { return [
-        { type: _Services_LoginService__WEBPACK_IMPORTED_MODULE_2__["LoginServices"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
-    ]; };
-    LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-login',
-            template: __webpack_require__(/*! raw-loader!./login.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Public/Login/Pages/login/login.component.html"),
-            styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/Features/Public/Login/Pages/login/login.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_LoginService__WEBPACK_IMPORTED_MODULE_2__["LoginServices"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
-    ], LoginComponent);
-    return LoginComponent;
-}());
+    }
+};
+LoginComponent.ctorParameters = () => [
+    { type: _Services_LoginService__WEBPACK_IMPORTED_MODULE_2__["LoginServices"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
+];
+LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-login',
+        template: __webpack_require__(/*! raw-loader!./login.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Public/Login/Pages/login/login.component.html"),
+        styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/Features/Public/Login/Pages/login/login.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_LoginService__WEBPACK_IMPORTED_MODULE_2__["LoginServices"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+], LoginComponent);
 
 
 
@@ -3608,12 +3402,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginEnumResult", function() { return LoginEnumResult; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginServices", function() { return LoginServices; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var src_app_Shared_Services_Util_httpService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Shared/Services/Util/httpService */ "./src/app/Shared/Services/Util/httpService.ts");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var src_app_Shared_Services_Util_tokenService__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/Shared/Services/Util/tokenService */ "./src/app/Shared/Services/Util/tokenService.ts");
 /* harmony import */ var src_app_Shared_Consts_parameters__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/Shared/Consts/parameters */ "./src/app/Shared/Consts/parameters.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
 /* harmony import */ var src_app_Shared_Services_Api_Models_apiResponseModel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/Shared/Services/Api/Models/apiResponseModel */ "./src/app/Shared/Services/Api/Models/apiResponseModel.ts");
 
 
@@ -3628,44 +3422,42 @@ var LoginEnumResult;
     LoginEnumResult[LoginEnumResult["ok"] = 1] = "ok";
     LoginEnumResult[LoginEnumResult["fail"] = 0] = "fail";
 })(LoginEnumResult || (LoginEnumResult = {}));
-var LoginServices = /** @class */ (function () {
-    function LoginServices(httpService, tokenService) {
+let LoginServices = class LoginServices {
+    constructor(httpService, tokenService) {
         this.httpService = httpService;
         this.tokenService = tokenService;
         this.serverAddress = src_app_Shared_Consts_parameters__WEBPACK_IMPORTED_MODULE_5__["parameters"].serverAddress;
         this.serviceAdress = src_app_Shared_Consts_parameters__WEBPACK_IMPORTED_MODULE_5__["parameters"].loginStatusServiceName;
     }
-    LoginServices.prototype.login = function (userName, password) {
-        var _this = this;
-        var url = this.serverAddress + this.serviceAdress;
-        var params = {
+    login(userName, password) {
+        let url = this.serverAddress + this.serviceAdress;
+        let params = {
             userName: userName,
             password: password
         };
         //TODO error handling--Internet connection check
-        return this.httpService.callPostService_Low(url, params, undefined).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["switchMap"])(function (res) {
+        return this.httpService.callPostService_Low(url, params, undefined).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["switchMap"])(res => {
             var data = src_app_Shared_Services_Api_Models_apiResponseModel__WEBPACK_IMPORTED_MODULE_7__["apiResponseModel"].parse(res);
             if (res) {
-                var token = data.data;
-                _this.tokenService.saveToken(token);
+                let token = data.data;
+                this.tokenService.saveToken(token);
             }
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(LoginEnumResult.ok);
         })
         //result is success
         );
-    };
-    LoginServices.ctorParameters = function () { return [
-        { type: src_app_Shared_Services_Util_httpService__WEBPACK_IMPORTED_MODULE_2__["httpService"] },
-        { type: src_app_Shared_Services_Util_tokenService__WEBPACK_IMPORTED_MODULE_4__["tokenService"] }
-    ]; };
-    LoginServices = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_Shared_Services_Util_httpService__WEBPACK_IMPORTED_MODULE_2__["httpService"], src_app_Shared_Services_Util_tokenService__WEBPACK_IMPORTED_MODULE_4__["tokenService"]])
-    ], LoginServices);
-    return LoginServices;
-}());
+    }
+};
+LoginServices.ctorParameters = () => [
+    { type: src_app_Shared_Services_Util_httpService__WEBPACK_IMPORTED_MODULE_2__["httpService"] },
+    { type: src_app_Shared_Services_Util_tokenService__WEBPACK_IMPORTED_MODULE_4__["tokenService"] }
+];
+LoginServices = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_Shared_Services_Util_httpService__WEBPACK_IMPORTED_MODULE_2__["httpService"], src_app_Shared_Services_Util_tokenService__WEBPACK_IMPORTED_MODULE_4__["tokenService"]])
+], LoginServices);
 
 
 
@@ -3693,7 +3485,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TestpageComponent", function() { return TestpageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Private/Definitions/Services/userDataServices */ "./src/app/Features/Private/Definitions/Services/userDataServices.ts");
 /* harmony import */ var src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/Shared/Models/UIControls/grid-control */ "./src/app/Shared/Models/UIControls/grid-control.ts");
 /* harmony import */ var _Private_Definitions_Models_UserViewFilter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Private/Definitions/Models/UserViewFilter */ "./src/app/Features/Private/Definitions/Models/UserViewFilter.ts");
@@ -3710,61 +3502,60 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var TestpageComponent = /** @class */ (function () {
-    function TestpageComponent(userService, kosService) {
+let TestpageComponent = class TestpageComponent {
+    constructor(userService, kosService) {
         this.userService = userService;
         this.kosService = kosService;
     }
-    TestpageComponent.prototype.ngOnInit = function () {
-    };
-    TestpageComponent.prototype.getUserList = function () {
+    ngOnInit() {
+    }
+    getUserList() {
         var input = new _Private_Definitions_Models_UserViewFilter__WEBPACK_IMPORTED_MODULE_4__["userViewFilter"]();
         var model = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_3__["Grid"].GridInputModel(input);
-        this.userService.getUserList(model).subscribe(function (o) {
+        this.userService.getUserList(model).subscribe(o => {
             console.log(o);
         });
-    };
-    TestpageComponent.prototype.getKosList = function () {
+    }
+    getKosList() {
         var input = new _Private_Operations_Models_infStudyFilter__WEBPACK_IMPORTED_MODULE_5__["infStudyFilter"]();
         var model = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_3__["Grid"].GridInputModel(input);
-        this.kosService.getKosList(model).subscribe(function (o) {
+        this.kosService.getKosList(model).subscribe(o => {
             console.log(o);
         });
-    };
-    TestpageComponent.prototype.getByID = function () {
+    }
+    getByID() {
         var input = new _Private_Operations_Models_kosModel__WEBPACK_IMPORTED_MODULE_7__["kosModel"]();
         input.id = 2;
-        this.kosService.GetByID(input).subscribe(function (o) {
+        this.kosService.GetByID(input).subscribe(o => {
             console.log(o);
         });
-    };
+    }
     /*getistatistic() {
   
       this.kosService.GetKosDurumIst().subscribe(o => {
         console.log(o);
       });
     }*/
-    TestpageComponent.prototype.getKosHistoryByStudyId = function () {
+    getKosHistoryByStudyId() {
         var input = new _Private_Operations_Models_KosHistoryModel__WEBPACK_IMPORTED_MODULE_8__["kosHistoryModel"]();
         var model = new src_app_Shared_Models_UIControls_grid_control__WEBPACK_IMPORTED_MODULE_3__["Grid"].GridInputModel(input);
-        this.kosService.GetKosHistoryByStudyID(model).subscribe(function (o) {
+        this.kosService.GetKosHistoryByStudyID(model).subscribe(o => {
             console.log(o);
         });
-    };
-    TestpageComponent.ctorParameters = function () { return [
-        { type: _Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_2__["userDataServices"] },
-        { type: _Private_Operations_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_6__["kosDataServices"] }
-    ]; };
-    TestpageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-testpage',
-            template: __webpack_require__(/*! raw-loader!./testpage.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Public/testpage/testpage.component.html"),
-            styles: [__webpack_require__(/*! ./testpage.component.css */ "./src/app/Features/Public/testpage/testpage.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_2__["userDataServices"], _Private_Operations_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_6__["kosDataServices"]])
-    ], TestpageComponent);
-    return TestpageComponent;
-}());
+    }
+};
+TestpageComponent.ctorParameters = () => [
+    { type: _Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_2__["userDataServices"] },
+    { type: _Private_Operations_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_6__["kosDataServices"] }
+];
+TestpageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-testpage',
+        template: __webpack_require__(/*! raw-loader!./testpage.component.html */ "./node_modules/raw-loader/index.js!./src/app/Features/Public/testpage/testpage.component.html"),
+        styles: [__webpack_require__(/*! ./testpage.component.css */ "./src/app/Features/Public/testpage/testpage.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_2__["userDataServices"], _Private_Operations_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_6__["kosDataServices"]])
+], TestpageComponent);
 
 
 
@@ -3792,39 +3583,34 @@ module.exports = ".buttonCollapse{\r\n  margin:0;\r\n  padding-left:10px;\r\n  p
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilterComponent", function() { return FilterComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
-var FilterComponent = /** @class */ (function () {
-    function FilterComponent() {
+let FilterComponent = class FilterComponent {
+    constructor() {
         this.isCollapsed = false;
     }
-    Object.defineProperty(FilterComponent.prototype, "header", {
-        set: function (value) {
-            if (value == undefined)
-                return;
-            this.headertext = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    FilterComponent.prototype.ngOnInit = function () {
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], FilterComponent.prototype, "header", null);
-    FilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'filter',
-            template: __webpack_require__(/*! raw-loader!./filter.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Components/filter/filter.component.html"),
-            styles: [__webpack_require__(/*! ./filter.component.css */ "./src/app/Shared/Components/filter/filter.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], FilterComponent);
-    return FilterComponent;
-}());
+    set header(value) {
+        if (value == undefined)
+            return;
+        this.headertext = value;
+    }
+    ngOnInit() {
+    }
+};
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+], FilterComponent.prototype, "header", null);
+FilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'filter',
+        template: __webpack_require__(/*! raw-loader!./filter.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Components/filter/filter.component.html"),
+        styles: [__webpack_require__(/*! ./filter.component.css */ "./src/app/Shared/Components/filter/filter.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], FilterComponent);
 
 
 
@@ -3852,24 +3638,22 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GridtoolsComponent", function() { return GridtoolsComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
-var GridtoolsComponent = /** @class */ (function () {
-    function GridtoolsComponent() {
+let GridtoolsComponent = class GridtoolsComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    GridtoolsComponent.prototype.ngOnInit = function () {
-    };
-    GridtoolsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-gridtools',
-            template: __webpack_require__(/*! raw-loader!./gridtools.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Components/gridtools/gridtools.component.html"),
-            styles: [__webpack_require__(/*! ./gridtools.component.css */ "./src/app/Shared/Components/gridtools/gridtools.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], GridtoolsComponent);
-    return GridtoolsComponent;
-}());
+};
+GridtoolsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-gridtools',
+        template: __webpack_require__(/*! raw-loader!./gridtools.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Components/gridtools/gridtools.component.html"),
+        styles: [__webpack_require__(/*! ./gridtools.component.css */ "./src/app/Shared/Components/gridtools/gridtools.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], GridtoolsComponent);
 
 
 
@@ -3897,52 +3681,42 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageheaderComponent", function() { return PageheaderComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
-var PageheaderComponent = /** @class */ (function () {
-    function PageheaderComponent() {
+let PageheaderComponent = class PageheaderComponent {
+    constructor() { }
+    set headertext(value) {
+        if (value == undefined)
+            return;
+        this.headerText = value;
     }
-    Object.defineProperty(PageheaderComponent.prototype, "headertext", {
-        set: function (value) {
-            if (value == undefined)
-                return;
-            this.headerText = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(PageheaderComponent.prototype, "pageposition", {
-        set: function (value) {
-            if (value == undefined)
-                return;
-            this.pagePosition = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    PageheaderComponent.prototype.ngOnInit = function () {
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], PageheaderComponent.prototype, "headertext", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], PageheaderComponent.prototype, "pageposition", null);
-    PageheaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'pageheader',
-            template: __webpack_require__(/*! raw-loader!./pageheader.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Components/pageheader/pageheader.component.html"),
-            styles: [__webpack_require__(/*! ./pageheader.component.css */ "./src/app/Shared/Components/pageheader/pageheader.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], PageheaderComponent);
-    return PageheaderComponent;
-}());
+    set pageposition(value) {
+        if (value == undefined)
+            return;
+        this.pagePosition = value;
+    }
+    ngOnInit() {
+    }
+};
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+], PageheaderComponent.prototype, "headertext", null);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+], PageheaderComponent.prototype, "pageposition", null);
+PageheaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'pageheader',
+        template: __webpack_require__(/*! raw-loader!./pageheader.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Components/pageheader/pageheader.component.html"),
+        styles: [__webpack_require__(/*! ./pageheader.component.css */ "./src/app/Shared/Components/pageheader/pageheader.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], PageheaderComponent);
 
 
 
@@ -3958,7 +3732,7 @@ var PageheaderComponent = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parameters", function() { return parameters; });
-var parameters = {
+const parameters = {
     production: false,
     cookieName: 'gt_auth',
     cookieDay: 2,
@@ -3996,24 +3770,22 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FooterComponent", function() { return FooterComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
-var FooterComponent = /** @class */ (function () {
-    function FooterComponent() {
+let FooterComponent = class FooterComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    FooterComponent.prototype.ngOnInit = function () {
-    };
-    FooterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-footer',
-            template: __webpack_require__(/*! raw-loader!./footer.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Layouts/sidelayout/footer/footer.component.html"),
-            styles: [__webpack_require__(/*! ./footer.component.css */ "./src/app/Shared/Layouts/sidelayout/footer/footer.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], FooterComponent);
-    return FooterComponent;
-}());
+};
+FooterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-footer',
+        template: __webpack_require__(/*! raw-loader!./footer.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Layouts/sidelayout/footer/footer.component.html"),
+        styles: [__webpack_require__(/*! ./footer.component.css */ "./src/app/Shared/Layouts/sidelayout/footer/footer.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], FooterComponent);
 
 
 
@@ -4041,33 +3813,32 @@ module.exports = "/*!\r\n * Start Bootstrap - Simple Sidebar (https://startboots
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HeaderComponent", function() { return HeaderComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
-var HeaderComponent = /** @class */ (function () {
-    function HeaderComponent() {
+let HeaderComponent = class HeaderComponent {
+    constructor() {
         this.collapse = true;
     }
-    HeaderComponent.prototype.ngOnInit = function () {
-    };
-    HeaderComponent.prototype.toggle = function () {
+    ngOnInit() {
+    }
+    toggle() {
         if (this.collapse == true) {
             this.collapse = false;
         }
         else {
             this.collapse = true;
         }
-    };
-    HeaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-header',
-            template: __webpack_require__(/*! raw-loader!./header.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Layouts/sidelayout/header/header.component.html"),
-            styles: [__webpack_require__(/*! ./header.component.css */ "./src/app/Shared/Layouts/sidelayout/header/header.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], HeaderComponent);
-    return HeaderComponent;
-}());
+    }
+};
+HeaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-header',
+        template: __webpack_require__(/*! raw-loader!./header.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Layouts/sidelayout/header/header.component.html"),
+        styles: [__webpack_require__(/*! ./header.component.css */ "./src/app/Shared/Layouts/sidelayout/header/header.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], HeaderComponent);
 
 
 
@@ -4095,46 +3866,45 @@ module.exports = "\n.textClass {\n  font-family: 'dsLight' !important;\n}\n\n#wr
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SidelayoutComponent", function() { return SidelayoutComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Services/Util/logoutService */ "./src/app/Shared/Services/Util/logoutService.ts");
 
 
 
-var SidelayoutComponent = /** @class */ (function () {
-    function SidelayoutComponent(logoutService) {
+let SidelayoutComponent = class SidelayoutComponent {
+    constructor(logoutService) {
         this.logoutService = logoutService;
         this.collapse = false;
         this.isfirstCollapsed1 = true;
         this.isfirstCollapsed2 = true;
         this.isfirstCollapsed3 = true;
     }
-    SidelayoutComponent.prototype.ngOnInit = function () {
-    };
-    SidelayoutComponent.prototype.toggle = function () {
+    ngOnInit() {
+    }
+    toggle() {
         if (this.collapse == true) {
             this.collapse = false;
         }
         else {
             this.collapse = true;
         }
-    };
-    SidelayoutComponent.prototype.logout = function () {
+    }
+    logout() {
         console.log("logout");
         this.logoutService.logout();
-    };
-    SidelayoutComponent.ctorParameters = function () { return [
-        { type: _Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__["LogoutService"] }
-    ]; };
-    SidelayoutComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-sidelayout',
-            template: __webpack_require__(/*! raw-loader!./sidelayout.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Layouts/sidelayout/sidelayout.component.html"),
-            styles: [__webpack_require__(/*! ./sidelayout.component.css */ "./src/app/Shared/Layouts/sidelayout/sidelayout.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__["LogoutService"]])
-    ], SidelayoutComponent);
-    return SidelayoutComponent;
-}());
+    }
+};
+SidelayoutComponent.ctorParameters = () => [
+    { type: _Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__["LogoutService"] }
+];
+SidelayoutComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-sidelayout',
+        template: __webpack_require__(/*! raw-loader!./sidelayout.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Layouts/sidelayout/sidelayout.component.html"),
+        styles: [__webpack_require__(/*! ./sidelayout.component.css */ "./src/app/Shared/Layouts/sidelayout/sidelayout.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__["LogoutService"]])
+], SidelayoutComponent);
 
 
 
@@ -4162,24 +3932,22 @@ module.exports = "/*!\n * Start Bootstrap - Simple Sidebar (https://startbootstr
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SidemenuComponent", function() { return SidemenuComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
-var SidemenuComponent = /** @class */ (function () {
-    function SidemenuComponent() {
+let SidemenuComponent = class SidemenuComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    SidemenuComponent.prototype.ngOnInit = function () {
-    };
-    SidemenuComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-sidemenu',
-            template: __webpack_require__(/*! raw-loader!./sidemenu.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Layouts/sidelayout/sidemenu/sidemenu.component.html"),
-            styles: [__webpack_require__(/*! ./sidemenu.component.css */ "./src/app/Shared/Layouts/sidelayout/sidemenu/sidemenu.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], SidemenuComponent);
-    return SidemenuComponent;
-}());
+};
+SidemenuComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-sidemenu',
+        template: __webpack_require__(/*! raw-loader!./sidemenu.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Layouts/sidelayout/sidemenu/sidemenu.component.html"),
+        styles: [__webpack_require__(/*! ./sidemenu.component.css */ "./src/app/Shared/Layouts/sidelayout/sidemenu/sidemenu.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], SidemenuComponent);
 
 
 
@@ -4207,15 +3975,15 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfirmationdialogComponent", function() { return ConfirmationdialogComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm2015/ngx-bootstrap-modal.js");
 /* harmony import */ var _Models_openModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Models/openModal */ "./src/app/Shared/Models/openModal.ts");
 
 
 
 
-var ConfirmationdialogComponent = /** @class */ (function () {
-    function ConfirmationdialogComponent(bsModalRef, modalService, changeDetection) {
+let ConfirmationdialogComponent = class ConfirmationdialogComponent {
+    constructor(bsModalRef, modalService, changeDetection) {
         this.bsModalRef = bsModalRef;
         this.modalService = modalService;
         this.changeDetection = changeDetection;
@@ -4228,35 +3996,34 @@ var ConfirmationdialogComponent = /** @class */ (function () {
         this.output = undefined; // modal'ın açıldığı sayfada modal kapandıktan sonra aktarılacak veri 
         this.modal = new _Models_openModal__WEBPACK_IMPORTED_MODULE_3__["OpenModal"](this.modalService, this.changeDetection);
     }
-    ConfirmationdialogComponent.prototype.ngOnInit = function () {
+    ngOnInit() {
         if (this.message == undefined) {
             this.messageVisible = false;
             this.reproccesData = this.reproccessList[0].data.accNoAffectedList;
         }
-    };
-    ConfirmationdialogComponent.prototype.onConfirm = function () {
+    }
+    onConfirm() {
         this.output = 'confirm';
         this.modal.onClose("ok");
-    };
-    ConfirmationdialogComponent.prototype.onCancel = function () {
+    }
+    onCancel() {
         this.output = 'cancel';
         this.modal.onClose("cancel");
-    };
-    ConfirmationdialogComponent.ctorParameters = function () { return [
-        { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] },
-        { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalService"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] }
-    ]; };
-    ConfirmationdialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-confirmationdialog',
-            template: __webpack_require__(/*! raw-loader!./confirmationdialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Modals/confirmationdialog/confirmationdialog.component.html"),
-            styles: [__webpack_require__(/*! ./confirmationdialog.component.css */ "./src/app/Shared/Modals/confirmationdialog/confirmationdialog.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
-    ], ConfirmationdialogComponent);
-    return ConfirmationdialogComponent;
-}());
+    }
+};
+ConfirmationdialogComponent.ctorParameters = () => [
+    { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] },
+    { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalService"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] }
+];
+ConfirmationdialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-confirmationdialog',
+        template: __webpack_require__(/*! raw-loader!./confirmationdialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Modals/confirmationdialog/confirmationdialog.component.html"),
+        styles: [__webpack_require__(/*! ./confirmationdialog.component.css */ "./src/app/Shared/Modals/confirmationdialog/confirmationdialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+], ConfirmationdialogComponent);
 
 
 
@@ -4274,47 +4041,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Grid", function() { return Grid; });
 var Grid;
 (function (Grid) {
-    var Sorting = /** @class */ (function () {
-        function Sorting() {
+    class Sorting {
+        constructor() {
             this.direction = 0;
         }
-        return Sorting;
-    }());
+    }
     Grid.Sorting = Sorting;
-    var Paging = /** @class */ (function () {
-        function Paging() {
+    class Paging {
+        constructor() {
             this.pageNumber = 1;
             this.count = 10;
         }
-        return Paging;
-    }());
+    }
     Grid.Paging = Paging;
-    var GridInputModel = /** @class */ (function () {
-        function GridInputModel(filter) {
+    class GridInputModel {
+        constructor(filter) {
             this.paging = new Paging();
             this.filter = filter;
         }
-        GridInputModel.ctorParameters = function () { return [
-            { type: undefined }
-        ]; };
-        return GridInputModel;
-    }());
+    }
+    GridInputModel.ctorParameters = () => [
+        { type: undefined }
+    ];
     Grid.GridInputModel = GridInputModel;
-    var GridOutputModel = /** @class */ (function () {
-        function GridOutputModel() {
-        }
-        return GridOutputModel;
-    }());
+    class GridOutputModel {
+    }
     Grid.GridOutputModel = GridOutputModel;
-    var GridControl = /** @class */ (function () {
-        function GridControl() {
+    class GridControl {
+        constructor() {
             this.pager = [10, 25, 50];
             this.selectedItems = [];
             this.data = { list: [], totalCount: 0 };
             this.model = new GridControlModel();
         }
         ;
-        GridControl.prototype.getRowClass = function (item) {
+        getRowClass(item) {
             if (this.isSelected(item)) {
                 return 'table-success';
             }
@@ -4323,54 +4084,53 @@ var Grid;
                     return 'table-info';
                 return '';
             }
-        };
+        }
         ;
-        GridControl.prototype.isSelected = function (item) {
+        isSelected(item) {
             return this.selectedItems.includes(item);
-        };
+        }
         ;
-        GridControl.prototype.onClearPaging = function () {
+        onClearPaging() {
             this.model.paging.pageNumber = 0;
             this.model.paging.count = this.model.paging.count;
-        };
+        }
         ;
-        GridControl.prototype.hasSelectedItem = function () {
+        hasSelectedItem() {
             return this.selectedItems.length > 0;
-        };
+        }
         ;
-        GridControl.prototype.onPageChanged = function (event) {
+        onPageChanged(event) {
             var page = event.page;
             this.model.paging.pageNumber = page;
             this.onRefresh();
-        };
-        GridControl.prototype.onClearFilter = function () {
+        }
+        onClearFilter() {
             this.model.filter = {};
             this.onRefresh();
-        };
+        }
         ;
-        GridControl.prototype.onDelete = function () {
-        };
+        onDelete() {
+        }
         ;
-        GridControl.prototype.onSelectAllItems = function () {
+        onSelectAllItems() {
             this.selectedItems.length = 0;
-        };
-        GridControl.prototype.onSelectAll = function (event) {
-            var _this = this;
+        }
+        onSelectAll(event) {
             if (!event.srcElement.checked) {
                 this.selectedItems.length = 0;
                 return;
             }
             this.selectedItems.length = 0;
-            this.data.list.forEach(function (o) {
-                _this.onSelectItem(o);
+            this.data.list.forEach(o => {
+                this.onSelectItem(o);
             });
-        };
+        }
         ;
-        GridControl.prototype.onClickItem = function (item) {
+        onClickItem(item) {
             this.clickedItem = item;
-        };
+        }
         ;
-        GridControl.prototype.onSelectItem = function (item) {
+        onSelectItem(item) {
             if (this.isSelected(item)) {
                 var ar = this.selectedItems;
                 var index = ar.indexOf(item);
@@ -4380,22 +4140,20 @@ var Grid;
                 return;
             }
             this.selectedItems.push(item);
-        };
+        }
         ;
-        GridControl.prototype.onRefresh = function () {
-        };
+        onRefresh() {
+        }
         ;
-        return GridControl;
-    }());
+    }
     Grid.GridControl = GridControl;
-    var GridControlModel = /** @class */ (function () {
-        function GridControlModel() {
+    class GridControlModel {
+        constructor() {
             this.filter_state = {};
             this.paging = new Paging();
             this.sorting = new Sorting();
         }
-        return GridControlModel;
-    }());
+    }
     Grid.GridControlModel = GridControlModel;
     ;
 })(Grid || (Grid = {}));
@@ -4413,12 +4171,8 @@ var Grid;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "modalOutput", function() { return modalOutput; });
-var modalOutput = /** @class */ (function () {
-    function modalOutput() {
-    }
-    return modalOutput;
-}());
-
+class modalOutput {
+}
 
 
 /***/ }),
@@ -4433,53 +4187,50 @@ var modalOutput = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OpenModal", function() { return OpenModal; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm2015/ngx-bootstrap-modal.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var _modalOutput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modalOutput */ "./src/app/Shared/Models/modalOutput.ts");
 
 
 
 
-var OpenModal = /** @class */ (function () {
-    function OpenModal(modalService, changeDetection) {
+class OpenModal {
+    constructor(modalService, changeDetection) {
         this.modalService = modalService;
         this.changeDetection = changeDetection;
         this.subscriptions = [];
         this.messages = [];
     }
-    OpenModal.prototype.openModal = function (template, initialState) {
+    openModal(template, initialState) {
         this.bsModalRef = this.modalService.show(template, { initialState: initialState });
         return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](this.getDataFromModal());
-    };
-    OpenModal.prototype.getDataFromModal = function () {
-        var _this = this;
-        return function (observer) {
-            var subscription = _this.modalService.onHidden.subscribe(function (reason) {
-                var modaloutput = new _modalOutput__WEBPACK_IMPORTED_MODULE_3__["modalOutput"]();
-                modaloutput.outputData = _this.bsModalRef.content.output;
+    }
+    getDataFromModal() {
+        return (observer) => {
+            const subscription = this.modalService.onHidden.subscribe((reason) => {
+                let modaloutput = new _modalOutput__WEBPACK_IMPORTED_MODULE_3__["modalOutput"]();
+                modaloutput.outputData = this.bsModalRef.content.output;
                 modaloutput.reason = reason;
                 observer.next(modaloutput);
                 observer.complete();
             });
             return {
-                unsubscribe: function () {
+                unsubscribe() {
                     subscription.unsubscribe();
                 }
             };
         };
-    };
-    OpenModal.prototype.onClose = function (reason) {
+    }
+    onClose(reason) {
         this.modalService.setDismissReason(reason);
         this.modalService.hide(1);
-    };
-    OpenModal.ctorParameters = function () { return [
-        { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_1__["BsModalService"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"] }
-    ]; };
-    return OpenModal;
-}());
-
+    }
+}
+OpenModal.ctorParameters = () => [
+    { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_1__["BsModalService"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"] }
+];
 
 
 /***/ }),
@@ -4506,11 +4257,11 @@ module.exports = "\n.textClass {\n  font-family: 'dsLight' !important;\n}\n.avat
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SidetestComponent", function() { return SidetestComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Services/Util/logoutService */ "./src/app/Shared/Services/Util/logoutService.ts");
 /* harmony import */ var _Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Modals/confirmationdialog/confirmationdialog.component */ "./src/app/Shared/Modals/confirmationdialog/confirmationdialog.component.ts");
 /* harmony import */ var _Models_openModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Models/openModal */ "./src/app/Shared/Models/openModal.ts");
-/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm2015/ngx-bootstrap-modal.js");
 /* harmony import */ var _Services_Data_authenticationDataService__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Services/Data/authenticationDataService */ "./src/app/Shared/Services/Data/authenticationDataService.ts");
 
 
@@ -4519,8 +4270,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var SidetestComponent = /** @class */ (function () {
-    function SidetestComponent(logoutService, modalService, changeDetection, authservice) {
+let SidetestComponent = class SidetestComponent {
+    constructor(logoutService, modalService, changeDetection, authservice) {
         this.logoutService = logoutService;
         this.modalService = modalService;
         this.changeDetection = changeDetection;
@@ -4529,58 +4280,55 @@ var SidetestComponent = /** @class */ (function () {
         this.collapse1 = false;
         this.modal = new _Models_openModal__WEBPACK_IMPORTED_MODULE_4__["OpenModal"](this.modalService, this.changeDetection);
     }
-    SidetestComponent.prototype.ngOnInit = function () {
+    ngOnInit() {
         this.getUserInfo();
-    };
-    SidetestComponent.prototype.toggle = function () {
+    }
+    toggle() {
         if (this.collapse == true) {
             this.collapse = false;
         }
         else {
             this.collapse = true;
         }
-    };
-    SidetestComponent.prototype.toggleInSide = function () {
+    }
+    toggleInSide() {
         if (!this.collapse) {
             this.toggle();
         }
-    };
-    SidetestComponent.prototype.getUserInfo = function () {
-        var _this = this;
-        this.authservice.isLoggedIn(true).subscribe(function (info) {
+    }
+    getUserInfo() {
+        this.authservice.isLoggedIn(true).subscribe(info => {
             console.log(info);
-            _this.userName = info.userName;
+            this.userName = info.userName;
         });
-    };
-    SidetestComponent.prototype.logout = function () {
-        var _this = this;
-        var initialState = {
+    }
+    logout() {
+        const initialState = {
             modalTitle: "Uyarı",
             message: "Sistemden çıkış yapmak istediğinize emin misiniz?",
         };
-        this.modal.openModal(_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_3__["ConfirmationdialogComponent"], initialState).subscribe(function (result) {
+        this.modal.openModal(_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_3__["ConfirmationdialogComponent"], initialState).subscribe((result) => {
             if (result.reason == 'ok') {
                 console.log("logout");
-                _this.logoutService.logout();
+                this.logoutService.logout();
             }
         });
-    };
-    SidetestComponent.ctorParameters = function () { return [
-        { type: _Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__["LogoutService"] },
-        { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
-        { type: _Services_Data_authenticationDataService__WEBPACK_IMPORTED_MODULE_6__["authenticationDataService"] }
-    ]; };
-    SidetestComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-sidetest',
-            template: __webpack_require__(/*! raw-loader!./sidetest.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Pages/sidetest/sidetest.component.html"),
-            styles: [__webpack_require__(/*! ./sidetest.component.css */ "./src/app/Shared/Pages/sidetest/sidetest.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__["LogoutService"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _Services_Data_authenticationDataService__WEBPACK_IMPORTED_MODULE_6__["authenticationDataService"]])
-    ], SidetestComponent);
-    return SidetestComponent;
-}());
+    }
+};
+SidetestComponent.ctorParameters = () => [
+    { type: _Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__["LogoutService"] },
+    { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
+    { type: _Services_Data_authenticationDataService__WEBPACK_IMPORTED_MODULE_6__["authenticationDataService"] }
+];
+SidetestComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-sidetest',
+        template: __webpack_require__(/*! raw-loader!./sidetest.component.html */ "./node_modules/raw-loader/index.js!./src/app/Shared/Pages/sidetest/sidetest.component.html"),
+        styles: [__webpack_require__(/*! ./sidetest.component.css */ "./src/app/Shared/Pages/sidetest/sidetest.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_2__["LogoutService"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _Services_Data_authenticationDataService__WEBPACK_IMPORTED_MODULE_6__["authenticationDataService"]])
+], SidetestComponent);
 
 
 
@@ -4596,16 +4344,12 @@ var SidetestComponent = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "apiResponseModel", function() { return apiResponseModel; });
-var apiResponseModel = /** @class */ (function () {
-    function apiResponseModel() {
-    }
-    apiResponseModel.parse = function (data) {
-        var d = Object.assign(new apiResponseModel(), data);
+class apiResponseModel {
+    static parse(data) {
+        let d = Object.assign(new apiResponseModel(), data);
         return d;
-    };
-    return apiResponseModel;
-}());
-
+    }
+}
 
 
 /***/ }),
@@ -4621,14 +4365,14 @@ var apiResponseModel = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiDataService", function() { return ApiDataService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
 /* harmony import */ var _Util_tokenService__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Util/tokenService */ "./src/app/Shared/Services/Util/tokenService.ts");
 /* harmony import */ var _Util_httpService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Util/httpService */ "./src/app/Shared/Services/Util/httpService.ts");
 /* harmony import */ var _Consts_parameters__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Consts/parameters */ "./src/app/Shared/Consts/parameters.ts");
 /* harmony import */ var _Models_apiResponseModel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Models/apiResponseModel */ "./src/app/Shared/Services/Api/Models/apiResponseModel.ts");
-/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
 
 
 
@@ -4638,39 +4382,37 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var ApiDataService = /** @class */ (function () {
-    function ApiDataService(httpService, tokenService, toastr) {
+let ApiDataService = class ApiDataService {
+    constructor(httpService, tokenService, toastr) {
         this.httpService = httpService;
         this.tokenService = tokenService;
         this.toastr = toastr;
     }
-    ApiDataService.prototype.callDataService = function (serviceName, params) {
-        var _this = this;
-        var token = this.tokenService.getToken();
-        var serverAdress = _Consts_parameters__WEBPACK_IMPORTED_MODULE_6__["parameters"].serverAddress;
-        var serviceUrl = serverAdress + serviceName;
-        return this.httpService.callPostService_Middle(serviceUrl, params, token).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(function (res) {
-            return _this.onSuccessData(res);
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (err) {
+    callDataService(serviceName, params) {
+        let token = this.tokenService.getToken();
+        let serverAdress = _Consts_parameters__WEBPACK_IMPORTED_MODULE_6__["parameters"].serverAddress;
+        let serviceUrl = serverAdress + serviceName;
+        return this.httpService.callPostService_Middle(serviceUrl, params, token).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(res => {
+            return this.onSuccessData(res);
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(err => {
             //this.onFail(err);
             throw err;
         }));
         ;
-    };
-    ApiDataService.prototype.callDataServiceGet = function (serviceNameWithQueryString) {
-        var _this = this;
-        var token = this.tokenService.getToken();
-        var serverAdress = _Consts_parameters__WEBPACK_IMPORTED_MODULE_6__["parameters"].serverAddress;
-        var serviceUrl = serverAdress + serviceNameWithQueryString;
-        return this.httpService.callGetService_Low(serviceUrl, token).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(function (res) {
-            return _this.onSuccessData(res);
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (err) {
+    }
+    callDataServiceGet(serviceNameWithQueryString) {
+        let token = this.tokenService.getToken();
+        let serverAdress = _Consts_parameters__WEBPACK_IMPORTED_MODULE_6__["parameters"].serverAddress;
+        let serviceUrl = serverAdress + serviceNameWithQueryString;
+        return this.httpService.callGetService_Low(serviceUrl, token).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(res => {
+            return this.onSuccessData(res);
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(err => {
             //this.onFail(err);
             throw err;
         }));
         ;
-    };
-    ApiDataService.prototype.onFail = function (err) {
+    }
+    onFail(err) {
         var erData = err.error;
         if (erData) {
             console.log(erData);
@@ -4688,9 +4430,9 @@ var ApiDataService = /** @class */ (function () {
             this.toastr.error(err.name + " : " + err.message);
             console.log(err);
         }
-    };
-    ApiDataService.prototype.onSuccessData = function (res) {
-        var model = _Models_apiResponseModel__WEBPACK_IMPORTED_MODULE_7__["apiResponseModel"].parse(res);
+    }
+    onSuccessData(res) {
+        let model = _Models_apiResponseModel__WEBPACK_IMPORTED_MODULE_7__["apiResponseModel"].parse(res);
         console.log(model);
         //this.toastr.success(model.type);
         console.log("TODO success control");
@@ -4699,20 +4441,19 @@ var ApiDataService = /** @class */ (function () {
         //let data: any = res;
         //return of(data.Data);
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(model.data);
-    };
-    ApiDataService.ctorParameters = function () { return [
-        { type: _Util_httpService__WEBPACK_IMPORTED_MODULE_5__["httpService"] },
-        { type: _Util_tokenService__WEBPACK_IMPORTED_MODULE_4__["tokenService"] },
-        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_8__["ToastrService"] }
-    ]; };
-    ApiDataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Util_httpService__WEBPACK_IMPORTED_MODULE_5__["httpService"], _Util_tokenService__WEBPACK_IMPORTED_MODULE_4__["tokenService"], ngx_toastr__WEBPACK_IMPORTED_MODULE_8__["ToastrService"]])
-    ], ApiDataService);
-    return ApiDataService;
-}());
+    }
+};
+ApiDataService.ctorParameters = () => [
+    { type: _Util_httpService__WEBPACK_IMPORTED_MODULE_5__["httpService"] },
+    { type: _Util_tokenService__WEBPACK_IMPORTED_MODULE_4__["tokenService"] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_8__["ToastrService"] }
+];
+ApiDataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Util_httpService__WEBPACK_IMPORTED_MODULE_5__["httpService"], _Util_tokenService__WEBPACK_IMPORTED_MODULE_4__["tokenService"], ngx_toastr__WEBPACK_IMPORTED_MODULE_8__["ToastrService"]])
+], ApiDataService);
 
 
 
@@ -4729,44 +4470,42 @@ var ApiDataService = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "authenticationDataService", function() { return authenticationDataService; });
 /* harmony import */ var _Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Api/apiDataService */ "./src/app/Shared/Services/Api/apiDataService.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 
 
 
-var authenticationDataService = /** @class */ (function () {
-    function authenticationDataService(apiDataService) {
+class authenticationDataService {
+    constructor(apiDataService) {
         this.apiDataService = apiDataService;
     }
-    authenticationDataService.prototype.isLoggedIn = function (forUserNeame) {
+    isLoggedIn(forUserNeame) {
         if (forUserNeame == true) {
-            return this.getPermission().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["switchMap"])(function (res) {
+            return this.getPermission().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["switchMap"])(res => {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(res);
-            }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["catchError"])(function (err) {
+            }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["catchError"])(err => {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(undefined);
             }));
         }
-        return this.getPermission().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["switchMap"])(function (res) {
+        return this.getPermission().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["switchMap"])(res => {
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(true);
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["catchError"])(function (err) {
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["catchError"])(err => {
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(false);
         })
         //result is success
         );
-    };
+    }
     // TODO: add Global error handling function 
-    authenticationDataService.prototype.getPermission = function () {
+    getPermission() {
         return this.apiDataService.callDataService('Authentication/GetPermission', undefined);
-    };
-    authenticationDataService.prototype.GetUser = function () {
+    }
+    GetUser() {
         return this.apiDataService.callDataService('Authentication/GetUser', undefined);
-    };
-    authenticationDataService.ctorParameters = function () { return [
-        { type: _Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__["ApiDataService"] }
-    ]; };
-    return authenticationDataService;
-}());
-
+    }
+}
+authenticationDataService.ctorParameters = () => [
+    { type: _Api_apiDataService__WEBPACK_IMPORTED_MODULE_0__["ApiDataService"] }
+];
 
 
 /***/ }),
@@ -4782,32 +4521,29 @@ var authenticationDataService = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ErrorService", function() { return ErrorService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
-var ErrorService = /** @class */ (function () {
-    function ErrorService() {
-    }
-    ErrorService.prototype.getClientMessage = function (error) {
+let ErrorService = class ErrorService {
+    getClientMessage(error) {
         return error.message ? error.message : error.toString();
-    };
-    ErrorService.prototype.getClientStack = function (error) {
+    }
+    getClientStack(error) {
         return error.stack;
-    };
-    ErrorService.prototype.getServerMessage = function (error) {
+    }
+    getServerMessage(error) {
         return error.error.Message;
-    };
-    ErrorService.prototype.getServerStack = function (error) {
+    }
+    getServerStack(error) {
         // handle stack trace
         return 'stack';
-    };
-    ErrorService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        })
-    ], ErrorService);
-    return ErrorService;
-}());
+    }
+};
+ErrorService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+], ErrorService);
 
 
 
@@ -4824,8 +4560,8 @@ var ErrorService = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GlobalErrorHandler", function() { return GlobalErrorHandler; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _ErrorService__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ErrorService */ "./src/app/Shared/Services/ErrorHandling/ErrorService.ts");
 /* harmony import */ var _NotificationService__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./NotificationService */ "./src/app/Shared/Services/ErrorHandling/NotificationService.ts");
 
@@ -4833,15 +4569,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var GlobalErrorHandler = /** @class */ (function () {
-    function GlobalErrorHandler(injector) {
+let GlobalErrorHandler = class GlobalErrorHandler {
+    constructor(injector) {
         this.injector = injector;
     }
-    GlobalErrorHandler.prototype.handleError = function (error) {
-        var errorService = this.injector.get(_ErrorService__WEBPACK_IMPORTED_MODULE_3__["ErrorService"]);
-        var notifier = this.injector.get(_NotificationService__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]);
-        var message;
-        var stackTrace;
+    handleError(error) {
+        const errorService = this.injector.get(_ErrorService__WEBPACK_IMPORTED_MODULE_3__["ErrorService"]);
+        const notifier = this.injector.get(_NotificationService__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]);
+        let message;
+        let stackTrace;
         if (error instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpErrorResponse"]) {
             // Server Error
             if (!navigator.onLine) {
@@ -4867,16 +4603,15 @@ var GlobalErrorHandler = /** @class */ (function () {
         // Always log errors
         //logger.logError(message, stackTrace);
         //console.error(error);
-    };
-    GlobalErrorHandler.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"] }
-    ]; };
-    GlobalErrorHandler = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"]])
-    ], GlobalErrorHandler);
-    return GlobalErrorHandler;
-}());
+    }
+};
+GlobalErrorHandler.ctorParameters = () => [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"] }
+];
+GlobalErrorHandler = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"]])
+], GlobalErrorHandler);
 
 
 
@@ -4893,35 +4628,34 @@ var GlobalErrorHandler = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotificationService", function() { return NotificationService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
 
 
 
 //import { MatSnackBar } from '@angular/material/snack-bar';
-var NotificationService = /** @class */ (function () {
-    function NotificationService(toastr) {
+let NotificationService = class NotificationService {
+    constructor(toastr) {
         this.toastr = toastr;
     }
-    NotificationService.prototype.showSuccess = function (message, type) {
+    showSuccess(message, type) {
         console.log("Success from " + type + " : " + message);
         this.toastr.success("Success from " + type + " : " + message);
-    };
-    NotificationService.prototype.showError = function (message, type) {
+    }
+    showError(message, type) {
         console.log("Faild from " + type + " : " + message);
         this.toastr.error("Faild from " + type + " : " + message);
-    };
-    NotificationService.ctorParameters = function () { return [
-        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_2__["ToastrService"] }
-    ]; };
-    NotificationService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_toastr__WEBPACK_IMPORTED_MODULE_2__["ToastrService"]])
-    ], NotificationService);
-    return NotificationService;
-}());
+    }
+};
+NotificationService.ctorParameters = () => [
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_2__["ToastrService"] }
+];
+NotificationService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_toastr__WEBPACK_IMPORTED_MODULE_2__["ToastrService"]])
+], NotificationService);
 
 
 
@@ -4938,19 +4672,18 @@ var NotificationService = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileService", function() { return FileService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _Consts_parameters__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Consts/parameters */ "./src/app/Shared/Consts/parameters.ts");
 /* harmony import */ var _Api_apiDataService__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Api/apiDataService */ "./src/app/Shared/Services/Api/apiDataService.ts");
 
 
 
 
-var FileService = /** @class */ (function () {
-    function FileService(apiDataService) {
+let FileService = class FileService {
+    constructor(apiDataService) {
         this.apiDataService = apiDataService;
     }
-    FileService.prototype.download = function (fileID, newTab) {
-        if (newTab === void 0) { newTab = 1; }
+    download(fileID, newTab = 1) {
         if (!fileID)
             return;
         var url = _Consts_parameters__WEBPACK_IMPORTED_MODULE_2__["parameters"].serverAddress + "FileOperation/Download/" + fileID;
@@ -4960,33 +4693,32 @@ var FileService = /** @class */ (function () {
         else {
             this.downloadUrl(url);
         }
-    };
-    FileService.prototype.downloadUrl = function (url) {
+    }
+    downloadUrl(url) {
         var iframe = document.createElement("iframe");
         iframe.src = url;
         iframe.style.display = "none";
         document.body.appendChild(iframe);
-    };
-    FileService.prototype.downloadUrlWindow = function (url) {
+    }
+    downloadUrlWindow(url) {
         debugger;
         window.open(url, 'Download');
-    };
-    FileService.prototype.Download = function (fileID) {
-        this.apiDataService.callDataServiceGet('FileOperation/Download/' + fileID).subscribe(function (resp) {
+    }
+    Download(fileID) {
+        this.apiDataService.callDataServiceGet('FileOperation/Download/' + fileID).subscribe(resp => {
             console.log(resp);
         });
-    };
-    FileService.ctorParameters = function () { return [
-        { type: _Api_apiDataService__WEBPACK_IMPORTED_MODULE_3__["ApiDataService"] }
-    ]; };
-    FileService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Api_apiDataService__WEBPACK_IMPORTED_MODULE_3__["ApiDataService"]])
-    ], FileService);
-    return FileService;
-}());
+    }
+};
+FileService.ctorParameters = () => [
+    { type: _Api_apiDataService__WEBPACK_IMPORTED_MODULE_3__["ApiDataService"] }
+];
+FileService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Api_apiDataService__WEBPACK_IMPORTED_MODULE_3__["ApiDataService"]])
+], FileService);
 
 
 
@@ -5003,10 +4735,10 @@ var FileService = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginCheckActivate", function() { return LoginCheckActivate; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _Data_authenticationDataService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Data/authenticationDataService */ "./src/app/Shared/Services/Data/authenticationDataService.ts");
 
 
@@ -5014,26 +4746,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var LoginCheckActivate = /** @class */ (function () {
-    function LoginCheckActivate(authDataService, router) {
+let LoginCheckActivate = class LoginCheckActivate {
+    constructor(authDataService, router) {
         this.authDataService = authDataService;
         this.router = router;
     }
-    LoginCheckActivate.prototype.canActivate = function (route, state) {
-        var _this = this;
+    canActivate(route, state) {
         this.route = route;
         this.state = state;
         console.log("GuardCheck Path:" + this.route.routeConfig.path);
-        return this.authDataService.isLoggedIn().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["switchMap"])(function (res) {
+        return this.authDataService.isLoggedIn().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["switchMap"])((res) => {
             if (res != true) {
-                var r_1 = _this.fail();
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(r_1);
+                let r = this.fail();
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(r);
             }
-            var r = _this.success();
+            let r = this.success();
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(r);
         }));
-    };
-    LoginCheckActivate.prototype.success = function () {
+    }
+    success() {
         if (this.route.routeConfig.path != "login") {
             console.log("Giriş yapılmış, sayfaya yönlendir");
             return true;
@@ -5041,28 +4772,27 @@ var LoginCheckActivate = /** @class */ (function () {
         console.log("Giriş yapılmış, login sayfasına gidemez");
         this.router.navigate(['']);
         return false;
-    };
-    LoginCheckActivate.prototype.fail = function () {
+    }
+    fail() {
         console.log("Giriş yapılmamış, login sayfasına gider");
         if (this.route.routeConfig.path == "login") {
             return true;
         }
         this.router.navigate(['login']);
         return false;
-    };
-    LoginCheckActivate.prototype.redirectToLogin = function () {
+    }
+    redirectToLogin() {
         console.warn("Redirected to LOGIN");
-    };
-    LoginCheckActivate.ctorParameters = function () { return [
-        { type: _Data_authenticationDataService__WEBPACK_IMPORTED_MODULE_5__["authenticationDataService"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }
-    ]; };
-    LoginCheckActivate = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Data_authenticationDataService__WEBPACK_IMPORTED_MODULE_5__["authenticationDataService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
-    ], LoginCheckActivate);
-    return LoginCheckActivate;
-}());
+    }
+};
+LoginCheckActivate.ctorParameters = () => [
+    { type: _Data_authenticationDataService__WEBPACK_IMPORTED_MODULE_5__["authenticationDataService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }
+];
+LoginCheckActivate = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Data_authenticationDataService__WEBPACK_IMPORTED_MODULE_5__["authenticationDataService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+], LoginCheckActivate);
 
 
 
@@ -5078,10 +4808,8 @@ var LoginCheckActivate = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cookieService", function() { return cookieService; });
-var cookieService = /** @class */ (function () {
-    function cookieService() {
-    }
-    cookieService.prototype.setCookie = function (name, value, days) {
+class cookieService {
+    setCookie(name, value, days) {
         var expires = "";
         if (days) {
             var date = new Date();
@@ -5089,8 +4817,8 @@ var cookieService = /** @class */ (function () {
             expires = "; expires=" + date.toUTCString();
         }
         document.cookie = name + "=" + (value || "") + expires + "; path=/";
-    };
-    cookieService.prototype.getCookie = function (name) {
+    }
+    getCookie(name) {
         var nameEQ = name + "=";
         var ca = document.cookie.split(';');
         for (var i = 0; i < ca.length; i++) {
@@ -5101,14 +4829,12 @@ var cookieService = /** @class */ (function () {
                 return c.substring(nameEQ.length, c.length);
         }
         return null;
-    };
-    cookieService.prototype.eraseCookie = function (name) {
+    }
+    eraseCookie(name) {
         console.log("eraseCookie" + name);
         document.cookie = name + '=; Max-Age=-99999999;';
-    };
-    return cookieService;
-}());
-
+    }
+}
 
 
 /***/ }),
@@ -5124,18 +4850,18 @@ var cookieService = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "httpService", function() { return httpService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 
 
 
 //import { cookieService } from '../shared/services/cookieService';
 //import { authenticationService } from '../shared/services/authenticationService';
-var httpService = /** @class */ (function () {
-    function httpService(http) {
+let httpService = class httpService {
+    constructor(http) {
         this.http = http;
     }
-    httpService.prototype.callGetService_Low = function (url, token) {
+    callGetService_Low(url, token) {
         /*
          ##validation
         headeroptions
@@ -5149,17 +4875,16 @@ var httpService = /** @class */ (function () {
           responseType: 'blob' as 'blob',
         };*/
         return this.http.get(url);
-    };
-    httpService.prototype.callPostService_Low = function (url, params, httpOptions) {
-        if (httpOptions === void 0) { httpOptions = undefined; }
+    }
+    callPostService_Low(url, params, httpOptions = undefined) {
         /*
          ##validation
         headeroptions
         */
         return this.http.post(url, params, httpOptions);
-    };
-    httpService.prototype.callPostService_Middle = function (url, params, token) {
-        var httpOptions = {
+    }
+    callPostService_Middle(url, params, token) {
+        const httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                 'Content-Type': 'application/json',
                 'accept': 'application/json',
@@ -5167,18 +4892,17 @@ var httpService = /** @class */ (function () {
             })
         };
         return this.callPostService_Low(url, params, httpOptions);
-    };
-    httpService.ctorParameters = function () { return [
-        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
-    ]; };
-    httpService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
-    ], httpService);
-    return httpService;
-}());
+    }
+};
+httpService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
+];
+httpService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+], httpService);
 
 
 
@@ -5195,34 +4919,32 @@ var httpService = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LogoutService", function() { return LogoutService; });
 /* harmony import */ var _cookieService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cookieService */ "./src/app/Shared/Services/Util/cookieService.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 
 
-var LogoutService = /** @class */ (function () {
-    function LogoutService(cookieService, routing) {
+class LogoutService {
+    constructor(cookieService, routing) {
         this.cookieService = cookieService;
         this.routing = routing;
         this.authCookieName = 'gt_auth';
     }
-    LogoutService.prototype.removeCookie = function () {
+    removeCookie() {
         this.token = undefined;
         this.cookieService.eraseCookie(this.authCookieName);
-    };
-    LogoutService.prototype.redirectToLogin = function () {
+    }
+    redirectToLogin() {
         this.routing.navigate(["login"]);
-    };
-    LogoutService.prototype.logout = function () {
+    }
+    logout() {
         console.log("logout Service");
         this.removeCookie();
         this.redirectToLogin();
-    };
-    LogoutService.ctorParameters = function () { return [
-        { type: _cookieService__WEBPACK_IMPORTED_MODULE_0__["cookieService"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }
-    ]; };
-    return LogoutService;
-}());
-
+    }
+}
+LogoutService.ctorParameters = () => [
+    { type: _cookieService__WEBPACK_IMPORTED_MODULE_0__["cookieService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }
+];
 
 
 /***/ }),
@@ -5238,52 +4960,51 @@ var LogoutService = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tokenService", function() { return tokenService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _Util_cookieService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Util/cookieService */ "./src/app/Shared/Services/Util/cookieService.ts");
 /* harmony import */ var src_app_Shared_Consts_parameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/Shared/Consts/parameters */ "./src/app/Shared/Consts/parameters.ts");
 
 
 
 
-var tokenService = /** @class */ (function () {
-    function tokenService(cookieService) {
+let tokenService = class tokenService {
+    constructor(cookieService) {
         this.cookieService = cookieService;
         this.cookieName = src_app_Shared_Consts_parameters__WEBPACK_IMPORTED_MODULE_3__["parameters"].cookieName;
         this.cookieDay = src_app_Shared_Consts_parameters__WEBPACK_IMPORTED_MODULE_3__["parameters"].cookieDay;
         this.tokenValue = undefined;
-        var value = this.getTokenFromCookie();
+        let value = this.getTokenFromCookie();
         if (!value)
             return undefined;
         this.tokenValue = value;
     }
-    tokenService.prototype.saveTokenCookie = function (tokenValue) {
+    saveTokenCookie(tokenValue) {
         this.cookieService.setCookie(this.cookieName, tokenValue, this.cookieDay);
-    };
-    tokenService.prototype.saveToken = function (tokenValue) {
+    }
+    saveToken(tokenValue) {
         this.saveTokenCookie(tokenValue);
-        var value = this.getTokenFromCookie();
+        let value = this.getTokenFromCookie();
         if (!value)
             throw "Token Cookie değeri okunamadı";
         this.tokenValue = value;
-    };
-    tokenService.prototype.getTokenFromCookie = function () {
-        var val = this.cookieService.getCookie(this.cookieName);
+    }
+    getTokenFromCookie() {
+        let val = this.cookieService.getCookie(this.cookieName);
         return val;
-    };
-    tokenService.prototype.getToken = function () {
+    }
+    getToken() {
         return this.tokenValue;
-    };
-    tokenService.ctorParameters = function () { return [
-        { type: _Util_cookieService__WEBPACK_IMPORTED_MODULE_2__["cookieService"] }
-    ]; };
-    tokenService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Util_cookieService__WEBPACK_IMPORTED_MODULE_2__["cookieService"]])
-    ], tokenService);
-    return tokenService;
-}());
+    }
+};
+tokenService.ctorParameters = () => [
+    { type: _Util_cookieService__WEBPACK_IMPORTED_MODULE_2__["cookieService"] }
+];
+tokenService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_Util_cookieService__WEBPACK_IMPORTED_MODULE_2__["cookieService"]])
+], tokenService);
 
 
 
@@ -5300,8 +5021,8 @@ var tokenService = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRoutingModule", function() { return AppRoutingModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _Features_Private_Dashboard_Pages_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Features/Private/Dashboard/Pages/dashboard/dashboard.component */ "./src/app/Features/Private/Dashboard/Pages/dashboard/dashboard.component.ts");
 /* harmony import */ var _Features_Private_Operations_Pages_kosoperations_kosoperations_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Features/Private/Operations/Pages/kosoperations/kosoperations.component */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosoperations.component.ts");
 /* harmony import */ var _Features_Private_Definitions_Pages_user_user_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Features/Private/Definitions/Pages/user/user.component */ "./src/app/Features/Private/Definitions/Pages/user/user.component.ts");
@@ -5325,7 +5046,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var routes = [
+const routes = [
     {
         path: '',
         component: _Shared_Pages_sidetest_sidetest_component__WEBPACK_IMPORTED_MODULE_11__["SidetestComponent"],
@@ -5345,17 +5066,14 @@ var routes = [
         component: _Features_Public_Login_Pages_login_login_component__WEBPACK_IMPORTED_MODULE_7__["LoginComponent"]
     }
 ];
-var AppRoutingModule = /** @class */ (function () {
-    function AppRoutingModule() {
-    }
-    AppRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes)],
-            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
-        })
-    ], AppRoutingModule);
-    return AppRoutingModule;
-}());
+let AppRoutingModule = class AppRoutingModule {
+};
+AppRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes)],
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
+    })
+], AppRoutingModule);
 
 
 
@@ -5383,22 +5101,21 @@ module.exports = ".body {\n  height: 100% !important;\n  overflow: hidden !impor
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
-var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+let AppComponent = class AppComponent {
+    constructor() {
         this.title = 'guneyteletipUI';
     }
-    AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-root',
-            template: __webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/index.js!./src/app/app.component.html"),
-            styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
-        })
-    ], AppComponent);
-    return AppComponent;
-}());
+};
+AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-root',
+        template: __webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/index.js!./src/app/app.component.html"),
+        styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
+    })
+], AppComponent);
 
 
 
@@ -5415,12 +5132,12 @@ var AppComponent = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/fesm5/ngx-cookie-service.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/fesm2015/ngx-cookie-service.js");
 /* harmony import */ var _shared_interceptors_loading_loading_interceptor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./shared/interceptors/loading/loading-interceptor */ "./src/app/shared/interceptors/loading/loading-interceptor.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _Shared_Layouts_sidelayout_sidelayout_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Shared/Layouts/sidelayout/sidelayout.component */ "./src/app/Shared/Layouts/sidelayout/sidelayout.component.ts");
@@ -5429,15 +5146,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_Layouts_sidelayout_footer_footer_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Shared/Layouts/sidelayout/footer/footer.component */ "./src/app/Shared/Layouts/sidelayout/footer/footer.component.ts");
 /* harmony import */ var _Features_Public_Login_Pages_login_login_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Features/Public/Login/Pages/login/login.component */ "./src/app/Features/Public/Login/Pages/login/login.component.ts");
 /* harmony import */ var _Features_Private_Dashboard_Pages_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Features/Private/Dashboard/Pages/dashboard/dashboard.component */ "./src/app/Features/Private/Dashboard/Pages/dashboard/dashboard.component.ts");
-/* harmony import */ var ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-bootstrap/dropdown */ "./node_modules/ngx-bootstrap/dropdown/fesm5/ngx-bootstrap-dropdown.js");
-/* harmony import */ var ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ngx-bootstrap/tooltip */ "./node_modules/ngx-bootstrap/tooltip/fesm5/ngx-bootstrap-tooltip.js");
-/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
-/* harmony import */ var ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ngx-bootstrap/datepicker */ "./node_modules/ngx-bootstrap/datepicker/fesm5/ngx-bootstrap-datepicker.js");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var ngx_bootstrap_collapse__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ngx-bootstrap/collapse */ "./node_modules/ngx-bootstrap/collapse/fesm5/ngx-bootstrap-collapse.js");
-/* harmony import */ var ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ngx-bootstrap/pagination */ "./node_modules/ngx-bootstrap/pagination/fesm5/ngx-bootstrap-pagination.js");
-/* harmony import */ var ngx_bootstrap_tabs__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ngx-bootstrap/tabs */ "./node_modules/ngx-bootstrap/tabs/fesm5/ngx-bootstrap-tabs.js");
-/* harmony import */ var angular_font_awesome__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! angular-font-awesome */ "./node_modules/angular-font-awesome/dist/angular-font-awesome.es5.js");
+/* harmony import */ var ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-bootstrap/dropdown */ "./node_modules/ngx-bootstrap/dropdown/fesm2015/ngx-bootstrap-dropdown.js");
+/* harmony import */ var ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ngx-bootstrap/tooltip */ "./node_modules/ngx-bootstrap/tooltip/fesm2015/ngx-bootstrap-tooltip.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm2015/ngx-bootstrap-modal.js");
+/* harmony import */ var ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ngx-bootstrap/datepicker */ "./node_modules/ngx-bootstrap/datepicker/fesm2015/ngx-bootstrap-datepicker.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
+/* harmony import */ var ngx_bootstrap_collapse__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ngx-bootstrap/collapse */ "./node_modules/ngx-bootstrap/collapse/fesm2015/ngx-bootstrap-collapse.js");
+/* harmony import */ var ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ngx-bootstrap/pagination */ "./node_modules/ngx-bootstrap/pagination/fesm2015/ngx-bootstrap-pagination.js");
+/* harmony import */ var ngx_bootstrap_tabs__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ngx-bootstrap/tabs */ "./node_modules/ngx-bootstrap/tabs/fesm2015/ngx-bootstrap-tabs.js");
+/* harmony import */ var angular_font_awesome__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! angular-font-awesome */ "./node_modules/angular-font-awesome/dist/angular-font-awesome.js");
 /* harmony import */ var _Features_Private_Operations_Pages_kosoperations_kosoperations_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./Features/Private/Operations/Pages/kosoperations/kosoperations.component */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosoperations.component.ts");
 /* harmony import */ var _Features_Private_Operations_Pages_kosoperations_kosfilter_kosfilter_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./Features/Private/Operations/Pages/kosoperations/kosfilter/kosfilter.component */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosfilter/kosfilter.component.ts");
 /* harmony import */ var _Features_Private_Operations_Pages_kosoperations_kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./Features/Private/Operations/Pages/kosoperations/kosgrid/kosgrid.component */ "./src/app/Features/Private/Operations/Pages/kosoperations/kosgrid/kosgrid.component.ts");
@@ -5462,12 +5179,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_Services_Util_httpService__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./Shared/Services/Util/httpService */ "./src/app/Shared/Services/Util/httpService.ts");
 /* harmony import */ var _Shared_Services_Util_tokenService__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./Shared/Services/Util/tokenService */ "./src/app/Shared/Services/Util/tokenService.ts");
 /* harmony import */ var _Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./Shared/Services/Api/apiDataService */ "./src/app/Shared/Services/Api/apiDataService.ts");
-/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm2015/ngx-spinner.js");
 /* harmony import */ var ngx_select_dropdown__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ngx-select-dropdown */ "./node_modules/ngx-select-dropdown/dist/index.js");
 /* harmony import */ var _Shared_Services_Guards_authorizationGuard__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./Shared/Services/Guards/authorizationGuard */ "./src/app/Shared/Services/Guards/authorizationGuard.ts");
 /* harmony import */ var _Shared_Services_Data_authenticationDataService__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./Shared/Services/Data/authenticationDataService */ "./src/app/Shared/Services/Data/authenticationDataService.ts");
-/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
-/* harmony import */ var ng_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ng-multiselect-dropdown */ "./node_modules/ng-multiselect-dropdown/fesm5/ng-multiselect-dropdown.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+/* harmony import */ var ng_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ng-multiselect-dropdown */ "./node_modules/ng-multiselect-dropdown/fesm2015/ng-multiselect-dropdown.js");
 /* harmony import */ var _Features_Public_testpage_testpage_component__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./Features/Public/testpage/testpage.component */ "./src/app/Features/Public/testpage/testpage.component.ts");
 /* harmony import */ var _Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./Features/Private/Definitions/Services/userDataServices */ "./src/app/Features/Private/Definitions/Services/userDataServices.ts");
 /* harmony import */ var _Features_Private_Operations_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./Features/Private/Operations/Services/kosDataServices */ "./src/app/Features/Private/Operations/Services/kosDataServices.ts");
@@ -5554,101 +5271,98 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var AppModule = /** @class */ (function () {
-    function AppModule() {
-    }
-    AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
-            declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],
-                _Shared_Layouts_sidelayout_sidelayout_component__WEBPACK_IMPORTED_MODULE_9__["SidelayoutComponent"],
-                _Shared_Layouts_sidelayout_header_header_component__WEBPACK_IMPORTED_MODULE_10__["HeaderComponent"],
-                _Shared_Layouts_sidelayout_sidemenu_sidemenu_component__WEBPACK_IMPORTED_MODULE_11__["SidemenuComponent"],
-                _Shared_Layouts_sidelayout_footer_footer_component__WEBPACK_IMPORTED_MODULE_12__["FooterComponent"],
-                _Features_Public_Login_Pages_login_login_component__WEBPACK_IMPORTED_MODULE_13__["LoginComponent"],
-                _Features_Private_Dashboard_Pages_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_14__["DashboardComponent"],
-                _Features_Private_Operations_Pages_kosoperations_kosoperations_component__WEBPACK_IMPORTED_MODULE_24__["KosoperationsComponent"],
-                _Features_Private_Operations_Pages_kosoperations_kosfilter_kosfilter_component__WEBPACK_IMPORTED_MODULE_25__["KosfilterComponent"],
-                _Features_Private_Operations_Pages_kosoperations_kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_26__["KosgridComponent"],
-                _Features_Private_Operations_Pages_kosoperations_kostabs_kostabs_component__WEBPACK_IMPORTED_MODULE_27__["KostabsComponent"],
-                _Features_Private_Operations_Pages_kosoperations_kosstatistic_kosstatistic_component__WEBPACK_IMPORTED_MODULE_28__["KosstatisticComponent"],
-                _Features_Private_Definitions_Pages_user_user_component__WEBPACK_IMPORTED_MODULE_29__["UserComponent"],
-                _Features_Private_Definitions_Pages_role_role_component__WEBPACK_IMPORTED_MODULE_30__["RoleComponent"],
-                _Features_Private_Operations_Pages_kosoperations_kostabs_kosdetailgrid_kosdetailgrid_component__WEBPACK_IMPORTED_MODULE_31__["KosdetailgridComponent"],
-                _Features_Private_Definitions_Pages_user_userfilter_userfilter_component__WEBPACK_IMPORTED_MODULE_32__["UserfilterComponent"],
-                _Features_Private_Definitions_Pages_user_usergrid_usergrid_component__WEBPACK_IMPORTED_MODULE_33__["UsergridComponent"],
-                _Features_Private_Definitions_Pages_user_usertabs_usertabs_component__WEBPACK_IMPORTED_MODULE_34__["UsertabsComponent"],
-                _Shared_Components_filter_filter_component__WEBPACK_IMPORTED_MODULE_35__["FilterComponent"],
-                _Shared_Components_gridtools_gridtools_component__WEBPACK_IMPORTED_MODULE_36__["GridtoolsComponent"],
-                _Features_Private_Definitions_Pages_role_rolegrid_rolegrid_component__WEBPACK_IMPORTED_MODULE_37__["RolegridComponent"],
-                _Features_Private_Definitions_Pages_role_roletabs_roletabs_component__WEBPACK_IMPORTED_MODULE_38__["RoletabsComponent"],
-                _Shared_Components_pageheader_pageheader_component__WEBPACK_IMPORTED_MODULE_39__["PageheaderComponent"],
-                _Features_Private_Definitions_Modals_edituser_edituser_component__WEBPACK_IMPORTED_MODULE_40__["EdituserComponent"],
-                _Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_41__["ConfirmationdialogComponent"],
-                _Features_Private_Definitions_Pages_role_rolefilter_rolefilter_component__WEBPACK_IMPORTED_MODULE_42__["RolefilterComponent"],
-                _Features_Private_Definitions_Modals_editrole_editrole_component__WEBPACK_IMPORTED_MODULE_43__["EditroleComponent"],
-                _Features_Public_testpage_testpage_component__WEBPACK_IMPORTED_MODULE_54__["TestpageComponent"],
-                _Features_Private_Operations_Pages_kosoperations_kostabs_kosdetail_kosdetail_component__WEBPACK_IMPORTED_MODULE_58__["KosdetailComponent"],
-                _Features_Private_Operations_Pages_jobs_jobs_component__WEBPACK_IMPORTED_MODULE_59__["JobsComponent"],
-                _Features_Private_Operations_Pages_jobs_jobsfilter_jobsfilter_component__WEBPACK_IMPORTED_MODULE_60__["JobsfilterComponent"],
-                _Features_Private_Operations_Pages_jobs_jobsgrid_jobsgrid_component__WEBPACK_IMPORTED_MODULE_61__["JobsgridComponent"],
-                _Shared_Pages_sidetest_sidetest_component__WEBPACK_IMPORTED_MODULE_64__["SidetestComponent"],
-                _Features_Private_Operations_Pages_teletipstm_teletipstm_component__WEBPACK_IMPORTED_MODULE_66__["TeletipstmComponent"],
-                _Features_Private_Operations_Pages_teletipstm_stmfilter_stmfilter_component__WEBPACK_IMPORTED_MODULE_67__["StmfilterComponent"],
-                _Features_Private_Operations_Pages_teletipstm_stmgrid_stmgrid_component__WEBPACK_IMPORTED_MODULE_68__["StmgridComponent"]
-            ],
-            imports: [
-                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
-                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"],
-                ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_15__["BsDropdownModule"].forRoot(),
-                ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_16__["TooltipModule"].forRoot(),
-                ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_17__["ModalModule"].forRoot(),
-                ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_18__["BsDatepickerModule"].forRoot(),
-                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_19__["BrowserAnimationsModule"],
-                ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_18__["BsDatepickerModule"].forRoot(),
-                ngx_bootstrap_collapse__WEBPACK_IMPORTED_MODULE_20__["CollapseModule"].forRoot(),
-                ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_21__["PaginationModule"].forRoot(),
-                ngx_bootstrap_tabs__WEBPACK_IMPORTED_MODULE_22__["TabsModule"].forRoot(),
-                ngx_toastr__WEBPACK_IMPORTED_MODULE_52__["ToastrModule"].forRoot({ positionClass: 'toast-bottom-right' }),
-                ng_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_53__["NgMultiSelectDropDownModule"].forRoot(),
-                angular_font_awesome__WEBPACK_IMPORTED_MODULE_23__["AngularFontAwesomeModule"],
-                ngx_spinner__WEBPACK_IMPORTED_MODULE_48__["NgxSpinnerModule"],
-                ngx_select_dropdown__WEBPACK_IMPORTED_MODULE_49__["SelectDropDownModule"],
-            ],
-            exports: [
-                ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_15__["BsDropdownModule"],
-                ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_16__["TooltipModule"],
-                ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_17__["ModalModule"]
-            ],
-            providers: [
-                { provide: _angular_core__WEBPACK_IMPORTED_MODULE_2__["ErrorHandler"], useClass: _Shared_Services_ErrorHandling_GlobalErrorHandler__WEBPACK_IMPORTED_MODULE_63__["GlobalErrorHandler"] },
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"], useClass: _shared_interceptors_loading_loading_interceptor__WEBPACK_IMPORTED_MODULE_7__["LoadingInterceptor"], multi: true },
-                ngx_cookie_service__WEBPACK_IMPORTED_MODULE_6__["CookieService"],
-                _Shared_Services_Util_cookieService__WEBPACK_IMPORTED_MODULE_44__["cookieService"],
-                _Shared_Services_Util_httpService__WEBPACK_IMPORTED_MODULE_45__["httpService"],
-                _Shared_Services_Util_tokenService__WEBPACK_IMPORTED_MODULE_46__["tokenService"],
-                _Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_47__["ApiDataService"],
-                _Shared_Services_Guards_authorizationGuard__WEBPACK_IMPORTED_MODULE_50__["LoginCheckActivate"],
-                _Shared_Services_Data_authenticationDataService__WEBPACK_IMPORTED_MODULE_51__["authenticationDataService"],
-                _Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_55__["userDataServices"],
-                _Features_Private_Operations_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_56__["kosDataServices"],
-                _Features_Private_Definitions_Services_roleDataServices__WEBPACK_IMPORTED_MODULE_57__["roleDataServices"],
-                _Features_Private_Operations_Services_jobDataServices__WEBPACK_IMPORTED_MODULE_62__["jobDataServices"],
-                _Shared_Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_65__["LogoutService"],
-                _Features_Private_Operations_Services_stmDataServices__WEBPACK_IMPORTED_MODULE_69__["stmDataServices"],
-            ],
-            entryComponents: [
-                _Features_Private_Definitions_Modals_editrole_editrole_component__WEBPACK_IMPORTED_MODULE_43__["EditroleComponent"],
-                _Features_Private_Definitions_Modals_edituser_edituser_component__WEBPACK_IMPORTED_MODULE_40__["EdituserComponent"],
-                _Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_41__["ConfirmationdialogComponent"],
-            ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
-        })
-    ], AppModule);
-    return AppModule;
-}());
+let AppModule = class AppModule {
+};
+AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
+        declarations: [
+            _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],
+            _Shared_Layouts_sidelayout_sidelayout_component__WEBPACK_IMPORTED_MODULE_9__["SidelayoutComponent"],
+            _Shared_Layouts_sidelayout_header_header_component__WEBPACK_IMPORTED_MODULE_10__["HeaderComponent"],
+            _Shared_Layouts_sidelayout_sidemenu_sidemenu_component__WEBPACK_IMPORTED_MODULE_11__["SidemenuComponent"],
+            _Shared_Layouts_sidelayout_footer_footer_component__WEBPACK_IMPORTED_MODULE_12__["FooterComponent"],
+            _Features_Public_Login_Pages_login_login_component__WEBPACK_IMPORTED_MODULE_13__["LoginComponent"],
+            _Features_Private_Dashboard_Pages_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_14__["DashboardComponent"],
+            _Features_Private_Operations_Pages_kosoperations_kosoperations_component__WEBPACK_IMPORTED_MODULE_24__["KosoperationsComponent"],
+            _Features_Private_Operations_Pages_kosoperations_kosfilter_kosfilter_component__WEBPACK_IMPORTED_MODULE_25__["KosfilterComponent"],
+            _Features_Private_Operations_Pages_kosoperations_kosgrid_kosgrid_component__WEBPACK_IMPORTED_MODULE_26__["KosgridComponent"],
+            _Features_Private_Operations_Pages_kosoperations_kostabs_kostabs_component__WEBPACK_IMPORTED_MODULE_27__["KostabsComponent"],
+            _Features_Private_Operations_Pages_kosoperations_kosstatistic_kosstatistic_component__WEBPACK_IMPORTED_MODULE_28__["KosstatisticComponent"],
+            _Features_Private_Definitions_Pages_user_user_component__WEBPACK_IMPORTED_MODULE_29__["UserComponent"],
+            _Features_Private_Definitions_Pages_role_role_component__WEBPACK_IMPORTED_MODULE_30__["RoleComponent"],
+            _Features_Private_Operations_Pages_kosoperations_kostabs_kosdetailgrid_kosdetailgrid_component__WEBPACK_IMPORTED_MODULE_31__["KosdetailgridComponent"],
+            _Features_Private_Definitions_Pages_user_userfilter_userfilter_component__WEBPACK_IMPORTED_MODULE_32__["UserfilterComponent"],
+            _Features_Private_Definitions_Pages_user_usergrid_usergrid_component__WEBPACK_IMPORTED_MODULE_33__["UsergridComponent"],
+            _Features_Private_Definitions_Pages_user_usertabs_usertabs_component__WEBPACK_IMPORTED_MODULE_34__["UsertabsComponent"],
+            _Shared_Components_filter_filter_component__WEBPACK_IMPORTED_MODULE_35__["FilterComponent"],
+            _Shared_Components_gridtools_gridtools_component__WEBPACK_IMPORTED_MODULE_36__["GridtoolsComponent"],
+            _Features_Private_Definitions_Pages_role_rolegrid_rolegrid_component__WEBPACK_IMPORTED_MODULE_37__["RolegridComponent"],
+            _Features_Private_Definitions_Pages_role_roletabs_roletabs_component__WEBPACK_IMPORTED_MODULE_38__["RoletabsComponent"],
+            _Shared_Components_pageheader_pageheader_component__WEBPACK_IMPORTED_MODULE_39__["PageheaderComponent"],
+            _Features_Private_Definitions_Modals_edituser_edituser_component__WEBPACK_IMPORTED_MODULE_40__["EdituserComponent"],
+            _Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_41__["ConfirmationdialogComponent"],
+            _Features_Private_Definitions_Pages_role_rolefilter_rolefilter_component__WEBPACK_IMPORTED_MODULE_42__["RolefilterComponent"],
+            _Features_Private_Definitions_Modals_editrole_editrole_component__WEBPACK_IMPORTED_MODULE_43__["EditroleComponent"],
+            _Features_Public_testpage_testpage_component__WEBPACK_IMPORTED_MODULE_54__["TestpageComponent"],
+            _Features_Private_Operations_Pages_kosoperations_kostabs_kosdetail_kosdetail_component__WEBPACK_IMPORTED_MODULE_58__["KosdetailComponent"],
+            _Features_Private_Operations_Pages_jobs_jobs_component__WEBPACK_IMPORTED_MODULE_59__["JobsComponent"],
+            _Features_Private_Operations_Pages_jobs_jobsfilter_jobsfilter_component__WEBPACK_IMPORTED_MODULE_60__["JobsfilterComponent"],
+            _Features_Private_Operations_Pages_jobs_jobsgrid_jobsgrid_component__WEBPACK_IMPORTED_MODULE_61__["JobsgridComponent"],
+            _Shared_Pages_sidetest_sidetest_component__WEBPACK_IMPORTED_MODULE_64__["SidetestComponent"],
+            _Features_Private_Operations_Pages_teletipstm_teletipstm_component__WEBPACK_IMPORTED_MODULE_66__["TeletipstmComponent"],
+            _Features_Private_Operations_Pages_teletipstm_stmfilter_stmfilter_component__WEBPACK_IMPORTED_MODULE_67__["StmfilterComponent"],
+            _Features_Private_Operations_Pages_teletipstm_stmgrid_stmgrid_component__WEBPACK_IMPORTED_MODULE_68__["StmgridComponent"]
+        ],
+        imports: [
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
+            _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"],
+            ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_15__["BsDropdownModule"].forRoot(),
+            ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_16__["TooltipModule"].forRoot(),
+            ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_17__["ModalModule"].forRoot(),
+            ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_18__["BsDatepickerModule"].forRoot(),
+            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_19__["BrowserAnimationsModule"],
+            ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_18__["BsDatepickerModule"].forRoot(),
+            ngx_bootstrap_collapse__WEBPACK_IMPORTED_MODULE_20__["CollapseModule"].forRoot(),
+            ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_21__["PaginationModule"].forRoot(),
+            ngx_bootstrap_tabs__WEBPACK_IMPORTED_MODULE_22__["TabsModule"].forRoot(),
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_52__["ToastrModule"].forRoot({ positionClass: 'toast-bottom-right' }),
+            ng_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_53__["NgMultiSelectDropDownModule"].forRoot(),
+            angular_font_awesome__WEBPACK_IMPORTED_MODULE_23__["AngularFontAwesomeModule"],
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_48__["NgxSpinnerModule"],
+            ngx_select_dropdown__WEBPACK_IMPORTED_MODULE_49__["SelectDropDownModule"],
+        ],
+        exports: [
+            ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_15__["BsDropdownModule"],
+            ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_16__["TooltipModule"],
+            ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_17__["ModalModule"]
+        ],
+        providers: [
+            { provide: _angular_core__WEBPACK_IMPORTED_MODULE_2__["ErrorHandler"], useClass: _Shared_Services_ErrorHandling_GlobalErrorHandler__WEBPACK_IMPORTED_MODULE_63__["GlobalErrorHandler"] },
+            { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"], useClass: _shared_interceptors_loading_loading_interceptor__WEBPACK_IMPORTED_MODULE_7__["LoadingInterceptor"], multi: true },
+            ngx_cookie_service__WEBPACK_IMPORTED_MODULE_6__["CookieService"],
+            _Shared_Services_Util_cookieService__WEBPACK_IMPORTED_MODULE_44__["cookieService"],
+            _Shared_Services_Util_httpService__WEBPACK_IMPORTED_MODULE_45__["httpService"],
+            _Shared_Services_Util_tokenService__WEBPACK_IMPORTED_MODULE_46__["tokenService"],
+            _Shared_Services_Api_apiDataService__WEBPACK_IMPORTED_MODULE_47__["ApiDataService"],
+            _Shared_Services_Guards_authorizationGuard__WEBPACK_IMPORTED_MODULE_50__["LoginCheckActivate"],
+            _Shared_Services_Data_authenticationDataService__WEBPACK_IMPORTED_MODULE_51__["authenticationDataService"],
+            _Features_Private_Definitions_Services_userDataServices__WEBPACK_IMPORTED_MODULE_55__["userDataServices"],
+            _Features_Private_Operations_Services_kosDataServices__WEBPACK_IMPORTED_MODULE_56__["kosDataServices"],
+            _Features_Private_Definitions_Services_roleDataServices__WEBPACK_IMPORTED_MODULE_57__["roleDataServices"],
+            _Features_Private_Operations_Services_jobDataServices__WEBPACK_IMPORTED_MODULE_62__["jobDataServices"],
+            _Shared_Services_Util_logoutService__WEBPACK_IMPORTED_MODULE_65__["LogoutService"],
+            _Features_Private_Operations_Services_stmDataServices__WEBPACK_IMPORTED_MODULE_69__["stmDataServices"],
+        ],
+        entryComponents: [
+            _Features_Private_Definitions_Modals_editrole_editrole_component__WEBPACK_IMPORTED_MODULE_43__["EditroleComponent"],
+            _Features_Private_Definitions_Modals_edituser_edituser_component__WEBPACK_IMPORTED_MODULE_40__["EdituserComponent"],
+            _Shared_Modals_confirmationdialog_confirmationdialog_component__WEBPACK_IMPORTED_MODULE_41__["ConfirmationdialogComponent"],
+        ],
+        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
+    })
+], AppModule);
 
 
 
@@ -5665,40 +5379,38 @@ var AppModule = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoadingInterceptor", function() { return LoadingInterceptor; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm2015/ngx-spinner.js");
 
 
 
 
-var LoadingInterceptor = /** @class */ (function () {
-    function LoadingInterceptor(spinnerservice) {
+let LoadingInterceptor = class LoadingInterceptor {
+    constructor(spinnerservice) {
         this.spinnerservice = spinnerservice;
         this.totalRequests = 0;
     }
-    LoadingInterceptor.prototype.intercept = function (req, next) {
-        var _this = this;
+    intercept(req, next) {
         this.totalRequests++;
         //console.log('http intercepted');
         this.spinnerservice.show();
-        return next.handle(req).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["finalize"])(function () {
-            _this.totalRequests--;
-            if (_this.totalRequests === 0) {
+        return next.handle(req).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["finalize"])(() => {
+            this.totalRequests--;
+            if (this.totalRequests === 0) {
                 // console.log('http finished');
-                _this.spinnerservice.hide();
+                this.spinnerservice.hide();
             }
         }));
-    };
-    LoadingInterceptor.ctorParameters = function () { return [
-        { type: ngx_spinner__WEBPACK_IMPORTED_MODULE_3__["NgxSpinnerService"] }
-    ]; };
-    LoadingInterceptor = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_spinner__WEBPACK_IMPORTED_MODULE_3__["NgxSpinnerService"]])
-    ], LoadingInterceptor);
-    return LoadingInterceptor;
-}());
+    }
+};
+LoadingInterceptor.ctorParameters = () => [
+    { type: ngx_spinner__WEBPACK_IMPORTED_MODULE_3__["NgxSpinnerService"] }
+];
+LoadingInterceptor = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_spinner__WEBPACK_IMPORTED_MODULE_3__["NgxSpinnerService"]])
+], LoadingInterceptor);
 
 
 
@@ -5717,7 +5429,7 @@ __webpack_require__.r(__webpack_exports__);
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-var environment = {
+const environment = {
     production: false
 };
 /*
@@ -5741,8 +5453,8 @@ var environment = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/fesm5/platform-browser-dynamic.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/fesm2015/platform-browser-dynamic.js");
 /* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./environments/environment */ "./src/environments/environment.ts");
 
@@ -5753,7 +5465,7 @@ if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].produc
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
 }
 Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"])
-    .catch(function (err) { return console.error(err); });
+    .catch(err => console.error(err));
 
 
 /***/ }),
@@ -5771,4 +5483,4 @@ module.exports = __webpack_require__(/*! C:\Users\Protek\source\repos\protek.gun
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
-//# sourceMappingURL=main-es5.f0a501c494773a873a08.js.map
+//# sourceMappingURL=main-es2015.f9688e98c3ebdaae3255.js.map
