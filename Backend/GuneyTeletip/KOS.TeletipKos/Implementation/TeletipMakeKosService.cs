@@ -49,10 +49,10 @@ namespace GT.TeletipKos
             //var processParameter = $" -jar \"{javaMakekos}\" ";
 
             var processResult = ProcessUtil.Start("java", processParameter);
-            if (File.Exists(dcmJson))
-            {
-                File.Delete(dcmJson);
-            }
+            //if (File.Exists(dcmJson))
+            //{
+            //    File.Delete(dcmJson);
+            //}
 
             return processResult;
         }
