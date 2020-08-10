@@ -673,7 +673,7 @@ namespace GT.DataService.Implementation
             {
                 var filter = new { kosStudyID = item.StudyID };
                 var pathList = _kosInstanceRepository.GetByStudyID(item.StudyID).OrderBy(o => o.OracleStudyKey)
-                    .ToList().Select(o=>o.InstitutionPathname).ToArray();
+                    .ToList().Select(o=>o.Instance_dcmdir_path).ToArray();
 
                 item.DicomInstanceList = pathList;
             }
