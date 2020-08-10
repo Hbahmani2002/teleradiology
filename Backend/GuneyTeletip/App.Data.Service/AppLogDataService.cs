@@ -25,7 +25,7 @@ namespace AppAbc.Data.Service
             OtomatikSentKos = 2,
             OtomatikStm = 3,
             BackGroundJobs = 10,
-            InfOrclHata = 20 ,
+            InfOrclHata = 20,
             JobHata = 30,
         }
         public long Save(LogType type, string desc)
@@ -34,7 +34,7 @@ namespace AppAbc.Data.Service
             log.LogType = (int)type;
             log.TimeCreated = DateTime.Now;
             log.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
-            log.Desc1 = desc;
+            log.Desc1 = desc.Length > 4000 ? desc.Substring(0, 4000) : desc;
             appLog.Add(log);
             _Workspace.CommitChanges();
             return log.Pk;
