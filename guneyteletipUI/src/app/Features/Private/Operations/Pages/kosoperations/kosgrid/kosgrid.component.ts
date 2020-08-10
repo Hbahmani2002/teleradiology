@@ -223,6 +223,7 @@ namespace KosListComponent_Models {
         this.data.totalCount = o["totalCount"];
         console.log(this.data.list);
         filter.StudyIDList = [];
+        this.selectedItems = [];
       })
     }
     gridSelect(event, type) {
