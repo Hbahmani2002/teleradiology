@@ -158,6 +158,13 @@ namespace KosListComponent_Models {
         this.openConfirmationDialog("İşlem tamamlandı.");
       });
     }
+    onClickGetInstance() {
+      console.log("onClickGetInstance");
+      this.kosService.getInstance(this.getFilter(1)).subscribe(o => {
+        this.onRefresh();
+        this.openConfirmationDialog("İşlem tamamlandı.");
+      });
+    }
 
     onClickUpdateReadKos() {
       

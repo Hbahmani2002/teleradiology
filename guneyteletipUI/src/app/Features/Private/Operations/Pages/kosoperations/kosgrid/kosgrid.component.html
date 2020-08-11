@@ -1,15 +1,32 @@
 <div class="m-0">
-  <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickInstanceCreateKos()" class="btn btn-primary smalbutton" tooltip="Instance Koş Oluştur"><fa name="plus-circle"></fa></button>
-  <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickCreateKos()" class="btn btn-info smalbutton" tooltip="Koş Oluştur"><fa name="plus-circle"></fa></button>
-  <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickSendKos()" class="btn btn-info smalbutton" tooltip="Seçilenlerin KOS'larını Gönder"><fa name="share-square"></fa></button>
-  <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickDeleteKos()" class="btn btn-danger smalbutton" tooltip="Seçilenlerin KOS'larını Teletıp'tan sil"><fa name="trash"></fa></button>
-  <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickUpdateReadKos()" class="btn btn-primary smalbutton" tooltip="Seçilenlerin KOS Durumlarını Teletıp'tan oku"><fa name="get-pocket"></fa></button>
-  <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickReprocessKos()" class="btn btn-secondary smalbutton" tooltip="Reprocess Kos"><fa name="reply"></fa></button>
-  <button (click)="gridKos.onClickExportExcel()" class="btn btn-primary smalbutton" tooltip="Excel'e çevir"><fa name="table"></fa></button>
-  <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickDeleteFromData()" class="btn btn-danger smalbutton" tooltip="Seçilenleri Data'dan sil"><fa name="trash"></fa></button>
+  <div class="row">
+    <div class="card" style="background-color:gainsboro; margin-left: 15px;">
+      <div style="padding-top:5px; padding-left:5px; padding-right:5px; padding-bottom:0px;">
+        <p style="padding:0px;margin:0px; font-size: 11px;">Instance İşlemeri</p>
+      </div>
+      <div style="padding-top:0px; padding-left:5px; padding-right:5px; padding-bottom:5px;">
+        <button  [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickInstanceCreateKos()" class="btn btn-primary smalbutton" tooltip="Instance Koş Oluştur"><fa name="plus-circle"></fa></button>
+        <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickDeleteFromData()" class="btn btn-danger smalbutton" tooltip="Seçilenleri Data'dan sil"><fa name="trash"></fa></button>
+        <button style="margin-right:0px;" [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickGetInstance()" class="btn btn-secondary smalbutton" tooltip="Instance'ları Çek"><fa name="get-pocket"></fa></button>
+      </div>
+    </div>
+    <div class="card" style="background-color:gainsboro; margin-left: 10px; margin-right: 10px">
+      <div style="padding-top:5px; padding-left:5px; padding-right:5px; padding-bottom:0px;">
+        <p style="padding:0px;margin:0px;">Genel İşlemler</p>
+      </div>
+      <div style="padding-top:0px; padding-left:5px; padding-right:5px; padding-bottom:5px;">
+        <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickCreateKos()" class="btn btn-info smalbutton" tooltip="Koş Oluştur"><fa name="plus-circle"></fa></button>
+        <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickSendKos()" class="btn btn-info smalbutton" tooltip="Seçilenlerin KOS'larını Gönder"><fa name="share-square"></fa></button>
+        <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickDeleteKos()" class="btn btn-danger smalbutton" tooltip="Seçilenlerin KOS'larını Teletıp'tan sil"><fa name="trash"></fa></button>
+        <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickUpdateReadKos()" class="btn btn-primary smalbutton" tooltip="Seçilenlerin KOS Durumlarını Teletıp'tan oku"><fa name="get-pocket"></fa></button>
+        <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickReprocessKos()" class="btn btn-secondary smalbutton" tooltip="Reprocess Kos"><fa name="reply"></fa></button>
+        <button style="margin-right:0px;" (click)="gridKos.onClickExportExcel()" class="btn btn-primary smalbutton" tooltip="Excel'e çevir"><fa name="table"></fa></button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="card mt-2 shadow bg-white rounded-0" >
+<div class="card mt-2 shadow bg-white rounded-0">
   <div class="card-header pr-1 pt-1 pb-1 pl-2">
     <fa name="list" class="align-middle"></fa>
     Kayıt Listesi > [Toplam:{{gridKos.data.totalCount}}/Seçili:{{gridKos.selectedItems.length}}/Tıklanan:{{gridKos.clickedItem!=undefined?1:0}}]
@@ -40,8 +57,8 @@
       <tbody>
         <tr (click)="gridKos.onClickItem(item)" *ngFor="let item of gridKos.data.list" [class]="gridKos.getRowClass(item)">
           <td class="p-0">
-            <input type="checkbox"  class="m-1" [checked]="gridKos.isSelected(item)"
-                   (change)="gridKos.onSelectItem(item)" [disabled] ="gridKos.selectAll">
+            <input type="checkbox" class="m-1" [checked]="gridKos.isSelected(item)"
+                   (change)="gridKos.onSelectItem(item)" [disabled]="gridKos.selectAll">
           </td>
           <td class="p-0">{{item.id}}</td>
           <td class="p-0">{{item.hastaNo}}</td>
