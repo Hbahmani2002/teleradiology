@@ -62,7 +62,7 @@ namespace GT.DataService.Implementation
 
         string CekimBilgi = "";
         string CekimInstanseBilgi = "";
-        public StudyKosDataService() : this(null, false)
+        public StudyKosDataService() : this(null, true)
         {
 
         }
@@ -673,7 +673,7 @@ namespace GT.DataService.Implementation
             {
                 var filter = new { kosStudyID = item.StudyID };
                 var pathList = _kosInstanceRepository.GetByKosStudyInstanceID(item.oracle_study_key.Value).OrderBy(o => o.OracleStudyKey)
-                    .ToList().Select(o=>o.InstitutionPathname).ToArray();
+                    .ToList().Select(o=>o.Instance_dcmdir_path).ToArray();
 
                 item.DicomInstanceList = pathList;
             }
@@ -942,7 +942,7 @@ namespace GT.DataService.Implementation
                 BitTarih = filter.BitTarih,
                 Modality = filter.Modalite,
                 TcList = filter.TCList,
-                KosEnum = filter.KosEnum,
+                KosEnum = KosEnumType.ZeroImg,
                 StudyInstanceUID = filter.StudyInstanceUID,
                 PatientID = filter.PatientID
             };

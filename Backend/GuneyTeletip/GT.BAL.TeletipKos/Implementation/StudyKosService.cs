@@ -87,8 +87,6 @@ namespace GT.BAL.TeletipKos
                 var studyDataService = new StudyKosDataService();
                 while (true)
                 {
-
-
                     var items = studyDataService.GetMakeKosList(50);
                     if (items.Count == 0)
                     {
