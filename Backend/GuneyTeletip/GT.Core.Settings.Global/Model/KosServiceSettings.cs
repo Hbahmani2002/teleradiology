@@ -18,7 +18,7 @@
                 public string DIR_StudyPath => "/gt/dicom/study";
                 public string DIR_KosPath => "/gt/dicom/kos";
                 public string AppFilePath => "/gt/app/teletip_kos/MakeKOS_v21.jar";
-                public string App_Ver_JSON_FilePath => "/gt/app/teletip_kos/MakeKOS_v3.jar";
+                public string App_Ver_JSON_FilePath => "/gt/app/teletip_kos/MakeKOS_v4.jar";
                 public string LocationUID => "1.3.6.1.4.1.21367.2017.10.26.111";
                 public string Title => "DCM-113030";
                 public string TempDirectoryPath => "/gt/dicom/temp_kos";
