@@ -9,7 +9,7 @@
   <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickDeleteFromData()" class="btn btn-danger smalbutton" tooltip="Seçilenleri Data'dan sil"><fa name="trash"></fa></button>
 </div>
 
-<div class="card mt-2 shadow bg-white rounded-0">
+<div class="card mt-2 shadow bg-white rounded-0" >
   <div class="card-header pr-1 pt-1 pb-1 pl-2">
     <fa name="list" class="align-middle"></fa>
     Kayıt Listesi > [Toplam:{{gridKos.data.totalCount}}/Seçili:{{gridKos.selectedItems.length}}/Tıklanan:{{gridKos.clickedItem!=undefined?1:0}}]
@@ -19,8 +19,8 @@
       </select>
     </div>
   </div>
-  <div class="card-body p-0 table-responsive">
-    <table #filterSection class="table table-hover m-0 medlifeGrid">
+  <div class="card-body p-0 table-responsive scroll">
+    <table #filterSection class="table table-hover m-0 medlifeGrid ">
       <thead>
         <tr>
           <th scope="col" class="p-0" style="width: 25px;">
