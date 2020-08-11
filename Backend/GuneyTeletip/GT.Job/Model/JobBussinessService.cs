@@ -91,6 +91,7 @@ namespace GT.Job.Implementation
             }
             private long GetSavedTaskID()
             {
+                //TODO JobDataService.JopEnumType.Status Check olmamalı
                 var dataService = new JobDataService(null);
                 return dataService.Save(DateTime.Now, JobDataService.JopEnumType.StatusCheck);
             }

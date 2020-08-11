@@ -19,11 +19,13 @@ namespace GT.Repository.Conditions
             var exp = PredicateBuilder.True<StudyOperationCount>();
             if (filter.MakeKosCount.HasValue)
             {
-                exp = exp.And(o => o.MakekosErrorTryCount<3);
+                //TODO MakekosErrorTryCount 3
+                exp = exp.And(o => o.MakekosErrorTryCount<30);
             }
             if (filter.SentKosCount.HasValue)
             {
-                exp = exp.And(o => o.SentkosErrorTryCount < 3);
+                //TODO SentkosErrorTryCount 3
+                exp = exp.And(o => o.SentkosErrorTryCount < 30);
             }
             return exp;
         }

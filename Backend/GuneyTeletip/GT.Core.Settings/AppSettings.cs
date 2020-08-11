@@ -44,7 +44,7 @@ namespace GT.Core.Settings
                         catch (Exception ex)
                         {
                             _AppSettings = new AppSettings();
-                            _AppSettings.ConfigFileException = ex;
+                            _AppSettings.ConfigFileException = ex.ToString();
                             var msg = $"{SettingsFilePath} dosaysından global ayarlar çekilmedi";
                             Debug.WriteLine(msg);
 
@@ -69,7 +69,7 @@ namespace GT.Core.Settings
                "Host=85.95.238.210;Database=pacsdb;Username=pacs;Password=pacs;Port=5432"
                );
         }
-        public Exception ConfigFileException { get; set; }
+        public string ConfigFileException { get; set; }
         private AppSettings(DatabaseSettings set)
         {
             IsFromConfigFile = true;

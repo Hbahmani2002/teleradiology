@@ -31,6 +31,8 @@ namespace GT.TeletipKos
         }
         public ProcessResult MakeKosJSON(MakeKosInstanceItem[] dicomFilePathList, string outputKosFilePath, string institutionName, string institutionSKRS, string override_gender = null, string override_age = null, string override_accNo = null, string override_patientID = null)
         {
+            var makeKosSettings = Settings;
+
             var Title = Settings.Title;
             var locationuid = Settings.LocationUID;
             var tempLocation = Settings.TempDirectory;
@@ -44,15 +46,15 @@ namespace GT.TeletipKos
             File.WriteAllText(dcmJson, jsonParameters);
 
 
-            var res = $@"--title {Title} --location-uid {locationuid} --temp-tlocation {tempLocation} --dcm-dcmlocation {dcmLocation} --dcmjson {dcmJson}";
+            var res = $@"--title {Title} --institution-insname {institutionName}^^^SKRS{institutionSKRS}^^^{makeKosSettings.InstitutionFirmaKodu} --location-uid {locationuid} --temp-tlocation {tempLocation} --dcm-dcmlocation {dcmLocation} --dcmjson {dcmJson}";
             var processParameter = $"-jar \"{javaMakekos}\" {res} -o {outputKosFilePath}";
             //var processParameter = $" -jar \"{javaMakekos}\" ";
 
             var processResult = ProcessUtil.Start("java", processParameter);
-            if (File.Exists(dcmJson))
-            {
-                File.Delete(dcmJson);
-            }
+            //if (File.Exists(dcmJson))
+            //{
+            //    File.Delete(dcmJson);
+            //}
 
             return processResult;
         }

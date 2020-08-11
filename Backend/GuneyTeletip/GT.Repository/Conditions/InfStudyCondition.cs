@@ -72,8 +72,9 @@ namespace GT.Repository.Conditions
             }
             if (filter.KosWaitHour.GetValueOrDefault())
             {
-                var hour = AppSettings.GetCurrent().DataServiceSettings.KosWaitHour;
-                exp = exp.And(o => o.TimeCreated >= o.TimeCreated.Value.AddHours(-hour));
+                //TODO son  History Make kos kaydının tarihine bakılacak
+                //var hour = AppSettings.GetCurrent().DataServiceSettings.KosWaitHour;
+                //exp = exp.And(o => o.TimeCreated >= o.TimeCreated.Value.AddHours(-hour));
             }
             if (filter.TcList != null && filter.TcList.Length > 0)
             {
@@ -112,9 +113,12 @@ namespace GT.Repository.Conditions
             {
                 exp = exp.And(o => o.ZeroImg != 1);
             }
-          
 
-         
+            if (run ==0)
+            {
+                exp = exp.And(o => o.ZeroImg == 1);
+            }
+
 
             return exp;
         }

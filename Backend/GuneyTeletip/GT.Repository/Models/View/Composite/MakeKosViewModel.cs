@@ -15,6 +15,7 @@ namespace GT.Repository.Models.View.Composite
         public string InputStudyDirectoryPath { get; set; }
         public long StudyID { get; set; }
         public string[]  DicomInstanceList { get; set; }
+        public decimal? oracle_study_key { get; set; }
 
     }
 }
