@@ -1,4 +1,5 @@
-﻿using GT.BAL.Infinity.DataSynronizer;
+﻿using AppAbc.Data.Service;
+using GT.BAL.Infinity.DataSynronizer;
 using GT.BAL.TeletipKos.Model;
 using GT.Core.Settings;
 using GT.DataService.Implementation;
@@ -18,11 +19,16 @@ using System.Threading.Tasks;
 using Util.Job.Interface;
 using Util.Logger;
 using Util.ProcessUtil;
+using AppAbc.Data.Service;
 
 namespace GT.Job.Implementation
 {
     public class MakeKosOperation
     {
+
+        AppLogDataService _AppLogDataService;
+
+      
         public class MakeKosJobSetting
         {
             public int ItemPerJob { get; set; }
@@ -55,9 +61,29 @@ namespace GT.Job.Implementation
                 {
                     return;
                 }
-                MakeKos(item);
-                progressAction.IncreaseProgressError();
-                progressAction.IncreaseProgressSuccess();
+                ProcessResult Result = MakeKos(item);
+
+
+                if (Result.IsSuccess == true)
+                {
+                     progressAction.IncreaseProgressSuccess();
+                     
+                    _AppLogDataService = new AppLogDataService();
+                    var hata = AppAbc.Data.Service.AppLogDataService.LogType.DoSingleBatchMakeKosBackroud;
+                    _AppLogDataService.Save(hata, Result.Arguments);
+
+
+                }
+                else
+                {
+                    progressAction.IncreaseProgressError();
+                    _AppLogDataService = new AppLogDataService();
+                    var hata = AppAbc.Data.Service.AppLogDataService.LogType.DoSingleBatchMakeKosBackroud;
+                    _AppLogDataService.Save(hata, Result.Arguments);
+                }
+
+  
+               
             });
         }
 
@@ -88,20 +114,58 @@ namespace GT.Job.Implementation
 
         public IEnumerable<ProcessResult> DoSingleBatchJSON(IEnumerable<MakeKosViewModel> items)
         {
+
             var resultCollection = new ConcurrentBag<ProcessResult>();
-            foreach (var item in items)
+            var studyDataService = new StudyKosDataService();
+            long qStudyID;
+            string outputPathTry;
+            try
             {
-                var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
-                var dicomFilePathList = new List<MakeKosInstanceItem>();
-                if (item.DicomInstanceList == null || item.DicomInstanceList.Count() <= 0)
-                    continue;
-                foreach (var dicomInstance in item.DicomInstanceList)
+               
+                foreach (var item in items)
                 {
-                    dicomFilePathList.Add(new MakeKosInstanceItem(dicomInstance));
+                    var outputPath = KosOutFileNameGenerator.GetFilePath(item.StudyID);
+                    
+                    var dicomFilePathList = new List<MakeKosInstanceItem>();
+                    if (item.DicomInstanceList == null || item.DicomInstanceList.Count() <= 0)
+                        continue;
+                    foreach (var dicomInstance in item.DicomInstanceList)
+                    {
+                        dicomFilePathList.Add(new MakeKosInstanceItem(dicomInstance));
+                    }
+                    var res = TeletipMakeKosService.MakeKosJSON(dicomFilePathList.ToArray(), outputPath, item.InstitutionName, item.InstitutionSKRS, null, null, item.AccessionNumber, item.PatientId);
+                    resultCollection.Add(res);
+                    qStudyID = item.StudyID;
+
+
+                    _AppLogDataService = new AppLogDataService();
+                    var hata = AppAbc.Data.Service.AppLogDataService.LogType.KosInstanceHata;
+
+                    _AppLogDataService.Save(hata, res.Message.ToString());
+
+                    studyDataService.Save_UpdateMakeKosDurum(item.StudyID, res.IsSuccess, outputPath, res.Message + res.Arguments);
+                
                 }
-                var res = TeletipMakeKosService.MakeKosJSON(dicomFilePathList.ToArray(), outputPath, item.InstitutionName, item.InstitutionSKRS, null, null, item.AccessionNumber, item.PatientId);
-                resultCollection.Add(res);
             }
+            catch(Exception ex )
+            {
+
+                foreach (var item in items)
+                {
+
+                    outputPathTry = KosOutFileNameGenerator.GetFilePath(item.StudyID);
+                    studyDataService.Save_UpdateMakeKosDurum(item.StudyID, true, outputPathTry, ex.InnerException.Message + " " + ex.Message.ToString());
+                }
+
+                _AppLogDataService = new AppLogDataService();
+                var hata = AppAbc.Data.Service.AppLogDataService.LogType.KosInstanceHata;
+                var message = ex.InnerException.Message == null ? "Error -20021" : ex.InnerException.Message.ToString();
+                _AppLogDataService.Save(hata, message);
+               
+              
+            }
+
+
             return resultCollection.ToArray();
         }
 

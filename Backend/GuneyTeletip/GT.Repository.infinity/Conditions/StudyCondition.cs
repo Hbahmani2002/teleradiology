@@ -70,8 +70,8 @@ namespace GT.DataService.infinity.Conditions
             {
                 exp = exp.And(o => !o.SeriesInfo.Contains(filter.SeriesInfo));
             }
-       
 
+    
 
             return exp;
         }

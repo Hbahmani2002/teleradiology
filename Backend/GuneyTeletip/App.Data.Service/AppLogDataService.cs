@@ -27,6 +27,9 @@ namespace AppAbc.Data.Service
             BackGroundJobs = 10,
             InfOrclHata = 20,
             JobHata = 30,
+            KosInstanceHata = 40,
+            DoSingleBatchMakeKosBackroud=50,
+            DoSingleBatchSendKosBackroud = 60,
         }
         public long Save(LogType type, string desc)
         {

@@ -29,7 +29,7 @@ namespace GT.Repository.infinity.Conditions
                 exp = exp.And(o => o.StudyKey == filter.StudyKey.Value);
             }
 
-
+            exp = exp.And(o => o.InstanceCount != 0);
             return exp;
         }
 
