@@ -5,3 +5,9 @@
   margin-right: 4px;
   margin-top: 0px;
 }
+.scroll {
+  display:block;
+  overflow-y: scroll;
+  max-height: 265px;
+}
+
