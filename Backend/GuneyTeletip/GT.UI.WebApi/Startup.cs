@@ -121,7 +121,7 @@ namespace GT.UI.WebApi
 
             }
 
-            BussinessJobs.StartAutomaticJobs();
+            //BussinessJobs.StartAutomaticJobs();
 
             //BussinessJobs.MakeKosJob.Start();
             //BussinessJobs.SendKosJob.Start();
