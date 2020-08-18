@@ -282,8 +282,13 @@ namespace GT.BAL.Infinity.DataSynronizer
                 var filter = new ProtekOracleFilter
                 {
                     BasTar= startTime.Value,
-                    BitTar= endTime.Value
+                    BitTar= endTime.Value,
+                    Infstudypklast = lastID,
+
                 };
+
+
+
                 var items = dcmDataService.Query(filter,10);
                 if (items != null && items.Count > 0)
                 {

@@ -28,6 +28,7 @@ namespace Dcm4chee.DataService
             var s = new StudyConditionFilter {
                 BasTar=filter.BasTar,
                 BitTar=filter.BitTar,
+                AccessionNo
             };
             var se = new SeriesConditionFilter { ModalityList= filter.ModalityList};
             return dcmCompositeRepository.Query(s, se).OrderBy(o => o.StudyID).Take(count).ToList();
