@@ -283,12 +283,8 @@ namespace GT.BAL.Infinity.DataSynronizer
                 {
                     BasTar= startTime.Value,
                     BitTar= endTime.Value,
-                    Infstudypklast = lastID,
-
+                    StudyID=lastID
                 };
-
-
-
                 var items = dcmDataService.Query(filter,10);
                 if (items != null && items.Count > 0)
                 {
