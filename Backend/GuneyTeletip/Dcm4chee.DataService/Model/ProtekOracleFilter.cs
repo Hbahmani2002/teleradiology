@@ -9,5 +9,6 @@ namespace Dcm4chee.DataService.Model
         public DateTime BasTar { get; set; }
         public DateTime BitTar { get; set; }
         public string[] ModalityList { get; set; }
+        public long StudyID { get; set; }
     }
 }

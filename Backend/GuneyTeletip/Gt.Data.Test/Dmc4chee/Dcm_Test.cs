@@ -20,9 +20,11 @@ namespace Gt.Data.Test.Dmc4chee
         public void GetGetorderStatusList()
         {
             ProtekOracleFilter filter = new ProtekOracleFilter();
-            filter.ModalityList =new string[1] { 
-                "CT"
-            };
+            //filter.ModalityList =new string[1] { 
+            //    "CT"
+            //};
+            filter.BasTar = new DateTime(2020, 08, 07);
+            filter.BitTar = new DateTime(2020, 08, 08);
             var list = service.Query(filter,10);
         }
     }

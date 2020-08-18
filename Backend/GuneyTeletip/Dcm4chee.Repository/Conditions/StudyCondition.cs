@@ -10,8 +10,9 @@ namespace Dcm4chee.Repository.Conditions
     public class StudyConditionFilter
     {
         public long? AccessionNo { get; set; }
-        public DateTime? BasTar { get; set; }
-        public DateTime? BitTar { get; set; }
+        public string BasTar { get; set; }
+        public string BitTar { get; set; }
+        public long? ID { get; set; }
     }
     public class StudyCondition
     {
@@ -20,15 +21,19 @@ namespace Dcm4chee.Repository.Conditions
             var exp = PredicateBuilder.True<Study>();
             if (filter.AccessionNo.HasValue)
             {
+                exp = exp.And(o => o.Pk==filter.ID);
+            }
+            if (filter.AccessionNo.HasValue)
+            {
                 exp = exp.And(o => o.AccessionNo.Length > filter.AccessionNo);
             }
-            if (filter.BasTar.HasValue)
+            if (string.IsNullOrEmpty(filter.BasTar))
             {
-                exp = exp.And(o => DateTime.Parse(o.StudyDate)>=filter.BasTar);
+                exp = exp.And(o => o.StudyDate.Contains(filter.BasTar));
             }
-            if (filter.BitTar.HasValue)
+            if (string.IsNullOrEmpty(filter.BitTar))
             {
-                exp = exp.And(o => DateTime.Parse(o.StudyDate) <= filter.BitTar);
+                exp = exp.And(o => o.StudyDate.Contains(filter.BitTar));
             }
             return exp;
         }

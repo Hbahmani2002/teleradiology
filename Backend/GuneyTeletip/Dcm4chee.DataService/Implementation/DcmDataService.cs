@@ -26,8 +26,9 @@ namespace Dcm4chee.DataService
         public List<DcmViewModel> Query(ProtekOracleFilter filter,int count) {
 
             var s = new StudyConditionFilter {
-                BasTar=filter.BasTar,
-                BitTar=filter.BitTar,
+                BasTar=filter.BasTar.Date.ToString(),
+                BitTar=filter.BitTar.Date.ToString(),
+                ID=filter.StudyID
             };
             var se = new SeriesConditionFilter { ModalityList= filter.ModalityList};
             return dcmCompositeRepository.Query(s, se).OrderBy(o => o.StudyID).Take(count).ToList();
