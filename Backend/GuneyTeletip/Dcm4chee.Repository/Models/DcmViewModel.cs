@@ -47,5 +47,6 @@ namespace Dcm4chee.Repository.Models
         public int ZeroImg { get; set; }
         public string DicomDirPhat { get; set; }
         public string PersonName { get; set; }
+        public string StudyDttm { get; set; }
     }
 }
