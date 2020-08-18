@@ -74,6 +74,7 @@ namespace GT.Job.Implementation
                             sb.AppendLine("");
                             sb.AppendLine("");
                             sb.Append(res.Arguments);
+
                             if (res.IsSuccess)
                             {
                                 studyDataService.Save_UpdateSentKosDurum(item.StudyID, StudyKosDataService.SentKosResult.Success, res.Message + res.Arguments);
@@ -96,11 +97,11 @@ namespace GT.Job.Implementation
                             }
 
 
+                        //progressAction.IncreaseProgressError();
+                        //progressAction.IncreaseProgressSuccess();
 
-                            
-                   
 
-                        }
+                    }
                         catch (Exception ex)
                         {
                             log.Save(AppLogDataService.LogType.OtomatikMakeKos, "Log File Path DoSingleBatch :" + ex.Message.ToString().Substring(0, 500));                

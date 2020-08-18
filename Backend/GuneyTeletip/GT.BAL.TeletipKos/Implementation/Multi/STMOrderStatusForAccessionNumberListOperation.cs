@@ -183,18 +183,18 @@ namespace GT.Job.Implementation
 
                             
 
-                                if (res != null)
-                                {                             
-                                 progressAction.IncreaseProgressSuccess();
-                                }
-                                else
-                                {
+                                //if (res != null)
+                                //{                             
+                                // progressAction.IncreaseProgressSuccess();
+                                //}
+                                //else
+                                //{
 
-                                 progressAction.IncreaseProgressError();
+                                // progressAction.IncreaseProgressError();
 
-                                }
-
-
+                                //}
+                                progressAction.IncreaseProgressSuccess();
+                                progressAction.IncreaseProgressError();
 
 
 

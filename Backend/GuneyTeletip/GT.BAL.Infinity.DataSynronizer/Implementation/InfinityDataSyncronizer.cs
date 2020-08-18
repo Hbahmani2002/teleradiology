@@ -270,5 +270,10 @@ namespace GT.BAL.Infinity.DataSynronizer
                 return false;
             }
         }
+
+
+
+
+
     }
 }

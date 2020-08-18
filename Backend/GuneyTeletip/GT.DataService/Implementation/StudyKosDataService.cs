@@ -1220,15 +1220,27 @@ namespace GT.DataService.Implementation
         {
             var newKosState = (int)(isSuccess ? KosEnumType.KosOlusmusOlanlar : KosEnumType.KosOlusumuHataliOlanlar);
 
-            var kosStudyHistory = new KosStudyHistory();
-            kosStudyHistory.EnumType = newKosState;
-            kosStudyHistory.FkKosStudy = kosStudyID;
-            kosStudyHistory.FkUserCreated = 0;
-            //kosStudyHistory.FkUserCreated = Context==null?(long?):Context.UserInfo.UserIDCurrent;
-            kosStudyHistory.TimeCreated = DateTime.Now;
-            kosStudyHistory.Result = statusMessage;
-            infStudyHistoryRepository.Add(kosStudyHistory);
-            _Workspace.CommitChanges();
+
+
+            try
+            {
+
+
+                var kosStudyHistory = new KosStudyHistory();
+                kosStudyHistory.EnumType = newKosState;
+                kosStudyHistory.FkKosStudy = kosStudyID;
+                kosStudyHistory.FkUserCreated = 0;
+                //kosStudyHistory.FkUserCreated = Context==null?(long?):Context.UserInfo.UserIDCurrent;
+                kosStudyHistory.TimeCreated = DateTime.Now;
+                kosStudyHistory.Result = statusMessage;
+                infStudyHistoryRepository.Add(kosStudyHistory);
+                _Workspace.CommitChanges();
+            }
+            catch
+            {
+
+            }
+
 
             var kosStudy = _InfStudyRepository.GetByID(kosStudyID);
             if (kosStudy == null)
@@ -1285,14 +1297,25 @@ namespace GT.DataService.Implementation
             else if (result == SentKosResult.PartialSuccess)
                 newKosState = (int)KosEnumType.KosGonderilipEslesmeyenler;
 
-            var kosStudyHistory = new KosStudyHistory();
-            kosStudyHistory.EnumType = newKosState;
-            kosStudyHistory.FkKosStudy = kosStudyID;
-            kosStudyHistory.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
-            kosStudyHistory.TimeCreated = DateTime.Now;
-            kosStudyHistory.Result = statusMessage;
-            infStudyHistoryRepository.Add(kosStudyHistory);
-            _Workspace.CommitChanges();
+            try
+            {
+
+                var kosStudyHistory = new KosStudyHistory();
+                kosStudyHistory.EnumType = newKosState;
+                kosStudyHistory.FkKosStudy = kosStudyID;
+                kosStudyHistory.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
+                kosStudyHistory.TimeCreated = DateTime.Now;
+                kosStudyHistory.Result = statusMessage;
+                infStudyHistoryRepository.Add(kosStudyHistory);
+                _Workspace.CommitChanges();
+            }
+            catch
+            {
+
+            }
+
+
+
             var kosStudy = _InfStudyRepository.GetByID(kosStudyID);
             if (kosStudy == null)
             {
@@ -1375,14 +1398,23 @@ namespace GT.DataService.Implementation
         }
         public long Save_UpdateDeleteKos(long studyID, string message)
         {
-            var kosStudyHistory = new KosStudyHistory();
-            kosStudyHistory.EnumType = (int)KosEnumType.KosSilinenler;
-            kosStudyHistory.FkKosStudy = studyID;
-            kosStudyHistory.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
-            kosStudyHistory.TimeCreated = DateTime.Now;
-            kosStudyHistory.Result = message;
-            infStudyHistoryRepository.Add(kosStudyHistory);
-            _Workspace.CommitChanges();
+
+            try
+            {
+
+                var kosStudyHistory = new KosStudyHistory();
+                kosStudyHistory.EnumType = (int)KosEnumType.KosSilinenler;
+                kosStudyHistory.FkKosStudy = studyID;
+                kosStudyHistory.FkUserCreated = Context == null ? (long?)null : Context.UserInfo.UserIDCurrent;
+                kosStudyHistory.TimeCreated = DateTime.Now;
+                kosStudyHistory.Result = message;
+                infStudyHistoryRepository.Add(kosStudyHistory);
+                _Workspace.CommitChanges();
+            }
+            catch 
+            { }
+
+
 
             var kosStudy = _InfStudyRepository.GetByID(studyID);
             if (kosStudy == null)

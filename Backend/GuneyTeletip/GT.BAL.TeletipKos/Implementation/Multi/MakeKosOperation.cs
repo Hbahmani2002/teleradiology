@@ -20,6 +20,7 @@ using Util.Job.Interface;
 using Util.Logger;
 using Util.ProcessUtil;
 using AppAbc.Data.Service;
+using System.IO;
 
 namespace GT.Job.Implementation
 {
@@ -82,8 +83,12 @@ namespace GT.Job.Implementation
                     _AppLogDataService.Save(hata, Result.Arguments);
                 }
 
-  
-               
+
+
+                //progressAction.IncreaseProgressSuccess();
+                //progressAction.IncreaseProgressError();
+
+
             });
         }
 
@@ -98,6 +103,16 @@ namespace GT.Job.Implementation
             sb.AppendLine("");
             sb.Append(res.Arguments);
             studyDataService.Save_UpdateMakeKosDurum(item.StudyID, res.IsSuccess, outputPath, res.Message + res.Arguments);
+
+
+
+            //if (File.Exists(outputPath))
+            //{
+            //    File.Delete(dcmJson);
+            //}
+
+
+
             return res;
         }
 
