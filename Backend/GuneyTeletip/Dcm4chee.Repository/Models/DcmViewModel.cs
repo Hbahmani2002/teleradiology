@@ -10,6 +10,7 @@ namespace Dcm4chee.Repository.Models
     {
         [DataEntityID]
         public long LocationID { get; set; }
+        public int TotalCount { get; set; }
         public long InstanseID { get; set; }
         public string Sopiuid { get; set; }
         public long SeriesID { get; set; }

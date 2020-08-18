@@ -108,9 +108,10 @@ namespace Dcm4chee.Repository.Implementation.Composite
                 Modality=o.Key.Modality,
                 ModifyDttm=o.Key.ModifyDttm,
                 CreationDttm=o.Key.CreationDttm,
-                DicomDirPhat=o.Key.DicomDirPhat
+                DicomDirPhat=o.Key.DicomDirPhat,
+                TotalCount=o.Count()
             });
-            return list;
+            return groupList;
         }
     }
 }
