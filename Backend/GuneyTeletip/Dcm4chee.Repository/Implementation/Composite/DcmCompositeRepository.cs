@@ -80,6 +80,7 @@ namespace Dcm4chee.Repository.Implementation.Composite
                            SeriesInfo= "SeriesInfo",
                            ZeroImg=0,
                            DicomDirPhat="/",
+                           StudyDttm=stdy.StudyDate
                        };
             var groupList = list.GroupBy(g => new
             {
