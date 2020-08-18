@@ -26,6 +26,10 @@ namespace GT.Job.Implementation
 {
     public class SendKosOperation
     {
+
+        AppLogDataService _AppLogDataService;
+
+
         public class SendKosJobSetting
         {
             public int ItemPerJob { get; set; }
@@ -73,16 +77,28 @@ namespace GT.Job.Implementation
                             if (res.IsSuccess)
                             {
                                 studyDataService.Save_UpdateSentKosDurum(item.StudyID, StudyKosDataService.SentKosResult.Success, res.Message + res.Arguments);
+                                progressAction.IncreaseProgressSuccess();     
+                                _AppLogDataService = new AppLogDataService();
+                                var hata = AppAbc.Data.Service.AppLogDataService.LogType.DoSingleBatchSendKosBackroud;
+                                _AppLogDataService.Save(hata, res.IsSuccess +" - "+ res.Arguments);
+
                             }
                             else
                             {
                                 studyDataService.Save_UpdateSentKosDurum(item.StudyID, StudyKosDataService.SentKosResult.Fail, res.Message + res.Arguments);
+                                progressAction.IncreaseProgressError();
+
+                                _AppLogDataService = new AppLogDataService();
+                                var hata = AppAbc.Data.Service.AppLogDataService.LogType.DoSingleBatchSendKosBackroud;
+                                _AppLogDataService.Save(hata, res.IsSuccess + " - " + res.Arguments);
+
+
                             }
 
 
 
-                            progressAction.IncreaseProgressError();
-                            progressAction.IncreaseProgressSuccess();
+                            
+                   
 
                         }
                         catch (Exception ex)

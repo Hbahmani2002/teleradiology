@@ -281,9 +281,22 @@ namespace GT.UI.WebApi.Controllers
                 parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var cx = GetBussinesContext();
             var service = new StudyKosDataService(cx);
-            return HttpMessageService.Ok(service.GetInfStudyList(parms));
+            return HttpMessageService.Ok(service.GetStudyDataDeleteList(parms));
         }
 
+
+        [HttpPost]
+        [Route("/Kos/StudyHastaIstanceCek")]
+        public ServiceResult<PagingResult<InfStudyViewModel>> StudyHastaIstanceCek(Gridable<KosStudyFilter> parms)
+        {
+            if (parms.Filter.BasTarih.HasValue)
+                parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
+            if (parms.Filter.BitTarih.HasValue)
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
+            var cx = GetBussinesContext();
+            var service = new StudyKosDataService(cx);
+            return HttpMessageService.Ok(service.GetInfStudyHastaIstanceCek(parms));
+        }
 
 
         [HttpPost]

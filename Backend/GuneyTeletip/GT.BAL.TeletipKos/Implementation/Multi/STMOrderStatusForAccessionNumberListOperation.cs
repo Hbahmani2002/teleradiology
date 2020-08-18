@@ -1,4 +1,5 @@
 ﻿using App.Data.Service;
+using AppAbc.Data.Service;
 using GT.BAL.Infinity.DataSynronizer;
 using GT.BAL.TeletipKos.Model;
 using GT.Core.Settings;
@@ -29,6 +30,7 @@ namespace GT.Job.Implementation
 
     public class STMOrderStatusForAccessionNumberListOperation
     {
+        AppLogDataService _AppLogDataService;
 
         OrderStatusForAccessionNumberDataService _OrderStatusForAccessionNumberDataService;
 
@@ -179,19 +181,36 @@ namespace GT.Job.Implementation
                                 }
 
 
+                            
 
-                                progressAction.IncreaseProgressError();
-                                progressAction.IncreaseProgressSuccess();
+                                if (res != null)
+                                {                             
+                                 progressAction.IncreaseProgressSuccess();
+                                }
+                                else
+                                {
 
-          
+                                 progressAction.IncreaseProgressError();
+
+                                }
 
 
-                    });
+
+
+
+
+                            });
 
 
             }
-            catch 
-            { }
+            catch (Exception ex )
+            {
+
+                var hata = AppAbc.Data.Service.AppLogDataService.LogType.JobHata;
+                var message = ex.InnerException.Message == null ? "Error -20021" : ex.InnerException.Message.ToString();
+                _AppLogDataService.Save(hata, message);
+
+            }
 
         }
 
