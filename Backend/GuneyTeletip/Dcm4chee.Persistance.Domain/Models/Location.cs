@@ -17,6 +17,8 @@ namespace Dcm4chee.Persistance.Domain.Models
         public string Tsuid { get; set; }
         public long? InstanceFk { get; set; }
         public long? UidmapFk { get; set; }
+        public long TeletipDurum { get; set; }
+        public string TeletipMesaj { get; set; }
 
         public virtual Instance InstanceFkNavigation { get; set; }
         public virtual Uidmap UidmapFkNavigation { get; set; }

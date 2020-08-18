@@ -61,6 +61,7 @@
         public virtual DbSet<RelStudyPcode> RelStudyPcode { get; set; }
         public virtual DbSet<RelUpsPerfCode> RelUpsPerfCode { get; set; }
         public virtual DbSet<RetrieveTask> RetrieveTask { get; set; }
+        public virtual DbSet<Rise> Rise { get; set; }
         public virtual DbSet<Series> Series { get; set; }
         public virtual DbSet<SeriesQueryAttrs> SeriesQueryAttrs { get; set; }
         public virtual DbSet<SeriesReq> SeriesReq { get; set; }
@@ -776,6 +777,8 @@
                     .IsRequired()
                     .HasColumnName("storage_path")
                     .HasMaxLength(255);
+
+                entity.Property(e => e.TeletipMesaj).HasMaxLength(4000);
 
                 entity.Property(e => e.Tsuid)
                     .HasColumnName("tsuid")
@@ -1684,6 +1687,67 @@
                     .WithMany(p => p.RetrieveTask)
                     .HasForeignKey(d => d.QueueMsgFk)
                     .HasConstraintName("fk_mxokt1gw5g1e7rc3ssotvuqix");
+            });
+
+            modelBuilder.Entity<Rise>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("rise", "rise");
+
+                entity.Property(e => e.AeTitle)
+                    .HasColumnName("ae_title")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.HospitalStudyInstanceuid)
+                    .HasColumnName("hospital_study_instanceuid")
+                    .HasMaxLength(1024);
+
+                entity.Property(e => e.HospitaldataAccessionNumber)
+                    .HasColumnName("hospitaldata_accession_number")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.HospitaldataCreatedtime).HasColumnName("hospitaldata_createdtime");
+
+                entity.Property(e => e.HospitaldataDescription)
+                    .HasColumnName("hospitaldata_description")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.HospitaldataPatientBirthdate)
+                    .HasColumnName("hospitaldata_patient_birthdate")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.HospitaldataPatientName)
+                    .HasColumnName("hospitaldata_patient_name")
+                    .HasMaxLength(1024);
+
+                entity.Property(e => e.HospitaldataPatientSex)
+                    .HasColumnName("hospitaldata_patient_sex")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.HospitaldataPatientid)
+                    .HasColumnName("hospitaldata_patientid")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.HospitaldataReferringPhysicianName)
+                    .HasColumnName("hospitaldata_referring_physician_name")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.HospitaldataStudyid)
+                    .HasColumnName("hospitaldata_studyid")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Hospitalid).HasColumnName("hospitalid");
+
+                entity.Property(e => e.InstanceCount).HasColumnName("instance_count");
+
+                entity.Property(e => e.Modalityid)
+                    .HasColumnName("modalityid")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Pk).HasColumnName("pk");
+
+                entity.Property(e => e.TimeCreated).HasColumnName("time_created");
             });
 
             modelBuilder.Entity<Series>(entity =>

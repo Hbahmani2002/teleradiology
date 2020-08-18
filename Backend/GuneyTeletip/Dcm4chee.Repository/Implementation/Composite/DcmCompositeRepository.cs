@@ -39,24 +39,76 @@ namespace Dcm4chee.Repository.Implementation.Composite
                        join s in series on i.SeriesFk equals s.Pk
                        join stdy in study on s.StudyFk equals stdy.Pk
                        join pa in patient on stdy.PatientFk equals pa.Pk
+                       join pi in patientID on pa.PatientIdFk equals pi.Pk
                        join pe in personName on pa.PatNameFk equals pe.Pk
                        select new DcmViewModel
                        {
-                           LocationID=l.Pk,
-                           InstanseID=i.Pk,
-                           SopCuid=i.SopCuid,
-                           SeriesID=s.Pk,
-                           SeriesCuid=s.SopCuid,
-                           StudyID=s.StudyFk,
-                           StudyCuid=stdy.StudyIuid,
-                           InstanceID=l.InstanceFk,
-                           PatientID=pa.Pk,
-                           StudyPatientID=stdy.PatientFk,
-                           PersonNameID=pe.Pk,
-                           StoragePath=l.StoragePath,
-                           PatID=pa.PatNameFk,
-                           Modality=s.Modality
+                           LocationID = l.Pk,
+                           InstanseID = i.Pk,
+                           Sopiuid = i.SopCuid,
+                           SeriesID = s.Pk,
+                           SeriesCuid = s.SopCuid,
+                           StudyID = s.StudyFk,
+                           StudyCuid = stdy.StudyIuid,
+                           InstanceID = l.InstanceFk,
+                           PatientID = pa.Pk,
+                           StudyPatientID = stdy.PatientFk,
+                           PersonNameID = pe.Pk,
+                           StoragePath = l.StoragePath,
+                           PatID = pa.PatNameFk,
+                           Modality = s.Modality,
+                           TeletipDurum = l.TeletipDurum,
+                           TeletipMesaj = l.TeletipMesaj,
+                           Accessionno = stdy.AccessionNo,
+                           FamilyName = pe.FamilyName,
+                           PatientSex = pa.PatSex,
+                           StudyDescription = stdy.StudyDesc,
+                           StudyDate=stdy.StudyDate,
+                           PatBirthdate=pa.PatBirthdate,
+                           Institution=s.Institution,
+                           SeriesCount=0,
+                           InstanceCount=0,
+                           Filename="dcm",
+                           VolumeCode= "fs1",
+                           VolumeType= "fs1",
+                           VolumeStat= "fs1",
+                           VolumePathname= "fs1",
+                           ModifyDttm= stdy.CreatedTime,
+                           CreationDttm=stdy.AccessTime,
+                           StudyDesc= "fs1",
+                           InfMergeKey=0,
+                           SeriesInfo= "SeriesInfo",
+                           ZeroImg=0,
+                           DicomDirPhat="/",
                        };
+            var groupList = list.GroupBy(g => new
+            {
+                g.StudyID,
+                g.StudyPatientID,
+                g.FamilyName,
+                g.PatientSex,
+                g.PatBirthdate,
+                g.StudyCuid,
+                g.Accessionno,
+                g.Institution,
+                g.Modality,
+                g.ModifyDttm,
+                g.CreationDttm,
+                g.DicomDirPhat
+            }).Select(o => new DcmViewModel { 
+                StudyID=o.Key.StudyID,
+                StudyPatientID=o.Key.StudyPatientID,
+                FamilyName=o.Key.FamilyName,
+                PatientSex=o.Key.PatientSex,
+                PatBirthdate=o.Key.PatBirthdate,
+                StudyCuid=o.Key.StudyCuid,
+                Accessionno=o.Key.Accessionno,
+                Institution=o.Key.Institution,
+                Modality=o.Key.Modality,
+                ModifyDttm=o.Key.ModifyDttm,
+                CreationDttm=o.Key.CreationDttm,
+                DicomDirPhat=o.Key.DicomDirPhat
+            });
             return list;
         }
     }

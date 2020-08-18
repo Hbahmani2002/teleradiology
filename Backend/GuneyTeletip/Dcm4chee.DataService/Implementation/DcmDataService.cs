@@ -1,4 +1,4 @@
-﻿using Dcm4chee.DataService.Models;
+﻿using Dcm4chee.DataService.Model;
 using Dcm4chee.Repository.Conditions;
 using Dcm4chee.Repository.Implementation;
 using Dcm4chee.Repository.Implementation.Composite;
@@ -23,25 +23,14 @@ namespace Dcm4chee.DataService
             dcmCompositeRepository = new DcmCompositeRepository(_Workspace);
         }
 
-        public PagingResult<DcmViewModel> Query(Gridable<DcmViewFilter> parms) {
-            if (parms == null)
-            {
-                parms = new Gridable<DcmViewFilter>();
-            }
-            if (parms.Filter == null)
-            {
-                parms.Filter = new DcmViewFilter();
-            }
-            var modalityList = new string[2];
-            modalityList[0] = "CT";
-            modalityList[1] = "MR";
+        public List<DcmViewModel> Query(ProtekOracleFilter filter,int count) {
+
             var s = new StudyConditionFilter {
-                BasTar=parms.Filter.BasTar,
-                BitTar=parms.Filter.BitTar,
-                AccessionNo=6
+                BasTar=filter.BasTar,
+                BitTar=filter.BitTar,
             };
-            var se = new SeriesConditionFilter { ModalityList= modalityList };
-            return dcmCompositeRepository.Query(s, se).GetGridQuery(parms);
+            var se = new SeriesConditionFilter { ModalityList= filter.ModalityList};
+            return dcmCompositeRepository.Query(s, se).OrderBy(o => o.StudyID).Take(count).ToList();
         }
     }
 }

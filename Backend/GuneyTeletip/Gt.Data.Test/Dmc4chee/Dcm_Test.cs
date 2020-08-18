@@ -1,5 +1,5 @@
 ﻿using Dcm4chee.DataService;
-using Dcm4chee.DataService.Models;
+using Dcm4chee.DataService.Model;
 using GT.SERVICE;
 using GT.UTILS.GRID;
 using NUnit.Framework;
@@ -19,10 +19,11 @@ namespace Gt.Data.Test.Dmc4chee
         [Test]
         public void GetGetorderStatusList()
         {
-            Gridable<DcmViewFilter> gri = new Gridable<DcmViewFilter>();
-            DcmViewFilter filter = new DcmViewFilter();
-            gri.Filter = filter;
-            var list = service.Query(gri);
+            ProtekOracleFilter filter = new ProtekOracleFilter();
+            filter.ModalityList =new string[1] { 
+                "CT"
+            };
+            var list = service.Query(filter,10);
         }
     }
 }
