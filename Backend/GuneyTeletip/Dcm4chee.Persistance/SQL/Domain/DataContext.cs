@@ -83,7 +83,7 @@
             {
                 if (IsLogging)
                     optionsBuilder.UseLoggerFactory(consoleLoggerFactory);
-                var connectionString = "Host = 85.95.239.134; Database = pacsdb; Username = pacs; Password = pacs; Port = 5432";
+                var connectionString = AppSettings.GetCurrent().DatabaseSetting.PacsPostgre;
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseNpgsql(connectionString);
             }
