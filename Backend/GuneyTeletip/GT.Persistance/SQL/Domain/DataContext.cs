@@ -25,6 +25,7 @@
         public GTDataContext()
             : base("name=DataContext")
         {
+
         }
         public GTDataContext(bool autoDetectChangesEnabled, bool proxyCreationEnabled = true, bool lazyLoadingEnabled = true, bool validateOnSaveEnabled = true, bool logging = false)
            : base($"name={LocalSettings.AppName}")
