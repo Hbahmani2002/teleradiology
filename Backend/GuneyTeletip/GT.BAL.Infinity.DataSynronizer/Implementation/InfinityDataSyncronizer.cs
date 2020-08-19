@@ -285,7 +285,7 @@ namespace GT.BAL.Infinity.DataSynronizer
                     BitTar= endTime.Value,
                     StudyID=lastID
                 };
-                var items = dcmDataService.Query(filter,10);
+                var items = dcmDataService.Query(filter,1000);
                 if (items != null && items.Count > 0)
                 {
 
