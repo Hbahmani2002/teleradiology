@@ -35,6 +35,10 @@ namespace Dcm4chee.Repository.Conditions
             {
                 exp = exp.And(o => o.StudyDate.Contains(filter.BitTar));
             }
+
+   
+            exp = exp.And(o => o.AccessionNo != "*");
+
             return exp;
         }
     }

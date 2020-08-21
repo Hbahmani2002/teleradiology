@@ -286,6 +286,10 @@ namespace GT.BAL.Infinity.DataSynronizer
                     StudyID=lastID
                 };
                 var items = dcmDataService.Query(filter,1000);
+
+                //var list = new List<InfOraclePostgreStudyViewModel>();
+
+
                 if (items != null && items.Count > 0)
                 {
 
@@ -300,29 +304,34 @@ namespace GT.BAL.Infinity.DataSynronizer
 
 
 
-                        Mesaj = "Tenat ID : " + tenantID + " Oracle StudyKey " + item.StudyID;
+                        Mesaj = "Tenat ID : " + tenantID + " Oracle StudyKey " + item.StudyKey;
 
-                        if (item.VolumePathname != null)
+                        if (item.DicomDirPhat != null)
                         {
 
-                            hataMesajInfStundy = " tenantID : " + tenantID + " StudyKey :" + item.StudyID + "PatientId : " + item.PatientID;
+                            hataMesajInfStundy = " tenantID : " + tenantID + " StudyKey :" + item.StudyKey + "PatientId : " + item.PatientId;
 
                             var model = new InfOraclePostgreStudyViewModel();
-                            model.AccessionNo = item.Accessionno;
+                            model.AccessionNo = item.AccessNo;
                             model.TimeCreated = item.CreationDttm;
                             model.FkTenant = tenantID;
                             model.FkUserCreated = 2; //Context.UserInfo.UserIDCurrent;
-                            model.PatientId = item.PatientID.ToString();
+                            model.PatientId = item.PatientId;
                             model.Gender = item.PatientSex;
                             model.StudyDescription = item.StudyDesc;
                             model.InstitutionName = item.Institution;
-                            model.Modality = item.Modality;
-                            model.StudyInstanceuid = item.StudyCuid;
+                            model.Modality = item.Modalities;
+                            model.AccessionNo = item.AccessNo;
+                            model.StudyInstanceuid = item.StudyInstanceUid;
                             model.InstanceCount = 0;
-                            model.DateBirth = DateTime.Parse(item.PatBirthdate);
-                            model.StudyDate = DateTime.Parse(item.StudyDttm);
-                            model.StoragePath = item.Filename;
-                            model.PatinetNameSurname = item.FamilyName;
+
+                            DateTime qDateBirth = Convert.ToDateTime(item.PatientBirthDttm.Substring(0, 4)+"-"+ item.PatientBirthDttm.Substring(4, 2)+"-"+item.PatientBirthDttm.Substring(6, 2));
+                            model.DateBirth = Convert.ToDateTime(qDateBirth);
+                            DateTime qStudyDate = Convert.ToDateTime(item.StudyDttm.Substring(0, 4) + "-" + item.StudyDttm.Substring(4, 2) + "-" + item.StudyDttm.Substring(6, 2));
+
+                            model.StudyDate = qStudyDate;
+                            model.StoragePath = item.Pathname;
+                            model.PatinetNameSurname = item.PatientName;
                             model.CihazDeviceSerialNumber = null;
                             model.Desc1 = null;
                             model.Desc2 = null;
@@ -338,8 +347,8 @@ namespace GT.BAL.Infinity.DataSynronizer
                             model.ValumeType = item.VolumeType;
                             model.ValumeStat = item.VolumeStat;
                             model.ValumePathname = item.VolumePathname;
-                            model.CreationDttm =item.CreationDttm;
-                            model.OracleStudyKey = item.StudyID;
+                            model.CreationDttm = item.CreationDttm.HasValue ? item.CreationDttm : DateTime.Now;
+                            model.OracleStudyKey = item.StudyKey;
 
 
 
@@ -367,8 +376,12 @@ namespace GT.BAL.Infinity.DataSynronizer
 
 
                                         volumMap = KosPahtDataService.GetTenantKosPaht(item.VolumeCode);
-                                        model.DicomPhat = item.VolumePathname.Replace(item.VolumePathname, volumMap) + "/" + item.Filename;
-                                        InstancePhat = item.VolumePathname.Replace(item.VolumePathname, volumMap) + "/" + item.Filename;
+                                        //model.DicomPhat = item.VolumePathname.Replace(item.VolumePathname, volumMap) + "/" + item.Pathname;
+                                        //InstancePhat = item.VolumePathname.Replace(item.VolumePathname, volumMap) + "/" + item.Pathname;
+
+                                        model.DicomPhat = item.DicomDirPhat;
+                                        InstancePhat = item.DicomDirPhat;
+
                                     }
                                     catch (Exception ex)
                                     {
@@ -379,8 +392,8 @@ namespace GT.BAL.Infinity.DataSynronizer
                                 }
                                 else
                                 {
-                                    model.DicomPhat = item.VolumePathname + "\\" + item.Filename.Replace("/", "\\");
-                                    InstancePhat = item.VolumePathname + "\\" + item.Filename.Replace("/", "\\");
+                                    model.DicomPhat = item.VolumePathname + "\\" + item.Pathname.Replace("/", "\\");
+                                    InstancePhat = item.VolumePathname + "\\" + item.Pathname.Replace("/", "\\");
                                 }
 
 
@@ -431,6 +444,9 @@ namespace GT.BAL.Infinity.DataSynronizer
 
                     _InfStudyDataService.Save(list, 1);
                 }
+
+
+
             }
             catch (Exception ex)
             {

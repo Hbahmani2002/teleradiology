@@ -23,7 +23,7 @@ namespace Dcm4chee.DataService
             dcmCompositeRepository = new DcmCompositeRepository(_Workspace);
         }
 
-        public List<DcmViewModel> Query(ProtekOracleFilter filter,int count) {
+        public List<DcmViewModelNew> Query(ProtekOracleFilter filter,int count) {
 
             var s = new StudyConditionFilter {
                 BasTar=filter.BasTar.Date.ToString(),
@@ -31,7 +31,7 @@ namespace Dcm4chee.DataService
                 ID=filter.StudyID
             };
             var se = new SeriesConditionFilter { ModalityList= filter.ModalityList};
-            return dcmCompositeRepository.Query(s, se).OrderBy(o => o.StudyID).Take(count).ToList();
+            return dcmCompositeRepository.Query(s, se).OrderBy(o => o.StudyKey).Take(count).ToList();
         }
     }
 }
