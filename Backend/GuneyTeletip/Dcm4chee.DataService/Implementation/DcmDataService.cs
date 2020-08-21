@@ -26,8 +26,8 @@ namespace Dcm4chee.DataService
         public List<DcmViewModel> Query(ProtekOracleFilter filter,int count) {
 
             var s = new StudyConditionFilter {
-                BasTar=filter.BasTar.Date.ToString(),
-                BitTar=filter.BitTar.Date.ToString(),
+                BasTar=filter.BasTar.ToString("yyyyMMdd"),
+                BitTar=filter.BitTar.ToString("yyyyMMdd"),
                 ID=filter.StudyID
             };
             var se = new SeriesConditionFilter { ModalityList= filter.ModalityList};
