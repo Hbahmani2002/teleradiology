@@ -109,9 +109,12 @@ namespace GT.Job.Implementation
 
 
             var dt = new InfinityDataSyncronizer(null);
-            //dt.SyncronizeInfinityStudyList(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
 
-            dt.SyncronizeProtekStudyList(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
+
+
+            dt.SyncronizeInfinityStudyList(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
+
+            //dt.SyncronizeProtekStudyList(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
 
             
 
