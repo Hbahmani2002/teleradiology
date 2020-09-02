@@ -1,4 +1,4 @@
-<div class="m-0">
+﻿<div class="m-0">
   <div class="row">
     <div class="card" style="background-color:gainsboro; margin-left: 15px;">
       <div style="padding-top:5px; padding-left:5px; padding-right:5px; padding-bottom:0px;">
@@ -22,6 +22,9 @@
         <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickReprocessKos()" class="btn btn-secondary smalbutton" tooltip="Reprocess Kos"><fa name="reply"></fa></button>
         <button style="margin-right:0px;" (click)="gridKos.onClickExportExcel()" class="btn btn-primary smalbutton" tooltip="Excel'e çevir"><fa name="table"></fa></button>
       </div>
+    </div>
+    <div>
+      <button style="margin-right:0px;" (click)="gridKos.onRemoveKosStudy()" class="btn btn-primary" >Kos Study Sil</button>
     </div>
   </div>
 </div>

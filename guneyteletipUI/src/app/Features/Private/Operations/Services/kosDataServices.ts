@@ -1,4 +1,4 @@
-import { Observable, of } from 'rxjs';
+﻿import { Observable, of } from 'rxjs';
 import { ApiDataService } from 'src/app/Shared/Services/Api/apiDataService';
 import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 
@@ -37,10 +37,13 @@ export class kosDataServices {
     return this.apiDataService.callDataService('Kos/StudyDataDelete', model);
   }
   public getInstance(model: Grid.GridInputModel<infStudyFilter>): Observable<any> {
-    return this.apiDataService.callDataService('Kos/StudyHastaIstanceCek', model);
+      return this.apiDataService.callDataService('Kos/StudyHastaIstanceCek', model);    
   }
   public deleteKosBg(model:infStudyFilter): Observable<number> {
     return this.apiDataService.callDataService('Kos/DeleteKosBackground', model);
+  }
+  public removeKosStudy(params): Observable<number> {
+      return this.apiDataService.callDataService('Kos/RemoveKosStudy', params);
   }
 //--------------------------
   public reprocessKos(model: Grid.GridInputModel<infStudyFilter>): Observable<any> {

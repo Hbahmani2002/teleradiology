@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+﻿import { Component, OnInit, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 import { kosDataServices } from '../../../Services/kosDataServices';
 import { infStudyFilter } from '../../../Models/infStudyFilter';
@@ -6,7 +6,7 @@ import { ConfirmationdialogComponent } from 'src/app/Shared/Modals/confirmationd
 import { OpenModal } from 'src/app/Shared/Models/openModal';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { FileService } from 'src/app/Shared/Services/FileServices/fileService';
-
+import { InputmodalComponent } from 'src/app/Shared/Modals/inputmodal/inputmodal.component';
 
 @Component({
   selector: 'app-kosgrid',
@@ -115,7 +115,19 @@ namespace KosListComponent_Models {
         });
       }
     }
-
+    onRemoveKosStudy() {
+        const initialState = {
+            modalTitle: "Silmek istediğniz StudyUID'yi giriniz.",
+        };
+        this.modal.openModal(InputmodalComponent, initialState).subscribe((result) => {
+            console.log(result.reason);
+            console.log(result.outputData);
+            let params = { studyUID: result.outputData };
+            this.kosService.removeKosStudy(params).subscribe(resp => {
+                console.log(resp);
+            })
+        });
+    }
 
     onClickSendKos() {
       if (this.selectAll) {
