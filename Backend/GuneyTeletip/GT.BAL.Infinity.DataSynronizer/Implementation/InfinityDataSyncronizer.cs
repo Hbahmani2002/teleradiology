@@ -376,8 +376,8 @@ namespace GT.BAL.Infinity.DataSynronizer
 
 
                                         volumMap = KosPahtDataService.GetTenantKosPaht(item.VolumeCode);
-                                        //model.DicomPhat = item.VolumePathname.Replace(item.VolumePathname, volumMap) + "/" + item.Pathname;
-                                        //InstancePhat = item.VolumePathname.Replace(item.VolumePathname, volumMap) + "/" + item.Pathname;
+                                        model.DicomPhat = item.VolumePathname.Replace(item.VolumePathname, volumMap) + "/" + item.Pathname;
+                                        InstancePhat = item.VolumePathname.Replace(item.VolumePathname, volumMap) + "/" + item.Pathname;
 
                                         model.DicomPhat = item.DicomDirPhat;
                                         InstancePhat = item.DicomDirPhat;
@@ -421,20 +421,18 @@ namespace GT.BAL.Infinity.DataSynronizer
 
 
 
-                            //if (item.SeriesInfo.Contains(OrcleZeroImages))
-                            //{
+                            if (item.SeriesInfo.Contains(OrcleZeroImages))
+                            {
 
-                            //    model.ZeroImg = 1;
-                            //    model.FkKosEnumType = 999;
-                            //}
-                            //else
-                            //{
-                            //    model.ZeroImg = 0;
-                            //    model.FkKosEnumType = 10;
-                            //}
+                                model.ZeroImg = 1;
+                                model.FkKosEnumType = 999;
+                            }
+                            else
+                            {
+                                model.ZeroImg = 0;
+                                model.FkKosEnumType = 10;
+                            }
 
-                            model.ZeroImg = 0;
-                            model.FkKosEnumType = 10;
 
                             list.Add(model);
                             // throw new NotImplementedException();
