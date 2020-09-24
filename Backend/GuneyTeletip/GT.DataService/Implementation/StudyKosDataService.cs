@@ -129,7 +129,14 @@ namespace GT.DataService.Implementation
             foreach (InfOraclePostgreStudyViewModel item in items)
             {
 
-                   CekimBilgi = "PatientId : " + item.PatientId + " StudyKey : " + item.OracleStudyKey + " AccessionNo : " + item.AccessionNo;
+                    if (item.AccessionNo == "THY1000006991531")
+                    {
+                        CekimBilgi = "PatientId : " + item.PatientId + " StudyKey : " + item.OracleStudyKey + " AccessionNo : " + item.AccessionNo;
+
+                    }
+
+
+                    CekimBilgi = "PatientId : " + item.PatientId + " StudyKey : " + item.OracleStudyKey + " AccessionNo : " + item.AccessionNo;
 
 
                     var gelenKey = _InfStudyRepository.QueryOracleStudyKey(item.OracleStudyKey.Value);
