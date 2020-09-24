@@ -69,18 +69,18 @@ namespace GT.DataService.infinity.Implementation
 
 
 
-      //      var gelenList = gelenInf
-      //.Where(o => (o.StudyDttm >= filter.Infcreationstartdate) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no)) && (!o.SeriesInfo.Contains(filter.SeriesInfo)) && (o.StudyKey > filter.Infstudypklast))
-      //.OrderBy(o => o.StudyKey)
-      //.Skip(0)
-      //.Take(500)
-      //.ToList();
+            //      var gelenList = gelenInf
+            //.Where(o => (o.StudyDttm >= filter.Infcreationstartdate) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no)) && (!o.SeriesInfo.Contains(filter.SeriesInfo)) && (o.StudyKey > filter.Infstudypklast))
+            //.OrderBy(o => o.StudyKey)
+            //.Skip(0)
+            //.Take(10000)
+            //.ToList();
 
             var gelenList = gelenInf
            .Where(o => (o.StudyDttm >= filter.Infcreationstartdate) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no)) && (!o.SeriesInfo.Contains(filter.SeriesInfo)))
            .OrderBy(o => o.StudyKey)
            .Skip(0)
-           .Take(200)
+           .Take(20000)
            .ToList();
 
 

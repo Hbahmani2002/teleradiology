@@ -54,11 +54,11 @@ namespace GT.Job.Model.AutoJobs
                         var studyDataService = new StudyKosDataService();
                         //TODO GetMakeKosList
                         var items = studyDataService.GetMakeKosList(globalSettings.DataServiceSettings.MakeKosServiceItemPerBatch);
-                        log.Save(AppLogDataService.LogType.OtomatikMakeKos, $"JobID:{jobID}\tSuccess:1.List:{items.Count}");
+                        //log.Save(AppLogDataService.LogType.OtomatikMakeKos, $"JobID:{jobID}\tSuccess:1.List:{items.Count}");
                         //var items = studyDataService.GetMakeKosWithIntanceList(null, globalSettings.DataServiceSettings.MakeKosServiceItemPerBatch);
                         var mc = new MakeKosOperation();
                         mc.DoSingleBatch(items, o, ac);
-                        log.Save(AppLogDataService.LogType.OtomatikMakeKos, $"JobID:{jobID}\tSuccess:2.MakeKos:{items.Count}");
+                        //log.Save(AppLogDataService.LogType.OtomatikMakeKos, $"JobID:{jobID}\tSuccess:2.MakeKos:{items.Count}");
                     }
                     catch (Exception ex)
                     {
@@ -80,10 +80,10 @@ namespace GT.Job.Model.AutoJobs
                         var globalSettings = AppSettings.GetCurrent();
                         var studyDataService = new StudyKosDataService(null);
                         var items = studyDataService.GetSentKosList(globalSettings.DataServiceSettings.SendKosServiceItemPerBatch);
-                        log.Save(AppLogDataService.LogType.OtomatikSentKos, $"JobID:{jobID}\tSuccess:1.List:{items.Count}");
+                        //log.Save(AppLogDataService.LogType.OtomatikSentKos, $"JobID:{jobID}\tSuccess:1.List:{items.Count}");
                         var mc = new SendKosOperation();
                         mc.DoSingleBatch(items, o, ac);
-                        log.Save(AppLogDataService.LogType.OtomatikSentKos, $"JobID:{jobID}\tSuccess:2.SendKos:{items.Count}");
+                        //log.Save(AppLogDataService.LogType.OtomatikSentKos, $"JobID:{jobID}\tSuccess:2.SendKos:{items.Count}");
                     }
                     catch (Exception ex)
                     {

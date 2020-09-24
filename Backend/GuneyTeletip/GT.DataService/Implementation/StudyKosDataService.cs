@@ -129,12 +129,7 @@ namespace GT.DataService.Implementation
             foreach (InfOraclePostgreStudyViewModel item in items)
             {
 
-                    if (item.AccessionNo == "THY1000006991531")
-                    {
-                        CekimBilgi = "PatientId : " + item.PatientId + " StudyKey : " + item.OracleStudyKey + " AccessionNo : " + item.AccessionNo;
-
-                    }
-
+                
 
                     CekimBilgi = "PatientId : " + item.PatientId + " StudyKey : " + item.OracleStudyKey + " AccessionNo : " + item.AccessionNo;
 
@@ -186,7 +181,6 @@ namespace GT.DataService.Implementation
                     _InfStudyRepository.Add(KosStudy);
                     _Workspace.CommitChanges();
 
-
                     if (otomatik == 1)
                     {
                         var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(tenatID);
@@ -201,12 +195,9 @@ namespace GT.DataService.Implementation
                         }
                         _Workspace.CommitChanges();
                     }
-
-
                 }
                 else
                 {
-
                     var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(item.FkTenant.Value);
                     if (ParamterTimertenatID == null)
                     {
@@ -218,7 +209,6 @@ namespace GT.DataService.Implementation
                        _InfStudyParameterRepository.Update(ParamterTimertenatID);
                     }
                     _Workspace.CommitChanges();
-
                 }
 
 
