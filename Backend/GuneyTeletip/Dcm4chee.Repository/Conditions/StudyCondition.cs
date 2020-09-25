@@ -27,14 +27,14 @@ namespace Dcm4chee.Repository.Conditions
             {
                 exp = exp.And(o => o.AccessionNo.Length > filter.AccessionNo);
             }
-            if (string.IsNullOrEmpty(filter.BasTar))
+            if (!string.IsNullOrEmpty(filter.BasTar))
             {
                 exp = exp.And(o => o.StudyDate.Contains(filter.BasTar));
             }
-            if (string.IsNullOrEmpty(filter.BitTar))
-            {
-                exp = exp.And(o => o.StudyDate.Contains(filter.BitTar));
-            }
+            //if (!string.IsNullOrEmpty(filter.BitTar))
+            //{
+            //    exp = exp.And(o => o.StudyDate.Contains(filter.BitTar));
+            //}
 
    
             exp = exp.And(o => o.AccessionNo != "*");

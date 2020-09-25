@@ -102,26 +102,26 @@ namespace GT.UI.WebApi
             });
 
 
-            try
-            {
-                var settings = AppSettings.GetCurrent();
-                var ks = settings.DataServiceSettings;
-                var filePath = AppSettings.GetCurrent().Log.PATH_JobInfinity;
-                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                var logger = new TextFileLogger(filePath);
-                var jobManager = InfJobManager.Create(logger);
-                jobManager.Start();
-            }
-            catch (Exception ex)
-            {
+            //try
+            //{
+            //    var settings = AppSettings.GetCurrent();
+            //    var ks = settings.DataServiceSettings;
+            //    var filePath = AppSettings.GetCurrent().Log.PATH_JobInfinity;
+            //    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+            //    var logger = new TextFileLogger(filePath);
+            //    var jobManager = InfJobManager.Create(logger);
+            //    jobManager.Start();
+            //}
+            //catch (Exception ex)
+            //{
 
-                var hata = AppAbc.Data.Service.AppLogDataService.LogType.JobHata;
-                var message = ex.InnerException.Message == null ? "Error -20021" : ex.InnerException.Message.ToString();
-                _AppLogDataService.Save(hata, message);
+            //    var hata = AppAbc.Data.Service.AppLogDataService.LogType.JobHata;
+            //    var message = ex.InnerException.Message == null ? "Error -20021" : ex.InnerException.Message.ToString();
+            //    _AppLogDataService.Save(hata, message);
 
-            }
+            //}
 
-            //BussinessJobs.StartAutomaticJobs();
+            BussinessJobs.StartAutomaticJobs();
 
             //BussinessJobs.MakeKosJob.Start();
             //BussinessJobs.SendKosJob.Start();
