@@ -436,10 +436,6 @@ namespace GT.BAL.Infinity.DataSynronizer
                             model.ZeroImg = 0;
                             model.FkKosEnumType = 10;
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 
                             list.Add(model);
                             // throw new NotImplementedException();

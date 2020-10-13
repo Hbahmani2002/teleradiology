@@ -82,17 +82,14 @@ namespace GT.Job.Implementation
                                 _AppLogDataService = new AppLogDataService();
                                 var hata = AppAbc.Data.Service.AppLogDataService.LogType.DoSingleBatchSendKosBackroud;
                                 _AppLogDataService.Save(hata, res.IsSuccess +" - "+ res.Arguments);
-
                             }
                             else
                             {
                                 studyDataService.Save_UpdateSentKosDurum(item.StudyID, StudyKosDataService.SentKosResult.Fail, res.Message + res.Arguments);
                                 progressAction.IncreaseProgressError();
-
                                 _AppLogDataService = new AppLogDataService();
                                 var hata = AppAbc.Data.Service.AppLogDataService.LogType.DoSingleBatchSendKosBackroud;
                                 _AppLogDataService.Save(hata, res.IsSuccess + " - " + res.Arguments);
-
 
                             }
 
