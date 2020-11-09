@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+﻿import { Component, OnInit, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 import { kosDataServices } from '../../../Services/kosDataServices';
 import { infStudyFilter } from '../../../Models/infStudyFilter';
@@ -6,6 +6,7 @@ import { ConfirmationdialogComponent } from 'src/app/Shared/Modals/confirmationd
 import { OpenModal } from 'src/app/Shared/Models/openModal';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { FileService } from 'src/app/Shared/Services/FileServices/fileService';
+import { InputmodalComponent } from 'src/app/Shared/Modals/inputmodal/inputmodal.component';
 
 
 @Component({
@@ -14,12 +15,18 @@ import { FileService } from 'src/app/Shared/Services/FileServices/fileService';
   styleUrls: ['./kosgrid.component.css']
 })
 export class KosgridComponent implements OnInit {
-  
+
   @Input() set filter(value: any) {
+    debugger;
     if (value == null || value == undefined)
       return;
     this.gridKos.kosFilter = value;
-    this.gridKos.onRefresh();
+    if (value.type == 1) {
+      this.gridKos.onRefresh();
+    }
+    else if (value.type == 2) {
+      this.gridKos.onGetDataFromOld();
+    }
   }
   constructor(private fileService: FileService, private kosService: kosDataServices, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) { }
 
@@ -27,8 +34,8 @@ export class KosgridComponent implements OnInit {
     console.log(this.gridKos.hasSelectedItem);
   }
   kosFilter: kosFilter = new kosFilter();
-  gridKos: KosListComponent_Models.GridUser = new KosListComponent_Models.GridUser(this.fileService,this.kosService, this.kosFilter,this.modalService,this.changeDetection);
-  
+  gridKos: KosListComponent_Models.GridUser = new KosListComponent_Models.GridUser(this.fileService, this.kosService, this.kosFilter, this.modalService, this.changeDetection);
+
 }
 export class kosFilter {
   hastaneIDList;
@@ -38,11 +45,12 @@ export class kosFilter {
   EslesmeDurumuList;
   tcList;
   accessionNumberList;
+  type;
 }
 namespace KosListComponent_Models {
 
   export class GridUser extends Grid.GridControl<any> {
-      
+
     modal: OpenModal = new OpenModal(this.modalService, this.changeDetection);
     public direction: number = 0;
     selectAll: boolean = false;
@@ -92,6 +100,24 @@ namespace KosListComponent_Models {
       return this.filter;
     };
 
+    onChangeAccesionNo() {
+      const initialState = {
+        inputName: "Accession No",
+      };
+      this.modal.openModal(InputmodalComponent, initialState).subscribe((result) => {
+        debugger;
+        if(result.reason == "ok" && result.outputData != undefined){
+          debugger;
+          let params = {
+            data: this.selectedItems[0],
+            newAccesionNo: result.outputData
+          }
+          this.kosService.changeAccessionNo(params).subscribe((resp)=>{
+            this.onRefresh();
+          })
+        }
+      });
+    }
     onClickInstanceCreateKos() {
       this.kosService.instanceCreateKos(this.getFilter(1)).subscribe(o => {
         console.log(o);
@@ -133,8 +159,6 @@ namespace KosListComponent_Models {
         });
       }
     }
-
-
     onClickDeleteKos() {
       if (this.selectAll) {
         let filter = this.getFilter(1).filter;
@@ -167,7 +191,7 @@ namespace KosListComponent_Models {
     }
 
     onClickUpdateReadKos() {
-      
+
       if (this.selectAll) {
         let filter = this.getFilter(1).filter;
         filter = new infStudyFilter();
@@ -223,9 +247,21 @@ namespace KosListComponent_Models {
     onRefresh() {
       var item = this.getFilter(2)
       var filter = item.filter;
-      
+
       console.log(item);
       this.kosService.getKosList(item).subscribe(o => {
+        this.data.list = o["list"];
+        this.data.totalCount = o["totalCount"];
+        console.log(this.data.list);
+        filter.StudyIDList = [];
+        this.selectedItems = [];
+      })
+    }
+    onGetDataFromOld() {
+      var item = this.getFilter(2)
+      var filter = item.filter;
+      console.log(item);
+      this.kosService.getKosFromOracle(item).subscribe(o => {
         this.data.list = o["list"];
         this.data.totalCount = o["totalCount"];
         console.log(this.data.list);
@@ -250,7 +286,7 @@ namespace KosListComponent_Models {
         else {
           this.selectedItems.length = 0;
         }
-        
+
       }
       else { }
     }

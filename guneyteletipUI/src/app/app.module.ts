@@ -67,6 +67,7 @@ import { TeletipstmComponent } from './Features/Private/Operations/Pages/teletip
 import { StmfilterComponent } from './Features/Private/Operations/Pages/teletipstm/stmfilter/stmfilter.component';
 import { StmgridComponent } from './Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component';
 import { stmDataServices } from './Features/Private/Operations/Services/stmDataServices';
+import { InputmodalComponent } from './Shared/Modals/inputmodal/inputmodal.component';
 
 
 @NgModule({
@@ -106,7 +107,8 @@ import { stmDataServices } from './Features/Private/Operations/Services/stmDataS
     SidetestComponent,
     TeletipstmComponent,
     StmfilterComponent,
-    StmgridComponent
+    StmgridComponent,
+    InputmodalComponent
   ],
   imports: [
 
@@ -160,6 +162,7 @@ import { stmDataServices } from './Features/Private/Operations/Services/stmDataS
       EditroleComponent,
       EdituserComponent,
       ConfirmationdialogComponent,
+      InputmodalComponent
     ],
   bootstrap: [AppComponent]
 })

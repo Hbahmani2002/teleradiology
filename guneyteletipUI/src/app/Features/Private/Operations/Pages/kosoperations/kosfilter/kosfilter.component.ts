@@ -90,7 +90,8 @@ export class KosfilterComponent implements OnInit {
     });
     return accessionNoList;
   }
-  onFilter() {
+  onFilter(type) {
+    
     let filter = new kosFilter();
     if (this.ddlTenantSelectedItems.length != 0) {
       filter.hastaneIDList = [];
@@ -125,6 +126,7 @@ export class KosfilterComponent implements OnInit {
       filter.accessionNumberList = [];
       filter.accessionNumberList = this.splitAccession();
     }
+    filter.type = type;
     this.filterChanged.emit(filter);
   }
 
