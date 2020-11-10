@@ -109,10 +109,10 @@ namespace GT.Repository.Conditions
                 exp = exp.And(o => arrs.Contains(o.Pk));
             }
 
-            if (run==1)
-            {
-                exp = exp.And(o => o.ZeroImg != 1);
-            }
+            //if (run==1)
+            //{
+            //    exp = exp.And(o => o.ZeroImg != 1);
+            //}
 
 
 

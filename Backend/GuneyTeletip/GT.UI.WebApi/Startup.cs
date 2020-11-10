@@ -102,25 +102,34 @@ namespace GT.UI.WebApi
             });
 
 
-            try
-            {
-                var settings = AppSettings.GetCurrent();
-                var ks = settings.DataServiceSettings;
-                var filePath = AppSettings.GetCurrent().Log.PATH_JobInfinity;
-                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                var logger = new TextFileLogger(filePath);
-                var jobManager = InfJobManager.Create(logger);
-                jobManager.Start();
-            }
-            catch (Exception ex)
-            {
+            //System.Timers.Timer MwlTimer = new System.Timers.Timer();
+            //MwlTimer.Interval = Convert.ToInt32(1000);
+            //MwlTimer.Start();
+            //MwlTimer.Elapsed += delegate (object _s, System.Timers.ElapsedEventArgs _e)
+            //{
+                //MwlTimer.Stop();
+                try
+                {
+                    var settings = AppSettings.GetCurrent();
+                    var ks = settings.DataServiceSettings;
+                    var filePath = AppSettings.GetCurrent().Log.PATH_JobInfinity;
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                    var logger = new TextFileLogger(filePath);
+                    var jobManager = InfJobManager.Create(logger);
+                    jobManager.Start();
+                }
+                catch (Exception ex)
+                {
 
-                var hata = AppAbc.Data.Service.AppLogDataService.LogType.JobHata;
-                var message = ex.InnerException.Message == null ? "Error -20021" : ex.InnerException.Message.ToString();
-                _AppLogDataService.Save(hata, message);
+                    var hata = AppAbc.Data.Service.AppLogDataService.LogType.JobHata;
+                    var message = ex.InnerException.Message == null ? "Error -20021" : ex.InnerException.Message.ToString();
+                    _AppLogDataService.Save(hata, message);
 
-            }
+                }
+                //MwlTimer.Start();
+            //};
 
+        
             //BussinessJobs.StartAutomaticJobs();
 
             //BussinessJobs.MakeKosJob.Start();

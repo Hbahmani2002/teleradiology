@@ -75,14 +75,23 @@ namespace GT.Job.Implementation
                             sb.AppendLine("");
                             sb.Append(res.Arguments);
 
-                            if (res.IsSuccess)
+         
+                            _AppLogDataService = new AppLogDataService();
+                             var mesaj = AppAbc.Data.Service.AppLogDataService.LogType.DoSingleBatchSendKosBackroud;
+                             _AppLogDataService.Save(mesaj, item.PatientId +" - "+ res.IsSuccess + " - " + res.Arguments + " - " + res.SendKosResult.ToString());
+
+
+
+                        if (res.IsSuccess)
                             {
+
+
                                 studyDataService.Save_UpdateSentKosDurum(item.StudyID, StudyKosDataService.SentKosResult.Success, res.Message + res.Arguments);
-                                progressAction.IncreaseProgressSuccess();     
+                                progressAction.IncreaseProgressSuccess();
                                 _AppLogDataService = new AppLogDataService();
                                 var hata = AppAbc.Data.Service.AppLogDataService.LogType.DoSingleBatchSendKosBackroud;
-                                _AppLogDataService.Save(hata, res.IsSuccess +" - "+ res.Arguments);
-
+                                _AppLogDataService.Save(hata, res.IsSuccess + " - " + res.Arguments);
+                         
                             }
                             else
                             {

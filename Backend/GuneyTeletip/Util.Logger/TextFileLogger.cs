@@ -51,7 +51,6 @@ namespace Util.Logger
         {
             var sb = new StringBuilder();
             sb.AppendLine(DateTime.Now.ToString("yyyyMMdd HH:MM:ss:ffff"));
-
             return sb;
         }
         private void LogEnd(StringBuilder sb)

@@ -20,12 +20,12 @@ namespace GT.Repository.Conditions
             if (filter.MakeKosCount.HasValue)
             {
                 //TODO MakekosErrorTryCount 3
-                exp = exp.And(o => o.MakekosErrorTryCount<3);
+                exp = exp.And(o => o.MakekosErrorTryCount<30);
             }
             if (filter.SentKosCount.HasValue)
             {
                 //TODO SentkosErrorTryCount 3
-                exp = exp.And(o => o.SentkosErrorTryCount < 3);
+                exp = exp.And(o => o.SentkosErrorTryCount < 30);
             }
             return exp;
         }
