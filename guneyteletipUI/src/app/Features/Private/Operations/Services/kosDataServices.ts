@@ -17,6 +17,11 @@ export class kosDataServices {
   public getKosList(model: Grid.GridInputModel<infStudyFilter>): Observable<Grid.GridOutputModel<infStudyViewModel>> {
     return this.apiDataService.callDataService('Kos/GetKosList', model);
   }
+  public changeAccessionNo(model): Observable<any> {
+    console.log(model);
+    debugger;
+    return this.apiDataService.callDataService('Kos/ChangeAccessionNo', model);
+  }
 //------------------------
   public createKos(model: Grid.GridInputModel<infStudyFilter>): Observable<any> {
     console.log(model);

@@ -91,7 +91,22 @@ namespace KosListComponent_Models {
 
       return this.filter;
     };
-
+    onChangeAccesionNo() {
+      const initialState = {
+        inputName: "Accession No",
+      };
+      this.modal.openModal(InputmodalComponent, initialState).subscribe((result) => {
+        if(result.reason == "ok" && result.outputData != undefined){
+          let params = {
+            data: this.selectedItems[0],
+            newAccesionNo: result.outputData
+          }
+          this.kosService.changeAccessionNo(params).subscribe((resp)=>{
+            this.onRefresh();
+          })
+        }
+      });
+    }
     onClickInstanceCreateKos() {
       this.kosService.instanceCreateKos(this.getFilter(1)).subscribe(o => {
         console.log(o);
