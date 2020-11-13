@@ -98,10 +98,11 @@ namespace GT.DataService.infinity.Implementation
         {
             var f = new InfStudyConditionFilter
             {
-                AccessionNo = filter.Accession_no,
+                AccessionNo = filter.Accession_no,      
                 InfStudyPkLast = filter.Infstudypklast,
                 CreationStartDate = filter.Infcreationstartdate,
-                CreationEndDate = filter.Infcreationenddate
+                CreationEndDate = filter.Infcreationenddate,
+                Acc = filter.AccessionNoListte
 
             };
 
@@ -114,16 +115,29 @@ namespace GT.DataService.infinity.Implementation
             int TakeTop = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.InfinityOracleTakeTop;
 
 
-            var gelenInf = _InfOracleCompositeRepository.Query(f,s);
+            var gelenInf = _InfOracleCompositeRepository.QueryM(f,s);
+
+
+
+            //var list = new List<string>();
+            //foreach (var n in filter.AccessionNoListte)
+            //{
+            //    list.Add(n);
+            //}
+            //var listString = list;
+            //.Select(o => o.ToString(""))
+            //.ToList();
+            //exp = exp.And(o => listString.Contains(o.AccessNo));
 
 
 
             var gelenList = gelenInf
-                  .Where(o =>  (o.AccessNo == filter.Accession_no))
-                  .OrderBy(o => o.StudyKey)
-                  .Skip(0)
-                  .Take(500)
-                  .ToList();
+                 .Where(o => (o.AccessNo == filter.Accession_no))
+                 .OrderBy(o => o.StudyKey)
+                 .Skip(0)
+                 .Take(500)
+                 .ToList();
+
 
 
 

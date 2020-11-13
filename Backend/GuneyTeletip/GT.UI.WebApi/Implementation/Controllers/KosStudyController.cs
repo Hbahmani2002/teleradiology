@@ -191,8 +191,26 @@ namespace GT.UI.WebApi.Controllers
                 parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
             var cx = GetBussinesContext();
             var service = new StudyKosDataService(cx);
-            return HttpMessageService.Ok(service.GetInfStudyList(parms));
+            return HttpMessageService.Ok(service.GetInfStudyListTwo(parms));
         }
+        [HttpPost]
+        [Route("/Kos/GetOracleList")]
+        public ServiceResult<PagingResult<InfStudyViewModel>> GetOracleList(Gridable<KosStudyFilter> parms)
+        {
+            if (parms.Filter.BasTarih.HasValue)
+                parms.Filter.BasTarih = parms.Filter.BasTarih.Value.AddHours(3);
+            if (parms.Filter.BitTarih.HasValue)
+                parms.Filter.BitTarih = parms.Filter.BitTarih.Value.AddDays(1).AddHours(2).AddMinutes(59).AddSeconds(59);
+            var cx = GetBussinesContext();
+            var service = new StudyKosDataService(cx);
+            var job = service.GetInfStudyList(parms);
+            return HttpMessageService.Ok(job);
+            //return HttpMessageService.Ok(service.GetInfStudyList(parms));
+        }
+
+ 
+
+
 
         [HttpPost]
         [Route("/Kos/GetModalityList")]

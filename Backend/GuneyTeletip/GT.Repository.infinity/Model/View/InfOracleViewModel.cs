@@ -32,6 +32,9 @@ namespace GT.Repository.infinity.Model.View
         public decimal? InfMergeKey { get; set; }
         public string SeriesInfo { get; set; }
         public int? ZeroImg { get; set; }
+        public string VolumeCodeinsloc { get; set; }
+
+        public int Durum { get; set; }
 
         public override string ToString()
         {
@@ -50,4 +53,16 @@ namespace GT.Repository.infinity.Model.View
         }
 
     }
+
+
+    public class InfOracleStudyModel
+    {
+        [DataEntityID]
+        public decimal? Key { get; set; }
+      
+
+    }
+
+
+
 }

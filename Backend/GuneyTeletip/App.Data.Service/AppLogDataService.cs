@@ -30,6 +30,7 @@ namespace AppAbc.Data.Service
             KosInstanceHata = 40,
             DoSingleBatchMakeKosBackroud=50,
             DoSingleBatchSendKosBackroud = 60,
+            DoSingleBatchPahtIsNull = 70
         }
         public long Save(LogType type, string desc)
         {

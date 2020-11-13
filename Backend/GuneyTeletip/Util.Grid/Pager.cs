@@ -30,7 +30,6 @@ namespace GT.UTILS.GRID
                 qn = qn.OrderByDynamic(grid.Sorting.ColName, grid.Sorting.Direction);
             }
 
-
             return new PagingResult<T>
             {
                 List = qn.Skip(grid.Paging.GetSkipCount())

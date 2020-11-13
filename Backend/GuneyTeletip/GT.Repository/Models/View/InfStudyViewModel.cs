@@ -50,4 +50,9 @@ namespace GT.Repository.Models.View
         public decimal? OracleStudyKey { get; set; }
         public string DicomDirPath { get; set; }
     }
-}
+
+        public class InfStudyViewModel1
+        {
+         public string AccessionNumber { get; set; }
+        }
+    }

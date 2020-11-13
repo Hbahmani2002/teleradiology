@@ -1,6 +1,7 @@
 ﻿using DBLayerIzcilikYonetimi.Moduller.IzciYonetimi;
 using GT.Persistance.Domain.infinity.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
@@ -17,6 +18,9 @@ namespace GT.DataService.infinity.Conditions
         public DateTime? StudyStartDate { get; set; }
 
         public string SeriesInfo { get; set; }
+
+        public string [] Acc { get; set; }
+
     }
 
 
@@ -24,7 +28,19 @@ namespace GT.DataService.infinity.Conditions
     {
   
         public string SeriesInfo { get; set; }
+
     }
+
+    public class InfManuelKeyConditionFilter
+    {
+
+        public long Key { get; set; }
+        public string SeriesInfo { get; set; }
+        public string VolumeCode { get; set; }
+    }
+
+  
+
     public class InfStudyCondition
     {
         public static Expression<Func<Study, bool>> Get(InfStudyConditionFilter filter)
@@ -55,6 +71,25 @@ namespace GT.DataService.infinity.Conditions
                exp = exp.And(o => o.StudyDttm >= filter.StudyStartDate.Value);
             }
 
+            if (filter.StudyStartDate.HasValue)
+            {
+                exp = exp.And(o => o.StudyDttm >= filter.StudyStartDate.Value);
+            }
+
+
+            if (filter.Acc != null && filter.Acc.Length > 0)
+            {
+                var list = new List<string>();
+                foreach (var n in filter.Acc)
+                {
+                    list.Add(n);
+                }
+                var listString = list;
+                exp = exp.And(o => listString.Contains(o.AccessNo));
+
+            }
+
+
 
             return exp;
         }
@@ -76,5 +111,49 @@ namespace GT.DataService.infinity.Conditions
             return exp;
         }
     }
+    public class InfSeriesKeyCondition
+    {
+        public static Expression<Func<Series, bool>> Get(InfManuelKeyConditionFilter filter, long hangiVeri)
+        {
+           
+            var exp = PredicateBuilder.True<Series>();
+            
+            if (!string.IsNullOrEmpty(filter.SeriesInfo))
+            {
+                exp = exp.And(o => !o.SeriesInfo.Contains(filter.SeriesInfo));
+            }
 
+            exp = exp.And(o => o.StudyKey == filter.Key);
+        
+            return exp;
+        }
+
+        public static Expression<Func<Instance, bool>> GetInstance(InfManuelKeyConditionFilter filter, long hangiVeri)
+        {
+
+            var exp = PredicateBuilder.True<Instance>();
+
+            exp = exp.And(o => o.SeriesKey == filter.Key);
+            return exp;
+        }
+        public static Expression<Func<Instanceloc, bool>> GetInstanceLoc(InfManuelKeyConditionFilter filter, long hangiVeri)
+        {
+
+            var exp = PredicateBuilder.True<Instanceloc>();
+
+            exp = exp.And(o => o.InstanceKey == filter.Key);
+            return exp;
+        }
+
+
+        public static Expression<Func<Volume, bool>> GetVolume(InfManuelKeyConditionFilter filter, long hangiVeri)
+        {
+
+            var exp = PredicateBuilder.True<Volume>();
+
+            exp = exp.And(o => o.VolumeCode == filter.VolumeCode);
+            return exp;
+        }
+
+    }
 }
