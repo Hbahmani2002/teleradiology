@@ -68,6 +68,7 @@ import { StmfilterComponent } from './Features/Private/Operations/Pages/teletips
 import { StmgridComponent } from './Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component';
 import { stmDataServices } from './Features/Private/Operations/Services/stmDataServices';
 import { InputmodalComponent } from './Shared/Modals/inputmodal/inputmodal.component';
+import { DataStoreService } from './Shared/Services/UserData/data-store.service';
 
 
 @NgModule({
@@ -141,7 +142,6 @@ import { InputmodalComponent } from './Shared/Modals/inputmodal/inputmodal.compo
   providers:
     [
       { provide: ErrorHandler, useClass: GlobalErrorHandler },
-
       { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
       CookieService,
       cookieService,
@@ -156,6 +156,7 @@ import { InputmodalComponent } from './Shared/Modals/inputmodal/inputmodal.compo
       jobDataServices,
       LogoutService,
       stmDataServices,
+      DataStoreService
     ],
   entryComponents:
     [

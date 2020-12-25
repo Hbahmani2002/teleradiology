@@ -97,10 +97,9 @@ namespace KosListComponent_Models {
       };
       this.modal.openModal(InputmodalComponent, initialState).subscribe((result) => {
         if(result.reason == "ok" && result.outputData != undefined){
-          let params = {
-            data: this.selectedItems[0],
-            newAccesionNo: result.outputData
-          }
+          var params = this.getFilter(1);
+          params.filter.newAccesionNo = result.outputData;
+          console.log(params);
           this.kosService.changeAccessionNo(params).subscribe((resp)=>{
             this.onRefresh();
           })

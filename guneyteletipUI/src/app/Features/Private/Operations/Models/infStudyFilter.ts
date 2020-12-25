@@ -7,6 +7,6 @@ export class infStudyFilter {
   EslesmeDurumuList;
   tcList;
   accessionNumberList;
-
+  newAccesionNo;
 }
 
