@@ -59,7 +59,8 @@
     </div>
   </form>
   <div class="mt-1">
-    <button class="btn btn-success btn-sm mr-2" tooltip="Filtrele" (click)="onFilter()"><fa name="search"></fa></button>
+    <button class="btn btn-success btn-sm mr-2" tooltip="Filtrele" (click)="onFilter(1)"><fa name="search"></fa></button>
     <button class="btn btn-danger  btn-sm" tooltip="Filtreleri Temizle" (click)="onClearFilter()"><fa name="close"></fa></button>
+    <button class="btn btn-warning  btn-sm ml-4" (click)="onFilter(2)">Eski Verileri Getir</button>
   </div>
 </filter>

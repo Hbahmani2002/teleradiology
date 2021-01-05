@@ -1,4 +1,4 @@
-import { Observable, of } from 'rxjs';
+﻿import { Observable, of } from 'rxjs';
 import { ApiDataService } from 'src/app/Shared/Services/Api/apiDataService';
 import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 
@@ -16,6 +16,14 @@ export class kosDataServices {
 
   public getKosList(model: Grid.GridInputModel<infStudyFilter>): Observable<Grid.GridOutputModel<infStudyViewModel>> {
     return this.apiDataService.callDataService('Kos/GetKosList', model);
+  }
+  public getKosFromOracle(model: Grid.GridInputModel<infStudyFilter>): Observable<Grid.GridOutputModel<infStudyViewModel>> {
+      return this.apiDataService.callDataService('Kos/GetOracleList', model);
+  }
+  public changeAccessionNo(model): Observable<any> {
+    console.log(model);
+    debugger;
+    return this.apiDataService.callDataService('Kos/ChangeAccessionNo', model);
   }
 //------------------------
   public createKos(model: Grid.GridInputModel<infStudyFilter>): Observable<any> {
