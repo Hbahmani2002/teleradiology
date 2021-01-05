@@ -62,6 +62,7 @@ namespace GT.BAL.Infinity.DataSynronizer
 
                 filter.Infstudypklast = lastID;
                 filter.SeriesInfo = "DCMCREATOR";
+                filter.Source_Aetitle = "DICOM CREATOR";
 
                 filter.Accession_no = _InfStudyDataService.GetAccessionOnekNoByTenantID(tenantID);
                 var items = _InfOracleDataService.GetInfOracleList(filter);
@@ -190,17 +191,18 @@ namespace GT.BAL.Infinity.DataSynronizer
 
                                     if (item.SeriesInfo.Contains(OrcleZeroImages))
                                     {
-
                                         model.ZeroImg = 1;
                                         model.FkKosEnumType = 999;
+                                        model.Desc3 = item.Source_Aetitle;
+                                        model.Desc2 = OrcleZeroImages;
                                     }
                                     else
                                     {
                                         model.ZeroImg = 0;
                                         model.FkKosEnumType = 10;
+                                        model.Desc3 = item.Source_Aetitle;
+                                        model.Desc2 = item.SeriesInfo;
                                     }
-
-
 
                                     list.Add(model);
                                     // throw new NotImplementedException();

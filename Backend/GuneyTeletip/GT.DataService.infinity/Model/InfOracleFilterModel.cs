@@ -12,6 +12,10 @@ namespace GT.DataService.infinity.Model
         public long? Infstudypklast { get; set; }
         public string SeriesInfo { get; set; }
 
+        public string Source_Aetitle { get; set; }
+
+        
+
         public string[] AccessionNoListte { get; set; }
 
     }

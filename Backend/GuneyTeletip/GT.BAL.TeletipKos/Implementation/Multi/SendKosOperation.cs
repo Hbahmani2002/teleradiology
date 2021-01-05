@@ -76,11 +76,9 @@ namespace GT.Job.Implementation
                             sb.Append(res.Arguments);
 
          
-                            _AppLogDataService = new AppLogDataService();
+                             _AppLogDataService = new AppLogDataService();
                              var mesaj = AppAbc.Data.Service.AppLogDataService.LogType.DoSingleBatchSendKosBackroud;
                              _AppLogDataService.Save(mesaj, item.PatientId +" - "+ res.IsSuccess + " - " + res.Arguments + " - " + res.SendKosResult.ToString());
-
-
 
                         if (res.IsSuccess)
                             {

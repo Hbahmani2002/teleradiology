@@ -25,6 +25,9 @@ namespace GT.TeletipKos
             var res = $@"--title {makeKosSettings.Title} --institution-insname {institutionName}^^^SKRS{institutionSKRS}^^^{makeKosSettings.InstitutionFirmaKodu} --location-uid  {makeKosSettings.LocationUID} --temp-tlocation {makeKosSettings.TempDirectory} --dcm-dcmlocation {makeKosSettings.DCM4CheeDirectory}";
             var processParameter = $"-jar {makeKosSettings.AppFilePath} {res} -o {output} {input}";
 
+      
+
+
             var processResult = ProcessUtil.Start("java", processParameter);
 
             return processResult;

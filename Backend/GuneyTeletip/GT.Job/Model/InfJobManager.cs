@@ -1,4 +1,6 @@
-﻿using GT.BAL.Infinity.DataSynronizer;
+﻿using AppAbc.Data.Service;
+using GT.BAL.Infinity.DataSynronizer;
+using GT.Core.Settings;
 using GT.DataService.Implementation;
 using GT.DataService.infinity.Implementation;
 using GT.Persistance.Domain.Models;
@@ -7,6 +9,7 @@ using GT.SERVICE;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Util.Job.Interface;
 using Util.Logger;
@@ -19,8 +22,7 @@ namespace GT.Job.Implementation
         private static InfJobManager _InfJobManager;
         private ILogger logger;
         KosStudyParameterDataService _KosStudyParameterDataService;
-
-
+      
         public static InfJobManager Create(ILogger logger)
         {
             if (_InfJobManager != null)
@@ -41,6 +43,7 @@ namespace GT.Job.Implementation
         {
             var jobs = new StudyKosDataService(null);
             var paramters = jobs.GetTimerParameters(new InfStudyParameterConditionFilter { RecordState = 1 });
+            //var paramters = jobs.GetTimerParameters(new InfStudyParameterConditionFilter { RecordState = 99 });
             return paramters;
         }
         public void Start()
@@ -56,6 +59,7 @@ namespace GT.Job.Implementation
                 {
 
                     RegisterJobs(item);
+                    //RegisterJobs(null);
                 }                
                 StartJobs();
             }
@@ -83,8 +87,8 @@ namespace GT.Job.Implementation
                     try
                     {
                         ActionFunction(item);
-                      
-
+                        //ActionFunction(null);
+                        ActionFunctionDelete(null);
                     }
                     catch (Exception ex2)
                     {
@@ -104,17 +108,77 @@ namespace GT.Job.Implementation
                 });
         }
 
-        private static void ActionFunction(KosStudyParameter item)
+
+        private static void ActionFunctionDelete(KosStudyParameter item)
         {
+            AppLogDataService _AppLogDataService;
+
+            try
+            {
+               
+                string dosya = "";
+                string[] paths = null;
+          
+                string DicomKostemp = "/gt/dicom/temp_kos/";
+                paths = System.IO.Directory.GetFiles(DicomKostemp, "*.jpg", System.IO.SearchOption.AllDirectories);
+
+                foreach (string filedcmPhat in paths)
+                {
+
+             
+                    _AppLogDataService = new AppLogDataService(null);
+                    var hata = AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata;
+                    var message =  "ErrorImg -10026  " + filedcmPhat;
+                    _AppLogDataService.Save(hata, message);
+
+                    dosya = filedcmPhat;
+                    File.Delete(dosya);
+                 
+                }
+
+            }
+            catch (Exception ex)
+            {
+       
+                _AppLogDataService = new AppLogDataService(null);
+                var hata = AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata;
+                var message = ex.Message == null ? "Error -1003" : ex.Message.ToString();
+                _AppLogDataService.Save(hata, message);
+
+            }
+        }
+
+
+
+
+
+            private static void ActionFunction(KosStudyParameter item)
+        {
+
+            
 
 
             var dt = new InfinityDataSyncronizer(null);
 
+            var jobs = new StudyKosDataService(null);
+            var paramtersjobs = jobs.GetTimerParameters(new InfStudyParameterConditionFilter { RecordState = 1 });
+
+            foreach (var items in paramtersjobs)
+            {
+
+
+
+
+
+            
+            }
 
 
             dt.SyncronizeInfinityStudyList(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
 
-        
+
+
+
 
         }
 

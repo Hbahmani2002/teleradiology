@@ -23,23 +23,18 @@ namespace GT.Repository.infinity.Implementation.CompositeView
         {
 
 
-            var infstudy = _AbstractWorkspace.Query<Study>(exp);
-
-            var x = infstudy.ToList(); 
 
             //if (x > 0)
             //{
             //    //var hata = AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata;
             //    //var message = "Study ID Kayıt bulunamadı..";
             //    //_AppLogDataService.Save(hata, message + " tenantID :" + tenantID);
-                
+
 
             //}
-
-
-
+            var infstudy = _AbstractWorkspace.Query<Study>(exp);
+            //var x = infstudy.ToList();
             var infseries = _AbstractWorkspace.Query<Series>(exp1);
-
             var infinstance = _AbstractWorkspace.Query<Instance>();
             var infinstanceLoc = _AbstractWorkspace.Query<Instanceloc>();
             var infvolume = _AbstractWorkspace.Query<Volume>();
@@ -96,10 +91,12 @@ namespace GT.Repository.infinity.Implementation.CompositeView
                             CreationDttm = stdy.CreationDttm.Value,
                             StudyDesc = stdy.StudyDesc,
                             InfMergeKey = stdy.MergeKey,
-                            SeriesInfo = seri.SeriesInfo
+                            SeriesInfo = seri.SeriesInfo,
+                            Source_Aetitle= stdy.SourceAetitle
+
                             //VolumeCodeinsloc = insloc.VolumeCode 
 
-                            
+
 
                         };
 
@@ -131,189 +128,201 @@ namespace GT.Repository.infinity.Implementation.CompositeView
 
         public IQueryable<InfOracleViewModel> QueryManuelCek(Expression<Func<Study, bool>> exp, Expression<Func<Series, bool>> exp1, InfStudyConditionFilter f)
         {
-            int Durum;
-            decimal KeyM;
-            var s = new InfManuelKeyConditionFilter { };
+            //  int Durum;
+            //  decimal KeyM;
+            //  var s = new InfManuelKeyConditionFilter { };
 
-          //  var expStudy = InfStudyCondition.Get(f);
+            //  var expStudy = InfStudyCondition.Get(f);
 
-          //  var infstudy = _AbstractWorkspace.Query<Study>(expStudy);
-          //  var query1 = from stdy in infstudy
-                      
-          //  select new InfOracleViewModel
-          //  {
-          //      StudyKey = stdy.StudyKey ,
-          //      AccessNo = stdy.AccessNo
-            
-          //  };
+            //  var infstudy = _AbstractWorkspace.Query<Study>(expStudy);
+            //  var query1 = from stdy in infstudy
 
+            //               select new InfOracleViewModel
+            //               {
+            //                   StudyKey = stdy.StudyKey,
+            //                   AccessNo = stdy.AccessNo
 
-          //  var gelenInf = query1;
+            //               };
 
-          //  var stdyq = gelenInf
-          //       .Where(o => (o.AccessNo == f.AccessionNo))
-          //       .OrderBy(o => o.StudyKey)
-          //       .Skip(0)
-          //       .Take(50)
-          //       .ToList();
 
+            //  var gelenInf = query1;
 
+            //  var stdyq = gelenInf
+            //       .Where(o => (o.AccessNo == f.AccessionNo))
+            //       .OrderBy(o => o.StudyKey)
+            //       .Skip(0)
+            //       .Take(50)
+            //       .ToList();
 
-          //  if (stdyq.Count > 0)
-          //  {
 
-          //      s = new InfManuelKeyConditionFilter
-          //      {
 
-          //          Key = Convert.ToInt32(stdyq[0].StudyKey),
-          //          SeriesInfo = "DCMCREATOR"
+            //  if (stdyq.Count > 0)
+            //  {
 
+            //      s = new InfManuelKeyConditionFilter
+            //      {
 
-          //      };
-          //  }
-          //    else
-          //  {
-          //      s = new InfManuelKeyConditionFilter
-          //      {
+            //          Key = Convert.ToInt32(stdyq[0].StudyKey),
+            //          SeriesInfo = "DCMCREATOR"
 
-          //          SeriesInfo = "DCMCREATOR"
 
+            //      };
+            //  }
+            //  else
+            //  {
+            //      s = new InfManuelKeyConditionFilter
+            //      {
 
-          //      };
+            //          SeriesInfo = ""
 
 
-          //  }
+            //      };
 
-          //  var expM = InfSeriesKeyCondition.Get(s, 1);
-          //  var infseries = _AbstractWorkspace.Query<Series>(expM);
-          //  var query2 = from seri in infseries
-          //  select new InfOracleStudyModel
-          //  {
-          //                   Key = seri.SeriesKey
 
-          //  };
+            //  }
 
+            //  var expM = InfSeriesKeyCondition.Get(s, 1);
+            //  var infseries = _AbstractWorkspace.Query<Series>(expM);
+            //  var query2 = from seri in infseries
+            //               select new InfOracleStudyModel
+            //               {
+            //                   Key = seri.SeriesKey
 
-          //  var seriq = query2  
-          //       .Skip(0)
-          //       .Take(50)
-          //       .ToList();
+            //               };
 
-          //  if (seriq.Count > 0)
-          //  {
-          //      s = new InfManuelKeyConditionFilter
-          //      {
 
-          //          Key = Convert.ToInt32(seriq[0].Key)
-              
+            //  var seriq = query2
+            //       .Skip(0)
+            //       .Take(50)
+            //       .ToList();
 
+            //  if (seriq.Count > 0)
+            //  {
+            //      s = new InfManuelKeyConditionFilter
+            //      {
 
-          //      };
-          //  }
-          //  var expSeri = InfSeriesKeyCondition.GetInstance(s, 2);
+            //          Key = Convert.ToInt32(seriq[0].Key)
 
 
 
-          //  var infinstance = _AbstractWorkspace.Query<Instance>(expSeri);
-          //  var query3 = from instance in infinstance
+            //      };
+            //  }
+            //  var expSeri = InfSeriesKeyCondition.GetInstance(s, 2);
 
-          //               select new InfOracleStudyModel
-          //               {
-          //                   Key = instance.InstanceKey
 
-          //               };
 
-          //  var instanceq = query3
-          //  .Skip(0)
-          //  .Take(50)
-          //  .ToList();
+            //  var infinstance = _AbstractWorkspace.Query<Instance>(expSeri);
+            //  var query3 = from instance in infinstance
 
-          //  if (instanceq.Count > 0)
-          //  {
-          //      s = new InfManuelKeyConditionFilter
-          //      {
+            //               select new InfOracleStudyModel
+            //               {
+            //                   Key = instance.InstanceKey
 
-          //          Key = Convert.ToInt32(instanceq[0].Key)
+            //               };
 
+            //  var instanceq = query3
+            //  .Skip(0)
+            //  .Take(50)
+            //  .ToList();
 
+            //  if (instanceq.Count > 0)
+            //  {
+            //      s = new InfManuelKeyConditionFilter
+            //      {
 
-          //      };
-          //  }
+            //          Key = Convert.ToInt32(instanceq[0].Key)
 
-          //  var expinstance = InfSeriesKeyCondition.GetInstanceLoc(s, 2);
 
 
-          //  var infinstanceLoc = _AbstractWorkspace.Query<Instanceloc>(expinstance);
-          //  var query5= from qinstanceLoc in infinstanceLoc
+            //      };
+            //  }
+            //  else
+            //  {
+            //      s = new InfManuelKeyConditionFilter
+            //      {
 
-          //              select new InfOracleViewModel
-          //              {
-          //                   VolumeCode = qinstanceLoc.VolumeCode,
-          //                   VolumePathname = qinstanceLoc.Pathname,
-          //                   Pathname = qinstanceLoc.Pathname
+            //          Key = 0
 
 
-          //              };
 
-          //  var instaloc = query5
-          //  .Skip(0)
-          //  .Take(50)
-          //  .ToList();
+            //      };
 
-          //  if (instaloc.Count > 0)
-          //  {
-          //      s = new InfManuelKeyConditionFilter
-          //      {
+            //  }
 
-          //          VolumeCode = instaloc[0].VolumeCode
+            //  var expinstance = InfSeriesKeyCondition.GetInstanceLoc(s, 2);
 
 
+            //  var infinstanceLoc = _AbstractWorkspace.Query<Instanceloc>(expinstance);
+            //  var query5 = from qinstanceLoc in infinstanceLoc
 
-          //      };
-          //  }
+            //               select new InfOracleViewModel
+            //               {
+            //                   VolumeCode = qinstanceLoc.VolumeCode,
+            //                   VolumePathname = qinstanceLoc.Pathname,
+            //                   Pathname = qinstanceLoc.Pathname
 
 
+            //               };
 
+            //  var instaloc = query5
+            //  .Skip(0)
+            //  .Take(50)
+            //  .ToList();
 
-          //  var instance1 = infinstanceLoc.ToList();
+            //  if (instaloc.Count > 0)
+            //  {
+            //      s = new InfManuelKeyConditionFilter
+            //      {
 
+            //          VolumeCode = instaloc[0].VolumeCode
 
-          //  var exp_volume = InfSeriesKeyCondition.GetVolume(s, 2);
 
 
-          //  var infvolume = _AbstractWorkspace.Query<Volume>(exp_volume);
-          //  var query6 = from qinstanceLoc in infinstanceLoc
-          //               select new InfOracleViewModel
-          //               {
-          //                   VolumeCode = qinstanceLoc.VolumeCode,
-          //                   VolumePathname = qinstanceLoc.Pathname,
-          //                   Pathname = qinstanceLoc.Pathname
+            //      };
+            //  }
 
 
-          //               };
 
-          //  var volume = query6
-          //.Skip(0)
-          //.Take(50)
-          //.ToList();
 
-          //  if (volume.Count > 0)
-          //  {
-          //      s = new InfManuelKeyConditionFilter
-          //      {
+            //  var instance1 = infinstanceLoc.ToList();
 
-          //          VolumeCode = volume[0].VolumeCode
 
+            //  var exp_volume = InfSeriesKeyCondition.GetVolume(s, 2);
 
 
-          //      };
-          //  }
+            //  var infvolume = _AbstractWorkspace.Query<Volume>(exp_volume);
+            //  var query6 = from qinstanceLoc in infinstanceLoc
+            //               select new InfOracleViewModel
+            //               {
+            //                   VolumeCode = qinstanceLoc.VolumeCode,
+            //                   VolumePathname = qinstanceLoc.Pathname,
+            //                   Pathname = qinstanceLoc.Pathname
 
 
+            //               };
 
+            //  var volume = query6
+            //.Skip(0)
+            //.Take(50)
+            //.ToList();
 
+            //  if (volume.Count > 0)
+            //  {
+            //      s = new InfManuelKeyConditionFilter
+            //      {
 
-            //var infimage = _AbstractWorkspace.Query<Image>();
+            //          VolumeCode = volume[0].VolumeCode
+
+
+
+            //      };
+            //  }
+
+
+
+
+
+            var infimage = _AbstractWorkspace.Query<Image>();
             var infstudy = _AbstractWorkspace.Query<Study>(exp);
             var infseries = _AbstractWorkspace.Query<Series>(exp1);
             var infinstance = _AbstractWorkspace.Query<Instance>();

@@ -126,94 +126,95 @@ namespace GT.DataService.Implementation
 
 
                 var list = new List<InfOraclePostgreStudyViewModel>();
-            foreach (InfOraclePostgreStudyViewModel item in items)
-            {
-
+                int x = 0;
+                foreach (InfOraclePostgreStudyViewModel item in items)
+                {
+                   
                 
 
-                    CekimBilgi = "PatientId : " + item.PatientId + " StudyKey : " + item.OracleStudyKey + " AccessionNo : " + item.AccessionNo;
+                        CekimBilgi = "PatientId : " + item.PatientId + " StudyKey : " + item.OracleStudyKey + " AccessionNo : " + item.AccessionNo;
 
 
                     var gelenKey = _InfStudyRepository.QueryOracleStudyKey(item.OracleStudyKey.Value);
-                var KosStudy = new KosStudy();
+                    var KosStudy = new KosStudy();
 
-                if (gelenKey == null)
-                {
-
-                    tenatID = item.FkTenant.Value;
-                    KosStudy.FkTenant = item.FkTenant.Value;
-                    KosStudy.FkInfBatch = KosBatch.Pk;
-                    KosStudy.FkUserCreated = null;
-                    KosStudy.FkUserModified = null;
-                    KosStudy.PatientId = item.PatientId;
-                    KosStudy.Gender = item.Gender;
-                    KosStudy.StudyDescription = item.StudyDescription;
-                    KosStudy.InstitutionName = item.InstitutionName;
-                    KosStudy.Modality = item.Modality;
-                    KosStudy.AccessionNo = item.AccessionNo;
-                    KosStudy.StudyInstanceuid = item.StudyInstanceuid;
-                    KosStudy.InstanceCount = 0;
-                    KosStudy.DateBirth = item.DateBirth;
-                    KosStudy.StudyDate = item.StudyDate;
-                    KosStudy.StoragePath = item.StoragePath;
-                    KosStudy.ZeroImg = item.ZeroImg;
-                    KosStudy.PatinetNameSurname = item.PatinetNameSurname;
-                    KosStudy.CihazDeviceSerialNumber = "0";
-                    KosStudy.Desc1 = "";
-                    KosStudy.Desc2 = "";
-                    KosStudy.Desc3 = "";
-                    KosStudy.TimeCreated = DateTime.Now;
-                    KosStudy.TimeModified = DateTime.Now;
-                    KosStudy.Institution = "";
-                    KosStudy.SeriesCount = 0;
-                    KosStudy.SeriesKey = 0;
-                    KosStudy.InstanceKey = 0;
-                    KosStudy.FileName = item.FileName;
-                    KosStudy.VolumeCode = item.ValumeCode;
-                    KosStudy.VolumeType = item.ValumeType;
-                    KosStudy.VolumeStat = item.ValumeStat;
-                    KosStudy.VolumePathname = item.ValumePathname;
-                    KosStudy.CreationDttm = item.CreationDttm; ;
-                    KosStudy.OracleStudyKey = item.OracleStudyKey.Value;
-                    KosStudy.FkKosEnumType = item.FkKosEnumType;
-                    KosStudy.DicomDirPath = item.DicomPhat;
-                    Last_OracleStudyKey = item.OracleStudyKey.Value;
-                    _InfStudyRepository.Add(KosStudy);
-                    _Workspace.CommitChanges();
-
-                    if (otomatik == 1)
+                    if (gelenKey == null)
                     {
-                        var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(tenatID);
+
+                        tenatID = item.FkTenant.Value;
+                        KosStudy.FkTenant = item.FkTenant.Value;
+                        KosStudy.FkInfBatch = KosBatch.Pk;
+                        KosStudy.FkUserCreated = null;
+                        KosStudy.FkUserModified = null;
+                        KosStudy.PatientId = item.PatientId;
+                        KosStudy.Gender = item.Gender;
+                        KosStudy.StudyDescription = item.StudyDescription;
+                        KosStudy.InstitutionName = item.InstitutionName;
+                        KosStudy.Modality = item.Modality;
+                        KosStudy.AccessionNo = item.AccessionNo;
+                        KosStudy.StudyInstanceuid = item.StudyInstanceuid;
+                        KosStudy.InstanceCount = 0;
+                        KosStudy.DateBirth = item.DateBirth;
+                        KosStudy.StudyDate = item.StudyDate;
+                        KosStudy.StoragePath = item.StoragePath;
+                        KosStudy.ZeroImg = item.ZeroImg;
+                        KosStudy.PatinetNameSurname = item.PatinetNameSurname;
+                        KosStudy.CihazDeviceSerialNumber = "0";
+                        KosStudy.Desc1 = "";
+                        KosStudy.Desc2 = item.Desc2;
+                        KosStudy.Desc3 = item.Desc3;
+                        KosStudy.TimeCreated = DateTime.Now;
+                        KosStudy.TimeModified = DateTime.Now;
+                        KosStudy.Institution = "";
+                        KosStudy.SeriesCount = 0;
+                        KosStudy.SeriesKey = 0;
+                        KosStudy.InstanceKey = 0;
+                        KosStudy.FileName = item.FileName;
+                        KosStudy.VolumeCode = item.ValumeCode;
+                        KosStudy.VolumeType = item.ValumeType;
+                        KosStudy.VolumeStat = item.ValumeStat;
+                        KosStudy.VolumePathname = item.ValumePathname;
+                        KosStudy.CreationDttm = item.CreationDttm; ;
+                        KosStudy.OracleStudyKey = item.OracleStudyKey.Value;
+                        KosStudy.FkKosEnumType = item.FkKosEnumType;
+                        KosStudy.DicomDirPath = item.DicomPhat;
+                        Last_OracleStudyKey = item.OracleStudyKey.Value;
+                        _InfStudyRepository.Add(KosStudy);
+                        _Workspace.CommitChanges();
+
+                        if (otomatik == 1)
+                        {
+                            var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(tenatID);
+                            if (ParamterTimertenatID == null)
+                            {
+                                throw new Exception("User bulunamadı. tenatID:" + tenatID);
+                            }
+                            else
+                            {
+                                ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(Last_OracleStudyKey);
+                                _InfStudyParameterRepository.Update(ParamterTimertenatID);
+                            }
+                            _Workspace.CommitChanges();
+                        }
+                    }
+                    else
+                    {
+                        var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(item.FkTenant.Value);
                         if (ParamterTimertenatID == null)
                         {
                             throw new Exception("User bulunamadı. tenatID:" + tenatID);
                         }
                         else
                         {
-                            ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(Last_OracleStudyKey);
-                            _InfStudyParameterRepository.Update(ParamterTimertenatID);
+                            ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(item.OracleStudyKey);
+                           _InfStudyParameterRepository.Update(ParamterTimertenatID);
                         }
                         _Workspace.CommitChanges();
                     }
+
+
+                    x += 1;
                 }
-                else
-                {
-                    var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(item.FkTenant.Value);
-                    if (ParamterTimertenatID == null)
-                    {
-                        throw new Exception("User bulunamadı. tenatID:" + tenatID);
-                    }
-                    else
-                    {
-                        ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(item.OracleStudyKey);
-                       _InfStudyParameterRepository.Update(ParamterTimertenatID);
-                    }
-                    _Workspace.CommitChanges();
-                }
-
-
-
-            }
             }
             catch (Exception ex)
             {
@@ -320,7 +321,7 @@ namespace GT.DataService.Implementation
             }
 
 
-            if (parms.Filter.AccessionNumberList.Length <= 10)
+            if (parms.Filter.AccessionNumberList.Length <= 0)
             {
 
              
@@ -644,6 +645,8 @@ namespace GT.DataService.Implementation
             //filter.Infstudypklast = lastID;
 
             filter.Accession_no = Accession;
+            filter.Source_Aetitle = "DICOM CREATOR";
+            filter.SeriesInfo = "DCMCREATOR";
             var items = _InfOracleDataService.ManuelGetInfOracleList(filter);
             var list = new List<InfOraclePostgreStudyViewModel>();
             
@@ -728,16 +731,32 @@ namespace GT.DataService.Implementation
 
                     string OrcleZeroImages = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.ZeroImageGeneratorName.ToString();
 
+                    //if (item.SeriesInfo.Contains(OrcleZeroImages))
+                    //{
+                    //    model.ZeroImg = 1;
+                    //    model.FkKosEnumType = 999;
+                    //}
+                    //else
+                    //{
+                    //    model.ZeroImg = 0;
+                    //    model.FkKosEnumType = 10;
+                    //}
                     if (item.SeriesInfo.Contains(OrcleZeroImages))
                     {
+                        model.Desc3 = OrcleZeroImages +" Manuel Oracle Liste Cek";
                         model.ZeroImg = 1;
-                        model.FkKosEnumType = 999;
+                        model.FkKosEnumType = 10;
                     }
                     else
                     {
                         model.ZeroImg = 0;
                         model.FkKosEnumType = 10;
                     }
+
+                    
+
+                  
+
                     list.Add(model);
                 }
                 else

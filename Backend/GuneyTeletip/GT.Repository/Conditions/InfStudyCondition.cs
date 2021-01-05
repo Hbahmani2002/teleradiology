@@ -16,7 +16,7 @@ namespace GT.Repository.Conditions
         {
             KosOlusturulamamisOlanlar = 10,
             KosOlusumuHataliOlanlar = 20,
-            KosOlusmusOlanlar = 30,
+            KosOlusmusOlanlar =30,
             KosHataliGonderileneler = 40,
             KosGonderilipEslesmeyenler = 50,
             KosGonderilipEslesenler = 60,
@@ -70,6 +70,8 @@ namespace GT.Repository.Conditions
                 var arr = filter.EslesmeDurumuList.ToList();
                 exp = exp.And(o => arr.Contains((long)o.FkKosEnumType));
             }
+        
+
             if (filter.KosWaitHour.GetValueOrDefault())
             {
                 //TODO son  History Make kos kaydının tarihine bakılacak
@@ -88,7 +90,7 @@ namespace GT.Repository.Conditions
             }
             if (filter.KosEnum.HasValue)
             {
-                exp = exp.And(o => o.FkKosEnumType <= (int)filter.KosEnum.Value);
+                exp = exp.And(o => o.FkKosEnumType==(int)filter.KosEnum.Value);
             }
             if (filter.BasTarih.HasValue)
             {
@@ -109,7 +111,7 @@ namespace GT.Repository.Conditions
                 exp = exp.And(o => arrs.Contains(o.Pk));
             }
 
-            //if (run==1)
+            //if (run == 1)
             //{
             //    exp = exp.And(o => o.ZeroImg != 1);
             //}

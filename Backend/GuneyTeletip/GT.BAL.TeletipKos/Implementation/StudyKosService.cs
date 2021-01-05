@@ -1,4 +1,5 @@
-﻿using GT.BAL.TeletipKos.Model;
+﻿using AppAbc.Data.Service;
+using GT.BAL.TeletipKos.Model;
 using GT.Core.Settings;
 using GT.DataService.Implementation;
 using GT.DataService.Model;
@@ -110,16 +111,22 @@ namespace GT.BAL.TeletipKos
 
             var job = BussinessJobs.ManuelJobService.Create((o, ac) =>
             {
+
+                var jobID = ac.JobID;
                 var globalSettings = AppSettings.GetCurrent();
                 var studyDataService = new StudyKosDataService();
                 while (true)
                 {
+                    var log = new AppLogDataService(null);
+                    var items = studyDataService.GetSentKosList(500);
+                    log.Save(AppLogDataService.LogType.OtomatikSentKos, $"JobID:{jobID}\tSuccess:1.List- Basladı.:{items.Count}");
 
-                    var items = studyDataService.GetSentKosList(100);
                     if (items.Count == 0)
                     {
+                        log.Save(AppLogDataService.LogType.OtomatikSentKos, $"JobID:{jobID}\tSuccess:1.List- return Bitti.:{items.Count}");
                         return;
                     }
+                    log.Save(AppLogDataService.LogType.OtomatikSentKos, $"JobID:{jobID}\tSuccess:1.List- Bitti.:{items.Count}");
 
                     var mc = new SendKosOperation();
                     mc.DoSingleBatch(items, o, ac);

@@ -41,11 +41,12 @@ namespace GT.DataService.infinity.Implementation
         {
             var f = new InfStudyConditionFilter
             {
+              
                 AccessionNo = filter.Accession_no,
                 InfStudyPkLast = filter.Infstudypklast,
                 CreationStartDate = filter.Infcreationstartdate,
-                CreationEndDate =filter.Infcreationenddate
-
+                CreationEndDate =filter.Infcreationenddate,
+                Source_Aetitle = "DICOM CREATOR"
             };
 
             var s = new InfSerieConditionFilter
@@ -53,12 +54,16 @@ namespace GT.DataService.infinity.Implementation
                 SeriesInfo = "DCMCREATOR"
             };
 
+
+
+
+
             int TakeTop = AppSettings.GetCurrent().DataServiceSettings.OracleSettings.InfinityOracleTakeTop;
 
 
             var gelenInf = _InfOracleCompositeRepository.Query(f,s);
 
-
+            var gelenInfss = gelenInf.ToList();
 
             //var gelenList= gelenInf
             //      .Where(o=>( o.StudyDttm >= filter.Infcreationstartdate ) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no))   )
@@ -76,13 +81,28 @@ namespace GT.DataService.infinity.Implementation
             //.Take(10000)
             //.ToList();
 
+            // var gelenList = gelenInf
+            //.Where(o => (o.AccessNo.Contains(filter.Accession_no)) && (!o.Source_Aetitle.Contains(filter.Source_Aetitle)) )
+            //.OrderBy(o => o.StudyKey)
+            //.Skip(0)
+            //.Take(50000)
+            //.ToList();
+
+
+
+            // var gelenList = gelenInf
+            //.Where(o => (o.StudyDttm >= filter.Infcreationstartdate) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no)) && (!o.Source_Aetitle.Contains(filter.Source_Aetitle)) && (o.StudyKey > filter.Infstudypklast))
+            //.OrderBy(o => o.StudyKey)
+            //.Skip(0)
+            //.Take(50000)
+            //.ToList();
+
             var gelenList = gelenInf
-           .Where(o => (o.StudyDttm >= filter.Infcreationstartdate) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no)) && (!o.SeriesInfo.Contains(filter.SeriesInfo)) && (o.StudyKey > filter.Infstudypklast) )
+           .Where(o => (o.StudyDttm >= filter.Infcreationstartdate) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no)) && (!o.SeriesInfo.Contains(filter.SeriesInfo)) && (!o.Source_Aetitle.Contains(filter.Source_Aetitle)) && (o.StudyKey > filter.Infstudypklast))
            .OrderBy(o => o.StudyKey)
            .Skip(0)
-           .Take(6000)
+           .Take(10000)
            .ToList();
-
 
             return gelenList;
 
@@ -102,7 +122,8 @@ namespace GT.DataService.infinity.Implementation
                 InfStudyPkLast = filter.Infstudypklast,
                 CreationStartDate = filter.Infcreationstartdate,
                 CreationEndDate = filter.Infcreationenddate,
-                Acc = filter.AccessionNoListte
+                Acc = filter.AccessionNoListte,
+                Source_Aetitle ="DICOM CREATOR" 
 
             };
 
@@ -119,7 +140,7 @@ namespace GT.DataService.infinity.Implementation
 
 
 
-            //var list = new List<string>();
+            //var list = gelenInf.ToList();
             //foreach (var n in filter.AccessionNoListte)
             //{
             //    list.Add(n);
@@ -132,7 +153,7 @@ namespace GT.DataService.infinity.Implementation
 
 
             var gelenList = gelenInf
-                 .Where(o => (o.AccessNo == filter.Accession_no))
+                 .Where(o => (o.AccessNo == filter.Accession_no) && (!o.SeriesInfo.Contains(filter.SeriesInfo)) )
                  .OrderBy(o => o.StudyKey)
                  .Skip(0)
                  .Take(500)

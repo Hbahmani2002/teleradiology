@@ -102,14 +102,25 @@ namespace GT.Job.Implementation
             sb.AppendLine("");
             sb.AppendLine("");
             sb.Append(res.Arguments);
-            studyDataService.Save_UpdateMakeKosDurum(item.StudyID, res.IsSuccess, outputPath, res.Message + res.Arguments);
+
+            if (res.IsSuccess == true)
+            {
+                studyDataService.Save_UpdateMakeKosDurum(item.StudyID, res.IsSuccess, outputPath, res.Message + res.Arguments);
+              
+            }
+            else
+            {
+                studyDataService.Save_UpdateMakeKosDurum(item.StudyID, res.IsSuccess, outputPath, res.Message + res.Arguments);
+
+            }
 
 
-
-            //if (File.Exists(outputPath))
-            //{
-            //    File.Delete(dcmJson);
-            //}
+            //////string MakeKosTempSil =  "/gt/dicom/temp_kos";
+            //////CAGDAS SİLME
+            //////if (File.Exists(MakeKosTempSil))
+            //////{
+            //////    File.Delete(dcmJson);
+            //////}
 
 
 

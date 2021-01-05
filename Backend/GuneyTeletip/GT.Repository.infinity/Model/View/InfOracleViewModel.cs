@@ -36,6 +36,9 @@ namespace GT.Repository.infinity.Model.View
 
         public int Durum { get; set; }
 
+        public string Source_Aetitle { get; set; }
+
+
         public override string ToString()
         {
             var

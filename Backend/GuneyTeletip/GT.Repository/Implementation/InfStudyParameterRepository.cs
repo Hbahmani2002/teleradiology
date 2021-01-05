@@ -27,6 +27,7 @@ namespace GT.Repository.Implementation
         public  KosStudyParameter GetByTenatID(long tenatID)
         {
             return Single(o => o.FkTenant == tenatID && o.RecordStatus == 1);
+            //return Single(o => o.FkTenant == tenatID && o.RecordStatus == 7);
         }
 
 

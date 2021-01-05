@@ -18,7 +18,8 @@ namespace GT.DataService.infinity.Conditions
         public DateTime? StudyStartDate { get; set; }
 
         public string SeriesInfo { get; set; }
-
+        public string Source_Aetitle { get; set; }
+        
         public string [] Acc { get; set; }
 
     }
@@ -76,6 +77,16 @@ namespace GT.DataService.infinity.Conditions
                 exp = exp.And(o => o.StudyDttm >= filter.StudyStartDate.Value);
             }
 
+
+            if (!string.IsNullOrEmpty(filter.Source_Aetitle))
+            {
+                exp = exp.And(o => !o.SourceAetitle.Contains(filter.Source_Aetitle));
+            }
+
+            if (!string.IsNullOrEmpty(filter.Source_Aetitle))
+            {
+                exp = exp.And(o => !o.SourceAetitle.Contains(filter.Source_Aetitle));
+            }
 
             if (filter.Acc != null && filter.Acc.Length > 0)
             {

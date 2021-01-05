@@ -126,14 +126,13 @@ namespace GT.UI.WebApi
             //    _AppLogDataService.Save(hata, message);
 
             //}
-            //MwlTimer.Start();
-            //};
+            ////MwlTimer.Start();
+            ////};
 
 
             //BussinessJobs.StartAutomaticJobs();
 
-            //BussinessJobs.MakeKosJob.Start();
-            //BussinessJobs.SendKosJob.Start();
+
 
 
         }
