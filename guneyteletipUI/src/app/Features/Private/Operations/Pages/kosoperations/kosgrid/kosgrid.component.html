@@ -20,7 +20,8 @@
         <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickDeleteKos()" class="btn btn-danger smalbutton" tooltip="Seçilenlerin KOS'larını Teletıp'tan sil"><fa name="trash"></fa></button>
         <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickUpdateReadKos()" class="btn btn-primary smalbutton" tooltip="Seçilenlerin KOS Durumlarını Teletıp'tan oku"><fa name="get-pocket"></fa></button>
         <button [disabled]="!gridKos.selectAll &&  !gridKos.selectedItems.length > 0" (click)="gridKos.onClickReprocessKos()" class="btn btn-secondary smalbutton" tooltip="Reprocess Kos"><fa name="reply"></fa></button>
-        <button style="margin-right:0px;" (click)="gridKos.onClickExportExcel()" class="btn btn-primary smalbutton" tooltip="Excel'e çevir"><fa name="table"></fa></button>
+        <button (click)="gridKos.onClickExportExcel()" class="btn btn-primary smalbutton" tooltip="Excel'e çevir"><fa name="table"></fa></button>
+        <button style="margin-right:0px;" (click)="gridKos.onChangeAccesionNo()" class="btn btn-secondary smalbutton" tooltip="AccessionNo Değiştir"><fa name="pencil"></fa></button>
       </div>
     </div>
     <div>

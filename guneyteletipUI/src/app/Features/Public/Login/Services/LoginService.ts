@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { httpService } from 'src/app/Shared/Services/Util/httpService';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { tokenService } from 'src/app/Shared/Services/Util/tokenService';
 import { parameters } from 'src/app/Shared/Consts/parameters';
-import { map, catchError, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { apiResponseModel } from 'src/app/Shared/Services/Api/Models/apiResponseModel';
 
 export enum LoginEnumResult {
   ok = 1,
   fail = 0,
-
 }
 
 @Injectable({

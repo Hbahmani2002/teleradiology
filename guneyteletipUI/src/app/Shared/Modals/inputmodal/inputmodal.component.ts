@@ -9,15 +9,11 @@ import { OpenModal } from '../../Models/openModal';
 })
 export class InputmodalComponent implements OnInit {
 
-    public modalTitle: string;
     public output = undefined;// modal'ın açıldığı sayfada modal kapandıktan sonra aktarılacak veri 
     public inputValue;
     modal: OpenModal = new OpenModal(this.modalService, this.changeDetection);
     constructor(public bsModalRef: BsModalRef, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) { }
-
-    ngOnInit() {
-
-    }
+    ngOnInit() {}
     onConfirm() {
         this.output = this.inputValue;
         this.modal.onClose("ok");
@@ -26,5 +22,4 @@ export class InputmodalComponent implements OnInit {
         this.output = false;
         this.modal.onClose("cancel");
     }
-
 }

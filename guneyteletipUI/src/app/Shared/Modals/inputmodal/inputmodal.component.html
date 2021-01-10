@@ -1,5 +1,5 @@
 ﻿<div class="modal-header">
-  <h4 class="modal-title pull-left">{{modalTitle}}</h4>
+  <h4 class="modal-title pull-left">{{inputName}}</h4>
   <button type="button" class="close pull-right" aria-label="Close" (click)="modal.onClose('carpi')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -7,11 +7,11 @@
 <div class="modal-body">
   <div class="form-group row m-1">
     <div class="col-sm-12">
-      <input placeholder="StudyUID" type="text" class="form-control" name="studyUID" [(ngModel)]="inputValue">
+      <input placeholder="{{inputName}}" type="text" class="form-control" [(ngModel)]="inputValue">
     </div>
   </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-light" (click)="onCancel('cancel')">İptal</button>
-  <button type="button" class="btn btn-danger" (click)="onConfirm()">Sil</button>
+  <button type="button" class="btn btn-danger" (click)="onCancel()">İptal</button>
+  <button type="button" class="btn btn-primary" (click)="onConfirm()">Tamam</button>
 </div>
