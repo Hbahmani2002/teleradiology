@@ -199,6 +199,49 @@ namespace GT.DataService.Implementation
                     }
                     else
                     {
+                        var KosStudyUpdate = _InfStudyRepository.QueryOracleStudyKey(item.OracleStudyKey.Value);
+                        tenatID = item.FkTenant.Value;
+                        KosStudyUpdate.FkTenant = item.FkTenant.Value;
+                        KosStudyUpdate.FkInfBatch = KosBatch.Pk;
+                        KosStudyUpdate.FkUserCreated = null;
+                        KosStudyUpdate.FkUserModified = null;
+                        KosStudyUpdate.PatientId = item.PatientId;
+                        KosStudyUpdate.Gender = item.Gender;
+                        KosStudyUpdate.StudyDescription = item.StudyDescription;
+                        KosStudyUpdate.InstitutionName = item.InstitutionName;
+                        KosStudyUpdate.Modality = item.Modality;
+                        KosStudyUpdate.AccessionNo = item.AccessionNo;
+                        KosStudyUpdate.StudyInstanceuid = item.StudyInstanceuid;
+                        KosStudyUpdate.InstanceCount = 0;
+                        KosStudyUpdate.DateBirth = item.DateBirth;
+                        KosStudyUpdate.StudyDate = item.StudyDate;
+                        KosStudyUpdate.StoragePath = item.StoragePath;
+                        KosStudyUpdate.ZeroImg = item.ZeroImg;
+                        KosStudyUpdate.PatinetNameSurname = item.PatinetNameSurname;
+                        KosStudyUpdate.CihazDeviceSerialNumber = "0";
+                        KosStudyUpdate.Desc1 = "";
+                        KosStudyUpdate.Desc2 = item.Desc2;
+                        KosStudyUpdate.Desc3 = item.Desc3;
+                        KosStudyUpdate.TimeCreated = DateTime.Now;
+                        KosStudyUpdate.TimeModified = DateTime.Now;
+                        KosStudyUpdate.Institution = "";
+                        KosStudyUpdate.SeriesCount = 0;
+                        KosStudyUpdate.SeriesKey = 0;
+                        KosStudyUpdate.InstanceKey = 0;
+                        KosStudyUpdate.FileName = item.FileName;
+                        KosStudyUpdate.VolumeCode = item.ValumeCode;
+                        KosStudyUpdate.VolumeType = item.ValumeType;
+                        KosStudyUpdate.VolumeStat = item.ValumeStat;
+                        KosStudyUpdate.VolumePathname = item.ValumePathname;
+                        KosStudyUpdate.CreationDttm = item.CreationDttm; ;
+                        KosStudyUpdate.OracleStudyKey = item.OracleStudyKey.Value;
+                        KosStudyUpdate.FkKosEnumType = item.FkKosEnumType;
+                        KosStudyUpdate.DicomDirPath = item.DicomPhat;
+                        Last_OracleStudyKey = item.OracleStudyKey.Value;
+                        _InfStudyRepository.Update(KosStudyUpdate);
+                        _Workspace.CommitChanges();
+
+
                         var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(item.FkTenant.Value);
                         if (ParamterTimertenatID == null)
                         {
@@ -207,7 +250,7 @@ namespace GT.DataService.Implementation
                         else
                         {
                             ParamterTimertenatID.OracleStudyKeyLast = Convert.ToInt64(item.OracleStudyKey);
-                           _InfStudyParameterRepository.Update(ParamterTimertenatID);
+                            _InfStudyParameterRepository.Update(ParamterTimertenatID);
                         }
                         _Workspace.CommitChanges();
                     }
@@ -320,12 +363,9 @@ namespace GT.DataService.Implementation
 
             }
 
-
             if (parms.Filter.AccessionNumberList.Length <= 0)
             {
-
-             
-
+  
             }
             else
             {
@@ -438,73 +478,96 @@ namespace GT.DataService.Implementation
         public PagingResult<InfStudyViewModel> GetInfStudyListTwo(Gridable<KosStudyFilter> parms)
         {
 
+            
 
+            //if (parms.Filter.AccessionNumberList != null && parms.Filter.AccessionNumberList.Length > 1000)
+            //{
+               
+            //    foreach (string acceno in parms.Filter.AccessionNumberList)
+            //    {
+            //        //SyncronizeInfinityStudyListSend(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
+            //        SyncronizeInfinityStudyListSend(acceno);
+            //    }
+            //    //throw new Exception(parms.Filter.AccessionNumberList.Length.ToString()  +  " Kayıtın işlemi yapıldı. ");
 
-            ArrayList myAL = new ArrayList();
-            var s = ConvertConditionFilter(parms);
+            //    var s = ConvertConditionFilter(parms);
+            //    var list_Update = _InfStudyRepository.Query(s)
+            //           .GetGridQuery(parms);
+            //    return list_Update;
 
-            if (parms.Filter.AccessionNumberList != null && parms.Filter.AccessionNumberList.Length > 0)
-            {
-                parms.Paging.Count = parms.Filter.AccessionNumberList.Length;
+            //}
+            //else
+            //{
+                ArrayList myAL = new ArrayList();
+                var s = ConvertConditionFilter(parms);
 
-            }
-
-            var list = _InfStudyRepository.Query(s)
-           .GetGridQuery(parms);
-            var oracleList = list.List;
-            var accList = parms.Filter.AccessionNumberList;
-
-            if (accList != null)
-            {
-
-                var onlyOracle = accList.Where(o => !oracleList.Select(t => t.AccessionNumber).Contains(o)).ToList();
-
-
-                if (onlyOracle != null && onlyOracle.Count > 0 && parms.Filter.AccessionNumberList != null)
+                if (parms.Filter.AccessionNumberList != null && parms.Filter.AccessionNumberList.Length > 0)
                 {
-
-
-                    try
-                    {
-
-                        foreach (string acceno in parms.Filter.AccessionNumberList)
-                        {
-                            //SyncronizeInfinityStudyListSend(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
-                            SyncronizeInfinityStudyListSend(acceno);
-                        }
-
-                    }
-                    catch (Exception ex)
-                    {
-                        return list;
-                        throw new Exception("Inf Study List bulunamadı. Hata-1001:" + ex.Message.ToString());
-
-                    }
-
-
+                    parms.Paging.Count = parms.Filter.AccessionNumberList.Length;
 
                 }
-                var list_Update = _InfStudyRepository.Query(s)
-                      .GetGridQuery(parms);
-                return list_Update;
-            }
-            else
-            {
 
-                if (list != null && list.List.Count > 0)
+                var list = _InfStudyRepository.Query(s)
+               .GetGridQuery(parms);
+                var oracleList = list.List;
+                var accList = parms.Filter.AccessionNumberList;
+
+                if (accList != null)
                 {
 
-                    return list;
+                    var onlyOracle = accList.Where(o => !oracleList.Select(t => t.AccessionNumber).Contains(o)).ToList();
 
 
+                    if (onlyOracle != null && onlyOracle.Count > 0 && parms.Filter.AccessionNumberList != null)
+                    {
+
+
+                        try
+                        {
+
+                            foreach (string acceno in parms.Filter.AccessionNumberList)
+                            {
+                                //SyncronizeInfinityStudyListSend(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
+                                SyncronizeInfinityStudyListSend(acceno);
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            return list;
+                            throw new Exception("Inf Study List bulunamadı. Hata-1001:" + ex.Message.ToString());
+
+                        }
+
+
+
+                    }
+                    var list_Update = _InfStudyRepository.Query(s)
+                          .GetGridQuery(parms);
+                    return list_Update;
                 }
                 else
                 {
-                    return list;
-                    throw new Exception("List bulunamadı. Hata-1002:" + " " + list.List.Count.ToString());
+
+                    if (list != null && list.List.Count > 0)
+                    {
+
+                        return list;
+
+
+                    }
+                    else
+                    {
+                        return list;
+                        throw new Exception("List bulunamadı. Hata-1002:" + " " + list.List.Count.ToString());
+                    }
+
                 }
 
-            }
+            //}
+
+
+           
 
         }
 
@@ -648,12 +711,13 @@ namespace GT.DataService.Implementation
             filter.Source_Aetitle = "DICOM CREATOR";
             filter.SeriesInfo = "DCMCREATOR";
             var items = _InfOracleDataService.ManuelGetInfOracleList(filter);
-            var list = new List<InfOraclePostgreStudyViewModel>();
+           
             
             var volumMap = "";
 
             foreach (var item in items)
             {
+                var list = new List<InfOraclePostgreStudyViewModel>();
                 Console.WriteLine(item.AccessNo);
                 mesaj = item.AccessNo + " numarasının " + item.VolumePathname + " dicom paht yolu bulunmadı...";
                 if (item.VolumePathname != null)
@@ -745,7 +809,7 @@ namespace GT.DataService.Implementation
                     {
                         model.Desc3 = OrcleZeroImages +" Manuel Oracle Liste Cek";
                         model.ZeroImg = 1;
-                        model.FkKosEnumType = 10;
+                        model.FkKosEnumType = 999;
                     }
                     else
                     {
@@ -772,7 +836,9 @@ namespace GT.DataService.Implementation
                 if (list.Count > 0)
                 {
                     Save(list, 0);
+                    list = null;
                 }
+               
                 mesaj = "";
 
 

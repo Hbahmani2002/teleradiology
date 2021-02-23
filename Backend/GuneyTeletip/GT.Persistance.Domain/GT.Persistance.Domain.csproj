@@ -22,4 +22,8 @@
     <Folder Include="Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GT.Core.Settings\GT.Core.Settings.csproj" />
+  </ItemGroup>
+
 </Project>

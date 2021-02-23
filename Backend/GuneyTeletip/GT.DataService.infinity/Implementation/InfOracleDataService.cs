@@ -63,7 +63,7 @@ namespace GT.DataService.infinity.Implementation
 
             var gelenInf = _InfOracleCompositeRepository.Query(f,s);
 
-            var gelenInfss = gelenInf.ToList();
+            //var gelenInfss = gelenInf.ToList();
 
             //var gelenList= gelenInf
             //      .Where(o=>( o.StudyDttm >= filter.Infcreationstartdate ) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no))   )
@@ -101,7 +101,7 @@ namespace GT.DataService.infinity.Implementation
            .Where(o => (o.StudyDttm >= filter.Infcreationstartdate) && (o.StudyDttm <= filter.Infcreationenddate) && (o.AccessNo.Contains(filter.Accession_no)) && (!o.SeriesInfo.Contains(filter.SeriesInfo)) && (!o.Source_Aetitle.Contains(filter.Source_Aetitle)) && (o.StudyKey > filter.Infstudypklast))
            .OrderBy(o => o.StudyKey)
            .Skip(0)
-           .Take(10000)
+           .Take(100000)
            .ToList();
 
             return gelenList;

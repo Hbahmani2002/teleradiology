@@ -43,7 +43,26 @@ namespace GT.BAL.Infinity.DataSynronizer
             dcmDataService = new DcmDataService(null);
             _InfStudyParameterRepository = new InfStudyParameterRepository(null);
         }
-        public void SyncronizeInfinityStudyList(long tenantID, long lastID, System.DateTime? startTime, System.DateTime? endTime)
+
+        public void ParameterRepositoryUpdate(long tenantID, long lastID, System.DateTime? startTime, System.DateTime? endTime)
+        {
+
+            var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(tenantID);
+            if (ParamterTimertenatID == null)
+            {
+                throw new Exception("User bulunamadı. tenatID:" + tenantID);
+            }
+            else
+            {
+                 ParamterTimertenatID.OracleStudyKeyLast = 0;
+                _InfStudyParameterRepository.Update(ParamterTimertenatID);
+            }
+            _Workspace.CommitChanges();
+
+        }
+
+
+            public void SyncronizeInfinityStudyList(long tenantID, long lastID, System.DateTime? startTime, System.DateTime? endTime)
         {
             string Mesaj = "";
             string InstancePhat = "";

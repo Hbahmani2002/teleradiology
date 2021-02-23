@@ -44,6 +44,7 @@ namespace GT.Job.Implementation
             var jobs = new StudyKosDataService(null);
             var paramters = jobs.GetTimerParameters(new InfStudyParameterConditionFilter { RecordState = 1 });
             //var paramters = jobs.GetTimerParameters(new InfStudyParameterConditionFilter { RecordState = 99 });
+           
             return paramters;
         }
         public void Start()
@@ -159,23 +160,48 @@ namespace GT.Job.Implementation
 
 
             var dt = new InfinityDataSyncronizer(null);
+            var dt1 = new InfinityDataSyncronizer(null);
 
             var jobs = new StudyKosDataService(null);
             var paramtersjobs = jobs.GetTimerParameters(new InfStudyParameterConditionFilter { RecordState = 1 });
 
-            foreach (var items in paramtersjobs)
-            {
+            //if (paramtersjobs.ToList().Count==1)
+            //{
+
+            //    DateTime Otosaat = DateTime.Now;
+            //    var bassaat =  DateTime.Now.ToString("dd.MM.yyyy 18:00:00");
+            //    var bitsaat = DateTime.Now.ToString("dd.MM.yyyy 22:00:00");
+            //    var saat = Otosaat.ToString("dd.MM.yyyy HH:mm:ss");
+
+            //    dt1.ParameterRepositoryUpdate(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop)
 
 
+            //    if ( Convert.ToDateTime(bassaat) > Convert.ToDateTime(saat)  &&  Convert.ToDateTime(saat) < Convert.ToDateTime(bitsaat) )
+            //    {
+            //        dt.SyncronizeInfinityStudyList(item.FkTenant.Value, 0, item.TimeStart, item.TimeStop);
+            //    }
+            //    else
+            //    {
+            //        dt.SyncronizeInfinityStudyList(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
+            //    }
+
+            //    foreach (var items in paramtersjobs)
+            //    {
+            //    }
+
+            //}
+            //else
+            //{
+
+                dt.SyncronizeInfinityStudyList(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
 
 
+            //}
 
             
-            }
 
 
-            dt.SyncronizeInfinityStudyList(item.FkTenant.Value, item.OracleStudyKeyLast.Value, item.TimeStart, item.TimeStop);
-
+           
 
 
 

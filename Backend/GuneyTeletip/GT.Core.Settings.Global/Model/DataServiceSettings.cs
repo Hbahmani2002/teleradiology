@@ -17,9 +17,9 @@
             }
 
 
-            public int MakeKosServiceItemPerBatch => 500;
+            public int MakeKosServiceItemPerBatch => 1000;
 
-            public int SendKosServiceItemPerBatch => 100;
+            public int SendKosServiceItemPerBatch => 200;
 
             public int OrderServiceItemPerBatch => 100;
 

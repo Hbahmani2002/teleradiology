@@ -1,4 +1,5 @@
 ﻿using System;
+using GT.Core.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -56,11 +57,22 @@ namespace GT.Persistance.Domain.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+//            if (!optionsBuilder.IsConfigured)
+//            {
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//                optionsBuilder.UseNpgsql("Host=10.202.108.127;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9009");
+//            }
+
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Host=10.202.108.127;Database=guney_teletip_db;Username=test_protek;Password=test123;Port=9009");
+               
+              
+                var connectionString = AppSettings.GetCurrent().DatabaseSetting.StudyPostgre;
+                optionsBuilder.UseNpgsql(connectionString);
             }
+
+
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
