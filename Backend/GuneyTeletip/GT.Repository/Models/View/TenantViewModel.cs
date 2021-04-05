@@ -11,4 +11,13 @@ namespace GT.Repository.Models.View
         public long? ID { get; set; }
         public string TenantAd { get; set; }
     }
+
+
+    public class KurumViewModel : BaseTableViewModel
+    {
+        [DataEntityID]
+        public string KurumAd { get; set; }
+        public string KurumOnEk { get; set; }
+    }
+
 }

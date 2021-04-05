@@ -21,6 +21,9 @@ namespace GT.DataService.Implementation
         UserCompositeRepository userCompositeRepository;
         UserLoginRepository userLoginRepository;
         TenantRepository tenantRepository;
+
+        KurumRepository kurumRepository;
+
         UserRoleRepository userRoleRepository;
         RoleRepository roleRepository;
         UserTenantRepository userTenantRepository;
@@ -32,6 +35,9 @@ namespace GT.DataService.Implementation
             userCompositeRepository = new UserCompositeRepository(_Workspace);
             userLoginRepository = new UserLoginRepository(_Workspace);
             tenantRepository = new TenantRepository(_Workspace);
+
+            kurumRepository = new KurumRepository(_Workspace);
+
             userRoleRepository = new UserRoleRepository(_Workspace);
             roleRepository = new RoleRepository(_Workspace);
             userTenantRepository = new UserTenantRepository(_Workspace);
@@ -194,7 +200,16 @@ namespace GT.DataService.Implementation
             };
             return tenantRepository.Query(t).ToList();
         }
-
+        
+        //public List<KurumViewModel> GetKurumList()
+        //{
+        //    //var tenantUserIDList = userTenantRepository.GetTenantIDByUserID(Context.UserInfo.UserIDCurrent).Select(o => o.Pk).ToArray();
+        //    //var t = new KurumlarConditionFilter
+        //    //{
+        //    //    KurumlarIDList = tenantUserIDList
+        //    //};
+        //    //return kurumRepository.Query(t).ToList();
+        //}
         public int SaveTenant(long userID, long[] tenantIDList)
         {
             var userTenantIDList = userTenantRepository.GetTenantIDByUserID(userID).Select(x => x.FkTenant).ToList();

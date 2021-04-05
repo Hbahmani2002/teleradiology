@@ -308,7 +308,7 @@ namespace GT.DataService.Implementation
 
         public PagingResult<KosHistoryModel> GetKosHistoryByStudyID(Gridable<KosHistoryFilter> parms)
         {
-            return infStudyHistoryRepository.GetByKosStudyID(parms.Filter.StudyID)
+            return infStudyHistoryRepository.GetByKosStudyID(parms.Filter.id)
                 .Select(o => new KosHistoryModel
                 {
                     EnumType = o.EnumType,

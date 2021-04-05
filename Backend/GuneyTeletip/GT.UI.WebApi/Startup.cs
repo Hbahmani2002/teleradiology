@@ -116,7 +116,7 @@ namespace GT.UI.WebApi
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
                 var logger = new TextFileLogger(filePath);
                 var jobManager = InfJobManager.Create(logger);
-                jobManager.Start();
+                //jobManager.Start();
             }
             catch (Exception ex)
             {
@@ -130,7 +130,7 @@ namespace GT.UI.WebApi
             //    ////};
 
 
-           BussinessJobs.StartAutomaticJobs();
+           //BussinessJobs.StartAutomaticJobs();
 
 
 

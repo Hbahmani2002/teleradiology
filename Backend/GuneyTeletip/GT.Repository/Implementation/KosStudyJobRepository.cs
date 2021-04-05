@@ -45,6 +45,7 @@ namespace GT.Repository.Implementation
                            SendDicomPath =k.DicomKosPath
 
                        };
+            var h = list.ToList();
             return list;
         }
     }

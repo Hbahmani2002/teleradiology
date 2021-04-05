@@ -99,6 +99,17 @@ namespace GT.UI.WebApi.Controllers
         }
 
         [HttpPost]
+        [Route("/User/GetKurumList")]
+        public ServiceResult<List<TenantViewModel>> GetKurumList()
+        {
+            var cx = GetBussinesContext();
+            var service = new UserDataService(cx);
+            return HttpMessageService.Ok(service.GetTenantList());
+        }
+
+
+
+        [HttpPost]
         [Route("/User/SaveTenant")]
         public ServiceResult<int> SaveTenant(SaveTenantUIModel model)
         {

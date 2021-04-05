@@ -6,6 +6,6 @@ namespace GT.DataService.Model
 {
     public class KosHistoryFilter
     {
-        public int StudyID { get; set; }
+        public int id { get; set; }
     }
 }

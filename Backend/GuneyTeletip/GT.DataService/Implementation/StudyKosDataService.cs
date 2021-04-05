@@ -199,47 +199,47 @@ namespace GT.DataService.Implementation
                     }
                     else
                     {
-                        var KosStudyUpdate = _InfStudyRepository.QueryOracleStudyKey(item.OracleStudyKey.Value);
-                        tenatID = item.FkTenant.Value;
-                        KosStudyUpdate.FkTenant = item.FkTenant.Value;
-                        KosStudyUpdate.FkInfBatch = KosBatch.Pk;
-                        KosStudyUpdate.FkUserCreated = null;
-                        KosStudyUpdate.FkUserModified = null;
-                        KosStudyUpdate.PatientId = item.PatientId;
-                        KosStudyUpdate.Gender = item.Gender;
-                        KosStudyUpdate.StudyDescription = item.StudyDescription;
-                        KosStudyUpdate.InstitutionName = item.InstitutionName;
-                        KosStudyUpdate.Modality = item.Modality;
-                        KosStudyUpdate.AccessionNo = item.AccessionNo;
-                        KosStudyUpdate.StudyInstanceuid = item.StudyInstanceuid;
-                        KosStudyUpdate.InstanceCount = 0;
-                        KosStudyUpdate.DateBirth = item.DateBirth;
-                        KosStudyUpdate.StudyDate = item.StudyDate;
-                        KosStudyUpdate.StoragePath = item.StoragePath;
-                        KosStudyUpdate.ZeroImg = item.ZeroImg;
-                        KosStudyUpdate.PatinetNameSurname = item.PatinetNameSurname;
-                        KosStudyUpdate.CihazDeviceSerialNumber = "0";
-                        KosStudyUpdate.Desc1 = "";
-                        KosStudyUpdate.Desc2 = item.Desc2;
-                        KosStudyUpdate.Desc3 = item.Desc3;
-                        KosStudyUpdate.TimeCreated = DateTime.Now;
-                        KosStudyUpdate.TimeModified = DateTime.Now;
-                        KosStudyUpdate.Institution = "";
-                        KosStudyUpdate.SeriesCount = 0;
-                        KosStudyUpdate.SeriesKey = 0;
-                        KosStudyUpdate.InstanceKey = 0;
-                        KosStudyUpdate.FileName = item.FileName;
-                        KosStudyUpdate.VolumeCode = item.ValumeCode;
-                        KosStudyUpdate.VolumeType = item.ValumeType;
-                        KosStudyUpdate.VolumeStat = item.ValumeStat;
-                        KosStudyUpdate.VolumePathname = item.ValumePathname;
-                        KosStudyUpdate.CreationDttm = item.CreationDttm; ;
-                        KosStudyUpdate.OracleStudyKey = item.OracleStudyKey.Value;
-                        KosStudyUpdate.FkKosEnumType = item.FkKosEnumType;
-                        KosStudyUpdate.DicomDirPath = item.DicomPhat;
-                        Last_OracleStudyKey = item.OracleStudyKey.Value;
-                        _InfStudyRepository.Update(KosStudyUpdate);
-                        _Workspace.CommitChanges();
+                        //var KosStudyUpdate = _InfStudyRepository.QueryOracleStudyKey(item.OracleStudyKey.Value);
+                        //tenatID = item.FkTenant.Value;
+                        //KosStudyUpdate.FkTenant = item.FkTenant.Value;
+                        //KosStudyUpdate.FkInfBatch = KosBatch.Pk;
+                        //KosStudyUpdate.FkUserCreated = null;
+                        //KosStudyUpdate.FkUserModified = null;
+                        //KosStudyUpdate.PatientId = item.PatientId;
+                        //KosStudyUpdate.Gender = item.Gender;
+                        //KosStudyUpdate.StudyDescription = item.StudyDescription;
+                        //KosStudyUpdate.InstitutionName = item.InstitutionName;
+                        //KosStudyUpdate.Modality = item.Modality;
+                        //KosStudyUpdate.AccessionNo = item.AccessionNo;
+                        //KosStudyUpdate.StudyInstanceuid = item.StudyInstanceuid;
+                        //KosStudyUpdate.InstanceCount = 0;
+                        //KosStudyUpdate.DateBirth = item.DateBirth;
+                        //KosStudyUpdate.StudyDate = item.StudyDate;
+                        //KosStudyUpdate.StoragePath = item.StoragePath;
+                        //KosStudyUpdate.ZeroImg = item.ZeroImg;
+                        //KosStudyUpdate.PatinetNameSurname = item.PatinetNameSurname;
+                        //KosStudyUpdate.CihazDeviceSerialNumber = "0";
+                        //KosStudyUpdate.Desc1 = "";
+                        //KosStudyUpdate.Desc2 = item.Desc2;
+                        //KosStudyUpdate.Desc3 = item.Desc3;
+                        //KosStudyUpdate.TimeCreated = DateTime.Now;
+                        //KosStudyUpdate.TimeModified = DateTime.Now;
+                        //KosStudyUpdate.Institution = "";
+                        //KosStudyUpdate.SeriesCount = 0;
+                        //KosStudyUpdate.SeriesKey = 0;
+                        //KosStudyUpdate.InstanceKey = 0;
+                        //KosStudyUpdate.FileName = item.FileName;
+                        //KosStudyUpdate.VolumeCode = item.ValumeCode;
+                        //KosStudyUpdate.VolumeType = item.ValumeType;
+                        //KosStudyUpdate.VolumeStat = item.ValumeStat;
+                        //KosStudyUpdate.VolumePathname = item.ValumePathname;
+                        //KosStudyUpdate.CreationDttm = item.CreationDttm; ;
+                        //KosStudyUpdate.OracleStudyKey = item.OracleStudyKey.Value;
+                        //KosStudyUpdate.FkKosEnumType = item.FkKosEnumType;
+                        //KosStudyUpdate.DicomDirPath = item.DicomPhat;
+                        //Last_OracleStudyKey = item.OracleStudyKey.Value;
+                        //_InfStudyRepository.Update(KosStudyUpdate);
+                        //_Workspace.CommitChanges();
 
 
                         var ParamterTimertenatID = _InfStudyParameterRepository.GetByTenatID(item.FkTenant.Value);
@@ -261,7 +261,6 @@ namespace GT.DataService.Implementation
             }
             catch (Exception ex)
             {
-
                 var hata = AppAbc.Data.Service.AppLogDataService.LogType.InfOrclHata;
                 var message = ex.InnerException==null?"Error":ex.InnerException.Message.ToString();
                 _AppLogDataService.Save(hata, "Hata-1004 CekimBilgi : " + CekimBilgi + " - " +  message);
@@ -1417,7 +1416,7 @@ namespace GT.DataService.Implementation
 
         public PagingResult<KosHistoryModel> GetKosHistoryByStudyID(Gridable<KosHistoryFilter> parms)
         {
-            return infStudyHistoryRepository.GetByKosStudyID(parms.Filter.StudyID)
+            return infStudyHistoryRepository.GetByKosStudyID(parms.Filter.id)
                 .Select(o => new KosHistoryModel
                 {
                     EnumType = o.EnumType,
