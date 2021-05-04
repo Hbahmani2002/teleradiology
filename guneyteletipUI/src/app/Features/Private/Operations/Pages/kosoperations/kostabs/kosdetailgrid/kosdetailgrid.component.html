@@ -32,14 +32,14 @@
             <input type="checkbox" class="" [checked]="gridKosDetail.isSelected(item)"
                    (change)="gridKosDetail.onSelectItem(item)">
           </td>
-          <td class="p-0">{{id}}</td>
-          <td class="p-0">{{kosStudyID}}</td>
-          <td class="p-0">{{result}}</td>
-          <td class="p-0">{{enumType}}</td>
-          <td class="p-0">{{timeCreated}}</td>
-          <td class="p-0">{{timeModified}}</td>
-          <td class="p-0">{{userIDCreated}}</td>
-          <td class="p-0">{{userIDModified}}</td>
+          <td class="p-0">{{item.id}}</td>
+          <td class="p-0">{{item.kosStudyID}}</td>
+          <td class="p-0" data-toggle="tooltip" data-placement="top" [title]="item.result">{{item.result | slice:0:60}}...</td>
+          <td class="p-0">{{item.enumType}}</td>
+          <td class="p-0">{{item.timeCreated | date: 'dd.MM.yyyy HH:mm'}}</td>
+          <td class="p-0">{{item.timeModified | date: 'dd.MM.yyyy HH:mm'}}</td>
+          <td class="p-0">{{item.userIDCreated}}</td>
+          <td class="p-0">{{item.userIDModified}}</td>
         </tr>
       </tbody>
     </table>
@@ -51,7 +51,6 @@
     </div>
   </div>
 </div>
-
 
 
 
