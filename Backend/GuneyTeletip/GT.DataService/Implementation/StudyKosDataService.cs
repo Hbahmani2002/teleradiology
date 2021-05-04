@@ -511,7 +511,7 @@ namespace GT.DataService.Implementation
             //filter.Infcreationenddate = endTime;
 
             //filter.Infcreationstartdate = new DateTime(startTime.Value.Year, startTime.Value.Month, startTime.Value.Day);
-            string AC = AccessionNo.Substring(0, 1).ToString();
+            string AC = AccessionNo.Substring(0, 2).ToString();
             long qtenantID = _InfStudyDataService.GetTenatIDOnekNoByAccession(AC);
 
             //filter.Infstudypklast = lastID;
