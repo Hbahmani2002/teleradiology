@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+﻿import { Component, OnInit, Input, SimpleChanges, ChangeDetectorRef,ViewChild } from '@angular/core';
 import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 import { kosDataServices } from '../../../Services/kosDataServices';
 import { infStudyFilter } from '../../../Models/infStudyFilter';
@@ -7,8 +7,12 @@ import { OpenModal } from 'src/app/Shared/Models/openModal';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { FileService } from 'src/app/Shared/Services/FileServices/fileService';
 import { InputmodalComponent } from 'src/app/Shared/Modals/inputmodal/inputmodal.component';
-
-
+import { timer } from 'rxjs';
+import { DICOMViewerComponent } from '../../../../../../../../projects/dicom-viewer/src/lib/dicom-viewer.component';
+//import {LocalFile, RemoteFile} from 'generic-filehandle'
+declare const cornerstone;
+declare const cornerstoneWADOImageLoader;
+//var fs = require('fs');
 @Component({
   selector: 'app-kosgrid',
   templateUrl: './kosgrid.component.html',
@@ -16,7 +20,7 @@ import { InputmodalComponent } from 'src/app/Shared/Modals/inputmodal/inputmodal
 })
 export class KosgridComponent implements OnInit {
 
-  
+  @ViewChild(DICOMViewerComponent, { static: true }) viewPort: DICOMViewerComponent;
   @Input() set filter(value: any) {
     //debugger;
     if (value == null || value == undefined)
@@ -29,13 +33,54 @@ export class KosgridComponent implements OnInit {
       this.gridKos.onGetDataFromOld();
     }
   }
+  
   constructor(private fileService: FileService, private kosService: kosDataServices, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) { }
 
   ngOnInit() {
     console.log(this.gridKos.hasSelectedItem);
-    localStorage.setItem('file','');
+    cornerstoneWADOImageLoader.external.cornerstone = cornerstone; // inicializa WADO Image loader
+
+    // configura codecs e web workers
+    cornerstoneWADOImageLoader.webWorkerManager.initialize({
+        webWorkerPath: './assets/cornerstone/webworkers/cornerstoneWADOImageLoaderWebWorker.js',
+        taskConfiguration: {
+            'decodeTask': {
+              
+                codecsPath: '../codecs/cornerstoneWADOImageLoaderCodecs.js'
+            }
+        }
+    });
+
   }
- 
+   /**
+   * Load selected DICOM images
+   *
+   * @param files list of selected dicom files
+   */
+  
+     showImage(x,y){
+     
+      let x1 =document.getElementById("dicomm");
+      
+      if(x1.style.display=== "none")
+        x1.style.display = "flex";
+        let imageList = [];
+    
+        cornerstoneWADOImageLoader.wadouri.dataSetCacheManager.purge();
+  
+     
+       const element = document.querySelector(".image-canvas");
+       const DCMPath = "/assets/img/C40BB1C6.dcm";
+       cornerstone.enable(element);
+       cornerstone.loadAndCacheImage("wadouri:" + DCMPath).then(imageData => {
+         console.log(imageData);
+         cornerstone.displayImage(element, imageData);
+       }).catch( error => { console.error(error) });
+   
+   
+      
+       timer(4000).subscribe(x => {  x1.style.display = "none"; })
+    }
   kosFilter: kosFilter = new kosFilter();
   gridKos: KosListComponent_Models.GridUser = new KosListComponent_Models.GridUser(this.fileService, this.kosService, this.kosFilter, this.modalService, this.changeDetection);
 
@@ -53,7 +98,7 @@ export class kosFilter {
 namespace KosListComponent_Models {
 
   export class GridUser extends Grid.GridControl<any> {
-    
+   
     
     modal: OpenModal = new OpenModal(this.modalService, this.changeDetection);
     public direction: number = 0;
@@ -63,12 +108,7 @@ namespace KosListComponent_Models {
     constructor(private fileService: FileService, private kosService: kosDataServices, public kosFilter: kosFilter, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) {
       super();
     }
-    showimage(x,y){
-      alert(x+"/"+y);
-      localStorage.setItem("file","/assets/img/2.jpg")
-      
-      
-    }
+   
     openConfirmationDialog(message, reproccessList?) {
       const initialState = {
         modalTitle: "Bilgilendirme",
@@ -243,6 +283,7 @@ namespace KosListComponent_Models {
         this.fileService.download(o);
       });
     }
+  
     onSorting(colName) {
       if (this.direction == 0) {
         this.direction = 1;
@@ -253,6 +294,7 @@ namespace KosListComponent_Models {
       this.model.sorting.direction = this.direction;
       this.onRefresh();
     }
+   
     onRefresh() {
       var item = this.getFilter(2)
       var filter = item.filter;

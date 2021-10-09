@@ -68,6 +68,7 @@ import { StmfilterComponent } from './Features/Private/Operations/Pages/teletips
 import { StmgridComponent } from './Features/Private/Operations/Pages/teletipstm/stmgrid/stmgrid.component';
 import { stmDataServices } from './Features/Private/Operations/Services/stmDataServices';
 import { InputmodalComponent } from './Shared/Modals/inputmodal/inputmodal.component';
+import { DicomViewerModule } from '../../projects/dicom-viewer/src/lib/dicom-viewer.module'
 
 
 @NgModule({
@@ -116,6 +117,7 @@ import { InputmodalComponent } from './Shared/Modals/inputmodal/inputmodal.compo
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    DicomViewerModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),

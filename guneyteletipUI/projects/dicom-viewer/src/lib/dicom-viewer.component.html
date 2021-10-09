@@ -1,0 +1,88 @@
+<div style="display: flex; width:100%; height: 100%;">
+    <div class="thumbnailSelector" *ngIf="seriesList.length > 1" style="margin-right: 5px;">
+        <div class="thumbnails list-group" style="height: 100%;">
+            <a *ngFor="let series of seriesList; let i=index" [ngClass]="{'active': currentSeriesIndex === i}" class="list-group-item"
+                oncontextmenu="return false" unselectable="on" onselectstart="return false;" onmousedown="return false;"
+                (click)="showSeries(i)">
+                <div thumbnail [imageData]="series.imageList[0]" class="csthumbnail" oncontextmenu="return false"
+                    unselectable="on" onselectstart="return false;" onmousedown="return false;">
+                </div>
+                <div class="text-center small" style="color:white;">{{series.seriesDescription}}</div>
+                <div id="mrtopright" style="position: absolute;top:3px; right:3px">
+                    <div id="imageCount" style="color:red; font-size: 10pt">{{series.imageCount}}</div>
+                </div>
+            </a>
+            <div class="version">
+                <h6 style="color:white;"><small>1.20.12.17</small></h6>
+            </div>
+        </div>
+    </div>
+
+    <!--container where image will be loaded-->
+    <div style="overflow: hidden; width: 100%; height: 100%; background-color: #424242;">
+
+        <!-- Toolbar -->
+        <div>
+            <div class="btn-group">
+                <div class="btn-group" *ngIf="enableViewerTools">
+
+                    <!-- WW/WL -->
+                                   </div>
+                <div class="btn-group">
+               
+                    <!-- Layout -->
+                    <!--                 <button type="button" style="border-left: 1px dotted white;" [matMenuTriggerFor]="menu" class="btn btn-sm btn-default" data-container='body' data-toggle="dropdown" aria-expanded="false" data-placement="top" title="Layout"><span class="fa fa-th-large"></span></button>
+                  <mat-menu #menu="matMenu">
+                          <a mat-menu-item class="dropdown-item" >1x1</a>
+                          <a mat-menu-item class="dropdown-item" >2x1</a>
+                          <a mat-menu-item class="dropdown-item" >1x2</a>
+                          <a mat-menu-item class="dropdown-item" >2x2</a>
+
+                  </mat-menu> -->
+
+                    <!-- Download -->
+                    <a *ngIf="downloadImagesURL != ''" [href]="downloadImagesURL" download style="border-left: 1px dotted white;"
+                        class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip" data-placement="bottom"
+                        title="Download Imagens">
+                        <span class="fa fa-download"></span>
+                    </a>
+
+                    <!-- Imagem Anterior -->
+      
+                    <!-- Load Next Batch -->
+                    <a type="button" *ngIf="moreImagestoLoad != ''" (click)="loadMoreImages()" style="border-left: 1px dotted white;color: white;white-space: nowrap;"
+                        class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip" data-placement="bottom"
+                        title="Carrega mais imagens..."><i class="fas fa-cloud-download-alt"></i> clique aqui para trazer as próximas {{moreImagestoLoad}} imagens
+                    </a>
+
+                    <!-- Progress Spinner -->
+                    <div style="padding-left: 15px; padding-top: 15px;" [ngStyle]="showProgress">
+                        <mat-spinner style="display: inline-block;" diameter="30" strokeWidth="5" color="warn"></mat-spinner>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div style="width: 100%; height: calc(100% - 60px);position:relative;display:inline-block;color:white;"
+            oncontextmenu="return false" class='cornerstone-enabled-image' unselectable='on' onselectstart='return false;'
+            onmousedown='return false;'>
+            <div cornerstone style="width: 100%; height: 100%;top:0px;left:0px;position:absolute;outline:none;margin: 0 auto;"
+                id="dicomImage">
+            </div>
+            <div id="mrtopleft" style="position: absolute;top:3px; left:3px">
+                {{viewPort.patientName}}
+            </div>
+            <div id="mrtopright" style="position: absolute;top:3px; right:3px">
+                {{viewPort.hospital}}
+            </div>
+           
+            <div id="mrbottomcenter" style="position: absolute;bottom:3px; width: 100%;text-align: center; color:red">
+               
+            </div>
+           
+        </div>
+
+    </div>
+
+</div>
