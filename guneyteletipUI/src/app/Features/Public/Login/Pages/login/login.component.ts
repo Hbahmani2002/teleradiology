@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginServices, private routing: Router) { }
   
   ngOnInit() {
+   
   }
   login() {
  
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
         return;
       }
       console.log("loginned");
+      localStorage.setItem('file','');
       this.routing.navigate(["operations/kos"]);
     });
   }

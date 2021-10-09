@@ -4,30 +4,42 @@ import { kosDurumIstModel } from '../../../Models/kosDurumIstModel';
 import { infStudyFilter } from '../../../Models/infStudyFilter';
 import { Grid } from 'src/app/Shared/Models/UIControls/grid-control';
 
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-kosstatistic',
   templateUrl: './kosstatistic.component.html',
   styleUrls: ['./kosstatistic.component.css']
 })
 export class KosstatisticComponent implements OnInit {
-
+  public  dcm='';
   @Input() set filter(value: any) {
     if (value == null || value == undefined)
       return;
     this.kosFilter = value;
     this.onRefresh();
+    //his.showMe();
   }
-
+ 
   public isCollapsed: boolean = false;
   public isCollapsed1: boolean = true;
 
   public kosFilter: infStudyFilter = new infStudyFilter(); 
 
   kosDurumModel= Array<kosDurumIstModel>();
-  constructor(private kosService: kosDataServices) { }
-
+  constructor(private kosService: kosDataServices) {
+  
+   }
+   safeUrl: SafeResourceUrl;
   ngOnInit() {
     this.onRefresh();
+   // this.showMe();
+  }
+  showMe(){
+    let filedcm = localStorage.getItem("file");
+    this.dcm = filedcm;
+   (<HTMLIFrameElement>document.getElementById('result')).src = encodeURIComponent(this.dcm);
+     
   }
   onRefresh() {
     this.kosService.GetKosDurumIst(this.kosFilter).subscribe(data => {

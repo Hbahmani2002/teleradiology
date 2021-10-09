@@ -68,6 +68,8 @@
           <td class="p-0">{{item.modality}}</td>
           <td class="p-0">{{item.creationDttm | date : 'dd.MM.yyyy'}}</td>
           <td class="p-0">{{item.studyDate | date : 'dd.MM.yyyy'}}</td>
+          <td class="p-0"><button class="fa fa-eye" style="font-size:19px;color:green" (click)="gridKos.showimage(item.dicomDirPath,item.fileName)"></button></td>
+        
         </tr>
       </tbody>
     </table>
