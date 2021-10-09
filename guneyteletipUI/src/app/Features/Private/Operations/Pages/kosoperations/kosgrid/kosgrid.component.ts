@@ -13,6 +13,19 @@ import { DICOMViewerComponent } from '../../../../../../../../projects/dicom-vie
 declare const cornerstone;
 declare const cornerstoneWADOImageLoader;
 //var fs = require('fs');
+cornerstoneWADOImageLoader.external.cornerstone = cornerstone; // inicializa WADO Image loader
+
+// configura codecs e web workers
+cornerstoneWADOImageLoader.webWorkerManager.initialize({
+    webWorkerPath: './assets/cornerstone/webworkers/cornerstoneWADOImageLoaderWebWorker.js',
+    taskConfiguration: {
+        'decodeTask': {
+          
+            codecsPath: '../codecs/cornerstoneWADOImageLoaderCodecs.js'
+        }
+    }
+});
+
 @Component({
   selector: 'app-kosgrid',
   templateUrl: './kosgrid.component.html',
@@ -38,19 +51,7 @@ export class KosgridComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.gridKos.hasSelectedItem);
-    cornerstoneWADOImageLoader.external.cornerstone = cornerstone; // inicializa WADO Image loader
-
-    // configura codecs e web workers
-    cornerstoneWADOImageLoader.webWorkerManager.initialize({
-        webWorkerPath: './assets/cornerstone/webworkers/cornerstoneWADOImageLoaderWebWorker.js',
-        taskConfiguration: {
-            'decodeTask': {
-              
-                codecsPath: '../codecs/cornerstoneWADOImageLoaderCodecs.js'
-            }
-        }
-    });
-
+   
   }
    /**
    * Load selected DICOM images
