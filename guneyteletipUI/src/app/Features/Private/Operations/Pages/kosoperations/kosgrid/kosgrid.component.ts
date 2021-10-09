@@ -16,8 +16,9 @@ import { InputmodalComponent } from 'src/app/Shared/Modals/inputmodal/inputmodal
 })
 export class KosgridComponent implements OnInit {
 
+  
   @Input() set filter(value: any) {
-    debugger;
+    //debugger;
     if (value == null || value == undefined)
       return;
     this.gridKos.kosFilter = value;
@@ -32,7 +33,9 @@ export class KosgridComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.gridKos.hasSelectedItem);
+    localStorage.setItem('file','');
   }
+ 
   kosFilter: kosFilter = new kosFilter();
   gridKos: KosListComponent_Models.GridUser = new KosListComponent_Models.GridUser(this.fileService, this.kosService, this.kosFilter, this.modalService, this.changeDetection);
 
@@ -50,7 +53,8 @@ export class kosFilter {
 namespace KosListComponent_Models {
 
   export class GridUser extends Grid.GridControl<any> {
-
+    
+    
     modal: OpenModal = new OpenModal(this.modalService, this.changeDetection);
     public direction: number = 0;
     selectAll: boolean = false;
@@ -59,7 +63,12 @@ namespace KosListComponent_Models {
     constructor(private fileService: FileService, private kosService: kosDataServices, public kosFilter: kosFilter, private modalService: BsModalService, private changeDetection: ChangeDetectorRef) {
       super();
     }
-
+    showimage(x,y){
+      alert(x+"/"+y);
+      localStorage.setItem("file","/assets/img/2.jpg")
+      
+      
+    }
     openConfirmationDialog(message, reproccessList?) {
       const initialState = {
         modalTitle: "Bilgilendirme",
@@ -105,9 +114,9 @@ namespace KosListComponent_Models {
         inputName: "Accession No",
       };
       this.modal.openModal(InputmodalComponent, initialState).subscribe((result) => {
-        debugger;
+   // debugger;
         if(result.reason == "ok" && result.outputData != undefined){
-          debugger;
+        //  debugger;
           let params = {
             data: this.selectedItems[0],
             newAccesionNo: result.outputData
@@ -220,7 +229,7 @@ namespace KosListComponent_Models {
       }
       else {
         this.kosService.reprocessKos(this.getFilter(1)).subscribe(o => {
-          debugger;
+      //    debugger;
           console.log(o);
           this.openConfirmationDialog(undefined, o);
         });
