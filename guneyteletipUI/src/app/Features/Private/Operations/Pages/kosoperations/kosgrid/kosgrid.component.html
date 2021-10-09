@@ -37,7 +37,7 @@
       </select>
     </div>
   </div>
-  <div class="card-body p-0 table-responsive scroll">
+  <div class="card-body p-0 table-responsive scroll"  >
     <table #filterSection class="table table-hover m-0 medlifeGrid ">
       <thead>
         <tr>
@@ -68,7 +68,9 @@
           <td class="p-0">{{item.modality}}</td>
           <td class="p-0">{{item.creationDttm | date : 'dd.MM.yyyy'}}</td>
           <td class="p-0">{{item.studyDate | date : 'dd.MM.yyyy'}}</td>
-          <td class="p-0"><button class="fa fa-eye" style="font-size:19px;color:green" (click)="gridKos.showimage(item.dicomDirPath,item.fileName)"></button></td>
+           
+          <td class="p-0">  <button class="fa fa-eye" style="font-size:19px" (click)="showImage(item.dicomDirPath,item.fileName)"></button> 
+            </td>
         
         </tr>
       </tbody>
@@ -79,6 +81,11 @@
       <pagination class="justify-content-center mb-0" [boundaryLinks]="true" [totalItems]="gridKos.data.totalCount" [maxSize]="4" [(ngModel)]="gridKos.model.paging.pageNumber" [itemsPerPage]="gridKos.model.paging.count" (pageChanged)="gridKos.onPageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
       </pagination>
     </div>
+  </div>
+<div style="display: none;" id="dicomm">
+  
+    <dicom-viewer class="image-canvas" [enableViewerTools]="false" [enablePlayTools]="false" [maxImagesToLoad]="1" style="height:200px; width:30%; margin: 10px;" ></dicom-viewer>
+
   </div>
 </div>
 

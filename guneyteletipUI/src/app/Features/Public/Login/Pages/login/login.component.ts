@@ -27,8 +27,7 @@ export class LoginComponent implements OnInit {
         return;
       }
       console.log("loginned");
-      localStorage.setItem('file','');
-      this.routing.navigate(["operations/kos"]);
+        this.routing.navigate(["operations/kos"]);
     });
   }
 }

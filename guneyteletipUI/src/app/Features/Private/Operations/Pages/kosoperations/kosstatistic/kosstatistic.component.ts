@@ -12,7 +12,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ['./kosstatistic.component.css']
 })
 export class KosstatisticComponent implements OnInit {
-  public  dcm='';
+ 
   @Input() set filter(value: any) {
     if (value == null || value == undefined)
       return;
@@ -35,12 +35,7 @@ export class KosstatisticComponent implements OnInit {
     this.onRefresh();
    // this.showMe();
   }
-  showMe(){
-    let filedcm = localStorage.getItem("file");
-    this.dcm = filedcm;
-   (<HTMLIFrameElement>document.getElementById('result')).src = encodeURIComponent(this.dcm);
-     
-  }
+ 
   onRefresh() {
     this.kosService.GetKosDurumIst(this.kosFilter).subscribe(data => {
       console.log(data);
